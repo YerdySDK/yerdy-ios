@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
+		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
+		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
+		4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47E18A05D2C001BBD3D /* YRDConstants.m */; };
+		4790C48218A06014001BBD3D /* YRDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C48118A06014001BBD3D /* YRDUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,8 +30,15 @@
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4790C45118A04ECB001BBD3D /* Yerdy-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Yerdy-Prefix.pch"; sourceTree = "<group>"; };
-		4790C45B18A04ECB001BBD3D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		4790C45E18A04ECB001BBD3D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		4790C47618A0570F001BBD3D /* Yerdy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Yerdy.h; sourceTree = "<group>"; };
+		4790C47718A0570F001BBD3D /* Yerdy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Yerdy.m; sourceTree = "<group>"; };
+		4790C47A18A058E8001BBD3D /* YRDLaunchTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDLaunchTracker.h; sourceTree = "<group>"; };
+		4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLaunchTracker.m; sourceTree = "<group>"; };
+		4790C47D18A05D2C001BBD3D /* YRDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDConstants.h; sourceTree = "<group>"; };
+		4790C47E18A05D2C001BBD3D /* YRDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDConstants.m; sourceTree = "<group>"; };
+		4790C48018A06014001BBD3D /* YRDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDUtil.h; sourceTree = "<group>"; };
+		4790C48118A06014001BBD3D /* YRDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				4790C44D18A04ECB001BBD3D /* Foundation.framework */,
-				4790C45B18A04ECB001BBD3D /* XCTest.framework */,
 				4790C45E18A04ECB001BBD3D /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -73,6 +83,13 @@
 			isa = PBXGroup;
 			children = (
 				4790C45018A04ECB001BBD3D /* Supporting Files */,
+				4790C47618A0570F001BBD3D /* Yerdy.h */,
+				4790C47718A0570F001BBD3D /* Yerdy.m */,
+				4790C47D18A05D2C001BBD3D /* YRDConstants.h */,
+				4790C47E18A05D2C001BBD3D /* YRDConstants.m */,
+				4790C48018A06014001BBD3D /* YRDUtil.h */,
+				4790C48118A06014001BBD3D /* YRDUtil.m */,
+				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
 			sourceTree = "<group>";
@@ -83,6 +100,15 @@
 				4790C45118A04ECB001BBD3D /* Yerdy-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4790C47918A057ED001BBD3D /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				4790C47A18A058E8001BBD3D /* YRDLaunchTracker.h */,
+				4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */,
+			);
+			path = Statistics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
+				4790C48218A06014001BBD3D /* YRDUtil.m in Sources */,
+				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
+				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

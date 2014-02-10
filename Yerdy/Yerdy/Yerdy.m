@@ -9,8 +9,14 @@
 #import "Yerdy.h"
 #import "YRDLaunchTracker.h"
 
+
+static Yerdy *sharedInstance;
+
+
 @interface Yerdy ()
 {
+	NSString *_publisherKey;
+	
 	YRDLaunchTracker *_launchTracker;
 }
 @end
@@ -18,24 +24,28 @@
 
 @implementation Yerdy
 
-+ (instancetype)sharedYerdy
-{
-	static Yerdy *sharedInstance = nil;
-	
++ (instancetype)startWithPublisherKey:(NSString *)key
+{	
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		sharedInstance = [[self alloc] init];
+		sharedInstance = [[self alloc] initWithPublisherKey:key];
 	});
-	
+		
 	return sharedInstance;
 }
 
-- (id)init
++ (instancetype)sharedYerdy
+{
+	return sharedInstance;
+}
+
+- (id)initWithPublisherKey:(NSString *)publisherKey
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
+	_publisherKey = publisherKey;
 	_launchTracker = [[YRDLaunchTracker alloc] init];
 	
 	return self;

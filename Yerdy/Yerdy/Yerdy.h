@@ -10,6 +10,7 @@
 
 @interface Yerdy : NSObject
 
++ (instancetype)startWithPublisherKey:(NSString *)key;
 + (instancetype)sharedYerdy;
 
 @end

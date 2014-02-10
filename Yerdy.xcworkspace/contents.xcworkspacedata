@@ -4,4 +4,7 @@
    <FileRef
       location = "group:Yerdy/Yerdy.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Sample/Sample.xcodeproj">
+   </FileRef>
 </Workspace>

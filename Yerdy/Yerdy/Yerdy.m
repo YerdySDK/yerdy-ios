@@ -7,6 +7,7 @@
 //
 
 #import "Yerdy.h"
+#import "YRDLog.h"
 #import "YRDLaunchTracker.h"
 
 
@@ -29,6 +30,7 @@ static Yerdy *sharedInstance;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] initWithPublisherKey:key];
+		YRDInfo(@"Starting...");
 	});
 		
 	return sharedInstance;

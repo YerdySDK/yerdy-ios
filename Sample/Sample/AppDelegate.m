@@ -10,6 +10,7 @@
 #import "ViewController.h"
 
 #import "Yerdy.h"
+#import "YRDLog.h"
 
 @implementation AppDelegate
 
@@ -25,6 +26,7 @@
 	[_window addSubview:_viewController.view];
 	_window.rootViewController = _viewController;
 	
+	YRDSetLogLevel(YRDLogInfo);
 	[Yerdy startWithPublisherKey:@"<INSERT PUBLISHER KEY HERE>"];
 	
     return YES;

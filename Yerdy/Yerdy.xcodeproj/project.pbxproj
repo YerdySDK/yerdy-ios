@@ -12,6 +12,7 @@
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
 		4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47E18A05D2C001BBD3D /* YRDConstants.m */; };
 		4790C48218A06014001BBD3D /* YRDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C48118A06014001BBD3D /* YRDUtil.m */; };
+		47E9B6C418A9450D004A622F /* YRDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C318A9450D004A622F /* YRDLog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,9 @@
 		4790C47E18A05D2C001BBD3D /* YRDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDConstants.m; sourceTree = "<group>"; };
 		4790C48018A06014001BBD3D /* YRDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDUtil.h; sourceTree = "<group>"; };
 		4790C48118A06014001BBD3D /* YRDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDUtil.m; sourceTree = "<group>"; };
+		47E9B6C218A9450D004A622F /* YRDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDLog.h; sourceTree = "<group>"; };
+		47E9B6C318A9450D004A622F /* YRDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLog.m; sourceTree = "<group>"; };
+		47E9B6C518A94557004A622F /* YRDDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDDefines.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +89,13 @@
 				4790C45018A04ECB001BBD3D /* Supporting Files */,
 				4790C47618A0570F001BBD3D /* Yerdy.h */,
 				4790C47718A0570F001BBD3D /* Yerdy.m */,
+				47E9B6C518A94557004A622F /* YRDDefines.h */,
 				4790C47D18A05D2C001BBD3D /* YRDConstants.h */,
 				4790C47E18A05D2C001BBD3D /* YRDConstants.m */,
 				4790C48018A06014001BBD3D /* YRDUtil.h */,
 				4790C48118A06014001BBD3D /* YRDUtil.m */,
+				47E9B6C218A9450D004A622F /* YRDLog.h */,
+				47E9B6C318A9450D004A622F /* YRDLog.m */,
 				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
@@ -163,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
+				47E9B6C418A9450D004A622F /* YRDLog.m in Sources */,
 				4790C48218A06014001BBD3D /* YRDUtil.m in Sources */,
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
 				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
@@ -285,6 +293,7 @@
 				4790C46F18A04ECB001BBD3D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

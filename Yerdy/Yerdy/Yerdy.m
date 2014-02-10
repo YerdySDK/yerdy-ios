@@ -9,6 +9,8 @@
 #import "Yerdy.h"
 #import "YRDLog.h"
 #import "YRDLaunchTracker.h"
+#import "YRDRequest.h"
+#import "YRDURLConnection.h"
 
 
 static Yerdy *sharedInstance;
@@ -50,7 +52,17 @@ static Yerdy *sharedInstance;
 	_publisherKey = publisherKey;
 	_launchTracker = [[YRDLaunchTracker alloc] init];
 	
+	[self reportLaunch];
+	
 	return self;
+}
+
+- (void)reportLaunch
+{
+	YRDRequest *request = [[YRDRequest alloc] initWithPath:@"/launch.php"];
+	[[[YRDURLConnection alloc] initWithRequest:request completionHandler:^(id response, NSError *error) {
+		YRDError(@"%@", error);
+	}] send];
 }
 
 @end

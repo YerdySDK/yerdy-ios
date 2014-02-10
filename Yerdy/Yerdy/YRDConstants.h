@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+extern NSString *YRDBaseURL;
+extern NSTimeInterval YRDRequestTimeout;
+
+extern NSString *YRDErrorDomain;
+
 extern NSString *YRDAppVersionDefaultsKey;
 extern NSString *YRDLaunchesDefaultsKey;
 extern NSString *YRDResumesDefaultsKey;

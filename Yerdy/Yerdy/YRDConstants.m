@@ -8,6 +8,11 @@
 
 #import "YRDConstants.h"
 
+NSString *YRDBaseURL = @"http://services.yerdy.com";
+NSTimeInterval YRDRequestTimeout = 10.0;
+
+NSString *YRDErrorDomain = @"com.yerdy.Error";
+
 NSString *YRDAppVersionDefaultsKey = @"YRDLastKnownAppVersion";
 NSString *YRDLaunchesDefaultsKey = @"YRDLaunchCount";
 NSString *YRDResumesDefaultsKey = @"YRDResumeCount";

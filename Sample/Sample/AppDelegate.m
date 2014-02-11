@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 
+#import "HTTPMock.h"
+
 #import "Yerdy.h"
 #import "YRDLog.h"
 
@@ -25,6 +27,8 @@
 	_viewController.view.frame = _window.bounds;
 	[_window addSubview:_viewController.view];
 	_window.rootViewController = _viewController;
+	
+	[HTTPMock enableWithPlist:@"HTTPMock.plist"];
 	
 	YRDSetLogLevel(YRDLogInfo);
 	[Yerdy startWithPublisherKey:@"<INSERT PUBLISHER KEY HERE>"];

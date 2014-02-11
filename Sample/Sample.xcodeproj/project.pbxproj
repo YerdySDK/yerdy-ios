@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		479B282518AAA2FE00148BB7 /* HTTPMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B282418AAA2FE00148BB7 /* HTTPMock.m */; };
+		479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 479B282618AAA67C00148BB7 /* HTTPMock.plist */; };
+		479B282918AAA69F00148BB7 /* launch.json in Resources */ = {isa = PBXBuildFile; fileRef = 479B282818AAA69F00148BB7 /* launch.json */; };
 		47FFC78D18A93D900019673B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78C18A93D900019673B /* Foundation.framework */; };
 		47FFC78F18A93D900019673B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78E18A93D900019673B /* CoreGraphics.framework */; };
 		47FFC79118A93D900019673B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC79018A93D900019673B /* UIKit.framework */; };
@@ -20,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		479B282318AAA2FE00148BB7 /* HTTPMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPMock.h; sourceTree = "<group>"; };
+		479B282418AAA2FE00148BB7 /* HTTPMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMock.m; sourceTree = "<group>"; };
+		479B282618AAA67C00148BB7 /* HTTPMock.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTPMock.plist; sourceTree = "<group>"; };
+		479B282818AAA69F00148BB7 /* launch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = launch.json; sourceTree = "<group>"; };
 		47FFC78918A93D900019673B /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47FFC78C18A93D900019673B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		47FFC78E18A93D900019673B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,6 +96,8 @@
 				47FFC79C18A93D900019673B /* AppDelegate.m */,
 				47FFC7A418A93D900019673B /* ViewController.h */,
 				47FFC7A518A93D900019673B /* ViewController.m */,
+				479B282318AAA2FE00148BB7 /* HTTPMock.h */,
+				479B282418AAA2FE00148BB7 /* HTTPMock.m */,
 				47FFC7C418A93DEC0019673B /* ViewController~iphone.xib */,
 				47FFC7C618A93DFB0019673B /* ViewController~ipad.xib */,
 				47FFC79318A93D900019673B /* Supporting Files */,
@@ -103,6 +112,8 @@
 				47FFC79518A93D900019673B /* InfoPlist.strings */,
 				47FFC79818A93D900019673B /* main.m */,
 				47FFC79A18A93D900019673B /* Sample-Prefix.pch */,
+				479B282618AAA67C00148BB7 /* HTTPMock.plist */,
+				479B282818AAA69F00148BB7 /* launch.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -160,7 +171,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				47FFC7C718A93DFB0019673B /* ViewController~ipad.xib in Resources */,
+				479B282918AAA69F00148BB7 /* launch.json in Resources */,
 				47FFC79718A93D900019673B /* InfoPlist.strings in Resources */,
+				479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */,
 				47FFC7C518A93DEC0019673B /* ViewController~iphone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +188,7 @@
 				47FFC7A618A93D900019673B /* ViewController.m in Sources */,
 				47FFC79D18A93D900019673B /* AppDelegate.m in Sources */,
 				47FFC79918A93D900019673B /* main.m in Sources */,
+				479B282518AAA2FE00148BB7 /* HTTPMock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +341,7 @@
 				47FFC7C018A93D900019673B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

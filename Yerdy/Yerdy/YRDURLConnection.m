@@ -9,6 +9,7 @@
 #import "YRDURLConnection.h"
 #import "YRDConstants.h"
 #import "YRDLog.h"
+#import "YRDResponseHandler.h"
 
 
 @interface YRDURLConnection () <NSURLConnectionDataDelegate>
@@ -116,8 +117,13 @@
 		}
 	}
 	
-	// TODO: Process response...
-	[self finishRequestWithResponse:_responseBody error:nil];
+	NSError *processingError;
+	id response = [_request.responseHandler processResponse:_response
+													   data:_responseBody
+													  error:&processingError];
+	if (processingError) response = nil;
+	
+	[self finishRequestWithResponse:response error:processingError];
 }
 
 

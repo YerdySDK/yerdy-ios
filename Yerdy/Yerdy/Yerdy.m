@@ -11,6 +11,8 @@
 #import "YRDLaunchTracker.h"
 #import "YRDRequest.h"
 #import "YRDURLConnection.h"
+#import "YRDJSONResponseHandler.h"
+#import "YRDLaunchResponse.h"
 
 
 static Yerdy *sharedInstance;
@@ -60,8 +62,12 @@ static Yerdy *sharedInstance;
 - (void)reportLaunch
 {
 	YRDRequest *request = [[YRDRequest alloc] initWithPath:@"/launch.php"];
+	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class]];
+	
 	[[[YRDURLConnection alloc] initWithRequest:request completionHandler:^(id response, NSError *error) {
-		YRDError(@"%@", error);
+		YRDDebug(@"Launch response: %@", response);
+		if (error)
+			YRDDebug(@"ERROR: %@", error);
 	}] send];
 }
 

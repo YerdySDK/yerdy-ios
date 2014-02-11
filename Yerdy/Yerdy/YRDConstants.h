@@ -13,6 +13,11 @@ extern NSString *YRDBaseURL;
 extern NSTimeInterval YRDRequestTimeout;
 
 extern NSString *YRDErrorDomain;
+enum YRDErrorCodes {
+	// 4xx and 5xx map to corresponding HTTP status codes
+	
+	YRDJSONError = 2000,
+};
 
 extern NSString *YRDAppVersionDefaultsKey;
 extern NSString *YRDLaunchesDefaultsKey;

@@ -14,6 +14,7 @@ typedef enum YRDLogLevel {
 	YRDLogError,
 	YRDLogWarn,
 	YRDLogInfo,
+	YRDLogDebug,
 } YRDLogLevel;
 
 YRD_EXTERN void YRDSetLogLevel(YRDLogLevel level);
@@ -24,3 +25,4 @@ YRD_EXTERN void YRDLogv(YRDLogLevel level, NSString *fmt, va_list args);
 YRD_EXTERN void YRDError(NSString *fmt, ...) NS_FORMAT_FUNCTION(1, 2);
 YRD_EXTERN void YRDWarn(NSString *fmt, ...) NS_FORMAT_FUNCTION(1, 2);
 YRD_EXTERN void YRDInfo(NSString *fmt, ...) NS_FORMAT_FUNCTION(1, 2);
+YRD_EXTERN void YRDDebug(NSString *fmt, ...) NS_FORMAT_FUNCTION(1, 2);

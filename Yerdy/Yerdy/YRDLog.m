@@ -17,6 +17,7 @@ static NSString *YRDStringForLogLevel(YRDLogLevel level)
 		case YRDLogError: return @"ERROR";
 		case YRDLogWarn: return @"WARNING";
 		case YRDLogInfo: return @"INFO";
+		case YRDLogDebug: return @"DEBUG";
 		case YRDLogSilent: return nil; // never used for logging
 	}
 	return nil;
@@ -66,5 +67,13 @@ void YRDInfo(NSString *fmt, ...)
 	va_list list;
 	va_start(list, fmt);
 	YRDLogv(YRDLogInfo, fmt, list);
+	va_end(list);
+}
+
+void YRDDebug(NSString *fmt, ...)
+{
+	va_list list;
+	va_start(list, fmt);
+	YRDLogv(YRDLogDebug, fmt, list);
 	va_end(list);
 }

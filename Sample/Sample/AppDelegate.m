@@ -30,7 +30,7 @@
 	
 	[HTTPMock enableWithPlist:@"HTTPMock.plist"];
 	
-	YRDSetLogLevel(YRDLogInfo);
+	YRDSetLogLevel(YRDLogDebug);
 	[Yerdy startWithPublisherKey:@"<INSERT PUBLISHER KEY HERE>"];
 	
     return YES;

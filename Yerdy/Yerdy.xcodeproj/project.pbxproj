@@ -12,6 +12,9 @@
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
 		4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47E18A05D2C001BBD3D /* YRDConstants.m */; };
 		4790C48218A06014001BBD3D /* YRDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C48118A06014001BBD3D /* YRDUtil.m */; };
+		479B283218AAAAB600148BB7 /* YRDResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B283118AAAAB600148BB7 /* YRDResponseHandler.m */; };
+		479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B283418AABB2900148BB7 /* YRDJSONResponseHandler.m */; };
+		479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */; };
 		47E9B6C418A9450D004A622F /* YRDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C318A9450D004A622F /* YRDLog.m */; };
 		47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C718A94CA7004A622F /* YRDRequest.m */; };
 		47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6CA18A95029004A622F /* YRDURLConnection.m */; };
@@ -42,6 +45,13 @@
 		4790C47E18A05D2C001BBD3D /* YRDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDConstants.m; sourceTree = "<group>"; };
 		4790C48018A06014001BBD3D /* YRDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDUtil.h; sourceTree = "<group>"; };
 		4790C48118A06014001BBD3D /* YRDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDUtil.m; sourceTree = "<group>"; };
+		479B283018AAAAB600148BB7 /* YRDResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDResponseHandler.h; sourceTree = "<group>"; };
+		479B283118AAAAB600148BB7 /* YRDResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDResponseHandler.m; sourceTree = "<group>"; };
+		479B283318AABB2900148BB7 /* YRDJSONResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDJSONResponseHandler.h; sourceTree = "<group>"; };
+		479B283418AABB2900148BB7 /* YRDJSONResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDJSONResponseHandler.m; sourceTree = "<group>"; };
+		479B283618AAC0A100148BB7 /* YRDJSONType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDJSONType.h; sourceTree = "<group>"; };
+		479B283718AAC74D00148BB7 /* YRDLaunchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDLaunchResponse.h; sourceTree = "<group>"; };
+		479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLaunchResponse.m; sourceTree = "<group>"; };
 		47E9B6C218A9450D004A622F /* YRDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDLog.h; sourceTree = "<group>"; };
 		47E9B6C318A9450D004A622F /* YRDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLog.m; sourceTree = "<group>"; };
 		47E9B6C518A94557004A622F /* YRDDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDDefines.h; sourceTree = "<group>"; };
@@ -106,6 +116,13 @@
 				47E9B6C718A94CA7004A622F /* YRDRequest.m */,
 				47E9B6C918A95029004A622F /* YRDURLConnection.h */,
 				47E9B6CA18A95029004A622F /* YRDURLConnection.m */,
+				479B283018AAAAB600148BB7 /* YRDResponseHandler.h */,
+				479B283118AAAAB600148BB7 /* YRDResponseHandler.m */,
+				479B283318AABB2900148BB7 /* YRDJSONResponseHandler.h */,
+				479B283418AABB2900148BB7 /* YRDJSONResponseHandler.m */,
+				479B283618AAC0A100148BB7 /* YRDJSONType.h */,
+				479B283718AAC74D00148BB7 /* YRDLaunchResponse.h */,
+				479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */,
 				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
@@ -180,10 +197,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
+				479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */,
 				47E9B6C418A9450D004A622F /* YRDLog.m in Sources */,
 				47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */,
+				479B283218AAAAB600148BB7 /* YRDResponseHandler.m in Sources */,
 				4790C48218A06014001BBD3D /* YRDUtil.m in Sources */,
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
+				479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */,
 				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
 				47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */,
 			);

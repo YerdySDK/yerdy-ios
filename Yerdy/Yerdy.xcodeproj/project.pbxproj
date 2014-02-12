@@ -19,6 +19,8 @@
 		47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C718A94CA7004A622F /* YRDRequest.m */; };
 		47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6CA18A95029004A622F /* YRDURLConnection.m */; };
 		95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AA851218AB2A2B0022D6CC /* YRDMessage.m */; };
+		95F97B9E18AB3BDE00C65D10 /* YRDMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */; };
+		95F97BA118AB3C8B00C65D10 /* YRDMessagePresenterSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA018AB3C8B00C65D10 /* YRDMessagePresenterSystem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +65,10 @@
 		95AA851118AB2A2B0022D6CC /* YRDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessage.h; sourceTree = "<group>"; };
 		95AA851218AB2A2B0022D6CC /* YRDMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessage.m; sourceTree = "<group>"; };
 		95F97B9B18AB386000C65D10 /* YerdyDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YerdyDelegate.h; sourceTree = "<group>"; };
+		95F97B9C18AB3BDE00C65D10 /* YRDMessagePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessagePresenter.h; sourceTree = "<group>"; };
+		95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagePresenter.m; sourceTree = "<group>"; };
+		95F97B9F18AB3C8B00C65D10 /* YRDMessagePresenterSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessagePresenterSystem.h; sourceTree = "<group>"; };
+		95F97BA018AB3C8B00C65D10 /* YRDMessagePresenterSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagePresenterSystem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,10 @@
 				479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */,
 				95AA851118AB2A2B0022D6CC /* YRDMessage.h */,
 				95AA851218AB2A2B0022D6CC /* YRDMessage.m */,
+				95F97B9C18AB3BDE00C65D10 /* YRDMessagePresenter.h */,
+				95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */,
+				95F97B9F18AB3C8B00C65D10 /* YRDMessagePresenterSystem.h */,
+				95F97BA018AB3C8B00C65D10 /* YRDMessagePresenterSystem.m */,
 				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
@@ -203,10 +213,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95F97BA118AB3C8B00C65D10 /* YRDMessagePresenterSystem.m in Sources */,
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
 				95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */,
 				479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */,
 				47E9B6C418A9450D004A622F /* YRDLog.m in Sources */,
+				95F97B9E18AB3BDE00C65D10 /* YRDMessagePresenter.m in Sources */,
 				47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */,
 				479B283218AAAAB600148BB7 /* YRDResponseHandler.m in Sources */,
 				4790C48218A06014001BBD3D /* YRDUtil.m in Sources */,

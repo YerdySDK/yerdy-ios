@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Yerdy. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "YerdyDelegate.h"
 
 @interface Yerdy : NSObject
@@ -16,7 +16,19 @@
 
 @property (nonatomic, weak) id<YerdyDelegate> delegate;
 
-
+// Is a message available for the passed in placement?
+//
+// TODO: How to handle nil?
 - (BOOL)messageAvailable:(NSString *)placement;
+
+// Show message for placement.
+// Equivalent to [yerdy showMessage:placement inWindow:nil]
+- (BOOL)showMessage:(NSString *)placement;
+
+// Show message for placement in the specified UIWindow
+// If 'window' is nil, defaults to the application's keyWindow
+//
+// TODO: How to handle nil for 'placement'?
+- (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window;
 
 @end

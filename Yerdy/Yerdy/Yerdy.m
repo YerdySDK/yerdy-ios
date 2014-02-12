@@ -14,6 +14,7 @@
 #import "YRDJSONResponseHandler.h"
 #import "YRDLaunchResponse.h"
 #import "YRDMessage.h"
+#import "YRDMessagePresenter.h"
 
 
 static Yerdy *sharedInstance;
@@ -25,6 +26,8 @@ static Yerdy *sharedInstance;
 	
 	YRDLaunchTracker *_launchTracker;
 	NSMutableArray *_messages;
+	
+	YRDMessagePresenter *_messagePresenter;
 }
 @end
 
@@ -90,13 +93,48 @@ static Yerdy *sharedInstance;
 
 #pragma mark - Messaging
 
-- (BOOL)messageAvailable:(NSString *)placement
+- (YRDMessage *)messageForPlacement:(NSString *)placement
 {
 	NSUInteger index = [_messages indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return placement == nil || [((YRDMessage *)obj).placement isEqualToString:placement];
 	}];
 	
-	return index != NSNotFound;
+	if (index != NSNotFound)
+		return _messages[index];
+	else
+		return nil;
+}
+
+- (BOOL)messageAvailable:(NSString *)placement
+{
+	return [self messageForPlacement:placement] != nil;
+}
+
+- (BOOL)showMessage:(NSString *)placement
+{
+	return [self showMessage:placement inWindow:nil];
+}
+
+- (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window
+{
+	if (window == nil) {
+		window = [[UIApplication sharedApplication] keyWindow];
+	}
+	
+	if (_messagePresenter)
+		return NO;
+	
+	YRDMessage *message = [self messageForPlacement:placement];
+	if (!message)
+		return NO;
+	
+	_messagePresenter = [YRDMessagePresenter presenterForMessage:message];
+	if (!_messagePresenter)
+		return nil;
+	
+	[_messagePresenter presentInView:window];
+	
+	return YES;
 }
 
 @end

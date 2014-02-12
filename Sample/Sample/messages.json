@@ -1,0 +1,32 @@
+ [
+	{
+		"id": "1305",
+		"style": "short",
+		"placement": "launch",
+		"message_title": "Review Site",
+		"message_text": "Please visit us!",
+		"image": null,
+		"confirm_label": "NOW",
+		"cancel_label": "Later",
+		"click": "http://services.yerdy.com/click.php",
+		"view": "http://services.yerdy.com/view.php",
+		"action_type": "0",
+		"action": "http://services.yerdy.com/click.php",
+		"force_action": "0"
+	},
+	{
+		"id": "3",
+		"style": "short",
+		"placement": "other",
+		"message_title": "Review Privacy",
+		"message_text": "Please review privacy policy",
+		"image": null,
+		"confirm_label": "Review",
+		"cancel_label": "Maybe Later",
+		"click": "http://services.yerdy.com/click.php",
+		"view": "http://services.yerdy.com/view.php",
+		"action_type": "0",
+		"action": "http://services.yerdy.com/click.php",
+		"force_action": "0"
+	}
+]

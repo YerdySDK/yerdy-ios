@@ -67,7 +67,7 @@
 	@try {
 		if (_isArray) {
 			NSMutableArray *results = [NSMutableArray arrayWithCapacity:[json count]];
-			for (id item in results) {
+			for (id item in json) {
 				// verify input JSON is NSDictionary
 				if (![item isKindOfClass:[NSDictionary class]]) {
 					if (errorOut) *errorOut = [self errorWithFormat:@"Array item was expecting NSDictionary, but object was %@", [item class]];
@@ -117,12 +117,15 @@
 			value = nil;
 		
 		id(^conversion)(id) = jsonTypeConversions[key];
-		if (conversion)
+		if (conversion) {
+			// use custom conversion block
 			value = conversion(value);
-		
-		if (value != nil && (![value isKindOfClass:[NSString class]] && ![value isKindOfClass:[NSNumber class]])) {
-			YRDDebug(@"Found unexpected JSON value for %@.%@: %@ (%@)", type, propertyName, value, [value class]);
-			return nil;
+		} else {
+			// validate we got a decent value from the server
+			if (value != nil && (![value isKindOfClass:[NSString class]] && ![value isKindOfClass:[NSNumber class]])) {
+				YRDDebug(@"Found unexpected JSON value for %@.%@: %@ (%@)", type, propertyName, value, [value class]);
+				return nil;
+			}
 		}
 		
 		[object setValue:value forKey:propertyName];

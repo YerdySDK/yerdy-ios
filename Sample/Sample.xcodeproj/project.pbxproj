@@ -20,6 +20,7 @@
 		47FFC7C518A93DEC0019673B /* ViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47FFC7C418A93DEC0019673B /* ViewController~iphone.xib */; };
 		47FFC7C718A93DFB0019673B /* ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47FFC7C618A93DFB0019673B /* ViewController~ipad.xib */; };
 		47FFC7C918A93FAA0019673B /* libYerdy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC7C818A93FAA0019673B /* libYerdy.a */; };
+		95AA851018AB2A0B0022D6CC /* messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 95AA850F18AB2A0B0022D6CC /* messages.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		47FFC7C418A93DEC0019673B /* ViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ViewController~iphone.xib"; sourceTree = "<group>"; };
 		47FFC7C618A93DFB0019673B /* ViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ViewController~ipad.xib"; sourceTree = "<group>"; };
 		47FFC7C818A93FAA0019673B /* libYerdy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYerdy.a; path = "../../../Library/Developer/Xcode/DerivedData/Yerdy-djjqpzsdannpqadtluifsgrkvipa/Build/Products/Debug-iphoneos/libYerdy.a"; sourceTree = "<group>"; };
+		95AA850F18AB2A0B0022D6CC /* messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = messages.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				47FFC79A18A93D900019673B /* Sample-Prefix.pch */,
 				479B282618AAA67C00148BB7 /* HTTPMock.plist */,
 				479B282818AAA69F00148BB7 /* launch.json */,
+				95AA850F18AB2A0B0022D6CC /* messages.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				47FFC79718A93D900019673B /* InfoPlist.strings in Resources */,
 				479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */,
 				47FFC7C518A93DEC0019673B /* ViewController~iphone.xib in Resources */,
+				95AA851018AB2A0B0022D6CC /* messages.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

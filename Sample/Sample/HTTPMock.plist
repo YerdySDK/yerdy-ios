@@ -4,5 +4,7 @@
 <dict>
 	<key>http://services.yerdy.com/launch.php</key>
 	<string>launch.json</string>
+	<key>http://services.yerdy.com/messages.php</key>
+	<string>messages.json</string>
 </dict>
 </plist>

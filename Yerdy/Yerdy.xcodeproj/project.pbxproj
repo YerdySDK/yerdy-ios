@@ -18,6 +18,7 @@
 		47E9B6C418A9450D004A622F /* YRDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C318A9450D004A622F /* YRDLog.m */; };
 		47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C718A94CA7004A622F /* YRDRequest.m */; };
 		47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6CA18A95029004A622F /* YRDURLConnection.m */; };
+		95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AA851218AB2A2B0022D6CC /* YRDMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,8 @@
 		47E9B6C718A94CA7004A622F /* YRDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDRequest.m; sourceTree = "<group>"; };
 		47E9B6C918A95029004A622F /* YRDURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDURLConnection.h; sourceTree = "<group>"; };
 		47E9B6CA18A95029004A622F /* YRDURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDURLConnection.m; sourceTree = "<group>"; };
+		95AA851118AB2A2B0022D6CC /* YRDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessage.h; sourceTree = "<group>"; };
+		95AA851218AB2A2B0022D6CC /* YRDMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 				479B283618AAC0A100148BB7 /* YRDJSONType.h */,
 				479B283718AAC74D00148BB7 /* YRDLaunchResponse.h */,
 				479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */,
+				95AA851118AB2A2B0022D6CC /* YRDMessage.h */,
+				95AA851218AB2A2B0022D6CC /* YRDMessage.m */,
 				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
@@ -197,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
+				95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */,
 				479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */,
 				47E9B6C418A9450D004A622F /* YRDLog.m in Sources */,
 				47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */,

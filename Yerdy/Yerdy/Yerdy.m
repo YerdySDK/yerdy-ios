@@ -13,6 +13,7 @@
 #import "YRDURLConnection.h"
 #import "YRDJSONResponseHandler.h"
 #import "YRDLaunchResponse.h"
+#import "YRDMessage.h"
 
 
 static Yerdy *sharedInstance;
@@ -23,6 +24,7 @@ static Yerdy *sharedInstance;
 	NSString *_publisherKey;
 	
 	YRDLaunchTracker *_launchTracker;
+	NSMutableArray *_messages;
 }
 @end
 
@@ -61,13 +63,25 @@ static Yerdy *sharedInstance;
 
 - (void)reportLaunch
 {
+	__weak Yerdy *weakSelf = self;
+	
 	YRDRequest *request = [[YRDRequest alloc] initWithPath:@"/launch.php"];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class]];
 	
 	[[[YRDURLConnection alloc] initWithRequest:request completionHandler:^(id response, NSError *error) {
-		YRDDebug(@"Launch response: %@", response);
-		if (error)
-			YRDDebug(@"ERROR: %@", error);
+		YRDLaunchResponse *launchResponse = response;
+		if (!launchResponse.success) {
+			YRDError(@"Failed to report launch: %@", error);
+			return;
+		}
+		
+		YRDRequest *messagesRequest = [[YRDRequest alloc] initWithPath:@"messages.php"];
+		messagesRequest.responseHandler = [[YRDJSONResponseHandler alloc] initWithArrayOfObjectType:[YRDMessage class]];
+		
+		[[[YRDURLConnection alloc] initWithRequest:messagesRequest completionHandler:^(id response, NSError *error) {
+			Yerdy *strongSelf = weakSelf;
+			strongSelf->_messages = response;
+		}] send];
 	}] send];
 }
 

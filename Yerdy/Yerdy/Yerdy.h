@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YerdyDelegate.h"
 
 @interface Yerdy : NSObject
 
 + (instancetype)startWithPublisherKey:(NSString *)key;
 + (instancetype)sharedYerdy;
+
+@property (nonatomic, weak) id<YerdyDelegate> delegate;
+
 
 - (BOOL)messageAvailable:(NSString *)placement;
 

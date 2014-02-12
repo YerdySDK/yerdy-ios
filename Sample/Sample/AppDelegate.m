@@ -14,6 +14,9 @@
 #import "Yerdy.h"
 #import "YRDLog.h"
 
+@interface AppDelegate () <YerdyDelegate>
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -31,7 +34,9 @@
 	[HTTPMock enableWithPlist:@"HTTPMock.plist"];
 	
 	YRDSetLogLevel(YRDLogDebug);
-	[Yerdy startWithPublisherKey:@"<INSERT PUBLISHER KEY HERE>"];
+	
+	Yerdy *yerdy = [Yerdy startWithPublisherKey:@"<INSERT PUBLISHER KEY HERE>"];
+	yerdy.delegate = self;
 	
     return YES;
 }
@@ -61,6 +66,16 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Yerdy Delegate
+
+- (void)yerdyConnected
+{
+	NSLog(@"Yerdy Connected...");
+	
+	BOOL hasLaunchMessage = [[Yerdy sharedYerdy] messageAvailable:@"launch"];
+	NSLog(@"Message available for 'launch' placement? %s", hasLaunchMessage ? "yes" : "no");
 }
 
 @end

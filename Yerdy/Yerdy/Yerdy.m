@@ -81,6 +81,9 @@ static Yerdy *sharedInstance;
 		[[[YRDURLConnection alloc] initWithRequest:messagesRequest completionHandler:^(id response, NSError *error) {
 			Yerdy *strongSelf = weakSelf;
 			strongSelf->_messages = response;
+			
+			if ([_delegate respondsToSelector:@selector(yerdyConnected)])
+				[_delegate yerdyConnected];
 		}] send];
 	}] send];
 }

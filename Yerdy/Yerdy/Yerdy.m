@@ -75,7 +75,7 @@ static Yerdy *sharedInstance;
 			return;
 		}
 		
-		YRDRequest *messagesRequest = [[YRDRequest alloc] initWithPath:@"messages.php"];
+		YRDRequest *messagesRequest = [[YRDRequest alloc] initWithPath:@"/messages.php"];
 		messagesRequest.responseHandler = [[YRDJSONResponseHandler alloc] initWithArrayOfObjectType:[YRDMessage class]];
 		
 		[[[YRDURLConnection alloc] initWithRequest:messagesRequest completionHandler:^(id response, NSError *error) {
@@ -83,6 +83,17 @@ static Yerdy *sharedInstance;
 			strongSelf->_messages = response;
 		}] send];
 	}] send];
+}
+
+#pragma mark - Messaging
+
+- (BOOL)messageAvailable:(NSString *)placement
+{
+	NSUInteger index = [_messages indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+		return placement == nil || [((YRDMessage *)obj).placement isEqualToString:placement];
+	}];
+	
+	return index != NSNotFound;
 }
 
 @end

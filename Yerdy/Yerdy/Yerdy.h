@@ -13,4 +13,6 @@
 + (instancetype)startWithPublisherKey:(NSString *)key;
 + (instancetype)sharedYerdy;
 
+- (BOOL)messageAvailable:(NSString *)placement;
+
 @end

@@ -34,6 +34,7 @@
 	
 	_webView = [[UIWebView alloc] init];
 	_webView.frame = self.view.bounds;
+	_webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.view addSubview:_webView];
 }
 

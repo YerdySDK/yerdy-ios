@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		477DADF018AD383900F72CA1 /* YRDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 477DADEF18AD383900F72CA1 /* YRDWebViewController.m */; };
 		477DADF318AD3A5600F72CA1 /* YRDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 477DADF218AD3A5600F72CA1 /* YRDViewController.m */; };
+		477DADF618AD4AC800F72CA1 /* YRDViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 477DADF518AD4AC800F72CA1 /* YRDViewControllerManager.m */; };
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
@@ -42,6 +43,8 @@
 		477DADEF18AD383900F72CA1 /* YRDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDWebViewController.m; sourceTree = "<group>"; };
 		477DADF118AD3A5600F72CA1 /* YRDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDViewController.h; sourceTree = "<group>"; };
 		477DADF218AD3A5600F72CA1 /* YRDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDViewController.m; sourceTree = "<group>"; };
+		477DADF418AD4AC800F72CA1 /* YRDViewControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDViewControllerManager.h; sourceTree = "<group>"; };
+		477DADF518AD4AC800F72CA1 /* YRDViewControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDViewControllerManager.m; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4790C45118A04ECB001BBD3D /* Yerdy-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Yerdy-Prefix.pch"; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */,
 				95F97B9F18AB3C8B00C65D10 /* YRDMessagePresenterSystem.h */,
 				95F97BA018AB3C8B00C65D10 /* YRDMessagePresenterSystem.m */,
+				477DADF418AD4AC800F72CA1 /* YRDViewControllerManager.h */,
+				477DADF518AD4AC800F72CA1 /* YRDViewControllerManager.m */,
 				477DADF118AD3A5600F72CA1 /* YRDViewController.h */,
 				477DADF218AD3A5600F72CA1 /* YRDViewController.m */,
 				477DADEE18AD383900F72CA1 /* YRDWebViewController.h */,
@@ -237,6 +242,7 @@
 				479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */,
 				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
 				47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */,
+				477DADF618AD4AC800F72CA1 /* YRDViewControllerManager.m in Sources */,
 				477DADF018AD383900F72CA1 /* YRDWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

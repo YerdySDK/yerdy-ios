@@ -7,10 +7,12 @@
 //
 
 #import "YRDViewController.h"
+#import "YRDViewControllerManager.h"
 
 @interface YRDViewController ()
 {
 	UIWindow *_window;
+	UIInterfaceOrientation _orientation;
 }
 @end
 
@@ -44,7 +46,15 @@
 
 - (void)orientationChanged
 {
-	[self sizeViewToScreen];
+	UIApplication *app = [UIApplication sharedApplication];
+	UIInterfaceOrientation newOrientation = app.statusBarOrientation;
+	
+	if (_orientation != newOrientation) {
+		NSTimeInterval animationDuration = app.statusBarOrientationAnimationDuration;
+		[UIView animateWithDuration:animationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+			[self sizeViewToScreen];
+		} completion:NULL];
+	}
 }
 
 - (void)sizeViewToScreen
@@ -63,7 +73,7 @@
 			break;
 			
 		case UIInterfaceOrientationLandscapeLeft: {
-			transform = CGAffineTransformRotate(transform, 0.5 * M_PI);
+			transform = CGAffineTransformRotate(transform, -0.5 * M_PI);
 			CGFloat w = bounds.size.width,
 					h = bounds.size.height;
 			bounds.size.width = h;
@@ -71,7 +81,7 @@
 		} break;
 			
 		case UIInterfaceOrientationLandscapeRight: {
-			transform = CGAffineTransformRotate(transform, -0.5 * M_PI);
+			transform = CGAffineTransformRotate(transform, 0.5 * M_PI);
 			CGFloat w = bounds.size.width,
 					h = bounds.size.height;
 			bounds.size.width = h;
@@ -84,12 +94,16 @@
 	self.view.bounds = bounds;
 	self.view.center = center;
 	self.view.transform = transform;
+	
+	_orientation = orientation;
 }
 
 - (void)addToWindow
 {
 	if (self.view.window == _window)
 		return;
+	
+	[YRDViewControllerManager addVisibleViewController:self];
 	
 	[self sizeViewToScreen];
 	[_window addSubview:self.view];
@@ -98,6 +112,7 @@
 - (void)removeFromWindow
 {
 	[self.view removeFromSuperview];
+	[YRDViewControllerManager removeVisibleViewController:self];
 }
 
 @end

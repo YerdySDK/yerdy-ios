@@ -15,9 +15,11 @@
 
 @property (nonatomic, strong) YRDResponseHandler *responseHandler;
 
-// The remote path with a leading slash (for example, @"/launch.php")
-@property (nonatomic, strong) NSString *path;
+@property (nonatomic, strong) NSURL *URL;
 
+// Creates a request with an absolute URL
+- (id)initWithURL:(NSURL *)URL;
+// Creates a request relative to YRDBaseURL
 - (id)initWithPath:(NSString *)path;
 
 - (NSURLRequest *)urlRequest;

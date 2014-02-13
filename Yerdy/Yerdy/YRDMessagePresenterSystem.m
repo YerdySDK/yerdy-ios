@@ -41,4 +41,13 @@
 	[_alertView show];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (alertView.cancelButtonIndex == buttonIndex) {
+		[self messageCancelled];
+	} else {
+		[self messageClicked];
+	}
+}
+
 @end

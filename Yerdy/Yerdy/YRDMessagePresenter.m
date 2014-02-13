@@ -7,8 +7,10 @@
 //
 
 #import "YRDMessagePresenter.h"
+#import "YRDLog.h"
 #import "YRDMessagePresenterSystem.h"
 #import "YRDMessage.h"
+#import "YRDURLConnection.h"
 
 
 @implementation YRDMessagePresenter
@@ -36,6 +38,26 @@
 {
 	[NSException raise:NSInternalInconsistencyException
 				format:@"-[%@ %@] not implemented", [self class], NSStringFromSelector(_cmd)];
+}
+
+- (void)messageClicked
+{
+	[self reportOutcomeToURL:_message.clickURL];
+}
+
+- (void)messageCancelled
+{
+	[self reportOutcomeToURL:_message.viewURL];
+}
+
+
+- (void)reportOutcomeToURL:(NSURL *)URL
+{
+	YRDRequest *request = [[YRDRequest alloc] initWithURL:URL];
+	[YRDURLConnection sendRequest:request completionHandler:^(id response, NSError *error) {
+		if (error)
+			YRDError(@"Failed to report message outcome to '%@': %@", request.URL, error);
+	}];
 }
 
 @end

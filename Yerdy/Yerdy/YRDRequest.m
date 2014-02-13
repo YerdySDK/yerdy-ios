@@ -12,23 +12,30 @@
 
 @implementation YRDRequest
 
-- (id)initWithPath:(NSString *)path
+- (id)initWithURL:(NSURL *)URL;
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
-	_path = path;
+	_URL = URL;
 	
 	return self;
 }
 
-- (NSURLRequest *)urlRequest
+- (id)initWithPath:(NSString *)path
 {
 	NSURL *base = [NSURL URLWithString:YRDBaseURL];
-	NSURL *url = [NSURL URLWithString:_path relativeToURL:base];
+	NSURL *URL = [NSURL URLWithString:path relativeToURL:base];
 	
-	return [NSURLRequest requestWithURL:url
+	return [self initWithURL:URL];
+}
+
+
+
+- (NSURLRequest *)urlRequest
+{
+	return [NSURLRequest requestWithURL:_URL
 							cachePolicy:NSURLRequestUseProtocolCachePolicy
 						timeoutInterval:YRDRequestTimeout];
 }

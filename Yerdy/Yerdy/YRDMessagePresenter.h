@@ -28,4 +28,8 @@
 // Subclasses must implement the following methods:
 - (void)presentInView:(UIView *)view;
 
+// Subclasses must call the following methods at appropriate times:
+- (void)messageClicked;
+- (void)messageCancelled;
+
 @end

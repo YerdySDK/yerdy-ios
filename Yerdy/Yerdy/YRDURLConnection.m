@@ -48,6 +48,13 @@
 	return set;
 }
 
++ (instancetype)sendRequest:(YRDRequest *)request
+		  completionHandler:(YRDURLConnectionCompletionHandler)completionHandler
+{
+	YRDURLConnection *conn = [[self alloc] initWithRequest:request completionHandler:completionHandler];
+	[conn send];
+	return conn;
+}
 
 - (id)initWithRequest:(YRDRequest *)request completionHandler:(YRDURLConnectionCompletionHandler)completionHandler
 {
@@ -86,7 +93,9 @@
 - (void)finishRequestWithResponse:(id)response error:(NSError *)error
 {
 	if (_completionHandler) {
-		_completionHandler(response, error);
+		dispatch_async(dispatch_get_main_queue(), ^{
+			_completionHandler(response, error);
+		});
 	}
 	
 	NSMutableSet *openConnections = [[self class] openConnections];

@@ -14,6 +14,10 @@ typedef void(^YRDURLConnectionCompletionHandler)(id response, NSError *error);
 
 @interface YRDURLConnection : NSObject
 
++ (instancetype)sendRequest:(YRDRequest *)request 
+		  completionHandler:(YRDURLConnectionCompletionHandler)completionHandler;
+
+
 - (id)initWithRequest:(YRDRequest *)request
 	completionHandler:(YRDURLConnectionCompletionHandler)completionHandler;
 

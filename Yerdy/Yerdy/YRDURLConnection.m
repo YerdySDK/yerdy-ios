@@ -83,6 +83,8 @@
 		[openConnections addObject:self];
 	}
 	
+	YRDDebug(@"Sending request: %@", _request.URL);
+	
 	NSURLRequest *request = _request.urlRequest;
 	
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
@@ -92,6 +94,12 @@
 
 - (void)finishRequestWithResponse:(id)response error:(NSError *)error
 {
+	if (response) {
+		YRDDebug(@"Request successful: %@", _request.URL);
+	} else {
+		YRDDebug(@"Request failed: %@: %@", _request.URL, error);
+	}
+	
 	if (_completionHandler) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			_completionHandler(response, error);

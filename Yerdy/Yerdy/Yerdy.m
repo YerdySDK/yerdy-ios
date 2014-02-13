@@ -38,8 +38,8 @@ static Yerdy *sharedInstance;
 {	
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		sharedInstance = [[self alloc] initWithPublisherKey:key];
 		YRDInfo(@"Starting...");
+		sharedInstance = [[self alloc] initWithPublisherKey:key];
 	});
 		
 	return sharedInstance;

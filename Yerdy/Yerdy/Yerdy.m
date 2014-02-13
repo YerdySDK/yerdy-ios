@@ -130,7 +130,7 @@ static Yerdy *sharedInstance;
 	
 	_messagePresenter = [YRDMessagePresenter presenterForMessage:message];
 	if (!_messagePresenter)
-		return nil;
+		return NO;
 	
 	[_messagePresenter presentInView:window];
 	

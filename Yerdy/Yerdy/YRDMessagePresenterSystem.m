@@ -21,14 +21,14 @@
 
 @implementation YRDMessagePresenterSystem
 
-- (void)presentInView:(id)view
+- (void)present
 {
 	YRDMessage *message = self.message;
 	_alertView = [[UIAlertView alloc] initWithTitle:message.messageTitle
-														message:message.messageText
-													   delegate:self
-											  cancelButtonTitle:nil
-											  otherButtonTitles:nil];
+											message:message.messageText
+										   delegate:self
+								  cancelButtonTitle:nil
+								  otherButtonTitles:nil];
 	
 	if (message.cancelLabel) {
 		_alertView.cancelButtonIndex = [_alertView addButtonWithTitle:message.cancelLabel];

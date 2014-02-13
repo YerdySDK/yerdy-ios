@@ -11,30 +11,31 @@
 #import "YRDMessagePresenterSystem.h"
 #import "YRDMessage.h"
 #import "YRDURLConnection.h"
-
+#import "YRDWebViewController.h"
 
 @implementation YRDMessagePresenter
 
-+ (YRDMessagePresenter *)presenterForMessage:(YRDMessage *)message
++ (YRDMessagePresenter *)presenterForMessage:(YRDMessage *)message window:(UIWindow *)window
 {
 	if (message.style == YRDMessageStyleSystem)
-		return [[YRDMessagePresenterSystem alloc] initWithMessage:message];
+		return [[YRDMessagePresenterSystem alloc] initWithMessage:message window:window];
 	else
 		return nil; // TODO: Support all message styles
 }
 
-- (id)initWithMessage:(YRDMessage *)message
+- (id)initWithMessage:(YRDMessage *)message window:(UIWindow *)window
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
 	_message = message;
+	_window = window;
 	
 	return self;
 }
 
-- (void)presentInView:(UIView *)view
+- (void)present
 {
 	[NSException raise:NSInternalInconsistencyException
 				format:@"-[%@ %@] not implemented", [self class], NSStringFromSelector(_cmd)];
@@ -42,7 +43,15 @@
 
 - (void)messageClicked
 {
-	[self reportOutcomeToURL:_message.clickURL];
+	if (_message.actionType == YRDMessageActionTypeExternalBrowser) {
+		[[UIApplication sharedApplication] openURL:_message.clickURL];
+	} else if (_message.actionType == YRDMessageActionTypeInternalBrowser) {
+		YRDWebViewController *vc = [[YRDWebViewController alloc] initWithWindow:_window
+																			URL:_message.clickURL];
+		[vc present];
+	} else {
+		[self reportOutcomeToURL:_message.clickURL];
+	}
 }
 
 - (void)messageCancelled

@@ -8,9 +8,9 @@
 		"image": null,
 		"confirm_label": "NOW",
 		"cancel_label": "Later",
-		"click": "http://services.yerdy.com/click.php",
+		"click": "http://google.com/",
 		"view": "http://services.yerdy.com/view.php",
-		"action_type": "0",
+		"action_type": "1",
 		"action": "http://services.yerdy.com/click.php",
 		"force_action": "0"
 	},

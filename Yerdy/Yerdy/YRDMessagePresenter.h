@@ -18,15 +18,15 @@
 
 @interface YRDMessagePresenter : NSObject
 
-+ (YRDMessagePresenter *)presenterForMessage:(YRDMessage *)message;
++ (YRDMessagePresenter *)presenterForMessage:(YRDMessage *)message window:(UIWindow *)window;
 
-- (id)initWithMessage:(YRDMessage *)message;
+- (id)initWithMessage:(YRDMessage *)message window:(UIWindow *)window;
 
 @property (nonatomic, readonly) YRDMessage *message;
-
+@property (nonatomic, readonly) UIWindow *window;
 
 // Subclasses must implement the following methods:
-- (void)presentInView:(UIView *)view;
+- (void)present;
 
 // Subclasses must call the following methods at appropriate times:
 - (void)messageClicked;

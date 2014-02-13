@@ -128,11 +128,11 @@ static Yerdy *sharedInstance;
 	if (!message)
 		return NO;
 	
-	_messagePresenter = [YRDMessagePresenter presenterForMessage:message];
+	_messagePresenter = [YRDMessagePresenter presenterForMessage:message window:window];
 	if (!_messagePresenter)
 		return NO;
 	
-	[_messagePresenter presentInView:window];
+	[_messagePresenter present];
 	
 	return YES;
 }

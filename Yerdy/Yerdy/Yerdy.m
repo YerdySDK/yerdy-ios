@@ -18,13 +18,17 @@
 #import "YRDMessagePresenter.h"
 #import "YRDURLConnection.h"
 
+#import "YRDInAppPurchase.h"
+#import "YRDItemPurchase.h"
+#import "YRDReward.h"
+
 
 static Yerdy *sharedInstance;
 
 static const NSTimeInterval TokenTimeout = 5.0;
 
 
-@interface Yerdy () <YRDLaunchTrackerDelegate>
+@interface Yerdy () <YRDLaunchTrackerDelegate, YerdyMessageDelegate>
 {
 	NSString *_publisherKey;
 	
@@ -168,9 +172,55 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	if (!_messagePresenter)
 		return NO;
 	
+	_messagePresenter.delegate = self;
 	[_messagePresenter present];
 	
 	return YES;
+}
+
+#pragma mark - YerdyMessageDelegate
+
+// The Yerdy class acts a proxy between YRDMessagePresenter & the messageDelegate
+// set by the user
+
+// Verify the user has setup the messageDelegate properly
+- (BOOL)verifyMessageDelegateSetupFor:(SEL)selector context:(NSString *)msg
+{
+	if (_messageDelegate == nil) {
+		YRDError(@"Failed handling %@: you haven't set [Yerdy sharedYerdy].messageDelegate", msg);
+		return NO;
+	} else if ([_messageDelegate respondsToSelector:selector] == NO) {
+		YRDError(@"Failed handling %@: your YerdyMessageDelegate doesn't implement %@", msg, NSStringFromSelector(selector));
+		return NO;
+	} else {
+		return YES;
+	}
+}
+
+- (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase
+{
+	if (![self verifyMessageDelegateSetupFor:_cmd context:@"in app purchase"]) {
+		[purchase reportFailure];
+		return;
+	}
+	[_messageDelegate yerdy:yerdy handleInAppPurchase:purchase];
+}
+
+- (void)yerdy:(Yerdy *)yerdy handleItemPurchase:(YRDItemPurchase *)purchase
+{
+	if (![self verifyMessageDelegateSetupFor:_cmd context:@"item purchase"]) {
+		[purchase reportFailure];
+		return;
+	}
+	[_messageDelegate yerdy:yerdy handleItemPurchase:purchase];
+}
+
+- (void)yerdy:(Yerdy *)yerdy handleReward:(YRDReward *)reward
+{
+	if (![self verifyMessageDelegateSetupFor:_cmd context:@"reward"]) {
+		return;
+	}
+	[_messageDelegate yerdy:yerdy handleReward:reward];
 }
 
 @end

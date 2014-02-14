@@ -80,12 +80,7 @@
 {
 	NSLog(@"Yerdy Connected...");
 	
-	BOOL hasLaunchMessage = [[Yerdy sharedYerdy] messageAvailable:@"launch"];
-	NSLog(@"Message available for 'launch' placement? %s", hasLaunchMessage ? "yes" : "no");
-	
-	if (hasLaunchMessage) {
-		[[Yerdy sharedYerdy] showMessage:@"launch"];
-	}
+	[_viewController showMessaging];
 }
 
 @end

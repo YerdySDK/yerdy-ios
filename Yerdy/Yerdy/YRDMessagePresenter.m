@@ -7,6 +7,8 @@
 //
 
 #import "YRDMessagePresenter.h"
+#import "Yerdy.h"
+#import "YRDAppActionParser.h"
 #import "YRDLog.h"
 #import "YRDMessagePresenterSystem.h"
 #import "YRDMessage.h"
@@ -50,7 +52,33 @@
 																			URL:_message.clickURL];
 		[vc present];
 	} else {
-		[self reportOutcomeToURL:_message.clickURL];
+		YRDAppActionParser *parser = [[YRDAppActionParser alloc] initWithAppAction:_message.action messagePresenter:self];
+		if (parser != nil) {
+			switch (parser.actionType) {
+				case YRDAppActionTypeEmpty:
+					[self reportOutcomeToURL:_message.clickURL];
+					break;
+					
+				case YRDAppActionTypeInAppPurchase:
+					[_delegate yerdy:_delegate handleInAppPurchase:parser.actionInfo];
+					break;
+					
+				case YRDAppActionTypeItemPurchase:
+					[_delegate yerdy:_delegate handleItemPurchase:parser.actionInfo];
+					break;
+					
+				case YRDAppActionTypeReward:
+					[_delegate yerdy:_delegate handleReward:parser.actionInfo];
+					[self reportOutcomeToURL:_message.clickURL];
+					break;
+					
+				default:
+					break;
+			}
+		} else {
+			YRDError(@"Failed to parse app action '%@', reporting view...", _message.action);
+			[self reportOutcomeToURL:_message.viewURL];
+		}
 	}
 }
 
@@ -59,6 +87,15 @@
 	[self reportOutcomeToURL:_message.viewURL];
 }
 
+- (void)reportAppActionSuccess
+{
+	[self reportOutcomeToURL:_message.clickURL];
+}
+
+- (void)reportAppActionFailure
+{
+	[self reportOutcomeToURL:_message.viewURL];
+}
 
 - (void)reportOutcomeToURL:(NSURL *)URL
 {

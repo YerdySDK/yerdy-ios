@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YerdyDelegate.h"
 
 // Handles display of a YRDMessage.
 // Different message types are delegated to different YRDMessagePresenter classes.
@@ -22,6 +23,7 @@
 
 - (id)initWithMessage:(YRDMessage *)message window:(UIWindow *)window;
 
+@property (nonatomic, weak) Yerdy<YerdyMessageDelegate> *delegate;
 @property (nonatomic, readonly) YRDMessage *message;
 @property (nonatomic, readonly) UIWindow *window;
 
@@ -31,5 +33,9 @@
 // Subclasses must call the following methods at appropriate times:
 - (void)messageClicked;
 - (void)messageCancelled;
+
+// Callbacks for appropriate app actions (see YRDInAppPurchase, YRDItemPurchase)
+- (void)reportAppActionSuccess;
+- (void)reportAppActionFailure;
 
 @end

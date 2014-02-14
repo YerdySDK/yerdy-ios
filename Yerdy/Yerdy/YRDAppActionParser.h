@@ -12,17 +12,27 @@
 
 
 typedef enum YRDAppActionType {
+	YRDAppActionTypeEmpty, // "do nothing" app action, simply reports click back to server
 	YRDAppActionTypeReward,
 	YRDAppActionTypeInAppPurchase,
 	YRDAppActionTypeItemPurchase,
 } YRDAppActionType;
 
+@class YRDMessagePresenter;
+
 
 @interface YRDAppActionParser : NSObject
 
 // Returns nil on failure
-- (id)initWithAppAction:(NSString *)appAction;
+- (id)initWithAppAction:(NSString *)appAction messagePresenter:(YRDMessagePresenter *)messagePresenter;
 
 @property (nonatomic, readonly) YRDAppActionType actionType;
+
+// Different type based on 'actionType':
+//	YRDAppActionTypeEmpty: nil
+//	YRDAppActionTypeReward: YRDReward
+//	YRDAppActionTypeInAppPurchase: YRDInAppPurchase
+//	YRDAppActionTypeItemPurchase: YRDItemPurchase
+@property (nonatomic, readonly) id actionInfo;
 
 @end

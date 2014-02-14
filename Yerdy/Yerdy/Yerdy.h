@@ -15,6 +15,7 @@
 + (instancetype)sharedYerdy;
 
 @property (nonatomic, weak) id<YerdyDelegate> delegate;
+@property (nonatomic, weak) id<YerdyMessageDelegate> messageDelegate;
 
 // Sets or retrieves the users push notification token
 @property (nonatomic, copy) NSData *pushToken;

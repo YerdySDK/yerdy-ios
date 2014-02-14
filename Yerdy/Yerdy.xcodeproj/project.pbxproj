@@ -27,6 +27,7 @@
 		95F97BA418ADD34A00C65D10 /* YRDLaunchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA318ADD34A00C65D10 /* YRDLaunchRequest.m */; };
 		95F97BA718ADD3FC00C65D10 /* YRDMessagesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA618ADD3FC00C65D10 /* YRDMessagesRequest.m */; };
 		95F97BAA18ADD67600C65D10 /* YRDDelayedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA918ADD67600C65D10 /* YRDDelayedBlock.m */; };
+		95F97BAD18ADE4F500C65D10 /* YRDAppActionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BAC18ADE4F500C65D10 /* YRDAppActionParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +88,8 @@
 		95F97BA618ADD3FC00C65D10 /* YRDMessagesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagesRequest.m; sourceTree = "<group>"; };
 		95F97BA818ADD67600C65D10 /* YRDDelayedBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDDelayedBlock.h; sourceTree = "<group>"; };
 		95F97BA918ADD67600C65D10 /* YRDDelayedBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDDelayedBlock.m; sourceTree = "<group>"; };
+		95F97BAB18ADE4F500C65D10 /* YRDAppActionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDAppActionParser.h; sourceTree = "<group>"; };
+		95F97BAC18ADE4F500C65D10 /* YRDAppActionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDAppActionParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +157,8 @@
 				479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */,
 				95AA851118AB2A2B0022D6CC /* YRDMessage.h */,
 				95AA851218AB2A2B0022D6CC /* YRDMessage.m */,
+				95F97BAB18ADE4F500C65D10 /* YRDAppActionParser.h */,
+				95F97BAC18ADE4F500C65D10 /* YRDAppActionParser.m */,
 				95F97B9C18AB3BDE00C65D10 /* YRDMessagePresenter.h */,
 				95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */,
 				95F97B9F18AB3C8B00C65D10 /* YRDMessagePresenterSystem.h */,
@@ -257,6 +262,7 @@
 				4790C48218A06014001BBD3D /* YRDUtil.m in Sources */,
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
 				479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */,
+				95F97BAD18ADE4F500C65D10 /* YRDAppActionParser.m in Sources */,
 				95F97BA718ADD3FC00C65D10 /* YRDMessagesRequest.m in Sources */,
 				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
 				47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */,

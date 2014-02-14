@@ -24,14 +24,15 @@ static Yerdy *sharedInstance;
 static const NSTimeInterval TokenTimeout = 5.0;
 
 
-@interface Yerdy ()
+@interface Yerdy () <YRDLaunchTrackerDelegate>
 {
 	NSString *_publisherKey;
 	
+	NSDate *_lastBackground;
 	YRDDelayedBlock *_delayedLaunchCall;
 	YRDLaunchTracker *_launchTracker;
-	NSMutableArray *_messages;
 	
+	NSMutableArray *_messages;
 	YRDMessagePresenter *_messagePresenter;
 }
 @end
@@ -63,10 +64,18 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	
 	_publisherKey = publisherKey;
 	_launchTracker = [[YRDLaunchTracker alloc] init];
+	_launchTracker.delegate = self;
 	
 	[self reportLaunch:YES];
 	
 	return self;
+}
+
+#pragma mark - Launch handling
+
+- (void)launchTrackerDetectedResumeLaunch:(YRDLaunchTracker *)launchTracker
+{
+	[self reportLaunch:NO];
 }
 
 - (void)reportLaunch:(BOOL)initialLaunch
@@ -96,7 +105,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	};
 	
 	BOOL hasToken = [self pushToken] != nil;
-	if (!hasToken) {
+	if (initialLaunch && !hasToken) {
 		_delayedLaunchCall = [YRDDelayedBlock afterDelay:TokenTimeout runBlock:block];
 	} else {
 		block();

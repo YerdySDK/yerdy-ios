@@ -25,10 +25,15 @@
 // This allows us to easily calculate crashes (launches + resumes - exits - 1)
 
 
+static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
+
+
 @interface YRDLaunchTracker ()
 {
 	BOOL _countedLaunch;
 	BOOL _countedExit;
+	
+	NSDate *_lastBackground;
 }
 @end
 
@@ -68,12 +73,21 @@
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification
 {
+	_lastBackground = [NSDate date];
 	[self incrementExits];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification
 {
-	[self incrementLaunchesForKey:YRDResumesDefaultsKey];
+	if (fabs([_lastBackground timeIntervalSinceNow]) > MinBackgroundTimeForResumeLaunch) {
+		[self incrementLaunchesForKey:YRDLaunchesDefaultsKey];
+		
+		if ([_delegate respondsToSelector:@selector(launchTrackerDetectedResumeLaunch:)]) {
+			[_delegate launchTrackerDetectedResumeLaunch:self];
+		}
+	} else {
+		[self incrementLaunchesForKey:YRDResumesDefaultsKey];
+	}
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification

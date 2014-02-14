@@ -23,3 +23,5 @@ extern NSString *YRDAppVersionDefaultsKey;
 extern NSString *YRDLaunchesDefaultsKey;
 extern NSString *YRDResumesDefaultsKey;
 extern NSString *YRDExitsDefaultsKey;
+
+extern NSString *YRDPushTokenDefaultsKey;

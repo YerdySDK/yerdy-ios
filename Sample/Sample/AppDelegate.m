@@ -38,6 +38,12 @@
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:@"<INSERT PUBLISHER KEY HERE>"];
 	yerdy.delegate = self;
 	
+	// Fake getting a push token
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+		yerdy.pushToken = [NSData data];
+	});
+	
     return YES;
 }
 							

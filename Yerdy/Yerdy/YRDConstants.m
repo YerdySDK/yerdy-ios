@@ -17,3 +17,5 @@ NSString *YRDAppVersionDefaultsKey = @"YRDLastKnownAppVersion";
 NSString *YRDLaunchesDefaultsKey = @"YRDLaunchCount";
 NSString *YRDResumesDefaultsKey = @"YRDResumeCount";
 NSString *YRDExitsDefaultsKey = @"YRDExitCount";
+
+NSString *YRDPushTokenDefaultsKey = @"YRDPushToken";

@@ -16,6 +16,9 @@
 
 @property (nonatomic, weak) id<YerdyDelegate> delegate;
 
+// Sets or retrieves the users push notification token
+@property (nonatomic, copy) NSData *pushToken;
+
 // Is a message available for the passed in placement?
 //
 // TODO: How to handle nil?

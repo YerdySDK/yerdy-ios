@@ -7,23 +7,28 @@
 //
 
 #import "Yerdy.h"
+#import "YRDConstants.h"
+#import "YRDDelayedBlock.h"
 #import "YRDLog.h"
-#import "YRDLaunchTracker.h"
-#import "YRDRequest.h"
-#import "YRDURLConnection.h"
-#import "YRDJSONResponseHandler.h"
+#import "YRDLaunchRequest.h"
 #import "YRDLaunchResponse.h"
+#import "YRDLaunchTracker.h"
 #import "YRDMessage.h"
+#import "YRDMessagesRequest.h"
 #import "YRDMessagePresenter.h"
+#import "YRDURLConnection.h"
 
 
 static Yerdy *sharedInstance;
+
+static const NSTimeInterval TokenTimeout = 5.0;
 
 
 @interface Yerdy ()
 {
 	NSString *_publisherKey;
 	
+	YRDDelayedBlock *_delayedLaunchCall;
 	YRDLaunchTracker *_launchTracker;
 	NSMutableArray *_messages;
 	
@@ -59,36 +64,58 @@ static Yerdy *sharedInstance;
 	_publisherKey = publisherKey;
 	_launchTracker = [[YRDLaunchTracker alloc] init];
 	
-	[self reportLaunch];
+	[self reportLaunch:YES];
 	
 	return self;
 }
 
-- (void)reportLaunch
+- (void)reportLaunch:(BOOL)initialLaunch
 {
 	__weak Yerdy *weakSelf = self;
 	
-	YRDRequest *request = [[YRDRequest alloc] initWithPath:@"/launch.php"];
-	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class]];
-	
-	[[[YRDURLConnection alloc] initWithRequest:request completionHandler:^(id response, NSError *error) {
-		YRDLaunchResponse *launchResponse = response;
-		if (!launchResponse.success) {
-			YRDError(@"Failed to report launch: %@", error);
-			return;
-		}
+	void(^block)(void) = ^{
+		((Yerdy *)weakSelf)->_delayedLaunchCall = nil;
 		
-		YRDRequest *messagesRequest = [[YRDRequest alloc] initWithPath:@"/messages.php"];
-		messagesRequest.responseHandler = [[YRDJSONResponseHandler alloc] initWithArrayOfObjectType:[YRDMessage class]];
-		
-		[[[YRDURLConnection alloc] initWithRequest:messagesRequest completionHandler:^(id response, NSError *error) {
-			Yerdy *strongSelf = weakSelf;
-			strongSelf->_messages = response;
+		// TODO: Should we call messages.php if the launch call fails?
+		//		 Should we call -yerdyConnected if one or both of the calls fails?
+		//		 Should we call -yerdyConnected if this is a resume launch
+		YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequest];
+		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
+			if (!response.success) {
+				YRDError(@"Failed to report launch: %@", error);
+			}
 			
-			if ([_delegate respondsToSelector:@selector(yerdyConnected)])
-				[_delegate yerdyConnected];
-		}] send];
-	}] send];
+			YRDMessagesRequest *messagesRequest = [YRDMessagesRequest messagesRequest];
+			[YRDURLConnection sendRequest:messagesRequest completionHandler:^(NSArray *response, NSError *error) {
+				((Yerdy *)weakSelf)->_messages = [response mutableCopy];
+				
+				if (!error && [_delegate respondsToSelector:@selector(yerdyConnected)])
+					[_delegate yerdyConnected];
+			}];
+		}];
+	};
+	
+	BOOL hasToken = [self pushToken] != nil;
+	if (!hasToken) {
+		_delayedLaunchCall = [YRDDelayedBlock afterDelay:TokenTimeout runBlock:block];
+	} else {
+		block();
+	}
+}
+
+#pragma mark - Push token
+
+- (void)setPushToken:(NSData *)pushToken
+{
+	[[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:YRDPushTokenDefaultsKey];
+	if (pushToken != nil) {
+		[_delayedLaunchCall callNow];
+	}
+}
+
+- (NSData *)pushToken
+{
+	return [[NSUserDefaults standardUserDefaults] objectForKey:YRDPushTokenDefaultsKey];
 }
 
 #pragma mark - Messaging

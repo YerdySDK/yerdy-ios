@@ -24,6 +24,9 @@
 		95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AA851218AB2A2B0022D6CC /* YRDMessage.m */; };
 		95F97B9E18AB3BDE00C65D10 /* YRDMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */; };
 		95F97BA118AB3C8B00C65D10 /* YRDMessagePresenterSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA018AB3C8B00C65D10 /* YRDMessagePresenterSystem.m */; };
+		95F97BA418ADD34A00C65D10 /* YRDLaunchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA318ADD34A00C65D10 /* YRDLaunchRequest.m */; };
+		95F97BA718ADD3FC00C65D10 /* YRDMessagesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA618ADD3FC00C65D10 /* YRDMessagesRequest.m */; };
+		95F97BAA18ADD67600C65D10 /* YRDDelayedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97BA918ADD67600C65D10 /* YRDDelayedBlock.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +81,12 @@
 		95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagePresenter.m; sourceTree = "<group>"; };
 		95F97B9F18AB3C8B00C65D10 /* YRDMessagePresenterSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessagePresenterSystem.h; sourceTree = "<group>"; };
 		95F97BA018AB3C8B00C65D10 /* YRDMessagePresenterSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagePresenterSystem.m; sourceTree = "<group>"; };
+		95F97BA218ADD34A00C65D10 /* YRDLaunchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDLaunchRequest.h; sourceTree = "<group>"; };
+		95F97BA318ADD34A00C65D10 /* YRDLaunchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLaunchRequest.m; sourceTree = "<group>"; };
+		95F97BA518ADD3FC00C65D10 /* YRDMessagesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessagesRequest.h; sourceTree = "<group>"; };
+		95F97BA618ADD3FC00C65D10 /* YRDMessagesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagesRequest.m; sourceTree = "<group>"; };
+		95F97BA818ADD67600C65D10 /* YRDDelayedBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDDelayedBlock.h; sourceTree = "<group>"; };
+		95F97BA918ADD67600C65D10 /* YRDDelayedBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDDelayedBlock.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +164,12 @@
 				477DADF218AD3A5600F72CA1 /* YRDViewController.m */,
 				477DADEE18AD383900F72CA1 /* YRDWebViewController.h */,
 				477DADEF18AD383900F72CA1 /* YRDWebViewController.m */,
+				95F97BA218ADD34A00C65D10 /* YRDLaunchRequest.h */,
+				95F97BA318ADD34A00C65D10 /* YRDLaunchRequest.m */,
+				95F97BA518ADD3FC00C65D10 /* YRDMessagesRequest.h */,
+				95F97BA618ADD3FC00C65D10 /* YRDMessagesRequest.m */,
+				95F97BA818ADD67600C65D10 /* YRDDelayedBlock.h */,
+				95F97BA918ADD67600C65D10 /* YRDDelayedBlock.m */,
 				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
@@ -233,13 +248,16 @@
 				95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */,
 				479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */,
 				47E9B6C418A9450D004A622F /* YRDLog.m in Sources */,
+				95F97BAA18ADD67600C65D10 /* YRDDelayedBlock.m in Sources */,
 				95F97B9E18AB3BDE00C65D10 /* YRDMessagePresenter.m in Sources */,
 				47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */,
 				477DADF318AD3A5600F72CA1 /* YRDViewController.m in Sources */,
 				479B283218AAAAB600148BB7 /* YRDResponseHandler.m in Sources */,
+				95F97BA418ADD34A00C65D10 /* YRDLaunchRequest.m in Sources */,
 				4790C48218A06014001BBD3D /* YRDUtil.m in Sources */,
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
 				479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */,
+				95F97BA718ADD3FC00C65D10 /* YRDMessagesRequest.m in Sources */,
 				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
 				47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */,
 				477DADF618AD4AC800F72CA1 /* YRDViewControllerManager.m in Sources */,

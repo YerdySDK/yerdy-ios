@@ -78,10 +78,14 @@ static const double ErrorRatio = 2.0;
 	if (_timer)
 		return;
 	
+	// attempt to calculate startOffset so that the next timer fires on a multiple of TimeInterval
+	NSTimeInterval timePlayed = [[NSUserDefaults standardUserDefaults] doubleForKey:YRDTimePlayedDefaultsKey];
+	NSTimeInterval startOffset = ceil(timePlayed/FireInterval) * FireInterval - timePlayed;
+	
 	_lastCheckpoint = [NSDate date];
 	_timer = [[YRDTimer alloc] initWithTimeInterval:FireInterval target:self
 										  tolerance:FireInterval * ToleranceRatio
-										startOffset:0.0];
+										startOffset:startOffset];
 }
 
 - (void)stopTimer

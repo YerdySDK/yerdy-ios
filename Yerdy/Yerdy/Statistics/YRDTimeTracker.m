@@ -8,9 +8,15 @@
 
 #import "YRDTimeTracker.h"
 #import "YRDConstants.h"
+#import "YRDLog.h"
 #import "YRDTimer.h"
 
 #import <UIKit/UIKit.h>
+
+
+NSString *YRDTimeTrackerMinutePassedNotification = @"YRDTimeTrackerMinutePassed";
+NSString *YRDTimeTrackerMinutesPassedKey = @"minutesPassed";
+NSString *YRDTimeTrackerTimePlayedKey = @"timePlayed";
 
 
 // fire every minute
@@ -114,11 +120,29 @@ static const double ErrorRatio = 2.0;
 		return;
 	}
 	
-	// update time played
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	
+	// update time played
 	NSTimeInterval timePlayed = [userDefaults doubleForKey:YRDTimePlayedDefaultsKey];
 	timePlayed += timePassed;
 	[userDefaults setDouble:timePlayed forKey:YRDTimePlayedDefaultsKey];
+	
+	// determine whether or not we should fire a YRDTimeTrackerMinutePassedNotification
+	int lastMinutesReported = [userDefaults integerForKey:YRDMinutesPlayedDefaultsKey];
+	int minutesPassed = (int)floor((timePlayed + (FireInterval * ToleranceRatio)) / 60.0);
+	
+	// very unlikely, but if things get really out of whack, we may fire 2 (or more) notifications
+	for (int i = lastMinutesReported; i < minutesPassed; i++) {
+		NSDictionary *userInfo = @{
+			YRDTimeTrackerMinutesPassedKey : @(i),
+			YRDTimeTrackerTimePlayedKey : @(timePlayed)
+		};
+		
+		YRDDebug(@"Firing %@: %@", YRDTimeTrackerMinutePassedNotification, userInfo);
+		[[NSNotificationCenter defaultCenter] postNotificationName:YRDTimeTrackerMinutePassedNotification
+															object:self userInfo:userInfo];
+	}
+	[userDefaults setInteger:minutesPassed forKey:YRDMinutesPlayedDefaultsKey];
 }
 
 @end

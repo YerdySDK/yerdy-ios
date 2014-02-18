@@ -162,6 +162,12 @@ typedef enum YRDButtonType {
 	CGRect bounds = self.bounds;
 	CGRect containerBounds = CGRectMake(0.0, 0.0, [self longDimension], [self shortDimension]);
 	
+	// old 3.5 inch iPhones are
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
+		[UIScreen mainScreen].bounds.size.height < 568.0) {
+		containerBounds.size.width += [self padding] * 4.0;
+	}
+	
 	_contentContainer.bounds = containerBounds;
 	_contentContainer.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
 		

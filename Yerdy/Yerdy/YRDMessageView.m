@@ -196,7 +196,11 @@ typedef enum YRDButtonType {
 // also defines the width & height of the image
 - (CGFloat)shortDimension
 {
-	return 240 * [self deviceScaleFactor];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+		return 240.0;
+	} else {
+		return 560.0;
+	}
 }
 
 // height in portrait, width in landscape

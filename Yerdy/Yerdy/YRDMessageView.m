@@ -213,10 +213,47 @@ typedef enum YRDButtonType {
 
 - (UIButton *)makeButtonOfType:(YRDButtonType)buttonType
 {
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+	CGSize buttonSize = CGSizeMake([self buttonWidth], [self buttonHeight]);
+	
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	button.titleLabel.font = [UIFont boldSystemFontOfSize:14.0 * [self deviceScaleFactor]];
-	button.bounds = CGRectMake(0.0, 0.0, [self buttonWidth], [self buttonHeight]);
+	button.bounds = CGRectMake(0.0, 0.0, buttonSize.width, buttonSize.height);
+	
+	if (buttonType == YRDButtonTypeConfirm) {
+		[button setTitleColor:[self confirmButtonTextColor] forState:UIControlStateNormal];
+		
+		UIImage *background = [self buttonBackgroundWithSize:buttonSize rectHeightRatio:0.9 color:[self confirmButtonColor]];
+		[button setBackgroundImage:background forState:UIControlStateNormal];
+	} else if (buttonType == YRDButtonTypeCancel) {
+		[button setTitleColor:[self cancelButtonTextColor] forState:UIControlStateNormal];
+		
+		UIImage *background = [self buttonBackgroundWithSize:buttonSize rectHeightRatio:0.8 color:[self cancelButtonColor]];
+		[button setBackgroundImage:background forState:UIControlStateNormal];
+	}
+	
 	return button;
+}
+
+- (UIImage *)buttonBackgroundWithSize:(CGSize)size rectHeightRatio:(CGFloat)rectHeightRatio color:(UIColor *)color
+{
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+	
+	[color setFill];
+	
+	CGFloat rectHeight = size.height * rectHeightRatio;
+	CGRect rect = CGRectMake(0, size.height/2.0 - rectHeight/2.0, size.width, rectHeight);
+	
+	CGFloat cornerRadius = rectHeight * (1.0/3.0);
+	// floorf & -1.0 required so that retina devices don't lose their mind when trying to render
+	// the corner radii (comment out line and run on non-retina & retina device to see what I mean)
+	cornerRadius = floorf(cornerRadius - 1.0);
+	
+	UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:cornerRadius];
+	[path fill];
+	
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return image;
 }
 
 #pragma mark - "Contants"
@@ -268,6 +305,26 @@ typedef enum YRDButtonType {
 - (UIColor *)expiryTextColor
 {
 	return [UIColor yellowColor];
+}
+
+- (UIColor *)confirmButtonColor
+{
+	return [UIColor orangeColor];
+}
+
+- (UIColor *)confirmButtonTextColor
+{
+	return [UIColor whiteColor];
+}
+
+- (UIColor *)cancelButtonColor
+{
+	return [UIColor grayColor];
+}
+
+- (UIColor *)cancelButtonTextColor
+{
+	return [UIColor whiteColor];
 }
 
 - (CGFloat)deviceScaleFactor

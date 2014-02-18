@@ -159,7 +159,36 @@ typedef enum YRDButtonType {
 
 - (void)layoutLandscape
 {
-	// TODO: Implement
+	CGRect bounds = self.bounds;
+	CGRect containerBounds = CGRectMake(0.0, 0.0, [self longDimension], [self shortDimension]);
+	
+	_contentContainer.bounds = containerBounds;
+	_contentContainer.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+		
+	_imageView.frame = CGRectMake(0.0, 0.0, [self shortDimension], [self shortDimension]);
+	
+	// the minimum X value for labels and stuff going on the right side of the image
+	CGFloat leftX = CGRectGetMaxX(_imageView.frame) + [self padding];
+	CGFloat currentY = [self padding];
+	
+	CGSize size = [_titleLabel.text sizeWithFont:_titleLabel.font];
+	_titleLabel.frame = CGRectMake(leftX, currentY,
+								   containerBounds.size.width - leftX - [self padding],
+								   size.height);
+	currentY = CGRectGetMaxY(_titleLabel.frame);
+	currentY += [self padding];
+	
+	CGFloat buttonY = containerBounds.size.height - [self buttonHeight] - [self padding] * 0.5;
+	
+	// Y value before buttons at bottom - currentY
+	CGFloat bodyMaxHeight = (buttonY - [self padding]) - currentY;
+	CGSize bodyMaxSize = CGSizeMake(containerBounds.size.width - leftX - [self padding], bodyMaxHeight);
+	CGSize bodySize =[YRDFontSizing sizeForString:_messageLabel.text font:_messageLabel.font
+										  maxSize:bodyMaxSize lineBreakMode:NSLineBreakByWordWrapping];
+	_messageLabel.frame = CGRectMake(leftX, currentY, bodySize.width, bodySize.height);
+	
+	CGRect buttonsRect = CGRectMake(leftX, buttonY, containerBounds.size.width - leftX - [self padding], [self buttonHeight]);
+	[self layoutButtonsInRect:buttonsRect];
 }
 
 - (void)layoutButtonsInRect:(CGRect)rect

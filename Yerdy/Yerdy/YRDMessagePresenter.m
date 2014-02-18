@@ -10,6 +10,7 @@
 #import "Yerdy.h"
 #import "YRDAppActionParser.h"
 #import "YRDLog.h"
+#import "YRDMessagePresenterImage.h"
 #import "YRDMessagePresenterSystem.h"
 #import "YRDMessage.h"
 #import "YRDURLConnection.h"
@@ -21,6 +22,8 @@
 {
 	if (message.style == YRDMessageStyleSystem)
 		return [[YRDMessagePresenterSystem alloc] initWithMessage:message window:window];
+	else if (message.style == YRDMessageStyleImage)
+		return [[YRDMessagePresenterImage alloc] initWithMessage:message window:window];
 	else
 		return nil; // TODO: Support all message styles
 }

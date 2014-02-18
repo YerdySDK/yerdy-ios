@@ -10,6 +10,10 @@
 		47230D9318AE9E29002A64AE /* YRDInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230D9218AE9E29002A64AE /* YRDInAppPurchase.m */; };
 		47230D9618AE9E9E002A64AE /* YRDReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230D9518AE9E9E002A64AE /* YRDReward.m */; };
 		47230D9918AE9F60002A64AE /* YRDItemPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230D9818AE9F60002A64AE /* YRDItemPurchase.m */; };
+		47230DA618B3BF58002A64AE /* YRDMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230DA518B3BF58002A64AE /* YRDMessageViewController.m */; };
+		47230DA918B3BFF1002A64AE /* YRDMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230DA818B3BFF1002A64AE /* YRDMessageView.m */; };
+		47230DAC18B3CF80002A64AE /* YRDFontSizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230DAB18B3CF80002A64AE /* YRDFontSizing.m */; };
+		47230DAF18B3D2EB002A64AE /* YRDMessagePresenterImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230DAE18B3D2EB002A64AE /* YRDMessagePresenterImage.m */; };
 		477DADF018AD383900F72CA1 /* YRDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 477DADEF18AD383900F72CA1 /* YRDWebViewController.m */; };
 		477DADF318AD3A5600F72CA1 /* YRDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 477DADF218AD3A5600F72CA1 /* YRDViewController.m */; };
 		477DADF618AD4AC800F72CA1 /* YRDViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 477DADF518AD4AC800F72CA1 /* YRDViewControllerManager.m */; };
@@ -57,6 +61,14 @@
 		47230D9B18AEA0E6002A64AE /* YRDReward_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDReward_Private.h; sourceTree = "<group>"; };
 		47230D9C18AEA0FF002A64AE /* YRDItemPurchase_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDItemPurchase_Private.h; sourceTree = "<group>"; };
 		47230D9D18AEA113002A64AE /* YRDInAppPurchase_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDInAppPurchase_Private.h; sourceTree = "<group>"; };
+		47230DA418B3BF58002A64AE /* YRDMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessageViewController.h; sourceTree = "<group>"; };
+		47230DA518B3BF58002A64AE /* YRDMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessageViewController.m; sourceTree = "<group>"; };
+		47230DA718B3BFF1002A64AE /* YRDMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessageView.h; sourceTree = "<group>"; };
+		47230DA818B3BFF1002A64AE /* YRDMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessageView.m; sourceTree = "<group>"; };
+		47230DAA18B3CF80002A64AE /* YRDFontSizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDFontSizing.h; sourceTree = "<group>"; };
+		47230DAB18B3CF80002A64AE /* YRDFontSizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDFontSizing.m; sourceTree = "<group>"; };
+		47230DAD18B3D2EB002A64AE /* YRDMessagePresenterImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessagePresenterImage.h; sourceTree = "<group>"; };
+		47230DAE18B3D2EB002A64AE /* YRDMessagePresenterImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagePresenterImage.m; sourceTree = "<group>"; };
 		477DADEE18AD383900F72CA1 /* YRDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDWebViewController.h; sourceTree = "<group>"; };
 		477DADEF18AD383900F72CA1 /* YRDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDWebViewController.m; sourceTree = "<group>"; };
 		477DADF118AD3A5600F72CA1 /* YRDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDViewController.h; sourceTree = "<group>"; };
@@ -181,6 +193,8 @@
 				95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */,
 				95F97B9F18AB3C8B00C65D10 /* YRDMessagePresenterSystem.h */,
 				95F97BA018AB3C8B00C65D10 /* YRDMessagePresenterSystem.m */,
+				47230DAD18B3D2EB002A64AE /* YRDMessagePresenterImage.h */,
+				47230DAE18B3D2EB002A64AE /* YRDMessagePresenterImage.m */,
 				477DADF418AD4AC800F72CA1 /* YRDViewControllerManager.h */,
 				477DADF518AD4AC800F72CA1 /* YRDViewControllerManager.m */,
 				477DADF118AD3A5600F72CA1 /* YRDViewController.h */,
@@ -204,6 +218,12 @@
 				47230D9518AE9E9E002A64AE /* YRDReward.m */,
 				95ECDF3618B3140F00E2FEB7 /* YRDTimer.h */,
 				95ECDF3718B3140F00E2FEB7 /* YRDTimer.m */,
+				47230DA418B3BF58002A64AE /* YRDMessageViewController.h */,
+				47230DA518B3BF58002A64AE /* YRDMessageViewController.m */,
+				47230DA718B3BFF1002A64AE /* YRDMessageView.h */,
+				47230DA818B3BFF1002A64AE /* YRDMessageView.m */,
+				47230DAA18B3CF80002A64AE /* YRDFontSizing.h */,
+				47230DAB18B3CF80002A64AE /* YRDFontSizing.m */,
 				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
@@ -281,12 +301,14 @@
 			files = (
 				95F97BA118AB3C8B00C65D10 /* YRDMessagePresenterSystem.m in Sources */,
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
+				47230DAF18B3D2EB002A64AE /* YRDMessagePresenterImage.m in Sources */,
 				95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */,
 				47230D9918AE9F60002A64AE /* YRDItemPurchase.m in Sources */,
 				479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */,
 				47E9B6C418A9450D004A622F /* YRDLog.m in Sources */,
 				95F97BAA18ADD67600C65D10 /* YRDDelayedBlock.m in Sources */,
 				47230D9618AE9E9E002A64AE /* YRDReward.m in Sources */,
+				47230DAC18B3CF80002A64AE /* YRDFontSizing.m in Sources */,
 				95F97B9E18AB3BDE00C65D10 /* YRDMessagePresenter.m in Sources */,
 				47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */,
 				477DADF318AD3A5600F72CA1 /* YRDViewController.m in Sources */,
@@ -295,6 +317,7 @@
 				95ECDF3518B3126600E2FEB7 /* YRDTimeTracker.m in Sources */,
 				95ECDF3818B3140F00E2FEB7 /* YRDTimer.m in Sources */,
 				95F97BA418ADD34A00C65D10 /* YRDLaunchRequest.m in Sources */,
+				47230DA618B3BF58002A64AE /* YRDMessageViewController.m in Sources */,
 				4790C48218A06014001BBD3D /* YRDUtil.m in Sources */,
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
 				479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */,
@@ -304,6 +327,7 @@
 				47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */,
 				477DADF618AD4AC800F72CA1 /* YRDViewControllerManager.m in Sources */,
 				477DADF018AD383900F72CA1 /* YRDWebViewController.m in Sources */,
+				47230DA918B3BFF1002A64AE /* YRDMessageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,8 +39,10 @@
 
 - (void)loadView
 {
-	self.view = [[UIView alloc] init];
-	self.view.backgroundColor = [UIColor clearColor];
+	if (!self.isViewLoaded) {
+		self.view = [[UIView alloc] init];
+		self.view.backgroundColor = [UIColor clearColor];
+	}
 	[self sizeViewToScreen];
 }
 

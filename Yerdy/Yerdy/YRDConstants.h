@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+#define YRD_COMPILING_FOR_IOS_7 1
+#endif
+
+
 extern NSString *YRDBaseURL;
 extern NSTimeInterval YRDRequestTimeout;
 
@@ -25,3 +30,5 @@ extern NSString *YRDResumesDefaultsKey;
 extern NSString *YRDExitsDefaultsKey;
 
 extern NSString *YRDPushTokenDefaultsKey;
+
+extern NSString *YRDTimePlayedDefaultsKey;

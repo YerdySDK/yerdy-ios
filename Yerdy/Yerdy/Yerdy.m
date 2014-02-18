@@ -16,6 +16,7 @@
 #import "YRDMessage.h"
 #import "YRDMessagesRequest.h"
 #import "YRDMessagePresenter.h"
+#import "YRDTimeTracker.h"
 #import "YRDURLConnection.h"
 
 #import "YRDInAppPurchase.h"
@@ -35,6 +36,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	NSDate *_lastBackground;
 	YRDDelayedBlock *_delayedLaunchCall;
 	YRDLaunchTracker *_launchTracker;
+	YRDTimeTracker *_timeTracker;
 	
 	NSMutableArray *_messages;
 	YRDMessagePresenter *_messagePresenter;
@@ -69,6 +71,8 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	_publisherKey = publisherKey;
 	_launchTracker = [[YRDLaunchTracker alloc] init];
 	_launchTracker.delegate = self;
+	
+	_timeTracker = [[YRDTimeTracker alloc] init];
 	
 	[self reportLaunch:YES];
 	

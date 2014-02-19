@@ -128,11 +128,11 @@ static const double ErrorRatio = 2.0;
 	[userDefaults setDouble:timePlayed forKey:YRDTimePlayedDefaultsKey];
 	
 	// determine whether or not we should fire a YRDTimeTrackerMinutePassedNotification
-	int lastMinutesReported = [userDefaults integerForKey:YRDMinutesPlayedDefaultsKey];
+	NSInteger lastMinutesReported = [userDefaults integerForKey:YRDMinutesPlayedDefaultsKey];
 	int minutesPassed = (int)floor((timePlayed + (FireInterval * ToleranceRatio)) / 60.0);
 	
 	// very unlikely, but if things get really out of whack, we may fire 2 (or more) notifications
-	for (int i = lastMinutesReported; i < minutesPassed; i++) {
+	for (NSInteger i = lastMinutesReported; i < minutesPassed; i++) {
 		NSDictionary *userInfo = @{
 			YRDTimeTrackerMinutesPassedKey : @(i),
 			YRDTimeTrackerTimePlayedKey : @(timePlayed)

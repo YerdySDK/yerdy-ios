@@ -18,7 +18,8 @@
 
 - (id)initWithWindow:(UIWindow *)window message:(YRDMessage *)message;
 
-// Attached via YRDMessageView
+// Outlets/actions attached via YRDMessageView
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
 - (IBAction)confirmTapped:(id)sender;
 - (IBAction)cancelTapped:(id)sender;
 

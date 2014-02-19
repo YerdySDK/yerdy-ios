@@ -7,7 +7,9 @@
 //
 
 #import "YRDMessageViewController.h"
+#import "YRDMessage.h"
 #import "YRDMessageView.h"
+#import "YRDImageCache.h"
 
 @interface YRDMessageViewController ()
 {
@@ -32,6 +34,16 @@
 {
 	self.view = [[YRDMessageView alloc] initWithViewController:self message:_message];
 	[super loadView];
+}
+
+- (void)viewDidLoad
+{
+	if (_message.image) {
+		__weak UIImageView *weakImageView = _imageView;
+		[[YRDImageCache sharedCache] loadImageAtURL:_message.image completionHandler:^(UIImage *image) {
+			weakImageView.image = image;
+		}];
+	}
 }
 
 - (IBAction)confirmTapped:(id)sender

@@ -25,6 +25,8 @@
 		479B283218AAAAB600148BB7 /* YRDResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B283118AAAAB600148BB7 /* YRDResponseHandler.m */; };
 		479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B283418AABB2900148BB7 /* YRDJSONResponseHandler.m */; };
 		479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */; };
+		47CEA48E18B526F00097A90C /* YRDImageResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CEA48D18B526F00097A90C /* YRDImageResponseHandler.m */; };
+		47CEA49118B527E90097A90C /* YRDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CEA49018B527E90097A90C /* YRDImageCache.m */; };
 		47E9B6C418A9450D004A622F /* YRDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C318A9450D004A622F /* YRDLog.m */; };
 		47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C718A94CA7004A622F /* YRDRequest.m */; };
 		47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6CA18A95029004A622F /* YRDURLConnection.m */; };
@@ -94,6 +96,10 @@
 		479B283618AAC0A100148BB7 /* YRDJSONType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDJSONType.h; sourceTree = "<group>"; };
 		479B283718AAC74D00148BB7 /* YRDLaunchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDLaunchResponse.h; sourceTree = "<group>"; };
 		479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLaunchResponse.m; sourceTree = "<group>"; };
+		47CEA48C18B526F00097A90C /* YRDImageResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDImageResponseHandler.h; sourceTree = "<group>"; };
+		47CEA48D18B526F00097A90C /* YRDImageResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDImageResponseHandler.m; sourceTree = "<group>"; };
+		47CEA48F18B527E90097A90C /* YRDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDImageCache.h; sourceTree = "<group>"; };
+		47CEA49018B527E90097A90C /* YRDImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDImageCache.m; sourceTree = "<group>"; };
 		47E9B6C218A9450D004A622F /* YRDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDLog.h; sourceTree = "<group>"; };
 		47E9B6C318A9450D004A622F /* YRDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLog.m; sourceTree = "<group>"; };
 		47E9B6C518A94557004A622F /* YRDDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDDefines.h; sourceTree = "<group>"; };
@@ -224,6 +230,10 @@
 				47230DA818B3BFF1002A64AE /* YRDMessageView.m */,
 				47230DAA18B3CF80002A64AE /* YRDFontSizing.h */,
 				47230DAB18B3CF80002A64AE /* YRDFontSizing.m */,
+				47CEA48C18B526F00097A90C /* YRDImageResponseHandler.h */,
+				47CEA48D18B526F00097A90C /* YRDImageResponseHandler.m */,
+				47CEA48F18B527E90097A90C /* YRDImageCache.h */,
+				47CEA49018B527E90097A90C /* YRDImageCache.m */,
 				4790C47918A057ED001BBD3D /* Statistics */,
 			);
 			path = Yerdy;
@@ -300,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95F97BA118AB3C8B00C65D10 /* YRDMessagePresenterSystem.m in Sources */,
+				47CEA48E18B526F00097A90C /* YRDImageResponseHandler.m in Sources */,
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
 				47230DAF18B3D2EB002A64AE /* YRDMessagePresenterImage.m in Sources */,
 				95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */,
@@ -322,6 +333,7 @@
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
 				479B283518AABB2900148BB7 /* YRDJSONResponseHandler.m in Sources */,
 				95F97BAD18ADE4F500C65D10 /* YRDAppActionParser.m in Sources */,
+				47CEA49118B527E90097A90C /* YRDImageCache.m in Sources */,
 				95F97BA718ADD3FC00C65D10 /* YRDMessagesRequest.m in Sources */,
 				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
 				47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */,

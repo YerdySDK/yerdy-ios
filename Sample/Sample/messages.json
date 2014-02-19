@@ -5,7 +5,7 @@
 		"placement": "launch",
 		"message_title": "Review Site",
 		"message_text": "Please visit us!",
-		"image": null,
+		"image": "http://services.yerdy.com/images/testimage.jpg",
 		"confirm_label": "NOW",
 		"cancel_label": "Later",
 		"click": "http://services.yerdy.com/",

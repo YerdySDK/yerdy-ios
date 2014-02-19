@@ -80,10 +80,10 @@ typedef enum YRDButtonType {
 	_expiryLabel.textAlignment = UITextAlignmentCenter;
 	[_contentContainer addSubview:_expiryLabel];
 	
-	_imageView = [[UIImageView alloc] init];
+	 _imageView = [[UIImageView alloc] init];
 	_imageView.backgroundColor = [UIColor greenColor];// [self containerBackgroundColor];
 	[_contentContainer addSubview:_imageView];
-	// TODO: Load image via network
+	viewController.imageView = _imageView;
 	
 	NSMutableArray *buttons = [NSMutableArray array];
 	if (message.confirmLabel.length > 0 && message.cancelLabel.length > 0) {

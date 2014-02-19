@@ -12,6 +12,7 @@
 		479B282518AAA2FE00148BB7 /* HTTPMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B282418AAA2FE00148BB7 /* HTTPMock.m */; };
 		479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 479B282618AAA67C00148BB7 /* HTTPMock.plist */; };
 		479B282918AAA69F00148BB7 /* launch.json in Resources */ = {isa = PBXBuildFile; fileRef = 479B282818AAA69F00148BB7 /* launch.json */; };
+		47CEA49318B532C80097A90C /* testimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47CEA49218B532C80097A90C /* testimage.jpg */; };
 		47FFC78D18A93D900019673B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78C18A93D900019673B /* Foundation.framework */; };
 		47FFC78F18A93D900019673B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78E18A93D900019673B /* CoreGraphics.framework */; };
 		47FFC79118A93D900019673B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC79018A93D900019673B /* UIKit.framework */; };
@@ -32,6 +33,7 @@
 		479B282418AAA2FE00148BB7 /* HTTPMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMock.m; sourceTree = "<group>"; };
 		479B282618AAA67C00148BB7 /* HTTPMock.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTPMock.plist; sourceTree = "<group>"; };
 		479B282818AAA69F00148BB7 /* launch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = launch.json; sourceTree = "<group>"; };
+		47CEA49218B532C80097A90C /* testimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testimage.jpg; sourceTree = "<group>"; };
 		47FFC78918A93D900019673B /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47FFC78C18A93D900019673B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		47FFC78E18A93D900019673B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -120,6 +122,7 @@
 				47FFC79818A93D900019673B /* main.m */,
 				47FFC79A18A93D900019673B /* Sample-Prefix.pch */,
 				479B282618AAA67C00148BB7 /* HTTPMock.plist */,
+				47CEA49218B532C80097A90C /* testimage.jpg */,
 				479B282818AAA69F00148BB7 /* launch.json */,
 				95AA850F18AB2A0B0022D6CC /* messages.json */,
 				47230DB218B3F4E9002A64AE /* Images.xcassets */,
@@ -187,6 +190,7 @@
 				479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */,
 				47FFC7C518A93DEC0019673B /* ViewController~iphone.xib in Resources */,
 				95AA851018AB2A0B0022D6CC /* messages.json in Resources */,
+				47CEA49318B532C80097A90C /* testimage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

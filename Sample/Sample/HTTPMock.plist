@@ -6,5 +6,7 @@
 	<string>launch.json</string>
 	<key>http://services.yerdy.com/messages.php</key>
 	<string>messages.json</string>
+	<key>http://services.yerdy.com/images/testimage.jpg</key>
+	<string>testimage.jpg</string>
 </dict>
 </plist>

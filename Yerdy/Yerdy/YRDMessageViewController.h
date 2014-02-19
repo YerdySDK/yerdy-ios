@@ -18,7 +18,11 @@
 
 - (id)initWithWindow:(UIWindow *)window message:(YRDMessage *)message;
 
+- (void)present;
+- (void)dismiss;
+
 // Outlets/actions attached via YRDMessageView
+@property (nonatomic, strong) IBOutlet UIView *containerView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 - (IBAction)confirmTapped:(id)sender;
 - (IBAction)cancelTapped:(id)sender;

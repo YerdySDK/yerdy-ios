@@ -22,19 +22,19 @@
 {
 	_viewController = [[YRDMessageViewController alloc] initWithWindow:self.window message:self.message];
 	_viewController.delegate = self;
-	[_viewController addToWindow];
+	[_viewController present];
 }
 
 - (void)messageViewControllerFinishedWithConfirm:(YRDMessageViewController *)viewController
 {
 	[self messageClicked];
-	[_viewController removeFromWindow];
+	[_viewController dismiss];
 }
 
 - (void)messageViewControllerFinishedWithCancel:(YRDMessageViewController *)viewController
 {
 	[self messageCancelled];
-	[_viewController removeFromWindow];
+	[_viewController dismiss];
 }
 
 @end

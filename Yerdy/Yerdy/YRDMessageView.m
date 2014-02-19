@@ -56,6 +56,7 @@ typedef enum YRDButtonType {
 	_contentContainer.backgroundColor = [self containerBackgroundColor];
 	_contentContainer.opaque = YES;
 	[self addSubview:_contentContainer];
+	viewController.containerView = _contentContainer;
 	
 	_titleLabel = [[UILabel alloc] init];
 	_titleLabel.text = message.messageTitle;

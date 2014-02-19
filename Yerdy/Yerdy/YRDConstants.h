@@ -13,6 +13,8 @@
 #define YRD_COMPILING_FOR_IOS_7 1
 #endif
 
+#define YRD_IS_4_INCH_RETINA() (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && [UIScreen mainScreen].bounds.size.height == 568.0)
+
 
 extern NSString *YRDBaseURL;
 extern NSTimeInterval YRDRequestTimeout;

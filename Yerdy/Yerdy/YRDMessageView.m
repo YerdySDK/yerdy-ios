@@ -7,9 +7,11 @@
 //
 
 #import "YRDMessageView.h"
+#import "YRDConstants.h"
 #import "YRDMessageViewController.h"
 #import "YRDMessage.h"
 #import "YRDFontSizing.h"
+
 
 typedef enum YRDButtonType {
 	YRDButtonTypeCancel,
@@ -268,7 +270,9 @@ typedef enum YRDButtonType {
 // also defines the width & height of the image
 - (CGFloat)shortDimension
 {
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+	if (YRD_IS_4_INCH_RETINA()) {
+		return 300.0;
+	} else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
 		return 240.0;
 	} else {
 		return 560.0;

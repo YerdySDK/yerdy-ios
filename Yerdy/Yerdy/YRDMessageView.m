@@ -81,7 +81,7 @@ typedef enum YRDButtonType {
 	[_contentContainer addSubview:_expiryLabel];
 	
 	 _imageView = [[UIImageView alloc] init];
-	_imageView.backgroundColor = [UIColor greenColor];// [self containerBackgroundColor];
+	_imageView.backgroundColor = [UIColor blackColor];
 	[_contentContainer addSubview:_imageView];
 	viewController.imageView = _imageView;
 	
@@ -304,7 +304,7 @@ typedef enum YRDButtonType {
 
 - (UIColor *)containerBackgroundColor
 {
-	return [UIColor redColor];
+	return [UIColor darkGrayColor];
 }
 
 - (UIColor *)textColor

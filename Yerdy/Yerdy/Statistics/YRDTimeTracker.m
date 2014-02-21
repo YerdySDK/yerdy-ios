@@ -145,4 +145,20 @@ static const double ErrorRatio = 2.0;
 	[userDefaults setInteger:minutesPassed forKey:YRDMinutesPlayedDefaultsKey];
 }
 
+
+- (NSTimeInterval)timePlayed
+{
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSTimeInterval timePlayed = [userDefaults doubleForKey:YRDTimePlayedDefaultsKey];
+	
+	NSTimeInterval timePassed = [[NSDate date] timeIntervalSinceDate:_lastCheckpoint];
+	
+	// only add timePassed if it isn't a really weird value
+	if (!(timePassed <= 0.0 || timePassed >= FireInterval * ErrorRatio)) {
+		timePlayed += timePassed;
+	}
+	
+	return timePlayed;
+}
+
 @end

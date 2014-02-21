@@ -23,4 +23,6 @@ extern NSString *YRDTimeTrackerTimePlayedKey;
 
 @interface YRDTimeTracker : NSObject
 
+@property (nonatomic, readonly) NSTimeInterval timePlayed;
+
 @end

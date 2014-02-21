@@ -10,6 +10,7 @@
 
 @interface YRDLaunchRequest : YRDRequest
 
-+ (instancetype)launchRequest;
++ (instancetype)launchRequestWithToken:(NSData *)token launches:(int)launches
+							   crashes:(int)crashes playtime:(NSTimeInterval)playtime;
 
 @end

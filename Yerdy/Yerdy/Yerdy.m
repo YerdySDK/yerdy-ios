@@ -96,7 +96,10 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		// TODO: Should we call messages.php if the launch call fails?
 		//		 Should we call -yerdyConnected if one or both of the calls fails?
 		//		 Should we call -yerdyConnected if this is a resume launch
-		YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequest];
+		YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequestWithToken:self.pushToken
+																		  launches:_launchTracker.launchCount
+																		   crashes:_launchTracker.crashCount
+																		  playtime:_timeTracker.timePlayed];
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 			if (!response.success) {
 				YRDError(@"Failed to report launch: %@", error);

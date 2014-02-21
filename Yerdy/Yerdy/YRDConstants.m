@@ -13,6 +13,8 @@ NSTimeInterval YRDRequestTimeout = 10.0;
 
 NSString *YRDErrorDomain = @"com.yerdy.Error";
 
+NSString *YRDCustomDeviceIDDefaultsKey = @"YRDCustomDeviceID";
+
 NSString *YRDAppVersionDefaultsKey = @"YRDLastKnownAppVersion";
 NSString *YRDLaunchesDefaultsKey = @"YRDLaunchCount";
 NSString *YRDResumesDefaultsKey = @"YRDResumeCount";

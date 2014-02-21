@@ -13,14 +13,28 @@
 
 @interface YRDRequest : NSObject
 
+// Used to sign requests.
++ (void)setPublisherKey:(NSString *)publisherKey;
+
+
 @property (nonatomic, strong) YRDResponseHandler *responseHandler;
 
-@property (nonatomic, strong) NSURL *URL;
+// URL without query string (unless query string was included in URL passed to -initWithURL)
+@property (nonatomic, readonly) NSURL *URL;
+@property (nonatomic, readonly) NSDictionary *queryParameters;
 
-// Creates a request with an absolute URL
+// URL with query string appended
+@property (nonatomic, readonly) NSURL *fullURL;
+
+// Creates a request with an absolute URL.  No modifications are made (in terms of
+// query string, etc..)
 - (id)initWithURL:(NSURL *)URL;
-// Creates a request relative to YRDBaseURL
+
+// Creates a request relative to YRDBaseURL.  Default query string parameters
+// (publisherid/bundleid/deviceid/v) are automatically added, in addition to any
+// additional parameters passed in
 - (id)initWithPath:(NSString *)path;
+- (id)initWithPath:(NSString *)path queryParameters:(NSDictionary *)queryParameters;
 
 - (NSURLRequest *)urlRequest;
 

@@ -83,7 +83,7 @@
 		[openConnections addObject:self];
 	}
 	
-	YRDDebug(@"Sending request: %@", _request.URL);
+	YRDDebug(@"Sending request: %@", _request.fullURL);
 	
 	NSURLRequest *request = _request.urlRequest;
 	
@@ -95,9 +95,9 @@
 - (void)finishRequestWithResponse:(id)response error:(NSError *)error
 {
 	if (response) {
-		YRDDebug(@"Request successful: %@", _request.URL);
+		YRDDebug(@"Request successful: %@", _request.fullURL);
 	} else {
-		YRDDebug(@"Request failed: %@: %@", _request.URL, error);
+		YRDDebug(@"Request failed: %@: %@", _request.fullURL, error);
 	}
 	
 	if (_completionHandler) {

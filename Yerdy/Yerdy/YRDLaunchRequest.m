@@ -9,16 +9,52 @@
 #import "YRDLaunchRequest.h"
 #import "YRDJSONResponseHandler.h"
 #import "YRDLaunchResponse.h"
+#import "YRDUtil.h"
+
+#import <UIKit/UIKit.h>
+
+static NSString *Path = @"/stats/launch.php";
 
 
 @implementation YRDLaunchRequest
 
-+ (instancetype)launchRequest
++ (instancetype)launchRequestWithToken:(NSData *)token launches:(int)launches crashes:(int)crashes playtime:(NSTimeInterval)playtime
 {
-	YRDLaunchRequest *request = [[self alloc] initWithPath:@"/launch.php"];
-	// TODO: Add appropriate parameters
+	NSDictionary *queryParameters = [self queryParametersForToken:token launches:launches
+														  crashes:crashes playtime:playtime];
+	
+	YRDLaunchRequest *request = [[self alloc] initWithPath:Path queryParameters:queryParameters];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class]];
 	return request;
+}
+
++ (NSDictionary *)queryParametersForToken:(NSData *)token launches:(int)launches crashes:(int)crashes playtime:(NSTimeInterval)playtime
+{
+	// timezone string format: -700 for -7 hours, 300 for +3 hours, etc...
+	NSTimeZone *timezone = [NSTimeZone localTimeZone];
+	NSString *timezoneString = [NSString stringWithFormat:@"%04.0d", [timezone secondsFromGMT] / 36];
+	
+	UIDevice *device = [UIDevice currentDevice];
+	NSString *os = [NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion];
+	
+	NSLocale *locale = [NSLocale currentLocale];
+	NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
+	NSString *languageCode = [locale objectForKey:NSLocaleLanguageCode];
+	
+	// TODO: Add currency
+	return @{
+		@"api" : @2,
+		@"token" : YRDToString([YRDUtil base64String:token]),
+		@"token_type" : @"apn",
+		@"timezone" : YRDToString(timezoneString),
+		@"type" : YRDToString(device.model),
+		@"os" : YRDToString(os),
+		@"country" : YRDToString(countryCode),
+		@"language" : YRDToString(languageCode),
+		@"launches" : @(launches),
+		@"crashes" : @(crashes),
+		@"playtime" : @((int)roundf(playtime)),
+	};
 }
 
 @end

@@ -8,9 +8,18 @@
 
 #import "YRDRequest.h"
 #import "YRDConstants.h"
+#import "YRDUtil.h"
+
+static NSString *PublisherKey;
 
 
 @implementation YRDRequest
+
++ (void)setPublisherKey:(NSString *)publisherKey
+{
+	PublisherKey = publisherKey;
+}
+
 
 - (id)initWithURL:(NSURL *)URL;
 {
@@ -25,19 +34,67 @@
 
 - (id)initWithPath:(NSString *)path
 {
-	NSURL *base = [NSURL URLWithString:YRDBaseURL];
-	NSURL *URL = [NSURL URLWithString:path relativeToURL:base];
-	
-	return [self initWithURL:URL];
+	return [self initWithPath:path queryParameters:nil];
 }
 
-
+- (id)initWithPath:(NSString *)path queryParameters:(NSDictionary *)queryParameters
+{
+	self = [super init];
+	if (!self)
+		return nil;
+	
+	NSURL *base = [NSURL URLWithString:YRDBaseURL];
+	_URL = [NSURL URLWithString:path relativeToURL:base];
+	
+	NSMutableDictionary *params = [[self defaultQueryParameters] mutableCopy];
+	if (queryParameters)
+		[params addEntriesFromDictionary:params];
+	
+	_queryParameters = queryParameters;
+		
+	return self;
+}
 
 - (NSURLRequest *)urlRequest
 {
-	return [NSURLRequest requestWithURL:_URL
+	return [NSURLRequest requestWithURL:self.fullURL
 							cachePolicy:NSURLRequestUseProtocolCachePolicy
 						timeoutInterval:YRDRequestTimeout];
+}
+
+- (NSURL *)fullURL
+{
+	NSString *absoluteString = [_URL absoluteString];
+	NSString *withQuery = [absoluteString stringByAppendingString:[self queryStringForRequest]];
+	return [NSURL URLWithString:withQuery];
+}
+
+- (NSDictionary *)defaultQueryParameters
+{
+	return @{
+		@"publisherid" : YRDToString(PublisherKey),
+		@"bundleid" : YRDToString([YRDUtil appBundleIdentifierAndPlatform]),
+		@"deviceid" : YRDToString([YRDUtil deviceIdentifier]),
+		@"fmt" : @"json",
+	};
+}
+
+// Includes '?'
+- (NSString *)queryStringForRequest
+{
+	if (_queryParameters.count == 0)
+		return @"";
+	
+	NSMutableArray *pairs = [NSMutableArray array];
+	for (NSString *key in _queryParameters) {
+		NSString *value = YRDToString(_queryParameters[key]);
+		NSString *pair = [NSString stringWithFormat:@"%@=%@",
+						  [YRDUtil URLEncode:key],
+						  [YRDUtil URLEncode:value]];
+		[pairs addObject:pair];
+	}
+	
+	return [@"?" stringByAppendingString:[pairs componentsJoinedByString:@"&"]];
 }
 
 @end

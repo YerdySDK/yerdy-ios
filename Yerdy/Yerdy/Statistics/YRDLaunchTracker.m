@@ -108,7 +108,7 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger launches = [defaults integerForKey:YRDLaunchesDefaultsKey];
 	NSInteger resumes = [defaults integerForKey:YRDResumesDefaultsKey];
-	NSInteger exits = [defaults integerForKey:YRDResumesDefaultsKey];
+	NSInteger exits = [defaults integerForKey:YRDExitsDefaultsKey];
 	
 	NSInteger crashes = launches + resumes - exits;
 	// launches + resumes will be 1 higher than exits if we haven't exited the app yet
@@ -135,6 +135,7 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	}
 	
 	[defaults setInteger:launches + 1 forKey:key];
+	[defaults synchronize];
 	_countedLaunch = YES;
 	_countedExit = NO;
 }
@@ -145,15 +146,16 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 		return;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSInteger launches = [defaults integerForKey:YRDLaunchesDefaultsKey];
+	NSInteger exits = [defaults integerForKey:YRDExitsDefaultsKey];
 	
 	// fix messed up counters
-	if (launches < 0) {
+	if (exits < 0) {
 		[self reset];
-		launches = 0;
+		exits = 0;
 	}
 	
-	[defaults setInteger:launches + 1 forKey:YRDLaunchesDefaultsKey];
+	[defaults setInteger:exits + 1 forKey:YRDExitsDefaultsKey];
+	[defaults synchronize];
 	_countedLaunch = NO;
 	_countedExit = YES;
 }

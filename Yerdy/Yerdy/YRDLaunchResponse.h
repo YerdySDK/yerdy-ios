@@ -7,9 +7,14 @@
 //
 
 #import "YRDJSONType.h"
+#import "YRDUserType.h"
 
 @interface YRDLaunchResponse : NSObject <YRDJSONType>
 
 @property (nonatomic, assign) BOOL success;
+@property (nonatomic, assign) YRDUserType userType;
+@property (nonatomic, strong) NSString *tag;
+@property (nonatomic, strong) NSString *secret;
+@property (nonatomic, strong) NSDate *timestamp;
 
 @end

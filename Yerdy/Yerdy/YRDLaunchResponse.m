@@ -14,14 +14,27 @@
 {
 	return @{
 		@"success" : @"success",
+		@"type" : @"userType",
+		@"tag" : @"tag",
+		@"secret" : @"secret",
+		@"timestamp" : @"timestamp",
 	};
 }
 
 + (NSDictionary *)jsonTypeConversions
 {
 	return @{
-			 @"success" : (id(^)(id))^(id input) {
+			 @"success" : ^id(id input) {
 				 return @([input boolValue]);
+			 },
+			 @"type" : ^id(id input) {
+				 if ([input isEqual:@"none"]) return @(YRDUserTypeNone);
+				 else if ([input isEqual:@"cheat"]) return @(YRDUserTypeCheat);
+				 else if ([input isEqual:@"pay"]) return @(YRDUserTypePay);
+				 return @(YRDUserTypeNone);
+			 },
+			 @"timestamp" : ^id(id input) {
+				 return [NSDate dateWithTimeIntervalSince1970:[input doubleValue]];
 			 },
 	};
 }

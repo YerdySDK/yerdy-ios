@@ -43,6 +43,11 @@ static NSString *PublisherKey;
 	if (!self)
 		return nil;
 	
+	// -[NSURL URLWithString:relativeToURL:] uses RFC 1808 to resolve relative URLs
+	// These assertions help to ensure that URLs will be resolved correctly
+	NSAssert([YRDBaseURL hasSuffix:@"/"], @"YRDBaseURL must end with '/'");
+	NSAssert(![path hasPrefix:@"/"], @"path must not start with '/'");
+	
 	NSURL *base = [NSURL URLWithString:YRDBaseURL];
 	_URL = [NSURL URLWithString:path relativeToURL:base];
 	

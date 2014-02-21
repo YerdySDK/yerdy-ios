@@ -13,7 +13,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString *Path = @"/stats/launch.php";
+static NSString *Path = @"stats/launch.php";
 
 
 @implementation YRDLaunchRequest

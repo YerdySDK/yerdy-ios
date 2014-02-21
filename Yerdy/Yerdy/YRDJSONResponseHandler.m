@@ -56,6 +56,11 @@
 		return nil;
 	}
 	
+	// Depending on the call, the object may be in an @attributes key
+	if (!_isArray && [json isKindOfClass:[NSDictionary class]] && json[@"@attributes"] != nil) {
+		json = json[@"@attributes"];
+	}
+	
 	if (_isArray && ![json isKindOfClass:[NSArray class]]) {
 		if (errorOut) *errorOut = [self errorWithFormat:@"Expecting NSArray, but root object was %@", [json class]];
 		return nil;

@@ -29,6 +29,7 @@
 /* Begin PBXFileReference section */
 		47230DB018B3F47A002A64AE /* Default-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568@2x.png"; sourceTree = "<group>"; };
 		47230DB218B3F4E9002A64AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4763E75318B7C715008A253E /* PublisherKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublisherKey.h; sourceTree = "<group>"; };
 		479B282318AAA2FE00148BB7 /* HTTPMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPMock.h; sourceTree = "<group>"; };
 		479B282418AAA2FE00148BB7 /* HTTPMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMock.m; sourceTree = "<group>"; };
 		479B282618AAA67C00148BB7 /* HTTPMock.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTPMock.plist; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		47FFC79218A93D900019673B /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				4763E75318B7C715008A253E /* PublisherKey.h */,
 				47FFC79B18A93D900019673B /* AppDelegate.h */,
 				47FFC79C18A93D900019673B /* AppDelegate.m */,
 				47FFC7A418A93D900019673B /* ViewController.h */,

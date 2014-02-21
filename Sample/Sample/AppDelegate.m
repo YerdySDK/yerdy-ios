@@ -14,6 +14,9 @@
 #import "Yerdy.h"
 #import "YRDLog.h"
 
+#import "PublisherKey.h"
+
+
 @interface AppDelegate () <YerdyDelegate>
 @end
 
@@ -35,7 +38,7 @@
 	
 	YRDSetLogLevel(YRDLogDebug);
 	
-	Yerdy *yerdy = [Yerdy startWithPublisherKey:@"<INSERT PUBLISHER KEY HERE>"];
+	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
 	yerdy.delegate = self;
 	
 	// Fake getting a push token

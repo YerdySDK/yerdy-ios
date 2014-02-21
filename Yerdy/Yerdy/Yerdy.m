@@ -47,13 +47,15 @@ static const NSTimeInterval TokenTimeout = 5.0;
 @implementation Yerdy
 
 + (instancetype)startWithPublisherKey:(NSString *)key
-{	
+{
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		YRDInfo(@"Starting...");
+		
+		[YRDRequest setPublisherKey:key];
 		sharedInstance = [[self alloc] initWithPublisherKey:key];
 	});
-		
+	
 	return sharedInstance;
 }
 

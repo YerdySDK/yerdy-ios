@@ -50,7 +50,7 @@ static NSString *PublisherKey;
 	if (queryParameters)
 		[params addEntriesFromDictionary:params];
 	
-	_queryParameters = queryParameters;
+	_queryParameters = params;
 		
 	return self;
 }

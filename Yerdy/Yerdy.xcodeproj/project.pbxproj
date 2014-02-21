@@ -72,6 +72,7 @@
 		47230DAD18B3D2EB002A64AE /* YRDMessagePresenterImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessagePresenterImage.h; sourceTree = "<group>"; };
 		47230DAE18B3D2EB002A64AE /* YRDMessagePresenterImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessagePresenterImage.m; sourceTree = "<group>"; };
 		4763E75518B80020008A253E /* YRDUserType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDUserType.h; sourceTree = "<group>"; };
+		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
 		477DADEE18AD383900F72CA1 /* YRDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDWebViewController.h; sourceTree = "<group>"; };
 		477DADEF18AD383900F72CA1 /* YRDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDWebViewController.m; sourceTree = "<group>"; };
 		477DADF118AD3A5600F72CA1 /* YRDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDViewController.h; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 				4790C45018A04ECB001BBD3D /* Supporting Files */,
 				4790C47618A0570F001BBD3D /* Yerdy.h */,
 				4790C47718A0570F001BBD3D /* Yerdy.m */,
+				4763E75618B80310008A253E /* Yerdy_Private.h */,
 				95F97B9B18AB386000C65D10 /* YerdyDelegate.h */,
 				47E9B6C518A94557004A622F /* YRDDefines.h */,
 				4790C47D18A05D2C001BBD3D /* YRDConstants.h */,

@@ -7,6 +7,7 @@
 //
 
 #import "Yerdy.h"
+#import "Yerdy_Private.h"
 #import "YRDConstants.h"
 #import "YRDDelayedBlock.h"
 #import "YRDLog.h"
@@ -103,7 +104,9 @@ static const NSTimeInterval TokenTimeout = 5.0;
 																		   crashes:_launchTracker.crashCount
 																		  playtime:_timeTracker.timePlayed];
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
-			if (!response.success) {
+			if (response.success) {
+				weakSelf.ABTag = response.tag;
+			} else {
 				YRDError(@"Failed to report launch: %@", error);
 			}
 			
@@ -125,11 +128,25 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	}
 }
 
-#pragma mark - Push token
+#pragma mark - Persisted properties
+
+- (void)setPersistentObject:(id)object forKey:(NSString *)key
+{
+	if (object) {
+		[[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
+	} else {
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+	}
+}
+
+- (id)persistentObjectForKey:(NSString *)key
+{
+	return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+}
 
 - (void)setPushToken:(NSData *)pushToken
 {
-	[[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:YRDPushTokenDefaultsKey];
+	[self setPersistentObject:pushToken forKey:YRDPushTokenDefaultsKey];
 	if (pushToken != nil) {
 		[_delayedLaunchCall callNow];
 	}
@@ -137,7 +154,17 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (NSData *)pushToken
 {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:YRDPushTokenDefaultsKey];
+	return [self persistentObjectForKey:YRDPushTokenDefaultsKey];
+}
+
+- (void)setABTag:(NSString *)ABTag
+{
+	[self setPersistentObject:ABTag forKey:YRDABTagDefaultsKey];
+}
+
+- (NSString *)ABTag
+{
+	return [self persistentObjectForKey:YRDABTagDefaultsKey];
 }
 
 #pragma mark - Messaging

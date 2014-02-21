@@ -22,6 +22,7 @@ NSString *YRDResumesDefaultsKey = @"YRDResumeCount";
 NSString *YRDExitsDefaultsKey = @"YRDExitCount";
 
 NSString *YRDPushTokenDefaultsKey = @"YRDPushToken";
+NSString *YRDABTagDefaultsKey = @"YRDABTag";
 
 NSString *YRDTimePlayedDefaultsKey = @"YRDTimePlayed";
 NSString *YRDMinutesPlayedDefaultsKey = @"YRDMinutesPlayed";

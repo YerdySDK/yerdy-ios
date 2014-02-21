@@ -34,6 +34,7 @@ extern NSString *YRDResumesDefaultsKey;
 extern NSString *YRDExitsDefaultsKey;
 
 extern NSString *YRDPushTokenDefaultsKey;
+extern NSString *YRDABTagDefaultsKey;
 
 // See YRDTimeTracker
 extern NSString *YRDTimePlayedDefaultsKey;

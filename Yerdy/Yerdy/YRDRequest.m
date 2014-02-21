@@ -48,7 +48,7 @@ static NSString *PublisherKey;
 	
 	NSMutableDictionary *params = [[self defaultQueryParameters] mutableCopy];
 	if (queryParameters)
-		[params addEntriesFromDictionary:params];
+		[params addEntriesFromDictionary:queryParameters];
 	
 	_queryParameters = params;
 		
@@ -75,6 +75,7 @@ static NSString *PublisherKey;
 		@"publisherid" : YRDToString(PublisherKey),
 		@"bundleid" : YRDToString([YRDUtil appBundleIdentifierAndPlatform]),
 		@"deviceid" : YRDToString([YRDUtil deviceIdentifier]),
+		@"v" : YRDToString([YRDUtil appVersion]),
 		@"fmt" : @"json",
 	};
 }

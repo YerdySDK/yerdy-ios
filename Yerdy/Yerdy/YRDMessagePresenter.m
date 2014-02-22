@@ -55,13 +55,10 @@
 																			URL:_message.clickURL];
 		[vc present];
 	} else {
+		[self reportOutcomeToURL:_message.clickURL];
 		YRDAppActionParser *parser = [[YRDAppActionParser alloc] initWithAppAction:_message.action];
 		if (parser != nil) {
 			switch (parser.actionType) {
-				case YRDAppActionTypeEmpty:
-					[self reportOutcomeToURL:_message.clickURL];
-					break;
-					
 				case YRDAppActionTypeInAppPurchase:
 					[_delegate yerdy:_delegate handleInAppPurchase:parser.actionInfo];
 					break;
@@ -72,30 +69,16 @@
 					
 				case YRDAppActionTypeReward:
 					[_delegate yerdy:_delegate handleReward:parser.actionInfo];
-					[self reportOutcomeToURL:_message.clickURL];
 					break;
 					
 				default:
 					break;
 			}
-		} else {
-			YRDError(@"Failed to parse app action '%@', reporting view...", _message.action);
-			[self reportOutcomeToURL:_message.viewURL];
 		}
 	}
 }
 
 - (void)messageCancelled
-{
-	[self reportOutcomeToURL:_message.viewURL];
-}
-
-- (void)reportAppActionSuccess
-{
-	[self reportOutcomeToURL:_message.clickURL];
-}
-
-- (void)reportAppActionFailure
 {
 	[self reportOutcomeToURL:_message.viewURL];
 }

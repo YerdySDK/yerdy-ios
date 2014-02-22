@@ -34,8 +34,5 @@
 - (void)messageClicked;
 - (void)messageCancelled;
 
-// Callbacks for appropriate app actions (see YRDInAppPurchase, YRDItemPurchase)
-- (void)reportAppActionSuccess;
-- (void)reportAppActionFailure;
 
 @end

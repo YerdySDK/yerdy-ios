@@ -12,6 +12,6 @@
 
 @interface YRDItemPurchase (Private)
 
-- (id)initWithMessagePresenter:(YRDMessagePresenter *)messagePresenter item:(NSString *)item;
+- (id)initWithItem:(NSString *)item;
 
 @end

@@ -12,7 +12,4 @@
 
 @property (nonatomic, readonly) NSString *productIdentifier;
 
-- (void)reportSuccess;
-- (void)reportFailure;
-
 @end

@@ -19,7 +19,7 @@
 #import "YRDMessagePresenter.h"
 #import "YRDTimeTracker.h"
 #import "YRDURLConnection.h"
-
+#import "YRDConversionTracker.h"
 #import "YRDInAppPurchase.h"
 #import "YRDItemPurchase.h"
 #import "YRDReward.h"
@@ -41,6 +41,8 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	
 	NSMutableArray *_messages;
 	YRDMessagePresenter *_messagePresenter;
+	
+	YRDConversionTracker *_conversionTracker;
 }
 @end
 
@@ -76,6 +78,8 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	_launchTracker.delegate = self;
 	
 	_timeTracker = [[YRDTimeTracker alloc] init];
+	
+	_conversionTracker = [[YRDConversionTracker alloc] init];
 	
 	[self reportLaunch:YES];
 	
@@ -211,6 +215,8 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	_messagePresenter.delegate = self;
 	[_messagePresenter present];
 	
+	[_conversionTracker didShowMessage:message];
+	
 	return YES;
 }
 
@@ -236,7 +242,6 @@ static const NSTimeInterval TokenTimeout = 5.0;
 - (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase
 {
 	if (![self verifyMessageDelegateSetupFor:_cmd context:@"in app purchase"]) {
-		[purchase reportFailure];
 		return;
 	}
 	[_messageDelegate yerdy:yerdy handleInAppPurchase:purchase];
@@ -245,7 +250,6 @@ static const NSTimeInterval TokenTimeout = 5.0;
 - (void)yerdy:(Yerdy *)yerdy handleItemPurchase:(YRDItemPurchase *)purchase
 {
 	if (![self verifyMessageDelegateSetupFor:_cmd context:@"item purchase"]) {
-		[purchase reportFailure];
 		return;
 	}
 	[_messageDelegate yerdy:yerdy handleItemPurchase:purchase];

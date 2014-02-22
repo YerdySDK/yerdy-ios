@@ -12,7 +12,4 @@
 
 @property (nonatomic, readonly) NSString *item;
 
-- (void)reportSuccess;
-- (void)reportFailure;
-
 @end

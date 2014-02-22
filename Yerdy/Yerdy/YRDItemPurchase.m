@@ -8,38 +8,19 @@
 
 #import "YRDItemPurchase.h"
 #import "YRDItemPurchase_Private.h"
-#import "YRDMessagePresenter.h"
-
-
-@interface YRDItemPurchase ()
-{
-	YRDMessagePresenter *_messagePresenter;
-}
-@end
 
 
 @implementation YRDItemPurchase
 
-- (id)initWithMessagePresenter:(YRDMessagePresenter *)messagePresenter item:(NSString *)item
+- (id)initWithItem:(NSString *)item
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
-	_messagePresenter = messagePresenter;
 	_item = item;
 	
 	return self;
-}
-
-- (void)reportSuccess
-{
-	[_messagePresenter reportAppActionSuccess];
-}
-
-- (void)reportFailure
-{
-	[_messagePresenter reportAppActionFailure];
 }
 
 @end

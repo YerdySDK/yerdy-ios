@@ -13,6 +13,6 @@
 
 @interface YRDInAppPurchase (Private)
 
-- (id)initWithMessagePresenter:(YRDMessagePresenter *)messagePresenter productIdentifier:(NSString *)productIdentifier;
+- (id)initWithProductIdentifier:(NSString *)productIdentifier;
 
 @end

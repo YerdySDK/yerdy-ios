@@ -55,7 +55,7 @@
 																			URL:_message.clickURL];
 		[vc present];
 	} else {
-		YRDAppActionParser *parser = [[YRDAppActionParser alloc] initWithAppAction:_message.action messagePresenter:self];
+		YRDAppActionParser *parser = [[YRDAppActionParser alloc] initWithAppAction:_message.action];
 		if (parser != nil) {
 			switch (parser.actionType) {
 				case YRDAppActionTypeEmpty:

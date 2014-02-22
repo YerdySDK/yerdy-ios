@@ -12,22 +12,14 @@
 #import "YRDReward_Private.h"
 
 
-@interface YRDAppActionParser ()
-{
-	YRDMessagePresenter *_messagePresenter;
-}
-@end
-
-
 @implementation YRDAppActionParser
 
-- (id)initWithAppAction:(NSString *)appAction messagePresenter:(YRDMessagePresenter *)messagePresenter
+- (id)initWithAppAction:(NSString *)appAction
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
-	_messagePresenter = messagePresenter;
 	if (![self parseAction:appAction])
 		return nil;
 	
@@ -59,7 +51,7 @@
 {
 	// Simple product identifier for now (for example, "com.yerdy.YerdySample.GoldHelmet")
 	_actionType = YRDAppActionTypeInAppPurchase;
-	_actionInfo = [[YRDInAppPurchase alloc] initWithMessagePresenter:_messagePresenter productIdentifier:string];
+	_actionInfo = [[YRDInAppPurchase alloc] initWithProductIdentifier:string];
 	return YES;
 }
 
@@ -67,7 +59,7 @@
 {
 	// Simply item name for now (for example, "goldHelmet")
 	_actionType = YRDAppActionTypeItemPurchase;
-	_actionInfo = [[YRDItemPurchase alloc] initWithMessagePresenter:_messagePresenter item:string];
+	_actionInfo = [[YRDItemPurchase alloc] initWithItem:string];
 	return YES;
 }
 

@@ -31,14 +31,8 @@
 @protocol YerdyMessageDelegate <NSObject>
 @optional
 
-// You *MUST* call [purchase reportSuccess] or [purchase reportFailure] depending
-// on whether or not the user completed the in app purchase transaction
 - (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase;
-
-// You *MUST* call [purchase reportSuccess] or [purchase reportFailure] depending
-// on whether or not the user bought the item
 - (void)yerdy:(Yerdy *)yerdy handleItemPurchase:(YRDItemPurchase *)purchase;
-
 - (void)yerdy:(Yerdy *)yerdy handleReward:(YRDReward *)reward;
 
 @end

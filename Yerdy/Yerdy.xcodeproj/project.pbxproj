@@ -31,6 +31,7 @@
 		47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6C718A94CA7004A622F /* YRDRequest.m */; };
 		47E9B6CB18A95029004A622F /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9B6CA18A95029004A622F /* YRDURLConnection.m */; };
 		95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AA851218AB2A2B0022D6CC /* YRDMessage.m */; };
+		95CA641A18B948DA0047D2E2 /* YRDConversionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CA641918B948DA0047D2E2 /* YRDConversionTracker.m */; };
 		95ECDF3518B3126600E2FEB7 /* YRDTimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ECDF3418B3126600E2FEB7 /* YRDTimeTracker.m */; };
 		95ECDF3818B3140F00E2FEB7 /* YRDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ECDF3718B3140F00E2FEB7 /* YRDTimer.m */; };
 		95F97B9E18AB3BDE00C65D10 /* YRDMessagePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F97B9D18AB3BDE00C65D10 /* YRDMessagePresenter.m */; };
@@ -111,6 +112,8 @@
 		47E9B6CA18A95029004A622F /* YRDURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDURLConnection.m; sourceTree = "<group>"; };
 		95AA851118AB2A2B0022D6CC /* YRDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDMessage.h; sourceTree = "<group>"; };
 		95AA851218AB2A2B0022D6CC /* YRDMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDMessage.m; sourceTree = "<group>"; };
+		95CA641818B948DA0047D2E2 /* YRDConversionTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDConversionTracker.h; sourceTree = "<group>"; };
+		95CA641918B948DA0047D2E2 /* YRDConversionTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDConversionTracker.m; sourceTree = "<group>"; };
 		95ECDF3318B3126600E2FEB7 /* YRDTimeTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTimeTracker.h; sourceTree = "<group>"; };
 		95ECDF3418B3126600E2FEB7 /* YRDTimeTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTimeTracker.m; sourceTree = "<group>"; };
 		95ECDF3618B3140F00E2FEB7 /* YRDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTimer.h; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */,
 				95ECDF3318B3126600E2FEB7 /* YRDTimeTracker.h */,
 				95ECDF3418B3126600E2FEB7 /* YRDTimeTracker.m */,
+				95CA641818B948DA0047D2E2 /* YRDConversionTracker.h */,
+				95CA641918B948DA0047D2E2 /* YRDConversionTracker.m */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */,
 				47E9B6C818A94CA7004A622F /* YRDRequest.m in Sources */,
 				477DADF618AD4AC800F72CA1 /* YRDViewControllerManager.m in Sources */,
+				95CA641A18B948DA0047D2E2 /* YRDConversionTracker.m in Sources */,
 				477DADF018AD383900F72CA1 /* YRDWebViewController.m in Sources */,
 				47230DA918B3BFF1002A64AE /* YRDMessageView.m in Sources */,
 			);

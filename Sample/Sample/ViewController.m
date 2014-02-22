@@ -46,26 +46,14 @@
 {
 	NSLog(@"Trying IAP purchase: %@", purchase.productIdentifier);
 	
-	// pretend it failed
-	double delayInSeconds = 1.0;
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-		NSLog(@"Purchase failure: %@", purchase.productIdentifier);
-		[purchase reportFailure];
-	});
+	// TODO: Call report purchase
 }
 
 - (void)yerdy:(Yerdy *)yerdy handleItemPurchase:(YRDItemPurchase *)purchase
 {
 	NSLog(@"Trying item purchase: %@", purchase.item);
 	
-	// pretend that they succeesfully made the purchase
-	double delayInSeconds = 1.0;
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-		NSLog(@"Purchase success: %@", purchase.item);
-		[purchase reportSuccess];
-	});
+	// TODO: Call report item purchase
 }
 
 - (void)yerdy:(Yerdy *)yerdy handleReward:(YRDReward *)reward

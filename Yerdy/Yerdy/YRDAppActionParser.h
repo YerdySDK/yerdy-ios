@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YRDInAppPurchase.h"
+#import "YRDItemPurchase.h"
 
 // Parses an app action into something we can use inside the app
 
@@ -18,13 +20,11 @@ typedef enum YRDAppActionType {
 	YRDAppActionTypeItemPurchase,
 } YRDAppActionType;
 
-@class YRDMessagePresenter;
-
 
 @interface YRDAppActionParser : NSObject
 
 // Returns nil on failure
-- (id)initWithAppAction:(NSString *)appAction messagePresenter:(YRDMessagePresenter *)messagePresenter;
+- (id)initWithAppAction:(NSString *)appAction;
 
 @property (nonatomic, readonly) YRDAppActionType actionType;
 

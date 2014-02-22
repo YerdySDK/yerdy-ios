@@ -8,37 +8,19 @@
 
 #import "YRDInAppPurchase.h"
 #import "YRDInAppPurchase_Private.h"
-#import "YRDMessagePresenter.h"
-
-@interface YRDInAppPurchase ()
-{
-	YRDMessagePresenter *_messagePresenter;
-}
-@end
 
 
 @implementation YRDInAppPurchase
 
-- (id)initWithMessagePresenter:(YRDMessagePresenter *)messagePresenter productIdentifier:(NSString *)productIdentifier
+- (id)initWithProductIdentifier:(NSString *)productIdentifier;
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
-	_messagePresenter = messagePresenter;
 	_productIdentifier = productIdentifier;
 	
 	return self;
-}
-
-- (void)reportSuccess
-{
-	[_messagePresenter reportAppActionSuccess];
-}
-
-- (void)reportFailure
-{
-	[_messagePresenter reportAppActionFailure];
 }
 
 @end

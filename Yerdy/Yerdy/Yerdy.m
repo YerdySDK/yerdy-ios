@@ -32,7 +32,7 @@ static Yerdy *sharedInstance;
 static const NSTimeInterval TokenTimeout = 5.0;
 
 
-@interface Yerdy () <YRDLaunchTrackerDelegate, YerdyMessageDelegate, YRDMessagePresenterDelegate>
+@interface Yerdy () <YRDLaunchTrackerDelegate, YerdyMessageDelegate>
 {
 	NSString *_publisherKey;
 	
@@ -218,6 +218,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	[_messagePresenter present];
 	
 	[_conversionTracker didShowMessage:message];
+	[_messages removeObject:message];
 	
 	return YES;
 }
@@ -249,6 +250,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (void)yerdy:(Yerdy *)yerdy didDismissMessageForPlacement:(NSString *)placement
 {
+	_messagePresenter = nil;
 	if ([_messageDelegate respondsToSelector:_cmd])
 		[_messageDelegate yerdy:yerdy didDismissMessageForPlacement:placement];
 }
@@ -291,14 +293,6 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		return;
 	}
 	[_messageDelegate yerdy:yerdy handleReward:reward];
-}
-
-#pragma mark - YRDMessagePresenterDelegate
-
-- (void)messagePresenterFinished:(YRDMessagePresenter *)presenter
-{
-	if (presenter == _messagePresenter)
-		_messagePresenter = nil;
 }
 
 @end

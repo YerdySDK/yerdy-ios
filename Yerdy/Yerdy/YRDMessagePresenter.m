@@ -16,6 +16,9 @@
 #import "YRDURLConnection.h"
 #import "YRDWebViewController.h"
 
+// Since we may get released we
+#define IMITATE_RETAIN_AUTORELEASE()	id strongSelf__ = self; (void)strongSelf__;
+
 
 typedef enum YRDMessageOutcome {
 	YRDMessageOutcomeNone, // outcome hasn't been determined yet (user hasn't pressed a button)
@@ -65,24 +68,27 @@ typedef enum YRDMessageOutcome {
 
 - (void)willPresent
 {
+	IMITATE_RETAIN_AUTORELEASE()
 	[_delegate yerdy:_delegate willPresentMessageForPlacement:_message.placement];
 }
 
 - (void)didPresent
 {
+	IMITATE_RETAIN_AUTORELEASE()
 	[_delegate yerdy:_delegate didPresentMessageForPlacement:_message.placement];
 }
 
 - (void)willDismiss
 {
+	IMITATE_RETAIN_AUTORELEASE()
 	[_delegate yerdy:_delegate willDismissMessageForPlacement:_message.placement];
 }
 
 - (void)didDismiss
 {
+	IMITATE_RETAIN_AUTORELEASE()
 	[_delegate yerdy:_delegate didDismissMessageForPlacement:_message.placement];
 	[self handleOutcome];
-	[_delegate messagePresenterFinished:self];
 }
 
 #pragma mark - Message click/cancel

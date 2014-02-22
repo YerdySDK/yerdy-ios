@@ -15,7 +15,6 @@
 // the given YRDMessage
 
 @class YRDMessage;
-@protocol YRDMessagePresenterDelegate;
 
 
 @interface YRDMessagePresenter : NSObject
@@ -24,7 +23,7 @@
 
 - (id)initWithMessage:(YRDMessage *)message window:(UIWindow *)window;
 
-@property (nonatomic, weak) Yerdy<YerdyMessageDelegate,YRDMessagePresenterDelegate> *delegate;
+@property (nonatomic, weak) Yerdy<YerdyMessageDelegate> *delegate;
 @property (nonatomic, readonly) YRDMessage *message;
 @property (nonatomic, readonly) UIWindow *window;
 
@@ -48,10 +47,3 @@
 
 @end
 
-
-@protocol YRDMessagePresenterDelegate <NSObject>
-@required
-
-- (void)messagePresenterFinished:(YRDMessagePresenter *)presenter;
-
-@end

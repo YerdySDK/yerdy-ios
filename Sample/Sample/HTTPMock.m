@@ -24,8 +24,12 @@ static NSDictionary *URLToFileMapping = nil;
 + (NSString *)filePathForRequest:(NSURLRequest *)request
 {
 	NSString *fileName = [URLToFileMapping objectForKey:[request.URL absoluteString]];
-	if (!fileName)
-		return nil;
+	if (!fileName && request.URL.query.length > 0) {
+		NSString *query = [NSString stringWithFormat:@"?%@", request.URL.query];
+		NSString *withoutQuery = [request.URL.absoluteString stringByReplacingOccurrencesOfString:query withString:@""];
+		
+		fileName = [URLToFileMapping objectForKey:withoutQuery];
+	}
 	return [[NSBundle mainBundle] pathForResource:fileName ofType:nil];
 }
 

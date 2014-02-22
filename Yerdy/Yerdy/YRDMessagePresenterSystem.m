@@ -41,6 +41,26 @@
 	[_alertView show];
 }
 
+- (void)willPresentAlertView:(UIAlertView *)alertView
+{
+	[self willPresent];
+}
+
+- (void)didPresentAlertView:(UIAlertView *)alertView
+{
+	[self didPresent];
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	[self willDismiss];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	[self didDismiss];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	if (alertView.cancelButtonIndex == buttonIndex) {

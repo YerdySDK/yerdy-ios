@@ -25,16 +25,36 @@
 	[_viewController present];
 }
 
-- (void)messageViewControllerFinishedWithConfirm:(YRDMessageViewController *)viewController
+- (void)messageViewControllerWillPresent:(YRDMessageViewController *)viewController
+{
+	[self willPresent];
+}
+
+- (void)messageViewControllerDidPresent:(YRDMessageViewController *)viewController
+{
+	[self didPresent];
+}
+
+- (void)messageViewControllerTappedConfirm:(YRDMessageViewController *)viewController
 {
 	[self messageClicked];
 	[_viewController dismiss];
 }
 
-- (void)messageViewControllerFinishedWithCancel:(YRDMessageViewController *)viewController
+- (void)messageViewControllerTappedCancel:(YRDMessageViewController *)viewController
 {
 	[self messageCancelled];
 	[_viewController dismiss];
+}
+
+- (void)messageViewControllerWillDismiss:(YRDMessageViewController *)viewController
+{
+	[self willDismiss];
+}
+
+- (void)messageViewControllerDidDismiss:(YRDMessageViewController *)viewController
+{
+	[self didDismiss];
 }
 
 @end

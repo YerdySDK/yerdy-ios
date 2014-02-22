@@ -24,13 +24,15 @@
 #import "YRDItemPurchase.h"
 #import "YRDReward.h"
 
+#import <objc/objc-runtime.h>
+
 
 static Yerdy *sharedInstance;
 
 static const NSTimeInterval TokenTimeout = 5.0;
 
 
-@interface Yerdy () <YRDLaunchTrackerDelegate, YerdyMessageDelegate>
+@interface Yerdy () <YRDLaunchTrackerDelegate, YerdyMessageDelegate, YRDMessagePresenterDelegate>
 {
 	NSString *_publisherKey;
 	
@@ -225,7 +227,35 @@ static const NSTimeInterval TokenTimeout = 5.0;
 // The Yerdy class acts a proxy between YRDMessagePresenter & the messageDelegate
 // set by the user
 
-// Verify the user has setup the messageDelegate properly
+#pragma mark Display lifecycle
+
+- (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement
+{
+	if ([_messageDelegate respondsToSelector:_cmd])
+		[_messageDelegate yerdy:yerdy willPresentMessageForPlacement:placement];
+}
+
+- (void)yerdy:(Yerdy *)yerdy didPresentMessageForPlacement:(NSString *)placement
+{
+	if ([_messageDelegate respondsToSelector:_cmd])
+		[_messageDelegate yerdy:yerdy didPresentMessageForPlacement:placement];
+}
+
+- (void)yerdy:(Yerdy *)yerdy willDismissMessageForPlacement:(NSString *)placement
+{
+	if ([_messageDelegate respondsToSelector:_cmd])
+		[_messageDelegate yerdy:yerdy willDismissMessageForPlacement:placement];
+}
+
+- (void)yerdy:(Yerdy *)yerdy didDismissMessageForPlacement:(NSString *)placement
+{
+	if ([_messageDelegate respondsToSelector:_cmd])
+		[_messageDelegate yerdy:yerdy didDismissMessageForPlacement:placement];
+}
+
+#pragma mark Purchases & rewards
+
+// Verify the user has setup the messageDelegate properly for the essential delegate methods
 - (BOOL)verifyMessageDelegateSetupFor:(SEL)selector context:(NSString *)msg
 {
 	if (_messageDelegate == nil) {
@@ -261,6 +291,14 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		return;
 	}
 	[_messageDelegate yerdy:yerdy handleReward:reward];
+}
+
+#pragma mark - YRDMessagePresenterDelegate
+
+- (void)messagePresenterFinished:(YRDMessagePresenter *)presenter
+{
+	if (presenter == _messagePresenter)
+		_messagePresenter = nil;
 }
 
 @end

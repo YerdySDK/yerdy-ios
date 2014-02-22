@@ -32,6 +32,12 @@
 
 @protocol YRDMessageViewControllerDelegate <NSObject>
 @required
-- (void)messageViewControllerFinishedWithConfirm:(YRDMessageViewController *)viewController;
-- (void)messageViewControllerFinishedWithCancel:(YRDMessageViewController *)viewController;
+- (void)messageViewControllerWillPresent:(YRDMessageViewController *)viewController;
+- (void)messageViewControllerDidPresent:(YRDMessageViewController *)viewController;
+
+- (void)messageViewControllerTappedConfirm:(YRDMessageViewController *)viewController;
+- (void)messageViewControllerTappedCancel:(YRDMessageViewController *)viewController;
+
+- (void)messageViewControllerWillDismiss:(YRDMessageViewController *)viewController;
+- (void)messageViewControllerDidDismiss:(YRDMessageViewController *)viewController;
 @end

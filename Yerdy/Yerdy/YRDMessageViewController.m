@@ -50,6 +50,7 @@
 
 - (void)present
 {
+	[_delegate messageViewControllerWillPresent:self];
 	[self addToWindow];
 	
 	CALayer *containerLayer = _containerView.layer;
@@ -65,11 +66,14 @@
 	[UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
 		containerLayer.transform = originalTransform;
 		self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
-	} completion:NULL];
+	} completion:^(BOOL completed) {
+		[_delegate messageViewControllerDidPresent:self];
+	}];
 }
 
 - (void)dismiss
-{	
+{
+	[_delegate messageViewControllerWillDismiss:self];
 	CALayer *containerLayer = _containerView.layer;
 	
 	CATransform3D transform = CATransform3DIdentity;
@@ -83,17 +87,18 @@
 		self.view.backgroundColor = [UIColor clearColor];
 	} completion:^(BOOL completed) {
 		[self removeFromWindow];
+		[_delegate messageViewControllerDidDismiss:self];
 	}];
 }
 
 - (IBAction)confirmTapped:(id)sender
 {
-	[_delegate messageViewControllerFinishedWithConfirm:self];
+	[_delegate messageViewControllerTappedConfirm:self];
 }
 
 - (IBAction)cancelTapped:(id)sender
 {
-	[_delegate messageViewControllerFinishedWithCancel:self];
+	[_delegate messageViewControllerTappedCancel:self];
 }
 
 @end

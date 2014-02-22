@@ -42,6 +42,26 @@
 }
 
 
+- (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement
+{
+	NSLog(@"*** %@", NSStringFromSelector(_cmd));
+}
+
+- (void)yerdy:(Yerdy *)yerdy didPresentMessageForPlacement:(NSString *)placement
+{
+	NSLog(@"*** %@", NSStringFromSelector(_cmd));
+}
+
+- (void)yerdy:(Yerdy *)yerdy willDismissMessageForPlacement:(NSString *)placement
+{
+	NSLog(@"*** %@", NSStringFromSelector(_cmd));
+}
+
+- (void)yerdy:(Yerdy *)yerdy didDismissMessageForPlacement:(NSString *)placement
+{
+	NSLog(@"*** %@", NSStringFromSelector(_cmd));
+}
+
 - (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase
 {
 	NSLog(@"Trying IAP purchase: %@", purchase.productIdentifier);

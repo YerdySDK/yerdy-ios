@@ -15,6 +15,7 @@
 // the given YRDMessage
 
 @class YRDMessage;
+@protocol YRDMessagePresenterDelegate;
 
 
 @interface YRDMessagePresenter : NSObject
@@ -23,16 +24,34 @@
 
 - (id)initWithMessage:(YRDMessage *)message window:(UIWindow *)window;
 
-@property (nonatomic, weak) Yerdy<YerdyMessageDelegate> *delegate;
+@property (nonatomic, weak) Yerdy<YerdyMessageDelegate,YRDMessagePresenterDelegate> *delegate;
 @property (nonatomic, readonly) YRDMessage *message;
 @property (nonatomic, readonly) UIWindow *window;
 
 // Subclasses must implement the following methods:
 - (void)present;
 
-// Subclasses must call the following methods at appropriate times:
-- (void)messageClicked;
-- (void)messageCancelled;
 
+// Subclasses MUST call the following methods at appropriate times (in the following order)
+
+// 1) Presenting callbacks
+- (void)willPresent;	// right before the message is presented
+- (void)didPresent;		// right after the message is fully presented (after animations)
+
+// 2) Click callbacks
+- (void)messageClicked;		// on message click
+- (void)messageCancelled;	// on message cancel
+
+// 3) Dismiss callbacks
+- (void)willDismiss;	// right before the message is dismissed
+- (void)didDismiss;		// right after the message is fully dismissed (after animations)
+
+@end
+
+
+@protocol YRDMessagePresenterDelegate <NSObject>
+@required
+
+- (void)messagePresenterFinished:(YRDMessagePresenter *)presenter;
 
 @end

@@ -40,6 +40,10 @@ typedef enum YRDMessageActionType {
 
 @property (nonatomic, assign) YRDMessageActionType actionType;
 @property (nonatomic, strong) NSString *action;
-@property (nonatomic, assign) BOOL forceAction;
+@property (nonatomic, assign) BOOL forceAction;  // TODO: Implement forceAction
+
+// TODO: Implement click messages
+// TODO: Implement expiry date
+// TODO: Implement message style
 
 @end

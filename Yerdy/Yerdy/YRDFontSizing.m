@@ -12,6 +12,21 @@
 @implementation YRDFontSizing
 
 + (CGSize)sizeForString:(NSString *)string font:(UIFont *)font
+{
+#if YRD_COMPILING_FOR_IOS_7
+	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
+		// iOS 7+
+		return [string sizeWithAttributes:@{ NSFontAttributeName : font }];
+	} else {
+		// iOS 6
+		return [string sizeWithFont:font];
+	}
+#else
+	return [string sizeWithFont:font];
+#endif
+}
+
++ (CGSize)sizeForString:(NSString *)string font:(UIFont *)font
 				maxSize:(CGSize)maxSize lineBreakMode:(NSLineBreakMode)lineBreakMode
 {
 #if YRD_COMPILING_FOR_IOS_7

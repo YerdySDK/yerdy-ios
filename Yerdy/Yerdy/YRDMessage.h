@@ -32,6 +32,8 @@ typedef enum YRDMessageActionType {
 
 @property (nonatomic, strong) NSURL *image;
 
+@property (nonatomic, strong) NSDate *expiryDate;
+
 @property (nonatomic, strong) NSString *confirmLabel;
 @property (nonatomic, strong) NSString *cancelLabel;
 

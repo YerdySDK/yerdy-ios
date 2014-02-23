@@ -24,6 +24,8 @@
 		
 		@"image" : @"image",
 		
+		@"expire_time" : @"expiryDate",
+		
 		@"confirm_label" : @"confirmLabel",
 		@"cancel_label" : @"cancelLabel",
 		
@@ -56,6 +58,15 @@
 		},
 
 		@"image" : convertURL,
+		
+		@"expire_time" : ^id(id input) {
+			NSTimeInterval timeInterval = [input respondsToSelector:@selector(doubleValue)] ? [input doubleValue] : 0.0;
+			if (timeInterval <= 0.0)
+				return nil;
+			
+			return [NSDate dateWithTimeIntervalSince1970:timeInterval];
+		},
+		
 		@"click" : convertURL,
 		@"view" : convertURL,
 

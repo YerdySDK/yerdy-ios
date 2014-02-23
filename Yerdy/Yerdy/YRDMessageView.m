@@ -61,22 +61,33 @@ typedef enum YRDButtonType {
 	_titleLabel = [[UILabel alloc] init];
 	_titleLabel.text = message.messageTitle;
 	_titleLabel.font = [UIFont boldSystemFontOfSize:16.0 * [self deviceScaleFactor]];
-	_titleLabel.backgroundColor = [self containerBackgroundColor];
+	_titleLabel.backgroundColor = [UIColor clearColor];
 	_titleLabel.textColor = [self textColor];
 	[_contentContainer addSubview:_titleLabel];
 	
 	_messageLabel = [[UILabel alloc] init];
 	_messageLabel.text = message.messageText;
 	_messageLabel.font = [UIFont systemFontOfSize:14.0 * [self deviceScaleFactor]];
-	_messageLabel.backgroundColor = [self containerBackgroundColor];
+	_messageLabel.backgroundColor = [UIColor clearColor];
 	_messageLabel.textColor = [self textColor];
 	_messageLabel.numberOfLines = 0;
+	_messageLabel.adjustsFontSizeToFitWidth = YES;
+	const CGFloat minimumScaleFactor = 0.6;
+#if YRD_COMPILING_FOR_IOS_7
+	if ([_messageLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) {
+		_messageLabel.minimumScaleFactor = minimumScaleFactor;
+	} else {
+		_messageLabel.minimumFontSize = floorf(14.0*minimumScaleFactor);
+	}
+#else
+	_messageLabel.minimumFontSize = floorf(14.0*minimumScaleFactor);
+#endif
 	[_contentContainer addSubview:_messageLabel];
 	
 	_expiryLabel = [[UILabel alloc] init];
-	_expiryLabel.font = [UIFont boldSystemFontOfSize:16.0 * [self deviceScaleFactor]];
-	_expiryLabel.text = @"Only X days left"; // TODO: pull expiry date from message
-	_expiryLabel.backgroundColor = [self containerBackgroundColor];
+	_expiryLabel.font = [UIFont boldSystemFontOfSize:12.0 * [self deviceScaleFactor]];
+	_expiryLabel.text = [self expiryStringForDate:message.expiryDate];
+	_expiryLabel.backgroundColor = [UIColor clearColor];
 	_expiryLabel.textColor = [self expiryTextColor];
 	_expiryLabel.textAlignment = UITextAlignmentCenter;
 	[_contentContainer addSubview:_expiryLabel];
@@ -147,17 +158,24 @@ typedef enum YRDButtonType {
 	currentY = CGRectGetMaxY(_titleLabel.frame);
 	currentY += [self padding];
 	
-	CGFloat buttonY = containerBounds.size.height - [self buttonHeight] - [self padding] * 0.5;
+	CGFloat bottomContentY = containerBounds.size.height - [self buttonHeight] - [self padding] * 0.5;
+	
+	CGRect buttonsRect = CGRectMake(0.0, bottomContentY, containerBounds.size.width, [self buttonHeight]);
+	[self layoutButtonsInRect:buttonsRect];
+	
+	if (_expiryLabel.text.length > 0) {
+		CGSize expirySize = [YRDFontSizing sizeForString:_expiryLabel.text font:_expiryLabel.font];
+		_expiryLabel.frame = CGRectMake([self padding], bottomContentY - [self padding] - expirySize.height,
+										containerBounds.size.width - [self padding] * 2.0, expirySize.height);
+		bottomContentY = _expiryLabel.frame.origin.y;
+	}
 	
 	// Y value before buttons at bottom - currentY
-	CGFloat bodyMaxHeight = (buttonY - [self padding]) - currentY;
+	CGFloat bodyMaxHeight = (bottomContentY - [self padding]) - currentY;
 	CGSize bodyMaxSize = CGSizeMake([self shortDimension] - [self padding] * 2.0, bodyMaxHeight);
-	CGSize bodySize =[YRDFontSizing sizeForString:_messageLabel.text font:_messageLabel.font
-										  maxSize:bodyMaxSize lineBreakMode:NSLineBreakByWordWrapping];
+	CGSize bodySize = [YRDFontSizing sizeForString:_messageLabel.text font:_messageLabel.font
+										   maxSize:bodyMaxSize lineBreakMode:NSLineBreakByWordWrapping];
 	_messageLabel.frame = CGRectMake([self padding], currentY, bodySize.width, bodySize.height);
-	
-	CGRect buttonsRect = CGRectMake(0.0, buttonY, containerBounds.size.width, [self buttonHeight]);
-	[self layoutButtonsInRect:buttonsRect];
 }
 
 - (void)layoutLandscape
@@ -187,17 +205,26 @@ typedef enum YRDButtonType {
 	currentY = CGRectGetMaxY(_titleLabel.frame);
 	currentY += [self padding];
 	
-	CGFloat buttonY = containerBounds.size.height - [self buttonHeight] - [self padding] * 0.5;
+	CGFloat bottomContentY = containerBounds.size.height - [self buttonHeight] - [self padding] * 0.5;
+	
+	CGRect buttonsRect = CGRectMake(leftX, bottomContentY, containerBounds.size.width - leftX - [self padding], [self buttonHeight]);
+	[self layoutButtonsInRect:buttonsRect];
+	
+	
+	if (_expiryLabel.text.length > 0) {
+		CGSize expirySize = [YRDFontSizing sizeForString:_expiryLabel.text font:_expiryLabel.font];
+		_expiryLabel.frame = CGRectMake(leftX, bottomContentY - [self padding] - expirySize.height,
+										containerBounds.size.width - leftX - [self padding], expirySize.height);
+		bottomContentY = _expiryLabel.frame.origin.y;
+	}
 	
 	// Y value before buttons at bottom - currentY
-	CGFloat bodyMaxHeight = (buttonY - [self padding]) - currentY;
+	CGFloat bodyMaxHeight = (bottomContentY - [self padding]) - currentY;
 	CGSize bodyMaxSize = CGSizeMake(containerBounds.size.width - leftX - [self padding], bodyMaxHeight);
 	CGSize bodySize =[YRDFontSizing sizeForString:_messageLabel.text font:_messageLabel.font
 										  maxSize:bodyMaxSize lineBreakMode:NSLineBreakByWordWrapping];
 	_messageLabel.frame = CGRectMake(leftX, currentY, bodySize.width, bodySize.height);
 	
-	CGRect buttonsRect = CGRectMake(leftX, buttonY, containerBounds.size.width - leftX - [self padding], [self buttonHeight]);
-	[self layoutButtonsInRect:buttonsRect];
 }
 
 - (void)layoutButtonsInRect:(CGRect)rect
@@ -263,6 +290,55 @@ typedef enum YRDButtonType {
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return image;
+}
+
+#pragma mark - Expiry string
+
+- (NSString *)expiryStringForDate:(NSDate *)expiryDate
+{
+	const int HOUR = 60 * 60;
+	const int DAY = 24 * HOUR;
+	
+	if (!expiryDate)
+		return nil;
+	
+	if ([expiryDate timeIntervalSinceNow] < 60 || [expiryDate timeIntervalSinceNow] > 30*DAY)
+		return @"Expires soon!";
+	
+	int secondsLeft = (int)ABS([expiryDate timeIntervalSinceNow]);
+	
+	NSMutableString *retVal = [NSMutableString stringWithString:@"Expires in "];
+	
+	int days = secondsLeft / DAY;
+	if (days > 1)
+    {
+		secondsLeft -= days * DAY;
+		[retVal appendFormat:@"%d days, ", days];
+	}
+    else if (days == 1)
+    {
+		secondsLeft -= days * DAY;
+		[retVal appendFormat:@"%d day, ", days];
+    }
+	
+	int hours = secondsLeft / HOUR;
+	if (hours > 0) {
+		secondsLeft -= hours * HOUR;
+	}
+	
+    if (hours > 1)
+        [retVal appendFormat:@"%d hours!", hours];
+    else if (hours == 1)
+        [retVal appendFormat:@"%d hour!", 1];
+	else if (hours == 0 && days >= 1) {
+		if (days == 1)
+			[retVal setString:[NSString stringWithFormat:@"Expires in %d day!", days]];
+		else
+			[retVal setString:[NSString stringWithFormat:@"Expires in %d days!", days]];
+    } else if (days <= 0)
+        [retVal setString:@"Expires Soon!"];
+	
+	return retVal;
 }
 
 #pragma mark - "Contants"

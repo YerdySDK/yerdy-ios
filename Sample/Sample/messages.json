@@ -4,7 +4,7 @@
 		"style": "image",
 		"placement": "launch",
 		"message_title": "Review Site",
-		"message_text": "Please visit us!",
+		"message_text": "Please visit us! This is a very long message that will scroll off the bounds of the message, I HOPE! aflksflsadkj flsda lsdj fslkjfsd lkjafsd lkjfsd lkj fds",
 		"image": "http://services.yerdy.com/images/testimage.jpg",
 		"confirm_label": "NOW",
 		"cancel_label": "Later",
@@ -12,7 +12,8 @@
 		"view": "http://services.yerdy.com/view.php",
 		"action_type": "1",
 		"action": "http://services.yerdy.com/click.php",
-		"force_action": "0"
+		"force_action": "0",
+		"expire_time" : 1393221273
 	},
 	{
 		"id": "1320",

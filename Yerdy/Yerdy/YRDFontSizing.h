@@ -13,6 +13,10 @@
 
 // Uses slightly different methods based on the current iOS version
 
+// For a single line of text
++ (CGSize)sizeForString:(NSString *)string font:(UIFont *)font;
+
+// For multiline text
 + (CGSize)sizeForString:(NSString *)string font:(UIFont *)font
 				maxSize:(CGSize)maxSize lineBreakMode:(NSLineBreakMode)lineBreakMode;
 

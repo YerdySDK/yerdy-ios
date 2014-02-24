@@ -14,7 +14,7 @@
 #import "YRDMessagePresenterSystem.h"
 #import "YRDMessage.h"
 #import "YRDURLConnection.h"
-#import "YRDWebViewController.h"
+
 
 // Since we may get released we
 #define IMITATE_RETAIN_AUTORELEASE()	id strongSelf__ = self; (void)strongSelf__;
@@ -29,7 +29,8 @@ typedef enum YRDMessageOutcome {
 
 @interface YRDMessagePresenter ()
 {
-	YRDMessageOutcome _outcome;
+	NSNumber *_outcomeAction;
+	id _outcomeParameter;
 }
 @end
 
@@ -69,80 +70,53 @@ typedef enum YRDMessageOutcome {
 - (void)willPresent
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate yerdy:_delegate willPresentMessageForPlacement:_message.placement];
+	[_delegate messagePresenterWillPresentMessage:_message];
 }
 
 - (void)didPresent
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate yerdy:_delegate didPresentMessageForPlacement:_message.placement];
+	[_delegate messagePresenterDidPresentMessage:_message];
 }
 
 - (void)willDismiss
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate yerdy:_delegate willDismissMessageForPlacement:_message.placement];
+	[_delegate messagePresenterWillDismissMessage:_message withAction:_outcomeAction parameter:_outcomeParameter];
 }
 
 - (void)didDismiss
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate yerdy:_delegate didDismissMessageForPlacement:_message.placement];
-	[self handleOutcome];
+	[_delegate messagePresenterDidDismissMessage:_message withAction:_outcomeAction parameter:_outcomeParameter];
 }
 
 #pragma mark - Message click/cancel
 
 - (void)messageClicked
 {
-	_outcome = YRDMessageOutcomeClick;
+	// external/internal browser actions are redirects from the clickURL,
+	// so need to report an outcome for them.  We only need to report an
+	// outcome on YRDMessageActionTypeApp actions
+	if (_message.actionType == YRDMessageActionTypeExternalBrowser ||
+		_message.actionType == YRDMessageActionTypeInternalBrowser) {
+		_outcomeAction = @(_message.actionType);
+		_outcomeParameter = _message.clickURL;
+	} else if (_message.actionType == YRDMessageActionTypeApp) {
+		[self reportOutcomeToURL:_message.clickURL];
+		YRDAppActionParser *parser = [[YRDAppActionParser alloc] initWithAppAction:_message.action];
+		if (parser != nil && parser.actionType != YRDAppActionTypeEmpty) {
+			_outcomeAction = @(_message.actionType);
+			_outcomeParameter = parser;
+		}
+	}
 }
 
 - (void)messageCancelled
 {
-	_outcome = YRDMessageOutcomeCancel;
 }
 
 #pragma mark - Handling outcomes
-
-- (void)handleOutcome
-{
-	if (_outcome == YRDMessageOutcomeClick) {
-		// external/internal browser actions are redirects from the clickURL,
-		// so need to report an outcome for them.  We only need to report an
-		// outcome on YRDMessageActionTypeApp actions
-		if (_message.actionType == YRDMessageActionTypeExternalBrowser) {
-			[[UIApplication sharedApplication] openURL:_message.clickURL];
-		} else if (_message.actionType == YRDMessageActionTypeInternalBrowser) {
-			YRDWebViewController *vc = [[YRDWebViewController alloc] initWithWindow:_window
-																				URL:_message.clickURL];
-			[vc present];
-		} else {
-			[self reportOutcomeToURL:_message.clickURL];
-			YRDAppActionParser *parser = [[YRDAppActionParser alloc] initWithAppAction:_message.action];
-			if (parser != nil) {
-				switch (parser.actionType) {
-					case YRDAppActionTypeInAppPurchase:
-						[_delegate yerdy:_delegate handleInAppPurchase:parser.actionInfo];
-						break;
-						
-					case YRDAppActionTypeItemPurchase:
-						[_delegate yerdy:_delegate handleItemPurchase:parser.actionInfo];
-						break;
-						
-					case YRDAppActionTypeReward:
-						[_delegate yerdy:_delegate handleReward:parser.actionInfo];
-						break;
-						
-					default:
-						break;
-				}
-			}
-		}
-	} else if (_outcome == YRDMessageOutcomeCancel) {
-		[self reportOutcomeToURL:_message.viewURL];
-	}
-}
 
 - (void)reportOutcomeToURL:(NSURL *)URL
 {

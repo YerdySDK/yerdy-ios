@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YerdyDelegate.h"
 
 // Handles display of a YRDMessage.
 // Different message types are delegated to different YRDMessagePresenter classes.
@@ -15,6 +14,7 @@
 // the given YRDMessage
 
 @class YRDMessage;
+@protocol YRDMessagePresenterDelegate;
 
 
 @interface YRDMessagePresenter : NSObject
@@ -23,7 +23,7 @@
 
 - (id)initWithMessage:(YRDMessage *)message window:(UIWindow *)window;
 
-@property (nonatomic, weak) Yerdy<YerdyMessageDelegate> *delegate;
+@property (nonatomic, weak) id<YRDMessagePresenterDelegate> delegate;
 @property (nonatomic, readonly) YRDMessage *message;
 @property (nonatomic, readonly) UIWindow *window;
 
@@ -47,3 +47,17 @@
 
 @end
 
+
+@protocol YRDMessagePresenterDelegate <NSObject>
+@required
+
+- (void)messagePresenterWillPresentMessage:(YRDMessage *)message;
+- (void)messagePresenterDidPresentMessage:(YRDMessage *)message;
+
+// If the user clicked through and an action needs to be taken, 'action' will be non-nil.
+// If the action is an internal/external browser, actionParameter is a NSURL. For app actions
+// actionParameter will be a YRDAppActionParser
+- (void)messagePresenterWillDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter;
+- (void)messagePresenterDidDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter;
+
+@end

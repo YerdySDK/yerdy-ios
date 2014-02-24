@@ -23,14 +23,15 @@
 #import "YRDInAppPurchase.h"
 #import "YRDItemPurchase.h"
 #import "YRDReward.h"
-
+#import "YRDWebViewController.h"
+#import "YRDAppActionParser.h"
 
 static Yerdy *sharedInstance;
 
 static const NSTimeInterval TokenTimeout = 5.0;
 
 
-@interface Yerdy () <YRDLaunchTrackerDelegate, YerdyMessageDelegate>
+@interface Yerdy () <YRDLaunchTrackerDelegate, YRDMessagePresenterDelegate>
 {
 	NSString *_publisherKey;
 	
@@ -40,6 +41,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	YRDTimeTracker *_timeTracker;
 	
 	NSMutableArray *_messages;
+	NSString *_currentPlacement;
 	YRDMessagePresenter *_messagePresenter;
 	
 	YRDConversionTracker *_conversionTracker;
@@ -212,6 +214,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	if (!_messagePresenter)
 		return NO;
 	
+	_currentPlacement = placement;
 	_messagePresenter.delegate = self;
 	[_messagePresenter present];
 	
@@ -228,29 +231,48 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 #pragma mark Display lifecycle
 
-- (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement
+- (void)messagePresenterWillPresentMessage:(YRDMessage *)message
 {
-	if ([_messageDelegate respondsToSelector:_cmd])
-		[_messageDelegate yerdy:yerdy willPresentMessageForPlacement:placement];
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:willPresentMessageForPlacement:)])
+		[_messageDelegate yerdy:self willPresentMessageForPlacement:_currentPlacement];
+
 }
 
-- (void)yerdy:(Yerdy *)yerdy didPresentMessageForPlacement:(NSString *)placement
+- (void)messagePresenterDidPresentMessage:(YRDMessage *)message
 {
-	if ([_messageDelegate respondsToSelector:_cmd])
-		[_messageDelegate yerdy:yerdy didPresentMessageForPlacement:placement];
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
+		[_messageDelegate yerdy:self didPresentMessageForPlacement:_currentPlacement];
 }
 
-- (void)yerdy:(Yerdy *)yerdy willDismissMessageForPlacement:(NSString *)placement
+- (void)messagePresenterWillDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
 {
-	if ([_messageDelegate respondsToSelector:_cmd])
-		[_messageDelegate yerdy:yerdy willDismissMessageForPlacement:placement];
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
+		[_messageDelegate yerdy:self willDismissMessageForPlacement:_currentPlacement];
 }
 
-- (void)yerdy:(Yerdy *)yerdy didDismissMessageForPlacement:(NSString *)placement
+- (void)messagePresenterDidDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
 {
-	_messagePresenter = nil;
-	if ([_messageDelegate respondsToSelector:_cmd])
-		[_messageDelegate yerdy:yerdy didDismissMessageForPlacement:placement];
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
+		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];
+	
+	if (action != nil) {
+		YRDMessageActionType actionType = action.integerValue;
+		if (actionType == YRDMessageActionTypeExternalBrowser) {
+			[[UIApplication sharedApplication] openURL:actionParameter];
+		} else if (actionType == YRDMessageActionTypeInternalBrowser) {
+			YRDWebViewController *web = [[YRDWebViewController alloc] initWithWindow:_messagePresenter.window URL:actionParameter];
+			[web present];
+		} else if (actionType == YRDMessageActionTypeApp) {
+			YRDAppActionParser *parser = actionParameter;
+			if (parser.actionType == YRDAppActionTypeInAppPurchase) {
+				[self handleInAppPurchase:parser.actionInfo];
+			} else if (parser.actionType == YRDAppActionTypeItemPurchase) {
+				[self handleItemPurchase:parser.actionInfo];
+			} else if (parser.actionType == YRDAppActionTypeReward) {
+				[self handleReward:parser.actionInfo];
+			}
+		}
+	}
 }
 
 #pragma mark Purchases & rewards
@@ -269,28 +291,28 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	}
 }
 
-- (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase
+- (void)handleInAppPurchase:(YRDInAppPurchase *)purchase
 {
-	if (![self verifyMessageDelegateSetupFor:_cmd context:@"in app purchase"]) {
+	if (![self verifyMessageDelegateSetupFor:@selector(yerdy:handleInAppPurchase:) context:@"in app purchase"]) {
 		return;
 	}
-	[_messageDelegate yerdy:yerdy handleInAppPurchase:purchase];
+	[_messageDelegate yerdy:self handleInAppPurchase:purchase];
 }
 
-- (void)yerdy:(Yerdy *)yerdy handleItemPurchase:(YRDItemPurchase *)purchase
+- (void)handleItemPurchase:(YRDItemPurchase *)purchase
 {
-	if (![self verifyMessageDelegateSetupFor:_cmd context:@"item purchase"]) {
+	if (![self verifyMessageDelegateSetupFor:@selector(yerdy:handleItemPurchase:) context:@"item purchase"]) {
 		return;
 	}
-	[_messageDelegate yerdy:yerdy handleItemPurchase:purchase];
+	[_messageDelegate yerdy:self handleItemPurchase:purchase];
 }
 
-- (void)yerdy:(Yerdy *)yerdy handleReward:(YRDReward *)reward
+- (void)handleReward:(YRDReward *)reward
 {
-	if (![self verifyMessageDelegateSetupFor:_cmd context:@"reward"]) {
+	if (![self verifyMessageDelegateSetupFor:@selector(yerdy:handleReward:) context:@"reward"]) {
 		return;
 	}
-	[_messageDelegate yerdy:yerdy handleReward:reward];
+	[_messageDelegate yerdy:self handleReward:reward];
 }
 
 @end

@@ -41,8 +41,10 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	YRDTimeTracker *_timeTracker;
 	
 	NSMutableArray *_messages;
-	NSString *_currentPlacement;
 	YRDMessagePresenter *_messagePresenter;
+	
+	NSString *_currentPlacement;
+	NSUInteger _messagesPresentedInRow;
 	
 	YRDConversionTracker *_conversionTracker;
 }
@@ -199,6 +201,17 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window
 {
+	_messagesPresentedInRow = 0;
+	
+	BOOL didShow = [self internalShowMessage:placement inWindow:window];
+	if (didShow)
+		_messagesPresentedInRow++;
+	
+	return didShow;
+}
+
+- (BOOL)internalShowMessage:(NSString *)placement inWindow:(UIWindow *)window
+{
 	if (window == nil) {
 		window = [[UIApplication sharedApplication] keyWindow];
 	}
@@ -238,6 +251,9 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (void)messagePresenter:(YRDMessagePresenter *)presenter willPresentMessage:(YRDMessage *)message
 {
+	if (_messagesPresentedInRow > 1)
+		return;
+	
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:willPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self willPresentMessageForPlacement:_currentPlacement];
 
@@ -245,22 +261,35 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (void)messagePresenter:(YRDMessagePresenter *)presenter didPresentMessage:(YRDMessage *)message
 {
+	if (_messagesPresentedInRow > 1)
+		return;
+	
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self didPresentMessageForPlacement:_currentPlacement];
 }
 
 - (void)messagePresenter:(YRDMessagePresenter *)presenter willDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
 {
+	if (action == nil && [self shouldShowAnotherMessage]) {
+		_messagePresenter = nil;
+		_messagesPresentedInRow++;
+		if ([self internalShowMessage:_currentPlacement inWindow:presenter.window]) {
+			return;
+		} else {
+			_messagePresenter = presenter;
+		}
+	}
+	
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self willDismissMessageForPlacement:_currentPlacement];
 }
 
 - (void)messagePresenter:(YRDMessagePresenter *)presenter didDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
 {
+	if (_messagePresenter != presenter)
+		return;
+	
 	_messagePresenter = nil;
-	if (action == nil && [self shouldShowAnotherMessage]) {
-		[self showMessage:_currentPlacement inWindow:presenter.window];
-	}
 	
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];

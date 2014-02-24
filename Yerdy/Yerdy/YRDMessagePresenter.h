@@ -51,13 +51,15 @@
 @protocol YRDMessagePresenterDelegate <NSObject>
 @required
 
-- (void)messagePresenterWillPresentMessage:(YRDMessage *)message;
-- (void)messagePresenterDidPresentMessage:(YRDMessage *)message;
+- (void)messagePresenter:(YRDMessagePresenter *)presenter willPresentMessage:(YRDMessage *)message;
+- (void)messagePresenter:(YRDMessagePresenter *)presenter didPresentMessage:(YRDMessage *)message;
 
 // If the user clicked through and an action needs to be taken, 'action' will be non-nil.
 // If the action is an internal/external browser, actionParameter is a NSURL. For app actions
 // actionParameter will be a YRDAppActionParser
-- (void)messagePresenterWillDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter;
-- (void)messagePresenterDidDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter;
+- (void)messagePresenter:(YRDMessagePresenter *)presenter willDismissMessage:(YRDMessage *)message
+			  withAction:(NSNumber *)action parameter:(id)actionParameter;
+- (void)messagePresenter:(YRDMessagePresenter *)presenter didDismissMessage:(YRDMessage *)message
+			  withAction:(NSNumber *)action parameter:(id)actionParameter;
 
 @end

@@ -70,25 +70,25 @@ typedef enum YRDMessageOutcome {
 - (void)willPresent
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate messagePresenterWillPresentMessage:_message];
+	[_delegate messagePresenter:self willPresentMessage:_message];
 }
 
 - (void)didPresent
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate messagePresenterDidPresentMessage:_message];
+	[_delegate messagePresenter:self didPresentMessage:_message];
 }
 
 - (void)willDismiss
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate messagePresenterWillDismissMessage:_message withAction:_outcomeAction parameter:_outcomeParameter];
+	[_delegate messagePresenter:self willDismissMessage:_message withAction:_outcomeAction parameter:_outcomeParameter];
 }
 
 - (void)didDismiss
 {
 	IMITATE_RETAIN_AUTORELEASE()
-	[_delegate messagePresenterDidDismissMessage:_message withAction:_outcomeAction parameter:_outcomeParameter];
+	[_delegate messagePresenter:self didDismissMessage:_message withAction:_outcomeAction parameter:_outcomeParameter];
 }
 
 #pragma mark - Message click/cancel

@@ -231,26 +231,26 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 #pragma mark Display lifecycle
 
-- (void)messagePresenterWillPresentMessage:(YRDMessage *)message
+- (void)messagePresenter:(YRDMessagePresenter *)presenter willPresentMessage:(YRDMessage *)message
 {
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:willPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self willPresentMessageForPlacement:_currentPlacement];
 
 }
 
-- (void)messagePresenterDidPresentMessage:(YRDMessage *)message
+- (void)messagePresenter:(YRDMessagePresenter *)presenter didPresentMessage:(YRDMessage *)message
 {
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self didPresentMessageForPlacement:_currentPlacement];
 }
 
-- (void)messagePresenterWillDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
+- (void)messagePresenter:(YRDMessagePresenter *)presenter willDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
 {
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self willDismissMessageForPlacement:_currentPlacement];
 }
 
-- (void)messagePresenterDidDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
+- (void)messagePresenter:(YRDMessagePresenter *)presenter didDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
 {
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];
@@ -260,7 +260,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		if (actionType == YRDMessageActionTypeExternalBrowser) {
 			[[UIApplication sharedApplication] openURL:actionParameter];
 		} else if (actionType == YRDMessageActionTypeInternalBrowser) {
-			YRDWebViewController *web = [[YRDWebViewController alloc] initWithWindow:_messagePresenter.window URL:actionParameter];
+			YRDWebViewController *web = [[YRDWebViewController alloc] initWithWindow:presenter.window URL:actionParameter];
 			[web present];
 		} else if (actionType == YRDMessageActionTypeApp) {
 			YRDAppActionParser *parser = actionParameter;

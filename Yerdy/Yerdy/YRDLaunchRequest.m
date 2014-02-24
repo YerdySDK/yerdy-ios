@@ -24,7 +24,7 @@ static NSString *Path = @"stats/launch.php";
 														  crashes:crashes playtime:playtime];
 	
 	YRDLaunchRequest *request = [[self alloc] initWithPath:Path queryParameters:queryParameters];
-	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class]];
+	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class] rootKey:@"@attributes"];
 	return request;
 }
 

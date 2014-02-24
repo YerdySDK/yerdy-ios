@@ -14,4 +14,8 @@
 - (id)initWithObjectType:(Class<YRDJSONType>)klass;
 - (id)initWithArrayOfObjectType:(Class<YRDJSONType>)klass;
 
+// If rootKey != nil, uses the value of that key to parse the JSON
+- (id)initWithObjectType:(Class<YRDJSONType>)klass rootKey:(NSString *)rootKey;
+- (id)initWithArrayOfObjectType:(Class<YRDJSONType>)klass rootKey:(NSString *)rootKey;
+
 @end

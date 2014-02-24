@@ -24,8 +24,6 @@
 #import "YRDItemPurchase.h"
 #import "YRDReward.h"
 
-#import <objc/objc-runtime.h>
-
 
 static Yerdy *sharedInstance;
 

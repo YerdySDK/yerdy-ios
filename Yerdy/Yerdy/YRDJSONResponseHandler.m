@@ -15,32 +15,44 @@
 {
 	Class _objectType;
 	BOOL _isArray;
+	NSString *_rootKey;
 }
 @end
 
 
 @implementation YRDJSONResponseHandler
 
-
 - (id)initWithObjectType:(Class<YRDJSONType>)klass
+{
+	return [self initWithObjectType:klass rootKey:nil];
+}
+
+- (id)initWithArrayOfObjectType:(Class<YRDJSONType>)klass
+{
+	return [self initWithArrayOfObjectType:klass rootKey:nil];
+}
+
+- (id)initWithObjectType:(Class<YRDJSONType>)klass rootKey:(NSString *)rootKey
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
 	_objectType = klass;
+	_rootKey = rootKey;
 	_isArray = NO;
 	
 	return self;
 }
 
-- (id)initWithArrayOfObjectType:(Class<YRDJSONType>)klass
+- (id)initWithArrayOfObjectType:(Class<YRDJSONType>)klass rootKey:(NSString *)rootKey
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
 	_objectType = klass;
+	_rootKey = rootKey;
 	_isArray = YES;
 	
 	return self;
@@ -56,9 +68,9 @@
 		return nil;
 	}
 	
-	// Depending on the call, the object may be in an @attributes key
-	if (!_isArray && [json isKindOfClass:[NSDictionary class]] && json[@"@attributes"] != nil) {
-		json = json[@"@attributes"];
+	// Depending on the call, the object may be in the value of '_rootKey'
+	if ([json isKindOfClass:[NSDictionary class]] && json[_rootKey] != nil) {
+		json = json[_rootKey];
 	}
 	
 	if (_isArray && ![json isKindOfClass:[NSArray class]]) {

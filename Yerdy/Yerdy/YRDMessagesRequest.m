@@ -19,7 +19,7 @@
 + (instancetype)messagesRequest
 {
 	YRDMessagesRequest *request = [[self alloc] initWithPath:@"app_messages/message.php" queryParameters:[self queryParameters]];
-	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithArrayOfObjectType:[YRDMessage class]];
+	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithArrayOfObjectType:[YRDMessage class] rootKey:@"message"];
 	return request;
 }
 

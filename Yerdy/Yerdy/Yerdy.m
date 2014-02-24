@@ -224,10 +224,15 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	return YES;
 }
 
-#pragma mark - YerdyMessageDelegate
+#pragma mark - YRDMessagePresenterDelegate
 
 // The Yerdy class acts a proxy between YRDMessagePresenter & the messageDelegate
 // set by the user
+
+- (BOOL)shouldShowAnotherMessage
+{
+	return [self messageAvailable:_currentPlacement];
+}
 
 #pragma mark Display lifecycle
 
@@ -252,6 +257,11 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (void)messagePresenter:(YRDMessagePresenter *)presenter didDismissMessage:(YRDMessage *)message withAction:(NSNumber *)action parameter:(id)actionParameter
 {
+	_messagePresenter = nil;
+	if (action == nil && [self shouldShowAnotherMessage]) {
+		[self showMessage:_currentPlacement inWindow:presenter.window];
+	}
+	
 	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
 		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];
 	

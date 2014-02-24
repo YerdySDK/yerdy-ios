@@ -1,63 +1,61 @@
- [
-	{
-		"id": "1305",
-		"style": "image",
-		"placement": "launch",
-		"message_title": "Review Site",
-		"message_text": "Please visit us! This is a very long message that will scroll off the bounds of the message, I HOPE! aflksflsadkj flsda lsdj fslkjfsd lkjafsd lkjfsd lkj fds",
-		"image": "http://services.yerdy.com/images/testimage.jpg",
-		"confirm_label": "NOW",
-		"cancel_label": "Later",
-		"click": "http://services.yerdy.com/",
-		"view": "http://services.yerdy.com/view.php",
-		"action_type": "1",
-		"action": "http://services.yerdy.com/click.php",
-		"force_action": "0",
-		"expire_time" : 1393221273
-	},
-	{
-		"id": "1320",
-		"style": "short",
-		"placement": "launch",
-		"message_title": "Have a reward!",
-		"message_text": "Have a reward!",
-		"image": null,
-		"confirm_label": "Thanks!",
-		"cancel_label": null,
-		"click": "http://services.yerdy.com/click.php",
-		"view": "http://services.yerdy.com/view.php",
-		"action_type": "2",
-		"action": "reward:coins,5;gold,10;",
-		"force_action": "0"
-	},
-  	{
-		"id": "13",
-		"style": "short",
-		"placement": "iap",
-		"message_title": "On Sale",
-		"message_text": "50% off, this weekend only!",
-		"image": null,
-		"confirm_label": "Buy Now",
-		"cancel_label": "Later",
-		"click": "http://services.yerdy.com/click.php",
-		"view": "http://services.yerdy.com/view.php",
-		"action_type": "2",
-		"action": "iap:com.yerdy.Sample.SamplePurchase",
-		"force_action": "0"
-	},
-  	{
-		"id": "305",
-		"style": "short",
-		"placement": "item",
-		"message_title": "On Sale",
-		"message_text": "Get the gold helmet 50% today only!",
-		"image": null,
-		"confirm_label": "BUY NOW",
-		"cancel_label": "Later",
-		"click": "http://services.yerdy.com/click.php",
-		"view": "http://services.yerdy.com/view.php",
-		"action_type": "2",
-		"action": "item:GoldHelmet",
-		"force_action": "0"
-	},
-]
+{
+	"message":
+	[
+	 {
+	 "action":
+	 "reward:coffee,1;",
+	 "action_type":
+	 "2",
+	 "cancel_label":
+	 "No",
+	 "click":
+	 "http:\/\/10.189.165.142\/~michal\/app_messages\/click.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1310&view=1",
+	 "confirm_label":
+	 "Yup!",
+	 "force_action":
+	 "0",
+	 "id":
+	 "1310",
+	 "image":
+	 "http:\/\/10.189.165.142\/~michal\/app_messages\/image\/8fa01bef22aff736d2dd0a2502285c58@1393264527.jpeg",
+	 "message_text":
+	 "Hope you had a good sleep!  I bet you'll need this :)",
+	 "message_title":
+	 "Good Morning!",
+	 "placement":
+	 "launch",
+	 "style":
+	 "image",
+	 "view":
+	 "http:\/\/10.189.165.142\/~michal\/app_messages\/view.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1310&view=1"
+	 },
+	 {
+	 "action":
+	 null,
+	 "action_type":
+	 "2",
+	 "cancel_label":
+	 null,
+	 "click":
+	 "http:\/\/10.189.165.142\/~michal\/app_messages\/click.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1311&view=1",
+	 "confirm_label":
+	 "Sorry",
+	 "force_action":
+	 "0",
+	 "id":
+	 "1311",
+	 "image":
+	 null,
+	 "message_text":
+	 "I was just trying to be generous :(",
+	 "message_title":
+	 "Excuse me then!",
+	 "placement":
+	 "launch",
+	 "style":
+	 "short",
+	 "view":
+	 "http:\/\/10.189.165.142\/~michal\/app_messages\/view.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1311&view=1"
+	 }
+	 ]
+}

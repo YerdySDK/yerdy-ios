@@ -46,6 +46,24 @@
 			weakImageView.image = image;
 		}];
 	}
+	
+	if (_message.cancelDelay > 0.0) {
+		_cancelButton.hidden = YES;
+	}
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	if (_message.cancelDelay > 0.0 && _cancelButton) {
+		__weak UIButton *weakCancel = _cancelButton;
+		
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_message.cancelDelay * NSEC_PER_SEC));
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+			weakCancel.hidden = NO;
+		});
+	} else {
+		_cancelButton.hidden = NO;
+	}
 }
 
 - (void)present

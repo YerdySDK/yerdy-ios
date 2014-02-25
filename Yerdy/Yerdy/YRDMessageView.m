@@ -104,6 +104,8 @@ typedef enum YRDButtonType {
 		[cancel addTarget:viewController action:@selector(cancelTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[buttons addObject:cancel];
 		
+		viewController.cancelButton = cancel;
+		
 		UIButton *confirm = [self makeButtonOfType:YRDButtonTypeConfirm forMessage:message];
 		[confirm setTitle:message.confirmLabel forState:UIControlStateNormal];
 		[confirm addTarget:viewController action:@selector(confirmTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -119,6 +121,9 @@ typedef enum YRDButtonType {
 		
 		SEL tappedSelector = isConfirm ? @selector(confirmTapped:) : @selector(cancelTapped:);
 		[button addTarget:viewController action:tappedSelector forControlEvents:UIControlEventTouchUpInside];
+		
+		if (!isConfirm)
+			viewController.cancelButton = button;
 		
 		[buttons addObject:button];
 	}

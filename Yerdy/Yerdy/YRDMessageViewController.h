@@ -24,6 +24,7 @@
 // Outlets/actions attached via YRDMessageView
 @property (nonatomic, strong) IBOutlet UIView *containerView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UIButton *cancelButton;
 - (IBAction)confirmTapped:(id)sender;
 - (IBAction)cancelTapped:(id)sender;
 

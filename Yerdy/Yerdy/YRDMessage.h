@@ -39,6 +39,8 @@ typedef enum YRDMessageActionType {
 @property (nonatomic, strong) NSString *confirmLabel;
 @property (nonatomic, strong) NSString *cancelLabel;
 
+@property (nonatomic, assign) NSTimeInterval cancelDelay;
+
 @property (nonatomic, strong) NSURL *clickURL;
 @property (nonatomic, strong) NSURL *viewURL;
 

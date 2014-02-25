@@ -30,6 +30,8 @@
 		@"confirm_label" : @"confirmLabel",
 		@"cancel_label" : @"cancelLabel",
 		
+		@"cancel_delay" : @"cancelDelay",
+		
 		@"click" : @"clickURL",
 		@"view" : @"viewURL",
 		
@@ -80,6 +82,10 @@
 				return nil;
 			
 			return [NSDate dateWithTimeIntervalSince1970:timeInterval];
+		},
+		
+		@"cancel_delay" : ^id(id input) {
+			return [input respondsToSelector:@selector(doubleValue)] ? @([input doubleValue]) : @0.0;
 		},
 		
 		@"click" : convertURL,

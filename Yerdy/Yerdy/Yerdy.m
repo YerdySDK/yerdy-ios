@@ -28,6 +28,11 @@
 
 static Yerdy *sharedInstance;
 
+// The user provided key is split on this index to get the internal key & secret
+//	key =		0..PublisherKeyPartLength
+//	secret = 	PublisherKeyPartLength..(end of string)
+static const NSUInteger PublisherKeyPartLength = 16;
+
 static const NSTimeInterval TokenTimeout = 5.0;
 
 
@@ -59,7 +64,17 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	dispatch_once(&onceToken, ^{
 		YRDInfo(@"Starting...");
 		
-		[YRDRequest setPublisherKey:key];
+		if (key.length < PublisherKeyPartLength) {
+			[NSException raise:NSInvalidArgumentException format:@"Yerdy key '%@' not valid", key];
+		}
+		
+		// Key portion is first 16 bytes
+		NSString *publisherKey = [key substringToIndex:PublisherKeyPartLength];
+		// Secret portion is last bytes
+		NSString *publisherSecret = [key substringFromIndex:PublisherKeyPartLength];
+		
+		[YRDRequest setPublisherKey:publisherKey];
+		[YRDRequest setPublisherSecret:publisherSecret];
 		sharedInstance = [[self alloc] initWithPublisherKey:key];
 	});
 	

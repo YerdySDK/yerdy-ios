@@ -10,7 +10,16 @@
 #import "YRDConstants.h"
 #import "YRDUtil.h"
 
-static NSString *PublisherKey;
+#import <CommonCrypto/CommonHMAC.h>
+
+
+static NSString *PublisherKey, *PublisherSecret;
+
+@interface YRDRequest ()
+{
+	NSString *_signature;
+}
+@end
 
 
 @implementation YRDRequest
@@ -20,6 +29,10 @@ static NSString *PublisherKey;
 	PublisherKey = publisherKey;
 }
 
++ (void)setPublisherSecret:(NSString *)publisherSecret
+{
+	PublisherSecret = publisherSecret;
+}
 
 - (id)initWithURL:(NSURL *)URL;
 {
@@ -56,15 +69,21 @@ static NSString *PublisherKey;
 		[params addEntriesFromDictionary:queryParameters];
 	
 	_queryParameters = params;
-		
+	
+	_signature = [self generateSignature];
+	
 	return self;
 }
 
 - (NSURLRequest *)urlRequest
 {
-	return [NSURLRequest requestWithURL:self.fullURL
-							cachePolicy:NSURLRequestUseProtocolCachePolicy
-						timeoutInterval:YRDRequestTimeout];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.fullURL
+														   cachePolicy:NSURLRequestUseProtocolCachePolicy
+													   timeoutInterval:YRDRequestTimeout];
+	if (_signature)
+		[request setValue:_signature forHTTPHeaderField:@"X-Request-Auth"];
+	
+	return request;
 }
 
 - (NSURL *)fullURL
@@ -101,6 +120,25 @@ static NSString *PublisherKey;
 	}
 	
 	return [@"?" stringByAppendingString:[pairs componentsJoinedByString:@"&"]];
+}
+
+- (NSString *)generateSignature
+{
+	NSURL *fullURL = self.fullURL;
+	
+	NSString *path = [fullURL path];
+	NSString *query = [fullURL query];
+	
+	NSString *contents = [path stringByAppendingString:query];
+	
+	const char *hmacKey = [PublisherSecret UTF8String];
+	const char *hmacData = [contents UTF8String];
+	char hmac[CC_SHA1_DIGEST_LENGTH];
+	
+	CCHmac(kCCHmacAlgSHA1, hmacKey, strlen(hmacKey), hmacData, strlen(hmacData), hmac);
+	
+	NSData *bytes = [NSData dataWithBytes:hmac length:sizeof(hmac)];
+	return [YRDUtil base64String:bytes];
 }
 
 @end

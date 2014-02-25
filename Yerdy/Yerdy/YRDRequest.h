@@ -15,6 +15,7 @@
 
 // Used to sign requests.
 + (void)setPublisherKey:(NSString *)publisherKey;
++ (void)setPublisherSecret:(NSString *)publisherSecret;
 
 
 @property (nonatomic, strong) YRDResponseHandler *responseHandler;

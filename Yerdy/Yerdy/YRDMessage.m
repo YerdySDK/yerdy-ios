@@ -8,6 +8,7 @@
 
 #import "YRDMessage.h"
 #import "YRDLog.h"
+#import "YRDUtil.h"
 
 
 @implementation YRDMessage
@@ -34,14 +35,28 @@
 		
 		@"action_type" : @"actionType",
 		@"action" : @"action",
-		@"force_action" : @"forceAction"
+		@"force_action" : @"forceAction",
+		
+		@"text_background" : @"backgroundColor",
+		@"confirm_background" : @"confirmBackgroundColor",
+		@"cancel_background" : @"cancelBackgroundColor",
+		
+		@"text_color" : @"textColor",
+		@"title_color" : @"titleTextColor",
+		@"confirm_color" : @"confirmTextColor",
+		@"cancel_color" : @"cancelTextColor",
+		@"expiry_color" : @"expiryTextColor",
 	};
 }
 
 + (NSDictionary *)jsonTypeConversions
 {
-	id(^convertURL)(id) = ^(id input) {
+	id convertURL = ^(id input) {
 		return [NSURL URLWithString:[input description]];
+	};
+	
+	id convertColor = ^id(id input) {
+		return [YRDUtil colorFromHexString:[input description]];
 	};
 	
 	return @{
@@ -89,6 +104,15 @@
 			return @([input boolValue]);
 		},
 		
+		@"text_background" : convertColor,
+		@"confirm_background" : convertColor,
+		@"cancel_background" : convertColor,
+		
+		@"text_color" : convertColor,
+		@"title_color" : convertColor,
+		@"confirm_color" : convertColor,
+		@"cancel_color" : convertColor,
+		@"expiry_color" : convertColor,
 	};
 }
 

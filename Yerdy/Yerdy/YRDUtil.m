@@ -104,6 +104,26 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 	return CFBridgingRelease(escaped);
 }
 
++ (UIColor *)colorFromHexString:(NSString *)hex
+{
+	if (!hex)
+		return nil;
+	
+	int r, g, b;
+	if (sscanf([hex UTF8String], "#%02x%02x%02x", &r, &g, &b) != 3)
+		return nil;
+	
+	float fr = (float)r/(float)255;
+	fr = MAX(0.0, MIN(fr, 1.0));
+	
+	float fg = (float)g/(float)255;
+	fg = MAX(0.0, MIN(fg, 1.0));
+	
+	float fb = (float)b/(float)255;
+	fb = MAX(0.0, MIN(fb, 1.0));
+	
+	return [UIColor colorWithRed:fr green:fg blue:fb alpha:1.0];
+}
 
 @end
 

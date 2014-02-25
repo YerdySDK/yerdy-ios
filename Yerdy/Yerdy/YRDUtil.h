@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "YRDDefines.h"
 
 @interface YRDUtil : NSObject
@@ -22,6 +23,8 @@
 + (NSString *)base64String:(NSData *)data;
 
 + (NSString *)URLEncode:(NSString *)string;
+
++ (UIColor *)colorFromHexString:(NSString *)hex;
 
 @end
 

@@ -7,6 +7,8 @@
 //
 
 #import "YRDJSONType.h"
+#import <UIKit/UIKit.h>
+
 
 typedef enum YRDMessageStyle {
 	YRDMessageStyleSystem,	// system (UIAlertView) dialog
@@ -43,6 +45,17 @@ typedef enum YRDMessageActionType {
 @property (nonatomic, assign) YRDMessageActionType actionType;
 @property (nonatomic, strong) NSString *action;
 @property (nonatomic, assign) BOOL forceAction;  // TODO: Implement forceAction
+
+// Style parameters
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *confirmBackgroundColor;
+@property (nonatomic, strong) UIColor *cancelBackgroundColor;
+
+@property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) UIColor *titleTextColor;
+@property (nonatomic, strong) UIColor *confirmTextColor;
+@property (nonatomic, strong) UIColor *cancelTextColor;
+@property (nonatomic, strong) UIColor *expiryTextColor;
 
 // TODO: Implement click messages
 // TODO: Implement expiry date

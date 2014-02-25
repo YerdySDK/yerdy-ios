@@ -53,7 +53,7 @@ typedef enum YRDButtonType {
 - (void)loadSubviewsForViewController:(YRDMessageViewController *)viewController message:(YRDMessage *)message
 {
 	_contentContainer = [[UIView alloc] init];
-	_contentContainer.backgroundColor = [self containerBackgroundColor];
+	_contentContainer.backgroundColor = [self containerBackgroundColor:message];
 	_contentContainer.opaque = YES;
 	[self addSubview:_contentContainer];
 	viewController.containerView = _contentContainer;
@@ -62,14 +62,14 @@ typedef enum YRDButtonType {
 	_titleLabel.text = message.messageTitle;
 	_titleLabel.font = [UIFont boldSystemFontOfSize:16.0 * [self deviceScaleFactor]];
 	_titleLabel.backgroundColor = [UIColor clearColor];
-	_titleLabel.textColor = [self textColor];
+	_titleLabel.textColor = [self textColor:message];
 	[_contentContainer addSubview:_titleLabel];
 	
 	_messageLabel = [[UILabel alloc] init];
 	_messageLabel.text = message.messageText;
 	_messageLabel.font = [UIFont systemFontOfSize:14.0 * [self deviceScaleFactor]];
 	_messageLabel.backgroundColor = [UIColor clearColor];
-	_messageLabel.textColor = [self textColor];
+	_messageLabel.textColor = [self textColor:message];
 	_messageLabel.numberOfLines = 0;
 	_messageLabel.adjustsFontSizeToFitWidth = YES;
 	const CGFloat minimumScaleFactor = 0.6;
@@ -88,7 +88,7 @@ typedef enum YRDButtonType {
 	_expiryLabel.font = [UIFont boldSystemFontOfSize:12.0 * [self deviceScaleFactor]];
 	_expiryLabel.text = [self expiryStringForDate:message.expiryDate];
 	_expiryLabel.backgroundColor = [UIColor clearColor];
-	_expiryLabel.textColor = [self expiryTextColor];
+	_expiryLabel.textColor = [self expiryTextColor:message];
 	_expiryLabel.textAlignment = UITextAlignmentCenter;
 	[_contentContainer addSubview:_expiryLabel];
 	
@@ -99,12 +99,12 @@ typedef enum YRDButtonType {
 	
 	NSMutableArray *buttons = [NSMutableArray array];
 	if (message.confirmLabel.length > 0 && message.cancelLabel.length > 0) {
-		UIButton *cancel = [self makeButtonOfType:YRDButtonTypeCancel];
+		UIButton *cancel = [self makeButtonOfType:YRDButtonTypeCancel forMessage:message];
 		[cancel setTitle:message.cancelLabel forState:UIControlStateNormal];
 		[cancel addTarget:viewController action:@selector(cancelTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[buttons addObject:cancel];
 		
-		UIButton *confirm = [self makeButtonOfType:YRDButtonTypeConfirm];
+		UIButton *confirm = [self makeButtonOfType:YRDButtonTypeConfirm forMessage:message];
 		[confirm setTitle:message.confirmLabel forState:UIControlStateNormal];
 		[confirm addTarget:viewController action:@selector(confirmTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[buttons addObject:confirm];
@@ -112,7 +112,7 @@ typedef enum YRDButtonType {
 		BOOL isConfirm = message.confirmLabel.length > 0;
 		// if we have a single button, always make it look like a confirm button,
 		// even though it may be wired up to be a "cancel"/"view"
-		UIButton *button = [self makeButtonOfType:YRDButtonTypeConfirm];
+		UIButton *button = [self makeButtonOfType:YRDButtonTypeConfirm forMessage:message];
 		
 		NSString *title = isConfirm ? message.confirmLabel : message.cancelLabel;
 		[button setTitle:title forState:UIControlStateNormal];
@@ -247,7 +247,7 @@ typedef enum YRDButtonType {
 
 #pragma mark - Button creation
 
-- (UIButton *)makeButtonOfType:(YRDButtonType)buttonType
+- (UIButton *)makeButtonOfType:(YRDButtonType)buttonType forMessage:(YRDMessage *)message
 {
 	CGSize buttonSize = CGSizeMake([self buttonWidth], [self buttonHeight]);
 	
@@ -256,14 +256,14 @@ typedef enum YRDButtonType {
 	button.bounds = CGRectMake(0.0, 0.0, buttonSize.width, buttonSize.height);
 	
 	if (buttonType == YRDButtonTypeConfirm) {
-		[button setTitleColor:[self confirmButtonTextColor] forState:UIControlStateNormal];
+		[button setTitleColor:[self confirmButtonTextColor:message] forState:UIControlStateNormal];
 		
-		UIImage *background = [self buttonBackgroundWithSize:buttonSize rectHeightRatio:0.9 color:[self confirmButtonColor]];
+		UIImage *background = [self buttonBackgroundWithSize:buttonSize rectHeightRatio:0.9 color:[self confirmButtonColor:message]];
 		[button setBackgroundImage:background forState:UIControlStateNormal];
 	} else if (buttonType == YRDButtonTypeCancel) {
-		[button setTitleColor:[self cancelButtonTextColor] forState:UIControlStateNormal];
+		[button setTitleColor:[self cancelButtonTextColor:message] forState:UIControlStateNormal];
 		
-		UIImage *background = [self buttonBackgroundWithSize:buttonSize rectHeightRatio:0.8 color:[self cancelButtonColor]];
+		UIImage *background = [self buttonBackgroundWithSize:buttonSize rectHeightRatio:0.8 color:[self cancelButtonColor:message]];
 		[button setBackgroundImage:background forState:UIControlStateNormal];
 	}
 	
@@ -379,39 +379,39 @@ typedef enum YRDButtonType {
 	return 80.0 * [self deviceScaleFactor];
 }
 
-- (UIColor *)containerBackgroundColor
+- (UIColor *)containerBackgroundColor:(YRDMessage *)message
 {
-	return [UIColor darkGrayColor];
+	return message.backgroundColor ? message.backgroundColor : [UIColor darkGrayColor];
 }
 
-- (UIColor *)textColor
+- (UIColor *)textColor:(YRDMessage *)message
 {
-	return [UIColor whiteColor];
+	return message.textColor ? message.textColor : [UIColor whiteColor];
 }
 
-- (UIColor *)expiryTextColor
+- (UIColor *)expiryTextColor:(YRDMessage *)message
 {
-	return [UIColor yellowColor];
+	return message.expiryTextColor ? message.expiryTextColor : [UIColor yellowColor];
 }
 
-- (UIColor *)confirmButtonColor
+- (UIColor *)confirmButtonColor:(YRDMessage *)message
 {
-	return [UIColor orangeColor];
+	return message.confirmBackgroundColor ? message.confirmBackgroundColor : [UIColor orangeColor];
 }
 
-- (UIColor *)confirmButtonTextColor
+- (UIColor *)confirmButtonTextColor:(YRDMessage *)message
 {
-	return [UIColor whiteColor];
+	return message.confirmTextColor ? message.confirmTextColor : [UIColor whiteColor];
 }
 
-- (UIColor *)cancelButtonColor
+- (UIColor *)cancelButtonColor:(YRDMessage *)message
 {
-	return [UIColor grayColor];
+	return message.cancelBackgroundColor ? message.cancelBackgroundColor : [UIColor grayColor];
 }
 
-- (UIColor *)cancelButtonTextColor
+- (UIColor *)cancelButtonTextColor:(YRDMessage *)message
 {
-	return [UIColor whiteColor];
+	return message.cancelTextColor ? message.cancelTextColor : [UIColor whiteColor];
 }
 
 - (CGFloat)deviceScaleFactor

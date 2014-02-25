@@ -41,7 +41,7 @@ typedef enum YRDMessageOutcome {
 {
 	if (message.style == YRDMessageStyleSystem)
 		return [[YRDMessagePresenterSystem alloc] initWithMessage:message window:window];
-	else if (message.style == YRDMessageStyleImage)
+	else if (message.style == YRDMessageStyleImage || message.style == YRDMessageStyleLong)
 		return [[YRDMessagePresenterImage alloc] initWithMessage:message window:window];
 	else
 		return nil; // TODO: Support all message styles

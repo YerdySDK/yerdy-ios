@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "BankViewController.h"
 #import "Yerdy.h"
 
 @interface ViewController () <YerdyMessageDelegate>
@@ -41,6 +42,14 @@
 	}
 }
 
+- (IBAction)showBank:(id)sender
+{
+	BankViewController *bankViewController = [[BankViewController alloc] initWithNibName:nil bundle:nil];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		bankViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+	
+	[self presentViewController:bankViewController animated:YES completion:NULL];
+}
 
 - (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement
 {

@@ -38,6 +38,8 @@
 
 
 // TODO: Document these!
+- (void)registerCurrencies:(NSArray *)currencies;
+
 - (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)earnedCurrencies:(NSDictionary *)currencies;
 

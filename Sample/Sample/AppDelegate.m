@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "BankViewController.h"
 #import "ViewController.h"
 
 #import "HTTPMock.h"
@@ -39,6 +40,7 @@
 	YRDSetLogLevel(YRDLogDebug);
 	
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
+	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
 	yerdy.delegate = self;
 	
 	// Fake getting a push token

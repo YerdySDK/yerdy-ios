@@ -27,19 +27,18 @@ static const NSUInteger MAX_CURRENCIES = 6;
 
 #pragma mark - Currency setup
 
-- (void)registerCurrencies:(NSDictionary *)currencies
+- (void)registerCurrencies:(NSArray *)currencies
 {
 	for (NSUInteger i = 0; i < MAX_CURRENCIES; i++)
 		_currencies[i] = nil;
 	
-	for (id key in currencies) {
-		int index = [key intValue];
-		if (index < 0 || index >= MAX_CURRENCIES) {
-			YRDError(@"%@ outside range of possible currencies (0..%ld).  Ignoring.", key, (unsigned long)MAX_CURRENCIES);
+	for (int i = 0; i < currencies.count; i++) {
+		if (i < 0 || i >= MAX_CURRENCIES) {
+			YRDError(@"%@ outside range of possible currencies (0..%ld).  Ignoring.", currencies[i], (unsigned long)MAX_CURRENCIES);
 			continue;
 		}
 		
-		_currencies[index] = currencies[key];
+		_currencies[i] = currencies[i];
 	}
 }
 

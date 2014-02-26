@@ -10,7 +10,7 @@
 
 @interface YRDCurrencyTracker : NSObject
 
-- (void)registerCurrencies:(NSDictionary *)currencies;
+- (void)registerCurrencies:(NSArray *)currencies;
 
 // currencyEarned + currencyPurchased - currencySpent
 @property (nonatomic, readonly) NSArray *currencyBalance;

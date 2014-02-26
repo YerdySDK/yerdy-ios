@@ -377,6 +377,11 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 #pragma mark - Currency analytics
 
+- (void)registerCurrencies:(NSArray *)currencies
+{
+	[_currencyTracker registerCurrencies:currencies];
+}
+
 - (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount
 {
 	[_currencyTracker earnedCurrency:currency amount:amount];

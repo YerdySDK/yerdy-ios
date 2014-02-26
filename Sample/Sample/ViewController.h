@@ -12,4 +12,6 @@
 
 - (void)showMessaging;
 
+- (IBAction)showBank:(id)sender;
+
 @end

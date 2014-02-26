@@ -47,6 +47,15 @@
 		}];
 	}
 	
+	if (_message.watermarkAnchor && _message.watermarkImage) {
+		_watermarkImageView.contentMode = _message.watermarkAnchor.integerValue;
+		
+		__weak UIImageView *weakImageView = _watermarkImageView;
+		[[YRDImageCache sharedCache] loadImageAtURL:_message.watermarkImage completionHandler:^(UIImage *image) {
+			weakImageView.image = image;
+		}];
+	}
+	
 	if (_message.cancelDelay > 0.0) {
 		_cancelButton.hidden = YES;
 	}

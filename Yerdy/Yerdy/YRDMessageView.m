@@ -24,6 +24,7 @@ typedef enum YRDButtonType {
 	UIView *_contentContainer;
 	
 	UIImageView *_imageView;
+	UIImageView *_watermarkImageView;
 	
 	UILabel *_titleLabel;
 	UILabel *_messageLabel;
@@ -57,6 +58,12 @@ typedef enum YRDButtonType {
 	_contentContainer.opaque = YES;
 	[self addSubview:_contentContainer];
 	viewController.containerView = _contentContainer;
+	
+	_watermarkImageView = [[UIImageView alloc] init];
+	_watermarkImageView.backgroundColor = [UIColor clearColor];
+	_watermarkImageView.opaque = NO;
+	[_contentContainer addSubview:_watermarkImageView];
+	viewController.watermarkImageView = _watermarkImageView;
 	
 	_titleLabel = [[UILabel alloc] init];
 	_titleLabel.text = message.messageTitle;
@@ -92,7 +99,7 @@ typedef enum YRDButtonType {
 	_expiryLabel.textAlignment = UITextAlignmentCenter;
 	[_contentContainer addSubview:_expiryLabel];
 	
-	 _imageView = [[UIImageView alloc] init];
+	_imageView = [[UIImageView alloc] init];
 	_imageView.backgroundColor = [UIColor blackColor];
 	[_contentContainer addSubview:_imageView];
 	viewController.imageView = _imageView;
@@ -156,6 +163,11 @@ typedef enum YRDButtonType {
 	currentY = CGRectGetMaxY(_imageView.frame);
 	currentY += [self padding];
 	
+	_watermarkImageView.frame = CGRectMake(0.0,
+		CGRectGetMaxY(_imageView.frame),
+		containerBounds.size.width,
+		containerBounds.size.height - CGRectGetMaxY(_imageView.frame));
+	
 	CGSize size = [_titleLabel.text sizeWithFont:_titleLabel.font];
 	_titleLabel.frame = CGRectMake([self padding], currentY,
 								   containerBounds.size.width - [self padding] * 2.0,
@@ -198,6 +210,11 @@ typedef enum YRDButtonType {
 	_contentContainer.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
 		
 	_imageView.frame = CGRectMake(0.0, 0.0, [self shortDimension], [self shortDimension]);
+	
+	_watermarkImageView.frame = CGRectMake(CGRectGetMaxX(_imageView.frame),
+		0.0,
+		containerBounds.size.width - CGRectGetMaxX(_imageView.frame),
+		containerBounds.size.height);
 	
 	// the minimum X value for labels and stuff going on the right side of the image
 	CGFloat leftX = CGRectGetMaxX(_imageView.frame) + [self padding];

@@ -48,6 +48,9 @@
 		@"confirm_color" : @"confirmTextColor",
 		@"cancel_color" : @"cancelTextColor",
 		@"expiry_color" : @"expiryTextColor",
+		
+		@"watermark" : @"watermarkAnchor",
+		@"watermark_image" : @"watermarkImage",
 	};
 }
 
@@ -119,7 +122,44 @@
 		@"confirm_color" : convertColor,
 		@"cancel_color" : convertColor,
 		@"expiry_color" : convertColor,
+		
+		@"watermark" : ^id(id input) {
+			return [self contentModeForString:[input description]];
+		},
+		@"watermark_image" : convertURL,
 	};
+}
+
+// Returns a UIViewContentMode
++ (NSNumber *)contentModeForString:(NSString *)input
+{
+	// input should be in the format [tmb][lcr] (top-middle-bottom, left-center-right)
+	if (input.length != 2)
+		return nil;
+	
+	int value = [input characterAtIndex:0] << 8 | [input characterAtIndex:1];
+	
+	switch (value) {
+			
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmultichar"
+			
+		case 'tl': return @(UIViewContentModeTopLeft);
+		case 'tc': return @(UIViewContentModeTop);
+		case 'tr': return @(UIViewContentModeTopRight);
+			
+		case 'ml': return @(UIViewContentModeLeft);
+		case 'mc': return @(UIViewContentModeCenter);
+		case 'mr': return @(UIViewContentModeRight);
+			
+		case 'bl': return @(UIViewContentModeBottomLeft);
+		case 'bc': return @(UIViewContentModeBottom);
+		case 'br': return @(UIViewContentModeBottomRight);
+			
+#pragma GCC diagnostic pop
+			
+		default: YRDError(@"Unrecognized watermark value: %@", input); return nil;
+	}
 }
 
 @end

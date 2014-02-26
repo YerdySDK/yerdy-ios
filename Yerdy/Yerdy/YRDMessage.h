@@ -59,6 +59,9 @@ typedef enum YRDMessageActionType {
 @property (nonatomic, strong) UIColor *cancelTextColor;
 @property (nonatomic, strong) UIColor *expiryTextColor;
 
+@property (nonatomic, strong) NSNumber *watermarkAnchor; // UIViewContentMode
+@property (nonatomic, strong) NSURL *watermarkImage;
+
 // TODO: Implement click messages
 // TODO: Implement expiry date
 // TODO: Implement message style

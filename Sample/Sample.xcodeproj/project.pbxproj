@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		47230DB118B3F47A002A64AE /* Default-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47230DB018B3F47A002A64AE /* Default-568@2x.png */; };
 		47230DB318B3F4E9002A64AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47230DB218B3F4E9002A64AE /* Images.xcassets */; };
+		4763E76018BD74B2008A253E /* testwatermark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4763E75F18BD74B2008A253E /* testwatermark.png */; };
 		479B282518AAA2FE00148BB7 /* HTTPMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B282418AAA2FE00148BB7 /* HTTPMock.m */; };
 		479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 479B282618AAA67C00148BB7 /* HTTPMock.plist */; };
 		479B282918AAA69F00148BB7 /* launch.json in Resources */ = {isa = PBXBuildFile; fileRef = 479B282818AAA69F00148BB7 /* launch.json */; };
@@ -30,6 +31,7 @@
 		47230DB018B3F47A002A64AE /* Default-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568@2x.png"; sourceTree = "<group>"; };
 		47230DB218B3F4E9002A64AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4763E75318B7C715008A253E /* PublisherKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublisherKey.h; sourceTree = "<group>"; };
+		4763E75F18BD74B2008A253E /* testwatermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testwatermark.png; sourceTree = "<group>"; };
 		479B282318AAA2FE00148BB7 /* HTTPMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPMock.h; sourceTree = "<group>"; };
 		479B282418AAA2FE00148BB7 /* HTTPMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMock.m; sourceTree = "<group>"; };
 		479B282618AAA67C00148BB7 /* HTTPMock.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTPMock.plist; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				47FFC79A18A93D900019673B /* Sample-Prefix.pch */,
 				479B282618AAA67C00148BB7 /* HTTPMock.plist */,
 				47CEA49218B532C80097A90C /* testimage.jpg */,
+				4763E75F18BD74B2008A253E /* testwatermark.png */,
 				479B282818AAA69F00148BB7 /* launch.json */,
 				95AA850F18AB2A0B0022D6CC /* messages.json */,
 				47230DB218B3F4E9002A64AE /* Images.xcassets */,
@@ -186,6 +189,7 @@
 			files = (
 				47230DB118B3F47A002A64AE /* Default-568@2x.png in Resources */,
 				47230DB318B3F4E9002A64AE /* Images.xcassets in Resources */,
+				4763E76018BD74B2008A253E /* testwatermark.png in Resources */,
 				47FFC7C718A93DFB0019673B /* ViewController~ipad.xib in Resources */,
 				479B282918AAA69F00148BB7 /* launch.json in Resources */,
 				47FFC79718A93D900019673B /* InfoPlist.strings in Resources */,

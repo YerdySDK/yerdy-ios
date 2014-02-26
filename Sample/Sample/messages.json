@@ -1,61 +1,82 @@
 {
-	"message":
-	[
-	 {
-	 "action":
-	 "reward:coffee,1;",
-	 "action_type":
-	 "2",
-	 "cancel_label":
-	 "No",
-	 "click":
-	 "http:\/\/10.189.165.142\/~michal\/app_messages\/click.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1310&view=1",
-	 "confirm_label":
-	 "Yup!",
-	 "force_action":
-	 "0",
-	 "id":
-	 "1310",
-	 "image":
-	 "http:\/\/10.189.165.142\/~michal\/app_messages\/image\/8fa01bef22aff736d2dd0a2502285c58@1393264527.jpeg",
-	 "message_text":
-	 "Hope you had a good sleep!  I bet you'll need this :)",
-	 "message_title":
-	 "Good Morning!",
-	 "placement":
-	 "launch",
-	 "style":
-	 "image",
-	 "view":
-	 "http:\/\/10.189.165.142\/~michal\/app_messages\/view.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1310&view=1"
-	 },
-	 {
-	 "action":
-	 null,
-	 "action_type":
-	 "2",
-	 "cancel_label":
-	 null,
-	 "click":
-	 "http:\/\/10.189.165.142\/~michal\/app_messages\/click.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1311&view=1",
-	 "confirm_label":
-	 "Sorry",
-	 "force_action":
-	 "0",
-	 "id":
-	 "1311",
-	 "image":
-	 null,
-	 "message_text":
-	 "I was just trying to be generous :(",
-	 "message_title":
-	 "Excuse me then!",
-	 "placement":
-	 "launch",
-	 "style":
-	 "short",
-	 "view":
-	 "http:\/\/10.189.165.142\/~michal\/app_messages\/view.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=BECD14AE-A065-4317-9054-93EF11E983B8&msgid=1311&view=1"
-	 }
-	 ]
+    "message": [
+				{
+				"id": "1310",
+				"style": "image",
+				"placement": "launch",
+				"message_title": "Good Morning!",
+				"message_text": "Hope you had a good sleep!  I bet you'll need this :)",
+				"confirm_label": "Yup!",
+				"cancel_label": "No",
+				"cancel_delay": "0.50",
+				"click": "http://services.yerdy.com/app_messages/click.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=53C26480-389F-4FFA-B57F-DB3DCE81C229&msgid=1310&view=1",
+				"view": "http://services.yerdy.com/app_messages/view.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=53C26480-389F-4FFA-B57F-DB3DCE81C229&msgid=1310&view=1",
+				"image": "http://services.yerdy.com/app_messages/image/testimage.jpeg",
+				"text_background": "#555555",
+				"confirm_background": "#ff8000",
+				"cancel_background": "#808080",
+				"title_color": "#ffffff",
+				"text_color": "#ffffff",
+				"expiry_color": "#ffff00",
+				"confirm_color": "#ffffff",
+				"cancel_color": "#ffffff",
+				"watermark": "br",
+				"watermark_image": "http://services.yerdy.com/app_messages/image/testwatermark.png",
+				"action_type": "2",
+				"action": "reward:coffee,1;",
+				"force_action": "0"
+				},
+				{
+				"id": "1313",
+				"style": "long",
+				"placement": "launch",
+				"message_title": "Excuse me then!",
+				"message_text": "I was just trying to be generous :(",
+				"confirm_label": "Sorry",
+				"cancel_label": null,
+				"cancel_delay": "0.50",
+				"click": "http://services.yerdy.com/app_messages/click.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=53C26480-389F-4FFA-B57F-DB3DCE81C229&msgid=1313&view=1",
+				"view": "http://services.yerdy.com/app_messages/view.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=53C26480-389F-4FFA-B57F-DB3DCE81C229&msgid=1313&view=1",
+				"image": null,
+				"text_background": "#dddddd",
+				"confirm_background": "#ff8000",
+				"cancel_background": "#808080",
+				"title_color": "#111111",
+				"text_color": "#111111",
+				"expiry_color": "#ffff00",
+				"confirm_color": "#111111",
+				"cancel_color": "#111111",
+				"watermark": "br",
+				"watermark_image": "http://services.yerdy.com/app_messages/image/testwatermark.png",
+				"action_type": "2",
+				"action": null,
+				"force_action": "0"
+				},
+				{
+				"id": "1311",
+				"style": "short",
+				"placement": "launch",
+				"message_title": "Excuse me then!",
+				"message_text": "I was just trying to be generous :(",
+				"confirm_label": "Sorry",
+				"cancel_label": null,
+				"cancel_delay": "0.50",
+				"click": "http://services.yerdy.com/app_messages/click.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=53C26480-389F-4FFA-B57F-DB3DCE81C229&msgid=1311&view=1",
+				"view": "http://services.yerdy.com/app_messages/view.php?publisherid=db49353f1c729b0e&bundleid=com.yerdy.Sample.iOS&deviceid=53C26480-389F-4FFA-B57F-DB3DCE81C229&msgid=1311&view=1",
+				"image": null,
+				"text_background": "#555555",
+				"confirm_background": "#ff8000",
+				"cancel_background": "#808080",
+				"title_color": "#ffffff",
+				"text_color": "#ffffff",
+				"expiry_color": "#ffff00",
+				"confirm_color": "#ffffff",
+				"cancel_color": "#ffffff",
+				"watermark": "br",
+				"watermark_image": "http://services.yerdy.com/app_messages/image/testwatermark.png",
+				"action_type": "2",
+				"action": null,
+				"force_action": "0"
+				}
+				]
 }

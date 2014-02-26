@@ -8,6 +8,8 @@
 
 #import "YRDCurrencyTracker.h"
 #import "YRDLog.h"
+#import "YRDConstants.h"
+
 
 static const NSUInteger MAX_CURRENCIES = 6;
 
@@ -24,6 +26,19 @@ static const NSUInteger MAX_CURRENCIES = 6;
 
 
 @implementation YRDCurrencyTracker
+
+- (id)init
+{
+	self = [super init];
+	if (!self)
+		return nil;
+	
+	[self readKey:YRDEarnedCurrencyDefaultsKey intoCArray:_earned];
+	[self readKey:YRDSpentCurrencyDefaultsKey intoCArray:_spent];
+	[self readKey:YRDPurchasedCurrencyDefaultsKey intoCArray:_purchased];
+	
+	return self;
+}
 
 #pragma mark - Currency setup
 
@@ -65,6 +80,20 @@ static const NSUInteger MAX_CURRENCIES = 6;
 	NSUInteger count = MAX(array.count, MAX_CURRENCIES);
 	for (NSUInteger i = 0; i < count; i++)
 		cArray[i] = [array[i] integerValue];
+}
+
+#pragma mark - Persistence
+
+- (void)readKey:(NSString *)key intoCArray:(NSInteger[MAX_CURRENCIES])cArray
+{
+	NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
+	[self array:array toCArray:cArray];
+}
+
+- (void)saveCArray:(NSInteger[MAX_CURRENCIES])cArray toKey:(NSString *)key
+{
+	NSArray *array = [self arrayFromCArray:cArray];
+	[[NSUserDefaults standardUserDefaults] setObject:array forKey:key];
 }
 
 #pragma mark - Reading currency amounts
@@ -125,6 +154,7 @@ static const NSUInteger MAX_CURRENCIES = 6;
 - (void)earnedCurrencies:(NSDictionary *)currencies
 {
 	[self addCurrencies:currencies toCArray:_earned];
+	[self saveCArray:_earned toKey:YRDEarnedCurrencyDefaultsKey];
 }
 
 - (void)spentCurrency:(NSString *)currency amount:(NSUInteger)amount
@@ -141,6 +171,7 @@ static const NSUInteger MAX_CURRENCIES = 6;
 - (void)spentCurrencies:(NSDictionary *)currencies
 {
 	[self addCurrencies:currencies toCArray:_spent];
+	[self saveCArray:_spent toKey:YRDSpentCurrencyDefaultsKey];
 }
 
 - (void)purchasedCurrency:(NSString *)currency amount:(NSUInteger)amount
@@ -157,6 +188,7 @@ static const NSUInteger MAX_CURRENCIES = 6;
 - (void)purchasedCurrencies:(NSDictionary *)currencies
 {
 	[self addCurrencies:currencies toCArray:_purchased];
+	[self saveCArray:_purchased toKey:YRDPurchasedCurrencyDefaultsKey];
 }
 
 @end

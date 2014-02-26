@@ -9,7 +9,7 @@
 #import "YRDConstants.h"
 
 // Base URL should end in '/', as we use RFC 1808 to determine the full URL
-NSString *YRDBaseURL = @"http://10.189.165.142/~michal/";
+NSString *YRDBaseURL = @"http://services.yerdy.com/";
 NSTimeInterval YRDRequestTimeout = 10.0;
 
 NSString *YRDErrorDomain = @"com.yerdy.Error";
@@ -26,3 +26,7 @@ NSString *YRDABTagDefaultsKey = @"YRDABTag";
 
 NSString *YRDTimePlayedDefaultsKey = @"YRDTimePlayed";
 NSString *YRDMinutesPlayedDefaultsKey = @"YRDMinutesPlayed";
+
+NSString *YRDEarnedCurrencyDefaultsKey = @"YRDEarnedCurrency";
+NSString *YRDSpentCurrencyDefaultsKey = @"YRDSpentCurrency";
+NSString *YRDPurchasedCurrencyDefaultsKey = @"YRDPurchasedCurrency";

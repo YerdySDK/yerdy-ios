@@ -44,6 +44,58 @@ NSString *Gold = @"Gold",
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)earn:(id)sender
+{
+	NSDictionary *currencies = [self currenciesFromTextFields];
+	
+	[self incrementCurrencies:currencies];
+	
+	
+	Yerdy *yerdy = [Yerdy sharedYerdy];
+	// ensure both methods are tested...
+	if (currencies.count == 1)
+		[yerdy earnedCurrency:currencies.allKeys[0]
+					   amount:[currencies.allValues[0] unsignedIntegerValue]];
+	else
+		[yerdy earnedCurrencies:currencies];
+}
+
+- (IBAction)buyItem:(id)sender
+{
+	if (_itemName.text.length == 0) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Please enter an item name"
+													   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		return;
+	}
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSDictionary *currencies = [self currenciesFromTextFields];
+	for (NSString *currencyName in currencies) {
+		NSInteger balance = [defaults integerForKey:currencyName];
+		if (balance < [currencies[currencyName] integerValue]) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Insufficient funds" message:nil
+														   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			return;
+		}
+	}
+	
+	[self decrementCurrencies:currencies];
+	
+	
+	Yerdy *yerdy = [Yerdy sharedYerdy];
+	// ensure both methods are tested...
+	if (currencies.count == 1)
+		[yerdy purchasedItem:_itemName.text withCurrency:currencies.allKeys[0]
+					  amount:[currencies.allValues[0] unsignedIntegerValue]];
+	else
+		[yerdy purchasedItem:_itemName.text withCurrencies:currencies];
+}
+
+#pragma mark - Currency input/display
+
 - (NSDictionary *)currenciesFromTextFields
 {
 	NSMutableDictionary *currencies = [NSMutableDictionary dictionary];
@@ -60,21 +112,6 @@ NSString *Gold = @"Gold",
 	if (_rubiesInput.text.length > 0)
 		currencies[Rubies] = @(_rubiesInput.text.intValue);
 	return currencies;
-}
-
-- (IBAction)earn:(id)sender
-{
-	NSDictionary *currencies = [self currenciesFromTextFields];
-	
-	[self incrementCurrencies:currencies];
-	
-	
-	Yerdy *yerdy = [Yerdy sharedYerdy];
-	if (currencies.count == 1)
-		[yerdy earnedCurrency:currencies.allKeys[0]
-					   amount:[currencies.allValues[0] unsignedIntegerValue]];
-	else
-		[yerdy earnedCurrencies:currencies];
 }
 
 - (void)updateDisplay

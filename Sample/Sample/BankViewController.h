@@ -29,4 +29,9 @@ extern NSString *Gold, *Silver, *Bronze, *Diamonds, *Pearls, *Rubies;
 
 - (IBAction)earn:(id)sender;
 
+
+@property (strong, nonatomic) IBOutlet UITextField *itemName;
+- (IBAction)buyItem:(id)sender;
+
+
 @end

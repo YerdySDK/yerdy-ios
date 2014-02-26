@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4711E11918BE68BA00966C93 /* YRDTrackVirtualPurchaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E11818BE68BA00966C93 /* YRDTrackVirtualPurchaseRequest.m */; };
+		4711E11E18BE712E00966C93 /* YRDTrackVirtualPurchaseResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E11D18BE712E00966C93 /* YRDTrackVirtualPurchaseResponse.m */; };
 		47230D9318AE9E29002A64AE /* YRDInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230D9218AE9E29002A64AE /* YRDInAppPurchase.m */; };
 		47230D9618AE9E9E002A64AE /* YRDReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230D9518AE9E9E002A64AE /* YRDReward.m */; };
 		47230D9918AE9F60002A64AE /* YRDItemPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 47230D9818AE9F60002A64AE /* YRDItemPurchase.m */; };
@@ -57,6 +59,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4711E11718BE68BA00966C93 /* YRDTrackVirtualPurchaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackVirtualPurchaseRequest.h; sourceTree = "<group>"; };
+		4711E11818BE68BA00966C93 /* YRDTrackVirtualPurchaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackVirtualPurchaseRequest.m; sourceTree = "<group>"; };
+		4711E11C18BE712E00966C93 /* YRDTrackVirtualPurchaseResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackVirtualPurchaseResponse.h; sourceTree = "<group>"; };
+		4711E11D18BE712E00966C93 /* YRDTrackVirtualPurchaseResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackVirtualPurchaseResponse.m; sourceTree = "<group>"; };
 		47230D9118AE9E29002A64AE /* YRDInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDInAppPurchase.h; sourceTree = "<group>"; };
 		47230D9218AE9E29002A64AE /* YRDInAppPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDInAppPurchase.m; sourceTree = "<group>"; };
 		47230D9418AE9E9E002A64AE /* YRDReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDReward.h; sourceTree = "<group>"; };
@@ -203,6 +209,8 @@
 				479B283618AAC0A100148BB7 /* YRDJSONType.h */,
 				479B283718AAC74D00148BB7 /* YRDLaunchResponse.h */,
 				479B283818AAC74D00148BB7 /* YRDLaunchResponse.m */,
+				4711E11C18BE712E00966C93 /* YRDTrackVirtualPurchaseResponse.h */,
+				4711E11D18BE712E00966C93 /* YRDTrackVirtualPurchaseResponse.m */,
 				4763E75518B80020008A253E /* YRDUserType.h */,
 				95AA851118AB2A2B0022D6CC /* YRDMessage.h */,
 				95AA851218AB2A2B0022D6CC /* YRDMessage.m */,
@@ -224,6 +232,8 @@
 				95F97BA318ADD34A00C65D10 /* YRDLaunchRequest.m */,
 				95F97BA518ADD3FC00C65D10 /* YRDMessagesRequest.h */,
 				95F97BA618ADD3FC00C65D10 /* YRDMessagesRequest.m */,
+				4711E11718BE68BA00966C93 /* YRDTrackVirtualPurchaseRequest.h */,
+				4711E11818BE68BA00966C93 /* YRDTrackVirtualPurchaseRequest.m */,
 				95F97BA818ADD67600C65D10 /* YRDDelayedBlock.h */,
 				95F97BA918ADD67600C65D10 /* YRDDelayedBlock.m */,
 				47230D9118AE9E29002A64AE /* YRDInAppPurchase.h */,
@@ -335,7 +345,9 @@
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
 				47230DAF18B3D2EB002A64AE /* YRDMessagePresenterImage.m in Sources */,
 				95AA851318AB2A2B0022D6CC /* YRDMessage.m in Sources */,
+				4711E11E18BE712E00966C93 /* YRDTrackVirtualPurchaseResponse.m in Sources */,
 				47230D9918AE9F60002A64AE /* YRDItemPurchase.m in Sources */,
+				4711E11918BE68BA00966C93 /* YRDTrackVirtualPurchaseRequest.m in Sources */,
 				479B283918AAC74D00148BB7 /* YRDLaunchResponse.m in Sources */,
 				47E9B6C418A9450D004A622F /* YRDLog.m in Sources */,
 				95F97BAA18ADD67600C65D10 /* YRDDelayedBlock.m in Sources */,

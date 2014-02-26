@@ -10,5 +10,7 @@
 	<string>testimage.jpg</string>
 	<key>http://services.yerdy.com/app_messages/image/testwatermark.png</key>
 	<string>testwatermark.png</string>
+	<key>http://services.yerdy.com/stats/trackVirtualPurchase.php</key>
+	<string>trackVirtualPurchase.json</string>
 </dict>
 </plist>

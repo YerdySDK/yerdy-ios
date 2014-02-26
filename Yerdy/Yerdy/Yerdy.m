@@ -26,6 +26,9 @@
 #import "YRDWebViewController.h"
 #import "YRDAppActionParser.h"
 #import "YRDCurrencyTracker.h"
+#import "YRDTrackVirtualPurchaseRequest.h"
+#import "YRDTrackVirtualPurchaseResponse.h"
+
 
 static Yerdy *sharedInstance;
 
@@ -394,13 +397,31 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSUInteger)amount
 {
-	// TODO: track item
-	[_currencyTracker spentCurrency:currency amount:amount];
+	// TODO: arg validation
+	[self purchasedItem:item withCurrencies:@{ currency: @(amount) }];
 }
 
 - (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies
 {
-	// TODO: track item
+	// TODO: arg validation
+	
+	// update items purchased count
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSInteger itemsPurchased = [defaults integerForKey:YRDItemsPurchasedDefaultsKey];
+	itemsPurchased += 1;
+	[defaults setInteger:itemsPurchased forKey:YRDItemsPurchasedDefaultsKey];
+	
+	// send track virtual purchase
+	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
+	YRDTrackVirtualPurchaseRequest *request = [YRDTrackVirtualPurchaseRequest requestWithItem:item
+																						price:currencyArray
+																				firstPurchase:itemsPurchased == 1];
+	
+	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackVirtualPurchaseResponse *response, NSError *error) {
+		YRDDebug(@"trackVirtualPurchase result: %d", response.result);
+	}];
+	
+	// update currencies
 	[_currencyTracker spentCurrencies:currencies];
 }
 
@@ -420,5 +441,6 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	// TODO: track purchase
 	[_currencyTracker purchasedCurrencies:currencies];
 }
+
 
 @end

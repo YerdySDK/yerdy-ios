@@ -65,6 +65,18 @@ static const NSUInteger MAX_CURRENCIES = 6;
 	return NSNotFound;
 }
 
+- (NSArray *)currencyDictionaryToArray:(NSDictionary *)currencies
+{
+	NSInteger values[MAX_CURRENCIES] = { 0 };
+	[self addCurrencies:currencies toCArray:values];
+	
+	id objectValues[MAX_CURRENCIES];
+	for (int i = 0; i < MAX_CURRENCIES; i++)
+		objectValues[i] = @(values[i]);
+	
+	return [NSArray arrayWithObjects:objectValues count:MAX_CURRENCIES];
+}
+
 #pragma mark - Type conversion
 
 - (NSArray *)arrayFromCArray:(NSInteger[MAX_CURRENCIES])cArray

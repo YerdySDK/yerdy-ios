@@ -30,3 +30,5 @@ NSString *YRDMinutesPlayedDefaultsKey = @"YRDMinutesPlayed";
 NSString *YRDEarnedCurrencyDefaultsKey = @"YRDEarnedCurrency";
 NSString *YRDSpentCurrencyDefaultsKey = @"YRDSpentCurrency";
 NSString *YRDPurchasedCurrencyDefaultsKey = @"YRDPurchasedCurrency";
+
+NSString *YRDItemsPurchasedDefaultsKey = @"YRDItemsPurchased";

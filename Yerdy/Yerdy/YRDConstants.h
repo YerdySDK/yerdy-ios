@@ -44,3 +44,5 @@ extern NSString *YRDMinutesPlayedDefaultsKey;
 extern NSString *YRDEarnedCurrencyDefaultsKey;
 extern NSString *YRDSpentCurrencyDefaultsKey;
 extern NSString *YRDPurchasedCurrencyDefaultsKey;
+
+extern NSString *YRDItemsPurchasedDefaultsKey;

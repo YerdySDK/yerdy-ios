@@ -12,6 +12,8 @@
 
 - (void)registerCurrencies:(NSArray *)currencies;
 
+- (NSArray *)currencyDictionaryToArray:(NSDictionary *)currencies;
+
 // currencyEarned + currencyPurchased - currencySpent
 @property (nonatomic, readonly) NSArray *currencyBalance;
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4711E11B18BE702E00966C93 /* trackVirtualPurchase.json in Resources */ = {isa = PBXBuildFile; fileRef = 4711E11A18BE702E00966C93 /* trackVirtualPurchase.json */; };
 		471C329518BE4B34004C8733 /* BankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 471C329418BE4B34004C8733 /* BankViewController.m */; };
 		471C329718BE4B46004C8733 /* BankViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471C329618BE4B46004C8733 /* BankViewController.xib */; };
 		47230DB118B3F47A002A64AE /* Default-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47230DB018B3F47A002A64AE /* Default-568@2x.png */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4711E11A18BE702E00966C93 /* trackVirtualPurchase.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trackVirtualPurchase.json; sourceTree = "<group>"; };
 		471C329318BE4B34004C8733 /* BankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankViewController.h; sourceTree = "<group>"; };
 		471C329418BE4B34004C8733 /* BankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankViewController.m; sourceTree = "<group>"; };
 		471C329618BE4B46004C8733 /* BankViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BankViewController.xib; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				4763E75F18BD74B2008A253E /* testwatermark.png */,
 				479B282818AAA69F00148BB7 /* launch.json */,
 				95AA850F18AB2A0B0022D6CC /* messages.json */,
+				4711E11A18BE702E00966C93 /* trackVirtualPurchase.json */,
 				47230DB218B3F4E9002A64AE /* Images.xcassets */,
 			);
 			name = "Supporting Files";
@@ -199,6 +202,7 @@
 				47230DB118B3F47A002A64AE /* Default-568@2x.png in Resources */,
 				47230DB318B3F4E9002A64AE /* Images.xcassets in Resources */,
 				4763E76018BD74B2008A253E /* testwatermark.png in Resources */,
+				4711E11B18BE702E00966C93 /* trackVirtualPurchase.json in Resources */,
 				47FFC7C718A93DFB0019673B /* ViewController~ipad.xib in Resources */,
 				479B282918AAA69F00148BB7 /* launch.json in Resources */,
 				47FFC79718A93D900019673B /* InfoPlist.strings in Resources */,

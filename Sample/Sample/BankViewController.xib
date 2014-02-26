@@ -7,12 +7,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BankViewController">
             <connections>
-                <outlet property="bronze" destination="FBG-cC-kBd" id="zTg-D0-MOS"/>
-                <outlet property="diamonds" destination="QRD-J9-n9o" id="rCZ-F6-y4e"/>
-                <outlet property="gold" destination="T4u-gz-lvn" id="ENI-4L-XPE"/>
-                <outlet property="pearls" destination="HaU-cl-fr9" id="LS9-XJ-zuI"/>
-                <outlet property="rubies" destination="m5z-SX-5yc" id="Vur-Vg-HHI"/>
-                <outlet property="silver" destination="eWv-q0-ZPo" id="n89-x6-FIM"/>
+                <outlet property="bronze" destination="REr-E9-bh9" id="xCR-Qe-die"/>
+                <outlet property="bronzeInput" destination="FBG-cC-kBd" id="ACI-KE-Do7"/>
+                <outlet property="diamonds" destination="i5s-og-Niz" id="EKx-rm-TFb"/>
+                <outlet property="diamondsInput" destination="QRD-J9-n9o" id="LHe-8N-h8K"/>
+                <outlet property="gold" destination="qRh-s0-sPD" id="BoU-z9-N3r"/>
+                <outlet property="goldInput" destination="T4u-gz-lvn" id="ZHM-U6-gV4"/>
+                <outlet property="pearls" destination="STy-7C-3Ye" id="Q1X-Ae-abG"/>
+                <outlet property="pearlsInput" destination="HaU-cl-fr9" id="hul-Uw-kdd"/>
+                <outlet property="rubies" destination="J1c-4c-QvK" id="C6L-ht-uMV"/>
+                <outlet property="rubiesInput" destination="m5z-SX-5yc" id="4Qk-gU-wGg"/>
+                <outlet property="silver" destination="Z9W-6W-ij3" id="G1T-ZB-Dwd"/>
+                <outlet property="silverInput" destination="eWv-q0-ZPo" id="ff7-K0-rOl"/>
                 <outlet property="view" destination="1wj-Tn-k5m" id="4Ga-af-hUX"/>
             </connections>
         </placeholder>
@@ -29,7 +35,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X0M-92-YBo">
-                    <rect key="frame" x="20" y="152" width="280" height="30"/>
+                    <rect key="frame" x="20" y="172" width="280" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Earn">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -39,41 +45,86 @@
                     </connections>
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Gold" minimumFontSize="17" id="T4u-gz-lvn">
-                    <rect key="frame" x="20" y="70" width="80" height="30"/>
+                    <rect key="frame" x="20" y="90" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Silver" minimumFontSize="17" id="eWv-q0-ZPo">
-                    <rect key="frame" x="120" y="70" width="80" height="30"/>
+                    <rect key="frame" x="120" y="90" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Bronze" minimumFontSize="17" id="FBG-cC-kBd">
-                    <rect key="frame" x="220" y="70" width="80" height="30"/>
+                    <rect key="frame" x="220" y="90" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Diamonds" minimumFontSize="17" id="QRD-J9-n9o">
-                    <rect key="frame" x="20" y="108" width="80" height="30"/>
+                    <rect key="frame" x="20" y="128" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pearls" minimumFontSize="17" id="HaU-cl-fr9">
-                    <rect key="frame" x="120" y="108" width="80" height="30"/>
+                    <rect key="frame" x="120" y="128" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Rubies" minimumFontSize="17" id="m5z-SX-5yc">
-                    <rect key="frame" x="220" y="108" width="80" height="30"/>
+                    <rect key="frame" x="220" y="128" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qRh-s0-sPD">
+                    <rect key="frame" x="20" y="61" width="40" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z9W-6W-ij3">
+                    <rect key="frame" x="68" y="61" width="40" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="REr-E9-bh9">
+                    <rect key="frame" x="116" y="61" width="40" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.89019614458084106" green="0.63529413938522339" blue="0.46666669845581055" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i5s-og-Niz">
+                    <rect key="frame" x="164" y="61" width="40" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.9656991332" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="STy-7C-3Ye">
+                    <rect key="frame" x="212" y="61" width="40" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J1c-4c-QvK">
+                    <rect key="frame" x="260" y="61" width="40" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

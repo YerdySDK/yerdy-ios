@@ -13,12 +13,19 @@ extern NSString *Gold, *Silver, *Bronze, *Diamonds, *Pearls, *Rubies;
 
 @interface BankViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UITextField *gold;
-@property (strong, nonatomic) IBOutlet UITextField *silver;
-@property (strong, nonatomic) IBOutlet UITextField *bronze;
-@property (strong, nonatomic) IBOutlet UITextField *diamonds;
-@property (strong, nonatomic) IBOutlet UITextField *pearls;
-@property (strong, nonatomic) IBOutlet UITextField *rubies;
+@property (strong, nonatomic) IBOutlet UILabel *gold;
+@property (strong, nonatomic) IBOutlet UILabel *silver;
+@property (strong, nonatomic) IBOutlet UILabel *bronze;
+@property (strong, nonatomic) IBOutlet UILabel *diamonds;
+@property (strong, nonatomic) IBOutlet UILabel *pearls;
+@property (strong, nonatomic) IBOutlet UILabel *rubies;
+
+@property (strong, nonatomic) IBOutlet UITextField *goldInput;
+@property (strong, nonatomic) IBOutlet UITextField *silverInput;
+@property (strong, nonatomic) IBOutlet UITextField *bronzeInput;
+@property (strong, nonatomic) IBOutlet UITextField *diamondsInput;
+@property (strong, nonatomic) IBOutlet UITextField *pearlsInput;
+@property (strong, nonatomic) IBOutlet UITextField *rubiesInput;
 
 - (IBAction)earn:(id)sender;
 

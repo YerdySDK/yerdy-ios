@@ -324,7 +324,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sample/Sample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					../Yerdy/Yerdy,
+					"../Yerdy/Yerdy/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sample/Sample-Info.plist";
@@ -342,7 +342,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sample/Sample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					../Yerdy/Yerdy,
+					"../Yerdy/Yerdy/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sample/Sample-Info.plist";

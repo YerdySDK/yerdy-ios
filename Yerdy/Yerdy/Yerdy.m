@@ -25,6 +25,7 @@
 #import "YRDReward.h"
 #import "YRDWebViewController.h"
 #import "YRDAppActionParser.h"
+#import "YRDCurrencyTracker.h"
 
 static Yerdy *sharedInstance;
 
@@ -52,6 +53,8 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	NSUInteger _messagesPresentedInRow;
 	
 	YRDConversionTracker *_conversionTracker;
+	
+	YRDCurrencyTracker *_currencyTracker;
 }
 @end
 
@@ -99,6 +102,8 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	_timeTracker = [[YRDTimeTracker alloc] init];
 	
 	_conversionTracker = [[YRDConversionTracker alloc] init];
+	
+	_currencyTracker = [[YRDCurrencyTracker alloc] init];
 	
 	[self reportLaunch:YES];
 	
@@ -367,6 +372,48 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		return;
 	}
 	[_messageDelegate yerdy:self handleReward:reward];
+}
+
+
+#pragma mark - Currency analytics
+
+- (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount
+{
+	[_currencyTracker earnedCurrency:currency amount:amount];
+}
+
+- (void)earnedCurrencies:(NSDictionary *)currencies
+{
+	[_currencyTracker earnedCurrencies:currencies];
+}
+
+- (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSUInteger)amount
+{
+	// TODO: track item
+	[_currencyTracker spentCurrency:currency amount:amount];
+}
+
+- (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies
+{
+	// TODO: track item
+	[_currencyTracker spentCurrencies:currencies];
+}
+
+- (void)purchasedInApp:(YRDPurchase *)purchase
+{
+	// TODO: track purchase
+}
+
+- (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount
+{
+	// TODO: track purchase
+	[_currencyTracker purchasedCurrency:currency amount:amount];
+}
+
+- (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies
+{
+	// TODO: track purchase
+	[_currencyTracker purchasedCurrencies:currencies];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "YerdyDelegate.h"
+#import "YRDPurchase.h"
 
 @interface Yerdy : NSObject
 
@@ -34,5 +35,17 @@
 //
 // TODO: How to handle nil for 'placement'?
 - (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window;
+
+
+// TODO: Document these!
+- (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount;
+- (void)earnedCurrencies:(NSDictionary *)currencies;
+
+- (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSUInteger)amount;
+- (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies;
+
+- (void)purchasedInApp:(YRDPurchase *)purchase;
+- (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount;
+- (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies;
 
 @end

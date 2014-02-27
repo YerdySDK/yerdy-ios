@@ -17,12 +17,18 @@ static NSString *PublisherKey, *PublisherSecret;
 
 @interface YRDRequest ()
 {
+	NSURL *_URL;
+	NSDictionary *_queryParameters;
 	NSString *_signature;
 }
 @end
 
 
 @implementation YRDRequest
+
+@synthesize URL = _URL;
+@synthesize queryParameters = _queryParameters;
+
 
 + (void)setPublisherKey:(NSString *)publisherKey
 {
@@ -74,6 +80,28 @@ static NSString *PublisherKey, *PublisherSecret;
 	
 	return self;
 }
+
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super init];
+	if (!self)
+		return nil;
+	
+	_URL = [aDecoder decodeObjectForKey:@"URL"];
+	_queryParameters = [aDecoder decodeObjectForKey:@"queryParameters"];
+	_signature = [aDecoder decodeObjectForKey:@"signature"];
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+	if (_URL) [aCoder encodeObject:_URL forKey:@"URL"];
+	if (_queryParameters) [aCoder encodeObject:_queryParameters forKey:@"queryParameters"];
+	if (_signature) [aCoder encodeObject:_signature forKey:@"signature"];
+}
+
 
 - (NSURLRequest *)urlRequest
 {

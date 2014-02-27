@@ -11,7 +11,7 @@
 @class YRDResponseHandler;
 
 
-@interface YRDRequest : NSObject
+@interface YRDRequest : NSObject <NSCoding>
 
 // Used to sign requests.
 + (void)setPublisherKey:(NSString *)publisherKey;

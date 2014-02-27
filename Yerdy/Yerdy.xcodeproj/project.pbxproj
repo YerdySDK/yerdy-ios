@@ -27,7 +27,7 @@
 		4711E16218BE798200966C93 /* YRDLaunchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E15818BE798200966C93 /* YRDLaunchResponse.m */; };
 		4711E16318BE798200966C93 /* YRDPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E15C18BE798200966C93 /* YRDPurchase.m */; };
 		4711E16418BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E15E18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m */; };
-		4711E16518BE798200966C93 /* YRDTrackVirtualPurchaseResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E16018BE798200966C93 /* YRDTrackVirtualPurchaseResponse.m */; };
+		4711E16518BE798200966C93 /* YRDTrackPurchaseResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E16018BE798200966C93 /* YRDTrackPurchaseResponse.m */; };
 		4711E16D18BE79A500966C93 /* YRDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E16818BE79A500966C93 /* YRDViewController.m */; };
 		4711E16E18BE79A500966C93 /* YRDViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E16A18BE79A500966C93 /* YRDViewControllerManager.m */; };
 		4711E16F18BE79A500966C93 /* YRDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E16C18BE79A500966C93 /* YRDWebViewController.m */; };
@@ -44,6 +44,7 @@
 		95CA641A18B948DA0047D2E2 /* YRDConversionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CA641918B948DA0047D2E2 /* YRDConversionTracker.m */; };
 		95CA641D18BDAB3F0047D2E2 /* YRDCurrencyTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CA641C18BDAB3F0047D2E2 /* YRDCurrencyTracker.m */; };
 		95ECDF3518B3126600E2FEB7 /* YRDTimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ECDF3418B3126600E2FEB7 /* YRDTimeTracker.m */; };
+		95FD8EF618BEE3E7009C2389 /* YRDTrackPurchaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FD8EF518BEE3E7009C2389 /* YRDTrackPurchaseRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -103,8 +104,8 @@
 		4711E15C18BE798200966C93 /* YRDPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDPurchase.m; sourceTree = "<group>"; };
 		4711E15D18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackVirtualPurchaseRequest.h; sourceTree = "<group>"; };
 		4711E15E18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackVirtualPurchaseRequest.m; sourceTree = "<group>"; };
-		4711E15F18BE798200966C93 /* YRDTrackVirtualPurchaseResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackVirtualPurchaseResponse.h; sourceTree = "<group>"; };
-		4711E16018BE798200966C93 /* YRDTrackVirtualPurchaseResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackVirtualPurchaseResponse.m; sourceTree = "<group>"; };
+		4711E15F18BE798200966C93 /* YRDTrackPurchaseResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackPurchaseResponse.h; sourceTree = "<group>"; };
+		4711E16018BE798200966C93 /* YRDTrackPurchaseResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackPurchaseResponse.m; sourceTree = "<group>"; };
 		4711E16718BE79A500966C93 /* YRDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDViewController.h; sourceTree = "<group>"; };
 		4711E16818BE79A500966C93 /* YRDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDViewController.m; sourceTree = "<group>"; };
 		4711E16918BE79A500966C93 /* YRDViewControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDViewControllerManager.h; sourceTree = "<group>"; };
@@ -143,6 +144,8 @@
 		95ECDF3318B3126600E2FEB7 /* YRDTimeTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTimeTracker.h; sourceTree = "<group>"; };
 		95ECDF3418B3126600E2FEB7 /* YRDTimeTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTimeTracker.m; sourceTree = "<group>"; };
 		95F97B9B18AB386000C65D10 /* YerdyDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YerdyDelegate.h; sourceTree = "<group>"; };
+		95FD8EF418BEE3E7009C2389 /* YRDTrackPurchaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackPurchaseRequest.h; sourceTree = "<group>"; };
+		95FD8EF518BEE3E7009C2389 /* YRDTrackPurchaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackPurchaseRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,10 +226,12 @@
 			children = (
 				4711E15B18BE798200966C93 /* YRDPurchase.h */,
 				4711E15C18BE798200966C93 /* YRDPurchase.m */,
+				4711E15F18BE798200966C93 /* YRDTrackPurchaseResponse.h */,
+				4711E16018BE798200966C93 /* YRDTrackPurchaseResponse.m */,
+				95FD8EF418BEE3E7009C2389 /* YRDTrackPurchaseRequest.h */,
+				95FD8EF518BEE3E7009C2389 /* YRDTrackPurchaseRequest.m */,
 				4711E15D18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.h */,
 				4711E15E18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m */,
-				4711E15F18BE798200966C93 /* YRDTrackVirtualPurchaseResponse.h */,
-				4711E16018BE798200966C93 /* YRDTrackVirtualPurchaseResponse.m */,
 			);
 			path = Purchasing;
 			sourceTree = "<group>";
@@ -414,8 +419,9 @@
 				4711E14C18BE778A00966C93 /* YRDMessage.m in Sources */,
 				4711E12A18BE770700966C93 /* YRDDelayedBlock.m in Sources */,
 				4711E14F18BE778A00966C93 /* YRDMessagePresenterSystem.m in Sources */,
-				4711E16518BE798200966C93 /* YRDTrackVirtualPurchaseResponse.m in Sources */,
+				4711E16518BE798200966C93 /* YRDTrackPurchaseResponse.m in Sources */,
 				4711E18018BE79B700966C93 /* YRDImageResponseHandler.m in Sources */,
+				95FD8EF618BEE3E7009C2389 /* YRDTrackPurchaseRequest.m in Sources */,
 				95ECDF3518B3126600E2FEB7 /* YRDTimeTracker.m in Sources */,
 				4711E16218BE798200966C93 /* YRDLaunchResponse.m in Sources */,
 				4711E16F18BE79A500966C93 /* YRDWebViewController.m in Sources */,

@@ -26,8 +26,9 @@
 #import "YRDWebViewController.h"
 #import "YRDAppActionParser.h"
 #import "YRDCurrencyTracker.h"
+#import "YRDTrackPurchaseRequest.h"
 #import "YRDTrackVirtualPurchaseRequest.h"
-#import "YRDTrackVirtualPurchaseResponse.h"
+#import "YRDTrackPurchaseResponse.h"
 
 
 static Yerdy *sharedInstance;
@@ -417,7 +418,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 																						price:currencyArray
 																				firstPurchase:itemsPurchased == 1];
 	
-	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackVirtualPurchaseResponse *response, NSError *error) {
+	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
 		YRDDebug(@"trackVirtualPurchase result: %d", response.result);
 	}];
 	
@@ -427,20 +428,34 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 - (void)purchasedInApp:(YRDPurchase *)purchase
 {
-	// TODO: track purchase
+	[self purchasedInApp:purchase currencies:nil];
 }
 
 - (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount
 {
-	// TODO: track purchase
-	[_currencyTracker purchasedCurrency:currency amount:amount];
+	// TODO: arg validation
+	[self purchasedInApp:purchase currencies:@{ currency : @(amount) }];
 }
 
 - (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies
 {
-	// TODO: track purchase
+	// TODO: arg validation
+	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
+	NSInteger itemsPurchased = [[NSUserDefaults standardUserDefaults] integerForKey:YRDItemsPurchasedDefaultsKey];
+	
+	YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
+																		   currency:currencyArray
+																		   launches:_launchTracker.launchCount
+																		   playtime:_timeTracker.timePlayed
+																	 earnedCurrency:_currencyTracker.currencyEarned
+																	  spentCurrency:_currencyTracker.currencySpent
+																  purchasedCurrency:_currencyTracker.currencyPurchased
+																	 itemsPurchased:itemsPurchased];
+	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
+		YRDDebug(@"trackPurchase result: %d", response.result);
+	}];
+	
 	[_currencyTracker purchasedCurrencies:currencies];
 }
-
 
 @end

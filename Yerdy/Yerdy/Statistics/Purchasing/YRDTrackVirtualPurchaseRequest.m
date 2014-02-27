@@ -8,7 +8,7 @@
 
 #import "YRDTrackVirtualPurchaseRequest.h"
 #import "YRDJSONResponseHandler.h"
-#import "YRDTrackVirtualPurchaseResponse.h"
+#import "YRDTrackPurchaseResponse.h"
 
 @implementation YRDTrackVirtualPurchaseRequest
 
@@ -19,7 +19,7 @@
 	NSDictionary *query = @{};
 	YRDTrackVirtualPurchaseRequest *request = [[self alloc] initWithPath:@"stats/trackVirtualPurchase.php"
 														 queryParameters:query];
-	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDTrackVirtualPurchaseResponse class]];
+	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDTrackPurchaseResponse class]];
 	return request;
 }
 

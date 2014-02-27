@@ -1,0 +1,25 @@
+//
+//  YRDTrackPurchaseRequest.h
+//  Yerdy
+//
+//  Created by Darren Clark on 2014-02-26.
+//  Copyright (c) 2014 Yerdy. All rights reserved.
+//
+
+#import "YRDRequest.h"
+
+@class YRDPurchase;
+
+
+@interface YRDTrackPurchaseRequest : YRDRequest
+
++ (instancetype)requestWithPurchase:(YRDPurchase *)purchase
+						   currency:(NSArray *)currency
+						   launches:(int)launchCount
+						   playtime:(NSTimeInterval)playtime
+					 earnedCurrency:(NSArray *)earnedCurrency
+					  spentCurrency:(NSArray *)spentCurrency
+				  purchasedCurrency:(NSArray *)purchasedCurrency
+					 itemsPurchased:(int)itemsPurchased;
+
+@end

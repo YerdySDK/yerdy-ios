@@ -26,12 +26,11 @@
 - (void)storeRequest:(YRDRequest *)request;
 
 
-// Retrieves the request to send
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId;
-
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId
+// Retrieves the next request to send
+- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)outRequest
+			  requestId:(NSString * __autoreleasing *)outRequestId;
+- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)outRequest
+			  requestId:(NSString * __autoreleasing *)outRequestId
 		 afterRequestId:(NSInteger)after;
 
 

@@ -90,6 +90,8 @@
 		return;
 	
 	dispatch_async([self dispatchQueue], ^{
+		// generate a request ID in the format of "[timestamp].[suffix]" where suffix is an integer
+		// that is incremented until a unique id is found
 		long long int timestamp = (long long int)round([[NSDate date] timeIntervalSince1970]);
 		NSString *requestId = nil;
 		
@@ -129,14 +131,22 @@
 	});
 }
 
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId
+- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)outRequest
+			  requestId:(NSString * __autoreleasing *)outRequestId
 {
+	@synchronized (_requestIdSyncObject) {
+		NSString *requestId = _cachedRequestIds.firstObject;
+		
+		if (!requestId)
+			return NO;
+		
+		//YRDRequest *request
+	}
 	return NO;
 }
 
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId
+- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)outRequest
+			  requestId:(NSString * __autoreleasing *)outRequestId
 		 afterRequestId:(NSInteger)after
 {
 	return NO;

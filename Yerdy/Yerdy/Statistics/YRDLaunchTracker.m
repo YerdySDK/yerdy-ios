@@ -79,14 +79,18 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification
 {
+	YRDResumeType resumeType;
+	
 	if (fabs([_lastBackground timeIntervalSinceNow]) > MinBackgroundTimeForResumeLaunch) {
+		resumeType = YRDLongResume;
 		[self incrementLaunchesForKey:YRDLaunchesDefaultsKey];
-		
-		if ([_delegate respondsToSelector:@selector(launchTrackerDetectedResumeLaunch:)]) {
-			[_delegate launchTrackerDetectedResumeLaunch:self];
-		}
 	} else {
+		resumeType = YRDShortResume;
 		[self incrementLaunchesForKey:YRDResumesDefaultsKey];
+	}
+	
+	if ([_delegate respondsToSelector:@selector(launchTracker:detectedResumeOfType:)]) {
+		[_delegate launchTracker:self detectedResumeOfType:resumeType];
 	}
 }
 

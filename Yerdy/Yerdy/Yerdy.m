@@ -52,6 +52,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	
 	NSMutableArray *_messages;
 	YRDMessagePresenter *_messagePresenter;
+	BOOL _forceMessageFetchNextResume;
 	
 	NSString *_currentPlacement;
 	NSUInteger _messagesPresentedInRow;
@@ -116,9 +117,12 @@ static const NSTimeInterval TokenTimeout = 5.0;
 
 #pragma mark - Launch handling
 
-- (void)launchTrackerDetectedResumeLaunch:(YRDLaunchTracker *)launchTracker
+- (void)launchTracker:(YRDLaunchTracker *)launchTracker detectedResumeOfType:(YRDResumeType)resumeType
 {
-	[self reportLaunch:NO];
+	if (resumeType == YRDLongResume)
+		[self reportLaunch:NO];
+	else if (resumeType == YRDShortResume && _forceMessageFetchNextResume)
+		[self fetchMessages];
 }
 
 - (void)reportLaunch:(BOOL)initialLaunch
@@ -142,13 +146,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 				YRDError(@"Failed to report launch: %@", error);
 			}
 			
-			YRDMessagesRequest *messagesRequest = [YRDMessagesRequest messagesRequest];
-			[YRDURLConnection sendRequest:messagesRequest completionHandler:^(NSArray *response, NSError *error) {
-				((Yerdy *)weakSelf)->_messages = [response mutableCopy];
-				
-				if (!error && [_delegate respondsToSelector:@selector(yerdyConnected)])
-					[_delegate yerdyConnected];
-			}];
+			[weakSelf fetchMessages];
 		}];
 	};
 	
@@ -158,6 +156,22 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	} else {
 		block();
 	}
+}
+
+- (void)fetchMessages
+{
+	_forceMessageFetchNextResume = NO;
+	
+	YRDMessagesRequest *messagesRequest = [YRDMessagesRequest messagesRequest];
+	
+	__weak Yerdy *weakSelf = self;
+	[YRDURLConnection sendRequest:messagesRequest completionHandler:^(NSArray *response, NSError *error) {
+		((Yerdy *)weakSelf)->_messages = [response mutableCopy];
+		
+		id<YerdyDelegate> delegate = ((Yerdy *)weakSelf)->_delegate;
+		if (!error && [delegate respondsToSelector:@selector(yerdyConnected)])
+			[delegate yerdyConnected];
+	}];
 }
 
 #pragma mark - Persisted properties
@@ -319,6 +333,9 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];
 	
 	if (action != nil) {
+		if (message.forceRefresh)
+			_forceMessageFetchNextResume = YES;
+		
 		YRDMessageActionType actionType = action.integerValue;
 		if (actionType == YRDMessageActionTypeExternalBrowser) {
 			[[UIApplication sharedApplication] openURL:actionParameter];

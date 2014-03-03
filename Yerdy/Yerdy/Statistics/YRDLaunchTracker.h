@@ -12,6 +12,15 @@
 // DO NOT INSTANTIATE AN INSTANCE OF THIS CLASS YOURSELF!
 
 @protocol YRDLaunchTrackerDelegate;
+typedef enum YRDResumeType {
+	// Short (< 15 minutes) time spent in background, user *probably* only backgrounded
+	// the app to respond to a text or tweet, etc...
+	YRDShortResume,
+	// Long (> 15 minutes) time spent in background, user probably left the app and it
+	// just never got kicked out of memory. For all intents and purposes we count this
+	// as a new launch of the app
+	YRDLongResume,
+} YRDResumeType;
 
 
 @interface YRDLaunchTracker : NSObject
@@ -31,6 +40,6 @@
 @optional
 
 // Triggered after the app is resumed after sitting in the background for 15 minutes
-- (void)launchTrackerDetectedResumeLaunch:(YRDLaunchTracker *)launchTracker;
+- (void)launchTracker:(YRDLaunchTracker *)launchTracker detectedResumeOfType:(YRDResumeType)resumeType;
 
 @end

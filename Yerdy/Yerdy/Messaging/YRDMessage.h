@@ -48,6 +48,8 @@ typedef enum YRDMessageActionType {
 @property (nonatomic, strong) NSString *action;
 @property (nonatomic, assign) BOOL forceAction;  // TODO: Implement forceAction
 
+@property (nonatomic, assign) BOOL forceRefresh;
+
 // Style parameters
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, strong) UIColor *confirmBackgroundColor;

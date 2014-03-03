@@ -51,6 +51,8 @@
 		
 		@"watermark" : @"watermarkAnchor",
 		@"watermark_image" : @"watermarkImage",
+		
+		@"force_refresh" : @"forceRefresh",
 	};
 }
 
@@ -127,6 +129,10 @@
 			return [self contentModeForString:[input description]];
 		},
 		@"watermark_image" : convertURL,
+		
+		@"force_refresh" : ^id(id input) {
+			return @([input boolValue]);
+		},
 	};
 }
 

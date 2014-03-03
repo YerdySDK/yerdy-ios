@@ -33,6 +33,8 @@ extern NSString *YRDLaunchesDefaultsKey;
 extern NSString *YRDResumesDefaultsKey;
 extern NSString *YRDExitsDefaultsKey;
 
+extern NSString *YRDUserTypeDefaultsKey;
+
 extern NSString *YRDPushTokenDefaultsKey;
 extern NSString *YRDABTagDefaultsKey;
 

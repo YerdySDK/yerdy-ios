@@ -9,8 +9,9 @@
 #pragma once
 
 
+// Writtent to disk, make sure the underlying value of each enum value doesn't change
 typedef enum YRDUserType {
-	YRDUserTypeNone,	// user hasn't made any purchases
-	YRDUserTypeCheat,	// user's last purchase was detected as invalid
-	YRDUserTypePay,		// user's last purchase was detected as valid
+	YRDUserTypeNone = 0,	// user hasn't made any purchases
+	YRDUserTypeCheat = 1,	// user's last purchase was detected as invalid
+	YRDUserTypePay = 2,		// user's last purchase was detected as valid
 } YRDUserType;

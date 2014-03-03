@@ -7,9 +7,11 @@
 //
 
 #import "Yerdy.h"
+#import "YRDUserType.h"
 
 @interface Yerdy (Private)
 
 @property (nonatomic, copy) NSString *ABTag;
+@property (nonatomic, assign) YRDUserType userType;
 
 @end

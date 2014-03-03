@@ -21,6 +21,8 @@ NSString *YRDLaunchesDefaultsKey = @"YRDLaunchCount";
 NSString *YRDResumesDefaultsKey = @"YRDResumeCount";
 NSString *YRDExitsDefaultsKey = @"YRDExitCount";
 
+NSString *YRDUserTypeDefaultsKey = @"YRDUserType";
+
 NSString *YRDPushTokenDefaultsKey = @"YRDPushToken";
 NSString *YRDABTagDefaultsKey = @"YRDABTag";
 

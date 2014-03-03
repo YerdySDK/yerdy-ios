@@ -143,6 +143,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 			if (response.success) {
 				weakSelf.ABTag = response.tag;
+				weakSelf.userType = response.userType;
 			} else {
 				YRDError(@"Failed to report launch: %@", error);
 			}
@@ -212,6 +213,21 @@ static const NSTimeInterval TokenTimeout = 5.0;
 - (NSString *)ABTag
 {
 	return [self persistentObjectForKey:YRDABTagDefaultsKey];
+}
+
+- (void)setUserType:(YRDUserType)userType
+{
+	[self setPersistentObject:@(userType) forKey:YRDUserTypeDefaultsKey];
+}
+
+- (YRDUserType)userType
+{
+	return [[self persistentObjectForKey:YRDUserTypeDefaultsKey] intValue];
+}
+
+- (BOOL)isPremiumUser
+{
+	return self.userType == YRDUserTypePay;
 }
 
 #pragma mark - Messaging

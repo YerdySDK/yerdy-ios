@@ -21,6 +21,9 @@
 // Sets or retrieves the users push notification token
 @property (nonatomic, copy) NSData *pushToken;
 
+// Is the user a premium user? (Do they have any validated IAP purchases?)
+@property (nonatomic, readonly) BOOL isPremiumUser;
+
 // Is a message available for the passed in placement?
 //
 // TODO: How to handle nil?

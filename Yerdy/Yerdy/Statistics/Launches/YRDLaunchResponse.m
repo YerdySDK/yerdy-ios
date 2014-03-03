@@ -16,7 +16,6 @@
 		@"success" : @"success",
 		@"type" : @"userType",
 		@"tag" : @"tag",
-		@"secret" : @"secret",
 		@"timestamp" : @"timestamp",
 	};
 }

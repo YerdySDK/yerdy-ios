@@ -18,17 +18,28 @@ static NSString *Path = @"stats/launch.php";
 
 @implementation YRDLaunchRequest
 
-+ (instancetype)launchRequestWithToken:(NSData *)token launches:(int)launches crashes:(int)crashes playtime:(NSTimeInterval)playtime
++ (instancetype)launchRequestWithToken:(NSData *)token
+							  launches:(int)launches
+							   crashes:(int)crashes
+							  playtime:(NSTimeInterval)playtime
+							  currency:(NSArray *)currency
 {
-	NSDictionary *queryParameters = [self queryParametersForToken:token launches:launches
-														  crashes:crashes playtime:playtime];
+	NSDictionary *queryParameters = [self queryParametersForToken:token
+														 launches:launches
+														  crashes:crashes
+														 playtime:playtime
+														 currency:currency];
 	
 	YRDLaunchRequest *request = [[self alloc] initWithPath:Path queryParameters:queryParameters];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class] rootKey:@"@attributes"];
 	return request;
 }
 
-+ (NSDictionary *)queryParametersForToken:(NSData *)token launches:(int)launches crashes:(int)crashes playtime:(NSTimeInterval)playtime
++ (NSDictionary *)queryParametersForToken:(NSData *)token
+								 launches:(int)launches
+								  crashes:(int)crashes
+								 playtime:(NSTimeInterval)playtime
+								 currency:(NSArray *)currency
 {
 	// timezone string format: -700 for -7 hours, 300 for +3 hours, etc...
 	NSTimeZone *timezone = [NSTimeZone localTimeZone];
@@ -40,6 +51,8 @@ static NSString *Path = @"stats/launch.php";
 	NSLocale *locale = [NSLocale currentLocale];
 	NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
 	NSString *languageCode = [locale objectForKey:NSLocaleLanguageCode];
+	
+	NSString *currencyString = [currency componentsJoinedByString:@";"];
 	
 	// TODO: Add currency
 	return @{
@@ -54,6 +67,7 @@ static NSString *Path = @"stats/launch.php";
 		@"launches" : @(launches),
 		@"crashes" : @(crashes),
 		@"playtime" : @((int)roundf(playtime)),
+		@"currency" : currencyString,
 	};
 }
 

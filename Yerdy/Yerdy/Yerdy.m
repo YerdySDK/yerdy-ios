@@ -138,7 +138,8 @@ static const NSTimeInterval TokenTimeout = 5.0;
 		YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequestWithToken:self.pushToken
 																		  launches:_launchTracker.launchCount
 																		   crashes:_launchTracker.crashCount
-																		  playtime:_timeTracker.timePlayed];
+																		  playtime:_timeTracker.timePlayed
+																		  currency:_currencyTracker.currencyBalance];
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 			if (response.success) {
 				weakSelf.ABTag = response.tag;

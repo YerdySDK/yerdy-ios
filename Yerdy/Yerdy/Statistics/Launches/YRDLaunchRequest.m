@@ -54,7 +54,6 @@ static NSString *Path = @"stats/launch.php";
 	
 	NSString *currencyString = [currency componentsJoinedByString:@";"];
 	
-	// TODO: Add currency
 	return @{
 		@"api" : @2,
 		@"token" : YRDToString([YRDUtil base64String:token]),

@@ -54,29 +54,46 @@ static const NSUInteger MIN_DISK_CAPACITY = 1024 * 1024 * 16;	// 16 MB
 	return self;
 }
 
+- (NSUInteger)numberOfActiveRequests
+{
+	return _liveHandlers.count;
+}
+
 - (void)loadImageAtURL:(NSURL *)URL completionHandler:(YRDImageLoadHandler)completionHandler
 {
-	if (completionHandler == NULL)
-		completionHandler = ^(UIImage *image) {};
+	// wrap it in a new block, so we have a unique block for every call to this method
+	// (previously, if a user passed in the same URL & completionHandler it would crash)
+	YRDImageLoadHandler innerHandler = ^(id image){
+		if (completionHandler)
+			completionHandler(image);
+	};
 	
 	if (_images[URL]) {
-		completionHandler(_images[URL]);
+		innerHandler(_images[URL]);
 		return;
 	}
 	
 	if (_liveHandlers[URL]) {
-		[_liveHandlers[URL] addObject:(id)completionHandler];
+		[_liveHandlers[URL] addObject:(id)innerHandler];
 		return;
 	}
 	
-	_liveHandlers[URL] = [NSMutableArray arrayWithObject:(id)completionHandler];
+	_liveHandlers[URL] = [NSMutableArray arrayWithObject:(id)innerHandler];
 	
 	YRDRequest *request = [[YRDRequest alloc] initWithURL:URL];
 	request.responseHandler = [[YRDImageResponseHandler alloc] init];
 	[YRDURLConnection sendRequest:request completionHandler:^(id response, NSError *error) {
-		NSArray *handlers = _liveHandlers[URL];
-		for (YRDImageLoadHandler handler in handlers) {
-			handler(response);
+		if (response != nil)
+			_images[URL] = response;
+		
+		// Since we may add new items to _liveHandlers[URL] as we are iterating it,
+		// we run a while loop until we chew through all the items
+		while ([_liveHandlers[URL] count] > 0) {
+			NSArray *handlers = [_liveHandlers[URL] copy];
+			for (YRDImageLoadHandler handler in handlers) {
+				handler(response);
+			}
+			[_liveHandlers[URL] removeObjectsInArray:handlers];
 		}
 		[_liveHandlers removeObjectForKey:URL];
 	}];

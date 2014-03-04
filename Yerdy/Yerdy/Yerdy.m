@@ -21,6 +21,7 @@
 #import "YRDURLConnection.h"
 #import "YRDConversionTracker.h"
 #import "YRDInAppPurchase.h"
+#import "YRDImageCache.h"
 #import "YRDItemPurchase.h"
 #import "YRDReward.h"
 #import "YRDWebViewController.h"
@@ -39,6 +40,8 @@ static Yerdy *sharedInstance;
 static const NSUInteger PublisherKeyPartLength = 16;
 
 static const NSTimeInterval TokenTimeout = 5.0;
+
+static const NSUInteger MaxImagePreloads = 6;
 
 
 @interface Yerdy () <YRDLaunchTrackerDelegate, YRDMessagePresenterDelegate>
@@ -168,12 +171,49 @@ static const NSTimeInterval TokenTimeout = 5.0;
 	
 	__weak Yerdy *weakSelf = self;
 	[YRDURLConnection sendRequest:messagesRequest completionHandler:^(NSArray *response, NSError *error) {
-		((Yerdy *)weakSelf)->_messages = [response mutableCopy];
-		
-		id<YerdyDelegate> delegate = ((Yerdy *)weakSelf)->_delegate;
-		if (!error && [delegate respondsToSelector:@selector(yerdyConnected)])
-			[delegate yerdyConnected];
+		[weakSelf messagesReceived:response];
 	}];
+}
+
+- (void)messagesReceived:(NSArray *)messages
+{
+	_messages = [messages mutableCopy];
+	
+	YRDImageCache *imageCache = [YRDImageCache sharedCache];
+	
+	__block BOOL finishedQueuingImages = NO;
+	__block int imagesRemaining;
+	
+	__weak id<YerdyDelegate> weakDelegate = _delegate;
+	
+	void(^finished)(void) = ^{
+		[weakDelegate yerdyConnected];
+	};
+	
+	void(^completionHandler)(id) = ^(id image) {
+		imagesRemaining -= 1;
+		if (finishedQueuingImages)
+			finished();
+	};
+	
+	for (YRDMessage *message in _messages) {
+		if (message.image != nil) {
+			imagesRemaining++;
+			[imageCache loadImageAtURL:message.image completionHandler:completionHandler];
+		}
+		
+		if (message.watermarkImage != nil) {
+			imagesRemaining++;
+			[imageCache loadImageAtURL:message.watermarkImage completionHandler:completionHandler];
+		}
+		
+		if (imageCache.numberOfActiveRequests > MaxImagePreloads)
+			break;
+	}
+	
+	finishedQueuingImages = YES;
+	if (imagesRemaining == 0)
+		finished();
 }
 
 #pragma mark - Persisted properties

@@ -30,7 +30,11 @@ static NSDictionary *URLToFileMapping = nil;
 		
 		fileName = [URLToFileMapping objectForKey:withoutQuery];
 	}
-	return [[NSBundle mainBundle] pathForResource:fileName ofType:nil];
+	
+	if (fileName)
+		return [[NSBundle mainBundle] pathForResource:fileName ofType:nil];
+	else
+		return nil;
 }
 
 #pragma mark - NSURLProtocol

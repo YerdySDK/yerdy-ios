@@ -14,7 +14,7 @@
 
 @implementation YRDTrackVirtualPurchaseRequest
 
-+ (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies
++ (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies onSale:(BOOL)onSale
 				  firstPurchase:(BOOL)firstPurchase purchasesSinceInApp:(NSNumber *)purchasesSinceInApp
 {
 	NSString *currencyString = [currencies componentsJoinedByString:@";"];
@@ -25,6 +25,7 @@
 		@"currency" : YRDToString(currencyString),
 		@"tag" : YRDToString([Yerdy sharedYerdy].ABTag),
 		@"api" : @3,
+		@"sale" : @(onSale),
 	} mutableCopy];
 	
 	if (purchasesSinceInApp)

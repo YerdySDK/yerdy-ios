@@ -18,6 +18,7 @@
                 <outlet property="itemName" destination="b1r-S1-q4x" id="IEN-Uf-Mer"/>
                 <outlet property="pearls" destination="STy-7C-3Ye" id="Q1X-Ae-abG"/>
                 <outlet property="pearlsInput" destination="HaU-cl-fr9" id="hul-Uw-kdd"/>
+                <outlet property="purchasesOnSale" destination="3vQ-Ks-htJ" id="ACm-lI-M4g"/>
                 <outlet property="rubies" destination="J1c-4c-QvK" id="C6L-ht-uMV"/>
                 <outlet property="rubiesInput" destination="m5z-SX-5yc" id="4Qk-gU-wGg"/>
                 <outlet property="silver" destination="Z9W-6W-ij3" id="G1T-ZB-Dwd"/>
@@ -31,7 +32,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X0M-92-YBo">
-                    <rect key="frame" x="20" y="131" width="280" height="30"/>
+                    <rect key="frame" x="20" y="131" width="157" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Earn">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -166,6 +167,17 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sale?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wof-a1-qMg">
+                    <rect key="frame" x="185" y="131" width="58" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="3vQ-Ks-htJ">
+                    <rect key="frame" x="251" y="130" width="51" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </switch>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

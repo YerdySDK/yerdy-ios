@@ -10,7 +10,7 @@
 
 @interface YRDTrackVirtualPurchaseRequest : YRDRequest
 
-+ (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies
++ (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies onSale:(BOOL)onSale
 				  firstPurchase:(BOOL)firstPurchase purchasesSinceInApp:(NSNumber *)purchasesSinceInApp;
 
 @end

@@ -34,6 +34,7 @@
 		@"os" : YRDToString(os),
 		@"cc" : YRDToString(purchase.storeCountryCode),
 		@"currency" : [self currencyString:currency],
+		@"sale" : @(purchase.isOnSale),
 		@"value" : [NSString stringWithFormat:@"%@%@", purchase.price, purchase.currencyCode],
 		@"tag" : YRDToString([Yerdy sharedYerdy].ABTag),
 		@"api" : @3

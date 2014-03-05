@@ -101,11 +101,11 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 	
 	Yerdy *yerdy = [Yerdy sharedYerdy];
 	// ensure both methods are tested...
-	if (currencies.count == 1)
+	if (currencies.count == 1 && !_purchasesOnSale.isOn)
 		[yerdy purchasedItem:_itemName.text withCurrency:currencies.allKeys[0]
 					  amount:[currencies.allValues[0] unsignedIntegerValue]];
 	else
-		[yerdy purchasedItem:_itemName.text withCurrencies:currencies];
+		[yerdy purchasedItem:_itemName.text withCurrencies:currencies onSale:_purchasesOnSale.isOn];
 }
 
 - (IBAction)buyGold:(id)sender
@@ -280,6 +280,7 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 		
 		YRDPurchase *purchase = [YRDPurchase purchaseWithTransaction:transaction];
 		purchase.sandboxStore = YES; // never going to be released to App Store, hardcode to YES
+		purchase.onSale = _purchasesOnSale.isOn;
 		[[Yerdy sharedYerdy] purchasedInApp:purchase currency:Gold amount:50];
 	} else if ([productIdentifier isEqualToString:JewelPackProductIdentifier]) {
 		NSDictionary *currencies = @{ Diamonds : @50, Pearls : @50, Rubies: @50 };
@@ -288,6 +289,7 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 		YRDPurchase *purchase = [YRDPurchase purchaseWithProduct:_iapProducts[JewelPackProductIdentifier]
 													 transaction:transaction];
 		purchase.sandboxStore = YES; // never going to be released to App Store, hardcode to YES
+		purchase.onSale = _purchasesOnSale.isOn;
 		[[Yerdy sharedYerdy] purchasedInApp:purchase currencies:currencies];
 	}
 }

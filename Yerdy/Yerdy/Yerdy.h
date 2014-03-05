@@ -52,6 +52,7 @@
 
 - (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies;
+- (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies onSale:(BOOL)onSale;
 
 - (void)purchasedInApp:(YRDPurchase *)purchase;
 - (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount;

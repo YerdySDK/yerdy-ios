@@ -499,6 +499,12 @@ static const NSUInteger MaxImagePreloads = 6;
 - (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies
 {
 	// TODO: arg validation
+	[self purchasedItem:item withCurrencies:currencies onSale:NO];
+}
+
+- (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies onSale:(BOOL)onSale
+{
+	// TODO: arg validation
 	
 	// update items purchased count
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -516,6 +522,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
 	YRDTrackVirtualPurchaseRequest *request = [YRDTrackVirtualPurchaseRequest requestWithItem:item
 																						price:currencyArray
+																					   onSale:onSale
 																				firstPurchase:itemsPurchased == 1
 																		  purchasesSinceInApp:itemsPurchasedSinceInApp];
 	

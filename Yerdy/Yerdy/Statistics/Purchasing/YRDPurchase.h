@@ -25,6 +25,11 @@
 // Defaults to NO
 @property (nonatomic, assign, getter = isSandboxStore) BOOL sandboxStore;
 
+// Optional, set this to YES to track this IAP purchase as being "on sale"
+// Defaults to NO
+@property (nonatomic, assign, getter = isOnSale) BOOL onSale;
+
+
 + (instancetype)purchaseWithTransaction:(SKPaymentTransaction *)transaction;
 + (instancetype)purchaseWithProduct:(SKProduct *)product transaction:(SKPaymentTransaction *)transaction;
 

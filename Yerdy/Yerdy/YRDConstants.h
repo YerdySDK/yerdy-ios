@@ -43,6 +43,8 @@ extern NSString *YRDTimePlayedDefaultsKey;
 extern NSString *YRDMinutesPlayedDefaultsKey;
 
 // See YRDCurrencyTracker
+extern NSString *YRDAppliedInitialCurrencyDefaultsKey;
+
 extern NSString *YRDEarnedCurrencyDefaultsKey;
 extern NSString *YRDSpentCurrencyDefaultsKey;
 extern NSString *YRDPurchasedCurrencyDefaultsKey;

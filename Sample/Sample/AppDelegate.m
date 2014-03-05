@@ -39,8 +39,12 @@
 	
 	YRDSetLogLevel(YRDLogDebug);
 	
+	NSDictionary *initialCurrency = @{ Gold : @30, Silver : @20, Bronze : @10 };
+	[[NSUserDefaults standardUserDefaults] registerDefaults:initialCurrency];
+	
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
 	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
+	[yerdy setInitialCurrencies:initialCurrency];
 	yerdy.delegate = self;
 	
 	// Fake getting a push token

@@ -160,6 +160,9 @@ static const NSUInteger MaxImagePreloads = 6;
 	BOOL hasToken = [self pushToken] != nil;
 	if (initialLaunch && !hasToken) {
 		_delayedLaunchCall = [YRDDelayedBlock afterDelay:TokenTimeout runBlock:block];
+	} else if (initialLaunch) {
+		// let them register currencies, etc...
+		dispatch_async(dispatch_get_main_queue(), block);
 	} else {
 		block();
 	}
@@ -465,6 +468,16 @@ static const NSUInteger MaxImagePreloads = 6;
 - (void)registerCurrencies:(NSArray *)currencies
 {
 	[_currencyTracker registerCurrencies:currencies];
+}
+
+- (void)setInitialCurrencies:(NSDictionary *)initialCurrencies
+{
+	BOOL applied = [[self persistentObjectForKey:YRDAppliedInitialCurrencyDefaultsKey] boolValue];
+	if (!applied) {
+		[_currencyTracker earnedCurrencies:initialCurrencies];
+		[self setPersistentObject:@YES forKey:YRDAppliedInitialCurrencyDefaultsKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
 - (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount

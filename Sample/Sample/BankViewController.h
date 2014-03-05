@@ -33,5 +33,9 @@ extern NSString *Gold, *Silver, *Bronze, *Diamonds, *Pearls, *Rubies;
 @property (strong, nonatomic) IBOutlet UITextField *itemName;
 - (IBAction)buyItem:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIButton *buyGoldButton;
+- (IBAction)buyGold:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *buyJewelPackButton;
+- (IBAction)buyJewelPack:(id)sender;
 
 @end

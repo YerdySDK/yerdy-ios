@@ -12,8 +12,21 @@
 
 @interface YRDPurchase : NSObject
 
-+ (instancetype)purchaseWithTransaction:(SKPaymentTransaction *)transaction;
+@property (nonatomic, readonly) NSString *productIdentifier;
+@property (nonatomic, readonly) NSData *receipt;
 
-// TODO: Expose appropriate properties, etc...
+@property (nonatomic, readonly) NSString *price;
+@property (nonatomic, readonly) NSString *currencyCode;
+@property (nonatomic, readonly) NSString *storeCountryCode;
+
+
++ (instancetype)purchaseWithTransaction:(SKPaymentTransaction *)transaction;
++ (instancetype)purchaseWithProduct:(SKProduct *)product transaction:(SKPaymentTransaction *)transaction;
+
++ (instancetype)purchaseWithProductIdentifier:(NSString *)productIdentifier
+									  receipt:(NSData *)receipt
+										price:(NSString *)price			// i.e.: @"0.99"
+								 currencyCode:(NSString *)currencyCode	// ISO 4217 currency code
+							 storeCountryCode:(NSString *)storeCountryCode;	// adheres to ISO 3166-1_alpha-2
 
 @end

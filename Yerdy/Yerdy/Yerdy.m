@@ -30,6 +30,7 @@
 #import "YRDTrackPurchaseRequest.h"
 #import "YRDTrackVirtualPurchaseRequest.h"
 #import "YRDTrackPurchaseResponse.h"
+#import "YRDPurchase_Private.h"
 
 
 static Yerdy *sharedInstance;
@@ -517,16 +518,18 @@ static const NSUInteger MaxImagePreloads = 6;
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
 	NSInteger itemsPurchased = [[NSUserDefaults standardUserDefaults] integerForKey:YRDItemsPurchasedDefaultsKey];
 	
-	YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
-																		   currency:currencyArray
-																		   launches:_launchTracker.launchCount
-																		   playtime:_timeTracker.timePlayed
-																	 earnedCurrency:_currencyTracker.currencyEarned
-																	  spentCurrency:_currencyTracker.currencySpent
-																  purchasedCurrency:_currencyTracker.currencyPurchased
-																	 itemsPurchased:itemsPurchased];
-	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
-		YRDDebug(@"trackPurchase result: %d", response.result);
+	[purchase completeObjectWithCompletionHandler:^(BOOL success) {
+		YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
+																			   currency:currencyArray
+																			   launches:_launchTracker.launchCount
+																			   playtime:_timeTracker.timePlayed
+																		 earnedCurrency:_currencyTracker.currencyEarned
+																		  spentCurrency:_currencyTracker.currencySpent
+																	  purchasedCurrency:_currencyTracker.currencyPurchased
+																		 itemsPurchased:itemsPurchased];
+		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
+			YRDDebug(@"trackPurchase result: %d", response.result);
+		}];
 	}];
 	
 	[_currencyTracker purchasedCurrencies:currencies];

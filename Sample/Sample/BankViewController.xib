@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="bronze" destination="REr-E9-bh9" id="xCR-Qe-die"/>
                 <outlet property="bronzeInput" destination="FBG-cC-kBd" id="ACI-KE-Do7"/>
+                <outlet property="buyGoldButton" destination="xAf-DJ-seL" id="vWo-rK-W6P"/>
+                <outlet property="buyJewelPackButton" destination="CyO-OS-IjX" id="VoL-fv-tKP"/>
                 <outlet property="diamonds" destination="i5s-og-Niz" id="EKx-rm-TFb"/>
                 <outlet property="diamondsInput" destination="QRD-J9-n9o" id="LHe-8N-h8K"/>
                 <outlet property="gold" destination="qRh-s0-sPD" id="BoU-z9-N3r"/>
@@ -36,6 +38,28 @@
                     </state>
                     <connections>
                         <action selector="earn:" destination="-1" eventType="touchUpInside" id="DCw-Kz-UXV"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CyO-OS-IjX">
+                    <rect key="frame" x="192" y="207" width="108" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <state key="normal" title="Jewels IAP">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buyJewelPack:" destination="-1" eventType="touchUpInside" id="zZW-W6-Us5"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xAf-DJ-seL">
+                    <rect key="frame" x="76" y="207" width="108" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <state key="normal" title="Gold IAP">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buyGold:" destination="-1" eventType="touchUpInside" id="zLk-eO-7VL"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c2F-ZP-KZK">
@@ -135,6 +159,13 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IAP:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0he-9i-Bi7">
+                    <rect key="frame" x="20" y="207" width="48" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

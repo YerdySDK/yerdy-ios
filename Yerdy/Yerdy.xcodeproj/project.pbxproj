@@ -41,6 +41,7 @@
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
 		4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47E18A05D2C001BBD3D /* YRDConstants.m */; };
+		47D716F418C688B0001AE028 /* YRDProductRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47D716F318C688B0001AE028 /* YRDProductRequest.m */; };
 		95CA641A18B948DA0047D2E2 /* YRDConversionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CA641918B948DA0047D2E2 /* YRDConversionTracker.m */; };
 		95CA641D18BDAB3F0047D2E2 /* YRDCurrencyTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CA641C18BDAB3F0047D2E2 /* YRDCurrencyTracker.m */; };
 		95ECDF3518B3126600E2FEB7 /* YRDTimeTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ECDF3418B3126600E2FEB7 /* YRDTimeTracker.m */; };
@@ -138,6 +139,9 @@
 		4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLaunchTracker.m; sourceTree = "<group>"; };
 		4790C47D18A05D2C001BBD3D /* YRDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDConstants.h; sourceTree = "<group>"; };
 		4790C47E18A05D2C001BBD3D /* YRDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDConstants.m; sourceTree = "<group>"; };
+		47D716F018C68717001AE028 /* YRDPurchase_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDPurchase_Private.h; sourceTree = "<group>"; };
+		47D716F218C688B0001AE028 /* YRDProductRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDProductRequest.h; sourceTree = "<group>"; };
+		47D716F318C688B0001AE028 /* YRDProductRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDProductRequest.m; sourceTree = "<group>"; };
 		47E9B6C518A94557004A622F /* YRDDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDDefines.h; sourceTree = "<group>"; };
 		95CA641818B948DA0047D2E2 /* YRDConversionTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDConversionTracker.h; sourceTree = "<group>"; };
 		95CA641918B948DA0047D2E2 /* YRDConversionTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDConversionTracker.m; sourceTree = "<group>"; };
@@ -232,7 +236,9 @@
 		4711E15A18BE798200966C93 /* Purchasing */ = {
 			isa = PBXGroup;
 			children = (
+				47D716F118C688A3001AE028 /* StoreKit Interfacing */,
 				4711E15B18BE798200966C93 /* YRDPurchase.h */,
+				47D716F018C68717001AE028 /* YRDPurchase_Private.h */,
 				4711E15C18BE798200966C93 /* YRDPurchase.m */,
 				4711E15F18BE798200966C93 /* YRDTrackPurchaseResponse.h */,
 				4711E16018BE798200966C93 /* YRDTrackPurchaseResponse.m */,
@@ -358,6 +364,15 @@
 			path = Statistics;
 			sourceTree = "<group>";
 		};
+		47D716F118C688A3001AE028 /* StoreKit Interfacing */ = {
+			isa = PBXGroup;
+			children = (
+				47D716F218C688B0001AE028 /* YRDProductRequest.h */,
+				47D716F318C688B0001AE028 /* YRDProductRequest.m */,
+			);
+			path = "StoreKit Interfacing";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -424,6 +439,7 @@
 				4711E16418BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m in Sources */,
 				4711E12E18BE770700966C93 /* YRDUtil.m in Sources */,
 				4711E16D18BE79A500966C93 /* YRDViewController.m in Sources */,
+				47D716F418C688B0001AE028 /* YRDProductRequest.m in Sources */,
 				4711E18418BE79B700966C93 /* YRDURLConnection.m in Sources */,
 				4711E16318BE798200966C93 /* YRDPurchase.m in Sources */,
 				4711E14C18BE778A00966C93 /* YRDMessage.m in Sources */,

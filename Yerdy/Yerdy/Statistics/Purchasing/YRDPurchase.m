@@ -60,6 +60,8 @@
 		NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
 		if (receiptURL) {
 			_receipt = [NSData dataWithContentsOfURL:receiptURL];
+			if (_receipt.length == 0) // make sure we don't have an empty file...
+				_receipt = nil;
 		}
 	}
 	

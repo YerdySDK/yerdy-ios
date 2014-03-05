@@ -506,11 +506,18 @@ static const NSUInteger MaxImagePreloads = 6;
 	itemsPurchased += 1;
 	[defaults setInteger:itemsPurchased forKey:YRDItemsPurchasedDefaultsKey];
 	
+	NSNumber *itemsPurchasedSinceInApp = [defaults objectForKey:YRDItemsPurchasedSinceInAppDefaultsKey];
+	if (itemsPurchasedSinceInApp != nil) {
+		itemsPurchasedSinceInApp = @([itemsPurchasedSinceInApp integerValue] + 1);
+		[defaults setObject:itemsPurchasedSinceInApp forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
+	}
+	
 	// send track virtual purchase
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
 	YRDTrackVirtualPurchaseRequest *request = [YRDTrackVirtualPurchaseRequest requestWithItem:item
 																						price:currencyArray
-																				firstPurchase:itemsPurchased == 1];
+																				firstPurchase:itemsPurchased == 1
+																		  purchasesSinceInApp:itemsPurchasedSinceInApp];
 	
 	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
 		YRDDebug(@"trackVirtualPurchase result: %d", response.result);
@@ -567,6 +574,10 @@ static const NSUInteger MaxImagePreloads = 6;
 			} else if (response.result == YRDTrackPurchaseResultServerError) {
 				YRDError(@"trackPurchase - retry, server error: %@", error);
 				retry = YES;
+			}
+			
+			if (response.result == YRDTrackPurchaseResultSuccess) {
+				[[NSUserDefaults standardUserDefaults] setObject:@0 forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
 			}
 			
 			YRDDebug(@"trackPurchase result: %d", response.result);

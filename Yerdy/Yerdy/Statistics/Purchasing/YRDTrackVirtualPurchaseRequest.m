@@ -9,14 +9,27 @@
 #import "YRDTrackVirtualPurchaseRequest.h"
 #import "YRDJSONResponseHandler.h"
 #import "YRDTrackPurchaseResponse.h"
+#import "Yerdy_Private.h"
+#import "YRDUtil.h"
 
 @implementation YRDTrackVirtualPurchaseRequest
 
-+ (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies firstPurchase:(BOOL)firstPurchase
++ (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies
+				  firstPurchase:(BOOL)firstPurchase purchasesSinceInApp:(NSNumber *)purchasesSinceInApp
 {
-	// TODO: add parameters
+	NSString *currencyString = [currencies componentsJoinedByString:@";"];
 	
-	NSDictionary *query = @{};
+	NSMutableDictionary *query = [@{
+		@"itemid" : YRDToString(item),
+		@"first" : @(firstPurchase),
+		@"currency" : YRDToString(currencyString),
+		@"tag" : YRDToString([Yerdy sharedYerdy].ABTag),
+		@"api" : @3,
+	} mutableCopy];
+	
+	if (purchasesSinceInApp)
+		query[@"indexiap"] = purchasesSinceInApp;
+	
 	YRDTrackVirtualPurchaseRequest *request = [[self alloc] initWithPath:@"stats/trackVirtualPurchase.php"
 														 queryParameters:query];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDTrackPurchaseResponse class]];

@@ -36,3 +36,4 @@ NSString *YRDSpentCurrencyDefaultsKey = @"YRDSpentCurrency";
 NSString *YRDPurchasedCurrencyDefaultsKey = @"YRDPurchasedCurrency";
 
 NSString *YRDItemsPurchasedDefaultsKey = @"YRDItemsPurchased";
+NSString *YRDItemsPurchasedSinceInAppDefaultsKey = @"YRDItemsPurchasedSinceInApp";

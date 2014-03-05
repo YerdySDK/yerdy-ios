@@ -50,3 +50,4 @@ extern NSString *YRDSpentCurrencyDefaultsKey;
 extern NSString *YRDPurchasedCurrencyDefaultsKey;
 
 extern NSString *YRDItemsPurchasedDefaultsKey;
+extern NSString *YRDItemsPurchasedSinceInAppDefaultsKey;

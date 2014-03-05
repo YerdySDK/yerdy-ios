@@ -184,7 +184,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDImageCache *imageCache = [YRDImageCache sharedCache];
 	
 	__block BOOL finishedQueuingImages = NO;
-	__block int imagesRemaining;
+	__block int imagesRemaining = 0;
 	
 	__weak id<YerdyDelegate> weakDelegate = _delegate;
 	
@@ -193,8 +193,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	};
 	
 	void(^completionHandler)(id) = ^(id image) {
-		imagesRemaining -= 1;
-		if (finishedQueuingImages)
+		if (--imagesRemaining == 0 && finishedQueuingImages)
 			finished();
 	};
 	
@@ -298,17 +297,10 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window
 {
-	_messagesPresentedInRow = 0;
-	_didDismissMessage = NO;
-	
-	BOOL didShow = [self internalShowMessage:placement inWindow:window];
-	if (didShow)
-		_messagesPresentedInRow++;
-	
-	return didShow;
+	return [self internalShowMessage:placement inWindow:window first:YES];
 }
 
-- (BOOL)internalShowMessage:(NSString *)placement inWindow:(UIWindow *)window
+- (BOOL)internalShowMessage:(NSString *)placement inWindow:(UIWindow *)window first:(BOOL)first
 {
 	if (window == nil) {
 		window = [[UIApplication sharedApplication] keyWindow];
@@ -324,6 +316,13 @@ static const NSUInteger MaxImagePreloads = 6;
 	_messagePresenter = [YRDMessagePresenter presenterForMessage:message window:window];
 	if (!_messagePresenter)
 		return NO;
+	
+	if (first) {
+		_messagesPresentedInRow = 1;
+		_didDismissMessage = NO;
+	} else {
+		_messagesPresentedInRow++;
+	}
 	
 	_currentPlacement = placement;
 	_messagePresenter.delegate = self;
@@ -376,8 +375,7 @@ static const NSUInteger MaxImagePreloads = 6;
 {
 	if (action == nil && [self shouldShowAnotherMessage]) {
 		_messagePresenter = nil;
-		_messagesPresentedInRow++;
-		if ([self internalShowMessage:_currentPlacement inWindow:presenter.window]) {
+		if ([self internalShowMessage:_currentPlacement inWindow:presenter.window first:NO]) {
 			return;
 		} else {
 			_messagePresenter = presenter;

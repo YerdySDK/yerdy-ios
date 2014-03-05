@@ -43,6 +43,7 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 	[self updateDisplay];
 	
 	SKPaymentQueue *queue = [SKPaymentQueue defaultQueue];
+	[queue removeTransactionObserver:self];
 	[queue addTransactionObserver:self];
 	
 	NSSet *products = [NSSet setWithObjects:GoldProductIdentifier, JewelPackProductIdentifier, nil];
@@ -276,8 +277,9 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 	
 	if ([productIdentifier isEqualToString:GoldProductIdentifier]) {
 		[self incrementCurrencies:@{ Gold : @50 }];
-		YRDPurchase *purchase = [YRDPurchase purchaseWithTransaction:transaction];
 		
+		YRDPurchase *purchase = [YRDPurchase purchaseWithTransaction:transaction];
+		purchase.sandboxStore = YES; // never going to be released to App Store, hardcode to YES
 		[[Yerdy sharedYerdy] purchasedInApp:purchase currency:Gold amount:50];
 	} else if ([productIdentifier isEqualToString:JewelPackProductIdentifier]) {
 		NSDictionary *currencies = @{ Diamonds : @50, Pearls : @50, Rubies: @50 };
@@ -285,6 +287,7 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 		
 		YRDPurchase *purchase = [YRDPurchase purchaseWithProduct:_iapProducts[JewelPackProductIdentifier]
 													 transaction:transaction];
+		purchase.sandboxStore = YES; // never going to be released to App Store, hardcode to YES
 		[[Yerdy sharedYerdy] purchasedInApp:purchase currencies:currencies];
 	}
 }

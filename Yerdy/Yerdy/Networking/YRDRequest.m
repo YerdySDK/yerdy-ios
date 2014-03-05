@@ -19,7 +19,9 @@ static NSString *PublisherKey, *PublisherSecret;
 {
 	NSURL *_URL;
 	NSDictionary *_queryParameters;
+	NSDictionary *_bodyParameters;
 	NSString *_signature;
+	NSString *_bodySignature;
 }
 @end
 
@@ -28,7 +30,7 @@ static NSString *PublisherKey, *PublisherSecret;
 
 @synthesize URL = _URL;
 @synthesize queryParameters = _queryParameters;
-
+@synthesize bodyParameters = _bodyParameters;
 
 + (void)setPublisherKey:(NSString *)publisherKey
 {
@@ -58,6 +60,11 @@ static NSString *PublisherKey, *PublisherSecret;
 
 - (id)initWithPath:(NSString *)path queryParameters:(NSDictionary *)queryParameters
 {
+	return [self initWithPath:path queryParameters:queryParameters bodyParameters:nil];
+}
+
+- (id)initWithPath:(NSString *)path queryParameters:(NSDictionary *)queryParameters bodyParameters:(NSDictionary *)bodyParameters
+{
 	self = [super init];
 	if (!self)
 		return nil;
@@ -75,12 +82,14 @@ static NSString *PublisherKey, *PublisherSecret;
 		[params addEntriesFromDictionary:queryParameters];
 	
 	_queryParameters = params;
+	_bodyParameters = bodyParameters;
 	
 	_signature = [self generateSignature];
+	if (_bodyParameters)
+		_bodySignature = [self generateBodySignature];
 	
 	return self;
 }
-
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -108,8 +117,21 @@ static NSString *PublisherKey, *PublisherSecret;
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.fullURL
 														   cachePolicy:NSURLRequestUseProtocolCachePolicy
 													   timeoutInterval:YRDRequestTimeout];
+	if (_bodyParameters) {
+		NSData *body = [self postBodyDataForRequest];
+		
+		request.HTTPMethod = @"POST";
+		request.HTTPBody = body;
+		
+		[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+		[request setValue:[NSString stringWithFormat:@"%llu", (unsigned long long)body.length] forHTTPHeaderField:@"Content-Length"];
+	}
+	
 	if (_signature)
 		[request setValue:_signature forHTTPHeaderField:@"X-Request-Auth"];
+	
+	if (_bodySignature)
+		[request setValue:_bodySignature forHTTPHeaderField:@"X-Payload-Auth"];
 	
 	return request;
 }
@@ -138,16 +160,17 @@ static NSString *PublisherKey, *PublisherSecret;
 	if (_queryParameters.count == 0)
 		return @"";
 	
-	NSMutableArray *pairs = [NSMutableArray array];
-	for (NSString *key in _queryParameters) {
-		NSString *value = YRDToString(_queryParameters[key]);
-		NSString *pair = [NSString stringWithFormat:@"%@=%@",
-						  [YRDUtil URLEncode:key],
-						  [YRDUtil URLEncode:value]];
-		[pairs addObject:pair];
-	}
+	return [@"?" stringByAppendingString:[self URLEncodeDictionary:_queryParameters]];
+}
+
+- (NSData *)postBodyDataForRequest
+{
+	if (_bodyParameters.count == 0)
+		return nil;
 	
-	return [@"?" stringByAppendingString:[pairs componentsJoinedByString:@"&"]];
+	NSString *encodedString = [self URLEncodeDictionary:_bodyParameters];
+	NSData *data = [encodedString dataUsingEncoding:NSUTF8StringEncoding];
+	return data;
 }
 
 - (NSString *)generateSignature
@@ -159,14 +182,42 @@ static NSString *PublisherKey, *PublisherSecret;
 	
 	NSString *contents = [path stringByAppendingString:query];
 	
-	const char *hmacKey = [PublisherSecret UTF8String];
 	const char *hmacData = [contents UTF8String];
+	return [self generateSignatureForBytes:hmacData length:strlen(hmacData)];
+}
+
+- (NSString *)generateBodySignature
+{
+	NSString *bodyString = [self URLEncodeDictionary:_bodyParameters];
+	const char *hmacData = [bodyString UTF8String];
+	return [self generateSignatureForBytes:hmacData length:strlen(hmacData)];
+}
+
+- (NSString *)generateSignatureForBytes:(const char *)hmacData length:(size_t)length
+{
+	const char *hmacKey = [PublisherSecret UTF8String];
 	char hmac[CC_SHA1_DIGEST_LENGTH];
 	
-	CCHmac(kCCHmacAlgSHA1, hmacKey, strlen(hmacKey), hmacData, strlen(hmacData), hmac);
+	CCHmac(kCCHmacAlgSHA1, hmacKey, strlen(hmacKey), hmacData, length, hmac);
 	
 	NSData *bytes = [NSData dataWithBytes:hmac length:sizeof(hmac)];
 	return [YRDUtil base64String:bytes];
+}
+
+- (NSString *)URLEncodeDictionary:(NSDictionary *)dictionary
+{
+	NSMutableArray *pairs = [NSMutableArray array];
+	
+	NSArray *sortedKeys = [dictionary.allKeys sortedArrayUsingSelector:@selector(compare:)];
+	for (NSString *key in sortedKeys) {
+		NSString *value = YRDToString(dictionary[key]);
+		NSString *pair = [NSString stringWithFormat:@"%@=%@",
+						  [YRDUtil URLEncode:key],
+						  [YRDUtil URLEncode:value]];
+		[pairs addObject:pair];
+	}
+	
+	return [pairs componentsJoinedByString:@"&"];
 }
 
 @end

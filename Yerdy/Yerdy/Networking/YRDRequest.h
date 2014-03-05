@@ -23,6 +23,7 @@
 // URL without query string (unless query string was included in URL passed to -initWithURL)
 @property (nonatomic, readonly) NSURL *URL;
 @property (nonatomic, readonly) NSDictionary *queryParameters;
+@property (nonatomic, readonly) NSDictionary *bodyParameters;
 
 // URL with query string appended
 @property (nonatomic, readonly) NSURL *fullURL;
@@ -36,6 +37,7 @@
 // additional parameters passed in
 - (id)initWithPath:(NSString *)path;
 - (id)initWithPath:(NSString *)path queryParameters:(NSDictionary *)queryParameters;
+- (id)initWithPath:(NSString *)path queryParameters:(NSDictionary *)queryParameters bodyParameters:(NSDictionary *)bodyParameters;
 
 - (NSURLRequest *)urlRequest;
 

@@ -17,6 +17,7 @@
 						   currency:(NSArray *)currency
 						   launches:(int)launchCount
 						   playtime:(NSTimeInterval)playtime
+					currencyBalance:(NSArray *)currencyBalance
 					 earnedCurrency:(NSArray *)earnedCurrency
 					  spentCurrency:(NSArray *)spentCurrency
 				  purchasedCurrency:(NSArray *)purchasedCurrency

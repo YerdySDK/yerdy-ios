@@ -523,11 +523,33 @@ static const NSUInteger MaxImagePreloads = 6;
 																			   currency:currencyArray
 																			   launches:_launchTracker.launchCount
 																			   playtime:_timeTracker.timePlayed
+																		currencyBalance:_currencyTracker.currencyBalance
 																		 earnedCurrency:_currencyTracker.currencyEarned
 																		  spentCurrency:_currencyTracker.currencySpent
 																	  purchasedCurrency:_currencyTracker.currencyPurchased
 																		 itemsPurchased:itemsPurchased];
 		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
+			BOOL retry = NO;
+			
+			if (error && [error.domain isEqualToString:YRDErrorDomain]) {
+				if (error.code == 401 || error.code == 403) {
+					YRDError(@"trackPurchase - likely invalid publisher key/secret (HTTP status code %d)", error.code);
+				} else if (error.code == 402) {
+					YRDError(@"trackPurchase - missing receipt/invalid purchase (HTTP status code %d)", error.code);
+				} else if (error.code == 501) {
+					YRDError(@"trackPurchase - invalid/unsupported API version (HTTP status code %d)", error.code);
+				} else {
+					YRDError(@"trackPurchase - retry, other status code: (HTTP status code %d)", error.code);
+					retry = YES;
+				}
+			} else if (error) {
+				YRDError(@"trackPurchase - retry, generic error: %@", error);
+				retry = YES;
+			} else if (response.result == YRDTrackPurchaseResultServerError) {
+				YRDError(@"trackPurchase - retry, server error: %@", error);
+				retry = YES;
+			}
+			
 			YRDDebug(@"trackPurchase result: %d", response.result);
 		}];
 	}];

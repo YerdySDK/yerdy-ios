@@ -75,6 +75,7 @@
 	
 	if (_receipt && _price && _currencyCode && _storeCountryCode) {
 		completionHandler(YES);
+		return;
 	}
 	
 	[YRDProductRequest loadProduct:_productIdentifier completionHandler:^(SKProduct *product) {

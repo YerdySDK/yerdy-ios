@@ -15,6 +15,7 @@
 @interface YRDMessagePresenterSystem () <UIAlertViewDelegate>
 {
 	UIAlertView *_alertView;
+	BOOL _dismissed;
 }
 @end
 
@@ -23,6 +24,8 @@
 
 - (void)present
 {
+	_dismissed = NO;
+	
 	YRDMessage *message = self.message;
 	_alertView = [[UIAlertView alloc] initWithTitle:message.messageTitle
 											message:message.messageText
@@ -39,6 +42,14 @@
 	}
 	
 	[_alertView show];
+}
+
+- (void)dismiss
+{
+	if (!_dismissed) {
+		_dismissed = YES;
+		[_alertView dismissWithClickedButtonIndex:-1 animated:YES];
+	}
 }
 
 - (void)willPresentAlertView:(UIAlertView *)alertView
@@ -63,6 +74,10 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+	if (_dismissed)
+		return;
+	_dismissed = YES;
+	
 	if (alertView.cancelButtonIndex == buttonIndex) {
 		[self messageCancelled];
 	} else {

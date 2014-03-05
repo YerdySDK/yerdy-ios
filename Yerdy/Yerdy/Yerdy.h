@@ -39,6 +39,8 @@
 // TODO: How to handle nil for 'placement'?
 - (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window;
 
+- (void)dismissMessage;
+
 
 // TODO: Document these!
 - (void)registerCurrencies:(NSArray *)currencies;

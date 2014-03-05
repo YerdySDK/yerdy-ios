@@ -25,6 +25,11 @@
 	[_viewController present];
 }
 
+- (void)dismiss
+{
+	[_viewController dismiss];
+}
+
 - (void)messageViewControllerWillPresent:(YRDMessageViewController *)viewController
 {
 	[self willPresent];
@@ -38,13 +43,11 @@
 - (void)messageViewControllerTappedConfirm:(YRDMessageViewController *)viewController
 {
 	[self messageClicked];
-	[_viewController dismiss];
 }
 
 - (void)messageViewControllerTappedCancel:(YRDMessageViewController *)viewController
 {
 	[self messageCancelled];
-	[_viewController dismiss];
 }
 
 - (void)messageViewControllerWillDismiss:(YRDMessageViewController *)viewController

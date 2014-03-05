@@ -27,9 +27,9 @@
 @property (nonatomic, readonly) YRDMessage *message;
 @property (nonatomic, readonly) UIWindow *window;
 
-// Subclasses must implement the following methods:
+// Subclasses must implement the following methods (DO NOT CALL super):
 - (void)present;
-
+- (void)dismiss; // called after -messageClicked/-messageCancelled is called
 
 // Subclasses MUST call the following methods at appropriate times (in the following order)
 

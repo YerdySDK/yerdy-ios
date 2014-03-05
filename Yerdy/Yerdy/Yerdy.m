@@ -57,6 +57,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	NSMutableArray *_messages;
 	YRDMessagePresenter *_messagePresenter;
 	BOOL _forceMessageFetchNextResume;
+	BOOL _didDismissMessage;
 	
 	NSString *_currentPlacement;
 	NSUInteger _messagesPresentedInRow;
@@ -298,6 +299,7 @@ static const NSUInteger MaxImagePreloads = 6;
 - (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window
 {
 	_messagesPresentedInRow = 0;
+	_didDismissMessage = NO;
 	
 	BOOL didShow = [self internalShowMessage:placement inWindow:window];
 	if (didShow)
@@ -333,6 +335,12 @@ static const NSUInteger MaxImagePreloads = 6;
 	return YES;
 }
 
+- (void)dismissMessage
+{
+	_didDismissMessage = YES;
+	[_messagePresenter dismiss];
+}
+
 #pragma mark - YRDMessagePresenterDelegate
 
 // The Yerdy class acts a proxy between YRDMessagePresenter & the messageDelegate
@@ -340,7 +348,7 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (BOOL)shouldShowAnotherMessage
 {
-	return [self messageAvailable:_currentPlacement];
+	return !_didDismissMessage && [self messageAvailable:_currentPlacement];
 }
 
 #pragma mark Display lifecycle

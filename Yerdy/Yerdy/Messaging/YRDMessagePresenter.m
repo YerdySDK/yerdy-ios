@@ -65,6 +65,12 @@ typedef enum YRDMessageOutcome {
 				format:@"-[%@ %@] not implemented", [self class], NSStringFromSelector(_cmd)];
 }
 
+- (void)dismiss
+{
+	[NSException raise:NSInternalInconsistencyException
+				format:@"-[%@ %@] not implemented", [self class], NSStringFromSelector(_cmd)];
+}
+
 #pragma mark - Message presented/dismissed
 
 - (void)willPresent
@@ -110,10 +116,13 @@ typedef enum YRDMessageOutcome {
 			_outcomeParameter = parser;
 		}
 	}
+	
+	[self dismiss];
 }
 
 - (void)messageCancelled
 {
+	[self dismiss];
 }
 
 #pragma mark - Handling outcomes

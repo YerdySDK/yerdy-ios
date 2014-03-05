@@ -122,6 +122,7 @@ typedef enum YRDMessageOutcome {
 
 - (void)messageCancelled
 {
+	[self reportOutcomeToURL:_message.viewURL];
 	[self dismiss];
 }
 

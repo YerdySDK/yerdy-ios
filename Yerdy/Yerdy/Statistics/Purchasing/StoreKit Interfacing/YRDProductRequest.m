@@ -54,6 +54,11 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	_request.delegate = nil;
+}
+
 - (void)start
 {
 	[_request start];

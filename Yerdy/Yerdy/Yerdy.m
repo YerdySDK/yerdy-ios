@@ -171,8 +171,8 @@ static const NSUInteger MaxImagePreloads = 6;
 		//		 Should we call -yerdyConnected if one or both of the calls fails?
 		//		 Should we call -yerdyConnected if this is a resume launch
 		YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequestWithToken:self.pushToken
-																		  launches:_launchTracker.launchCount
-																		   crashes:_launchTracker.crashCount
+																		  launches:_launchTracker.versionLaunchCount
+																		   crashes:_launchTracker.versionCrashCount
 																		  playtime:_timeTracker.versionTimePlayed
 																		  currency:_currencyTracker.currencyBalance
 																	  screenVisits:_screenVisitTracker.loggedScreenVisits];
@@ -593,7 +593,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	[purchase completeObjectWithCompletionHandler:^(BOOL success) {
 		YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
 																			   currency:currencyArray
-																			   launches:_launchTracker.launchCount
+																			   launches:_launchTracker.totalLaunchCount
 																			   playtime:_timeTracker.timePlayed
 																		currencyBalance:_currencyTracker.currencyBalance
 																		 earnedCurrency:_currencyTracker.currencyEarned

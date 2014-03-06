@@ -28,10 +28,13 @@ typedef enum YRDResumeType {
 @property (nonatomic, weak) id<YRDLaunchTrackerDelegate> delegate;
 
 // Number of launches (for the current version of the app)
-@property (nonatomic, readonly) NSInteger launchCount;
+@property (nonatomic, readonly) NSInteger versionLaunchCount;
 
 // Number of crashes (for the current version of the app)
-@property (nonatomic, readonly) NSInteger crashCount;
+@property (nonatomic, readonly) NSInteger versionCrashCount;
+
+// Number of launches, NOT reset per version
+@property (nonatomic, readonly) NSInteger totalLaunchCount;
 
 - (void)reset;
 

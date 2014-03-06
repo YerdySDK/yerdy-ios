@@ -27,6 +27,10 @@
 
 static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 
+typedef enum YRDLaunchCounterType {
+	YRDLaunchCounterResume,
+	YRDLaunchCounterLaunch,
+} YRDLaunchCounterType;
 
 @interface YRDLaunchTracker ()
 {
@@ -58,7 +62,7 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	_countedLaunch = NO;
 	_countedExit = YES;
 	
-	[self incrementLaunchesForKey:YRDLaunchesDefaultsKey];
+	[self incrementLaunchesForType:YRDLaunchCounterLaunch];
 	
 	return self;
 }
@@ -82,10 +86,10 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	
 	if (fabs([_lastBackground timeIntervalSinceNow]) > MinBackgroundTimeForResumeLaunch) {
 		resumeType = YRDLongResume;
-		[self incrementLaunchesForKey:YRDLaunchesDefaultsKey];
+		[self incrementLaunchesForType:YRDLaunchCounterLaunch];
 	} else {
 		resumeType = YRDShortResume;
-		[self incrementLaunchesForKey:YRDResumesDefaultsKey];
+		[self incrementLaunchesForType:YRDLaunchCounterResume];
 	}
 	
 	if ([_delegate respondsToSelector:@selector(launchTracker:detectedResumeOfType:)]) {
@@ -100,18 +104,18 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 
 #pragma mark - Properties
 
-- (NSInteger)launchCount
+- (NSInteger)versionLaunchCount
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	return [defaults integerForKey:YRDLaunchesDefaultsKey];
+	return [defaults integerForKey:YRDVersionLaunchesDefaultsKey];
 }
 
-- (NSInteger)crashCount
+- (NSInteger)versionCrashCount
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSInteger launches = [defaults integerForKey:YRDLaunchesDefaultsKey];
-	NSInteger resumes = [defaults integerForKey:YRDResumesDefaultsKey];
-	NSInteger exits = [defaults integerForKey:YRDExitsDefaultsKey];
+	NSInteger launches = [defaults integerForKey:YRDVersionLaunchesDefaultsKey];
+	NSInteger resumes = [defaults integerForKey:YRDVersionResumesDefaultsKey];
+	NSInteger exits = [defaults integerForKey:YRDVersionExitsDefaultsKey];
 	
 	NSInteger crashes = launches + resumes - exits;
 	// launches + resumes will be 1 higher than exits if we haven't exited the app yet
@@ -121,14 +125,32 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	return crashes;
 }
 
+- (NSInteger)totalLaunchCount
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	return [defaults integerForKey:YRDTotalLaunchesDefaultsKey];
+}
+
 #pragma mark - Launch tracking
 
-- (void)incrementLaunchesForKey:(NSString *)key
+- (void)incrementLaunchesForType:(YRDLaunchCounterType)type
 {
 	if (_countedLaunch)
 		return;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSString *key = nil;
+	if (type == YRDLaunchCounterLaunch) {
+		key = YRDVersionLaunchesDefaultsKey;
+		
+		NSInteger totalLaunches = [defaults integerForKey:YRDTotalLaunchesDefaultsKey];
+		totalLaunches += 1;
+		[defaults setInteger:totalLaunches forKey:YRDTotalLaunchesDefaultsKey];
+	} else if (type == YRDLaunchCounterResume) {
+		key = YRDVersionResumesDefaultsKey;
+	}
+	
 	NSInteger launches = [defaults integerForKey:key];
 	
 	[defaults setInteger:launches + 1 forKey:key];
@@ -143,9 +165,9 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 		return;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSInteger exits = [defaults integerForKey:YRDExitsDefaultsKey];
+	NSInteger exits = [defaults integerForKey:YRDVersionExitsDefaultsKey];
 	
-	[defaults setInteger:exits + 1 forKey:YRDExitsDefaultsKey];
+	[defaults setInteger:exits + 1 forKey:YRDVersionExitsDefaultsKey];
 	[defaults synchronize];
 	_countedLaunch = NO;
 	_countedExit = YES;
@@ -155,9 +177,9 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	[defaults setInteger:1 forKey:YRDLaunchesDefaultsKey];
-	[defaults setInteger:0 forKey:YRDResumesDefaultsKey];
-	[defaults setInteger:0 forKey:YRDExitsDefaultsKey];
+	[defaults setInteger:1 forKey:YRDVersionLaunchesDefaultsKey];
+	[defaults setInteger:0 forKey:YRDVersionResumesDefaultsKey];
+	[defaults setInteger:0 forKey:YRDVersionExitsDefaultsKey];
 }
 
 @end

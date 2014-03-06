@@ -38,6 +38,8 @@
 		4711E18318BE79B700966C93 /* YRDResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E17C18BE79B700966C93 /* YRDResponseHandler.m */; };
 		4711E18418BE79B700966C93 /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E17E18BE79B700966C93 /* YRDURLConnection.m */; };
 		474B4F7018C7EBA200DF67E2 /* YRDScreenVisitTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */; };
+		474B4F7B18C9165B00DF67E2 /* YRDTrackCounterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */; };
+		474B4F7E18C9187600DF67E2 /* YRDTrackCounterResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7D18C9187600DF67E2 /* YRDTrackCounterResponse.m */; };
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
@@ -131,6 +133,10 @@
 		4711E17E18BE79B700966C93 /* YRDURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDURLConnection.m; sourceTree = "<group>"; };
 		474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDScreenVisitTracker.h; sourceTree = "<group>"; };
 		474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDScreenVisitTracker.m; sourceTree = "<group>"; };
+		474B4F7918C9165B00DF67E2 /* YRDTrackCounterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackCounterRequest.h; sourceTree = "<group>"; };
+		474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackCounterRequest.m; sourceTree = "<group>"; };
+		474B4F7C18C9187600DF67E2 /* YRDTrackCounterResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackCounterResponse.h; sourceTree = "<group>"; };
+		474B4F7D18C9187600DF67E2 /* YRDTrackCounterResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackCounterResponse.m; sourceTree = "<group>"; };
 		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -365,6 +371,10 @@
 				95CA641C18BDAB3F0047D2E2 /* YRDCurrencyTracker.m */,
 				474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */,
 				474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */,
+				474B4F7918C9165B00DF67E2 /* YRDTrackCounterRequest.h */,
+				474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */,
+				474B4F7C18C9187600DF67E2 /* YRDTrackCounterResponse.h */,
+				474B4F7D18C9187600DF67E2 /* YRDTrackCounterResponse.m */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -433,6 +443,7 @@
 				4711E14A18BE778A00966C93 /* YRDInAppPurchase.m in Sources */,
 				4711E15018BE778A00966C93 /* YRDMessagesRequest.m in Sources */,
 				4711E12C18BE770700966C93 /* YRDLog.m in Sources */,
+				474B4F7B18C9165B00DF67E2 /* YRDTrackCounterRequest.m in Sources */,
 				95CA641D18BDAB3F0047D2E2 /* YRDCurrencyTracker.m in Sources */,
 				4711E15318BE778A00966C93 /* YRDReward.m in Sources */,
 				4711E18118BE79B700966C93 /* YRDJSONResponseHandler.m in Sources */,
@@ -460,6 +471,7 @@
 				4711E16F18BE79A500966C93 /* YRDWebViewController.m in Sources */,
 				4711E15218BE778A00966C93 /* YRDMessageViewController.m in Sources */,
 				4711E18218BE79B700966C93 /* YRDRequest.m in Sources */,
+				474B4F7E18C9187600DF67E2 /* YRDTrackCounterResponse.m in Sources */,
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
 				474B4F7018C7EBA200DF67E2 /* YRDScreenVisitTracker.m in Sources */,
 				4711E17F18BE79B700966C93 /* YRDImageCache.m in Sources */,

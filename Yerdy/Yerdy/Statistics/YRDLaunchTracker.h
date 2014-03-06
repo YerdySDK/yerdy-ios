@@ -33,6 +33,8 @@ typedef enum YRDResumeType {
 // Number of crashes (for the current version of the app)
 @property (nonatomic, readonly) NSInteger crashCount;
 
+- (void)reset;
+
 @end
 
 

@@ -161,4 +161,31 @@ static const double ErrorRatio = 2.0;
 	return timePlayed;
 }
 
+
+- (NSTimeInterval)versionTimePlayed
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSTimeInterval startOffset = [defaults doubleForKey:YRDVersionStartTimeOffsetDefaultsKey];
+	return self.timePlayed - startOffset;
+}
+
+- (void)resetVersionTimePlayed
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setDouble:self.timePlayed forKey:YRDVersionStartTimeOffsetDefaultsKey];
+}
+
+- (NSTimeInterval)milestoneTimePlayed
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSTimeInterval startOffset = [defaults doubleForKey:YRDMilestoneStartTimeOffsetDefaultsKey];
+	return self.timePlayed - startOffset;
+}
+
+- (void)resetMilestoneTimePlayed
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setDouble:self.timePlayed forKey:YRDMilestoneStartTimeOffsetDefaultsKey];
+}
+
 @end

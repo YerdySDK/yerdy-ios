@@ -32,6 +32,7 @@
 #import "YRDTrackPurchaseResponse.h"
 #import "YRDPurchase_Private.h"
 #import "YRDScreenVisitTracker.h"
+#import "YRDUtil.h"
 
 
 static Yerdy *sharedInstance;
@@ -109,20 +110,41 @@ static const NSUInteger MaxImagePreloads = 6;
 		return nil;
 	
 	_publisherKey = publisherKey;
+	
+	BOOL newVersion = [self checkVersion];
+	
 	_launchTracker = [[YRDLaunchTracker alloc] init];
 	_launchTracker.delegate = self;
+	if (newVersion)
+		[_launchTracker reset];
 	
 	_timeTracker = [[YRDTimeTracker alloc] init];
+	if (newVersion)
+		[_timeTracker resetVersionTimePlayed];
 	
 	_conversionTracker = [[YRDConversionTracker alloc] init];
-	
 	_currencyTracker = [[YRDCurrencyTracker alloc] init];
-	
 	_screenVisitTracker = [[YRDScreenVisitTracker alloc] init];
 	
 	[self reportLaunch:YES];
 	
 	return self;
+}
+
+- (BOOL)checkVersion
+{
+	// Various stats are tracked per version, so we need to reset them
+	// when we detect a new version of the application
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *lastKnownAppVersion = [defaults objectForKey:YRDAppVersionDefaultsKey];
+	NSString *appVersion = [YRDUtil appVersion];
+	
+	if (![lastKnownAppVersion isEqualToString:appVersion]) {
+		[defaults setObject:appVersion forKey:YRDAppVersionDefaultsKey];
+		return YES;
+	} else {
+		return NO;
+	}
 }
 
 #pragma mark - Launch handling
@@ -148,7 +170,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequestWithToken:self.pushToken
 																		  launches:_launchTracker.launchCount
 																		   crashes:_launchTracker.crashCount
-																		  playtime:_timeTracker.timePlayed
+																		  playtime:_timeTracker.versionTimePlayed
 																		  currency:_currencyTracker.currencyBalance
 																	  screenVisits:_screenVisitTracker.loggedScreenVisits];
 		// TODO: Only reset if we have internet

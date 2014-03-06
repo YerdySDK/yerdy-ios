@@ -58,7 +58,6 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	_countedLaunch = NO;
 	_countedExit = YES;
 	
-	[self checkVersion];
 	[self incrementLaunchesForKey:YRDLaunchesDefaultsKey];
 	
 	return self;
@@ -132,12 +131,6 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger launches = [defaults integerForKey:key];
 	
-	// fix messed up counters
-	if (launches < 0) {
-		[self reset];
-		launches = 0;
-	}
-	
 	[defaults setInteger:launches + 1 forKey:key];
 	[defaults synchronize];
 	_countedLaunch = YES;
@@ -152,39 +145,17 @@ static const NSTimeInterval MinBackgroundTimeForResumeLaunch = 15.0 * 60.0;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSInteger exits = [defaults integerForKey:YRDExitsDefaultsKey];
 	
-	// fix messed up counters
-	if (exits < 0) {
-		[self reset];
-		exits = 0;
-	}
-	
 	[defaults setInteger:exits + 1 forKey:YRDExitsDefaultsKey];
 	[defaults synchronize];
 	_countedLaunch = NO;
 	_countedExit = YES;
 }
 
-- (void)checkVersion
-{
-	// Launches/crashes are tracked per version, so we need to reset the counters
-	// when we detect a new version of the application
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *lastKnownAppVersion = [defaults objectForKey:YRDAppVersionDefaultsKey];
-	NSString *appVersion = [YRDUtil appVersion];
-	
-	if (lastKnownAppVersion && ![lastKnownAppVersion isEqualToString:appVersion]) {
-		[self reset];
-	}
-}
-
 - (void)reset
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	NSString *appVersion = [YRDUtil appVersion];
-	[defaults setObject:appVersion forKey:YRDAppVersionDefaultsKey];
-	
-	[defaults setInteger:0 forKey:YRDLaunchesDefaultsKey];
+	[defaults setInteger:1 forKey:YRDLaunchesDefaultsKey];
 	[defaults setInteger:0 forKey:YRDResumesDefaultsKey];
 	[defaults setInteger:0 forKey:YRDExitsDefaultsKey];
 }

@@ -41,6 +41,8 @@ extern NSString *YRDABTagDefaultsKey;
 // See YRDTimeTracker
 extern NSString *YRDTimePlayedDefaultsKey;
 extern NSString *YRDMinutesPlayedDefaultsKey;
+extern NSString *YRDVersionStartTimeOffsetDefaultsKey;
+extern NSString *YRDMilestoneStartTimeOffsetDefaultsKey;
 
 // See YRDScreenVisitTracker
 extern NSString *YRDScreenVisitsDefaultsKey;

@@ -28,6 +28,8 @@ NSString *YRDABTagDefaultsKey = @"YRDABTag";
 
 NSString *YRDTimePlayedDefaultsKey = @"YRDTimePlayed";
 NSString *YRDMinutesPlayedDefaultsKey = @"YRDMinutesPlayed";
+NSString *YRDVersionStartTimeOffsetDefaultsKey = @"YRDVersionStartTimeOffset";
+NSString *YRDMilestoneStartTimeOffsetDefaultsKey = @"YRDMilestoneStartTimeOffset";
 
 NSString *YRDScreenVisitsDefaultsKey = @"YRDScreenVisits";
 

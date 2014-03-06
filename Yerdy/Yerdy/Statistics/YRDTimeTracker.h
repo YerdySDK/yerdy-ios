@@ -25,4 +25,10 @@ extern NSString *YRDTimeTrackerTimePlayedKey;
 
 @property (nonatomic, readonly) NSTimeInterval timePlayed;
 
+@property (nonatomic, readonly) NSTimeInterval versionTimePlayed;
+- (void)resetVersionTimePlayed;
+
+@property (nonatomic, readonly) NSTimeInterval milestoneTimePlayed;
+- (void)resetMilestoneTimePlayed;
+
 @end

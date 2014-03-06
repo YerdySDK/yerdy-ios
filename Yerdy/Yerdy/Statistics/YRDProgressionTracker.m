@@ -167,7 +167,7 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	int previousItemsPurchased = [defaults integerForKey:YRDProgressionLastItemPurchasesDefaultsKey];
 	[defaults setInteger:currentItemsPurchased forKey:YRDProgressionLastItemPurchasesDefaultsKey];
 
-	return @(currentItemsPurchased - previousItemsPurchased);
+	return [self bucketForItemsPurchasedDelta:currentItemsPurchased - previousItemsPurchased];
 }
 
 - (NSNumber *)bucketForItemsPurchasedDelta:(int)delta

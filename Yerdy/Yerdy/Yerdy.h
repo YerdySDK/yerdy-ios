@@ -58,4 +58,6 @@
 - (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies;
 
+- (void)logScreenVisit:(NSString *)screenName;
+
 @end

@@ -31,6 +31,7 @@
 #import "YRDTrackVirtualPurchaseRequest.h"
 #import "YRDTrackPurchaseResponse.h"
 #import "YRDPurchase_Private.h"
+#import "YRDScreenVisitTracker.h"
 
 
 static Yerdy *sharedInstance;
@@ -65,6 +66,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDConversionTracker *_conversionTracker;
 	
 	YRDCurrencyTracker *_currencyTracker;
+	
+	YRDScreenVisitTracker *_screenVisitTracker;
 }
 @end
 
@@ -115,6 +118,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	_currencyTracker = [[YRDCurrencyTracker alloc] init];
 	
+	_screenVisitTracker = [[YRDScreenVisitTracker alloc] init];
+	
 	[self reportLaunch:YES];
 	
 	return self;
@@ -144,7 +149,11 @@ static const NSUInteger MaxImagePreloads = 6;
 																		  launches:_launchTracker.launchCount
 																		   crashes:_launchTracker.crashCount
 																		  playtime:_timeTracker.timePlayed
-																		  currency:_currencyTracker.currencyBalance];
+																		  currency:_currencyTracker.currencyBalance
+																	  screenVisits:_screenVisitTracker.loggedScreenVisits];
+		// TODO: Only reset if we have internet
+		[_screenVisitTracker reset];
+		
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 			if (response.success) {
 				weakSelf.ABTag = response.tag;
@@ -593,5 +602,13 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	[_currencyTracker purchasedCurrencies:currencies];
 }
+
+#pragma mark - Screen Visit Tracking
+
+- (void)logScreenVisit:(NSString *)screenName
+{
+	[_screenVisitTracker logScreenVisit:screenName];
+}
+
 
 @end

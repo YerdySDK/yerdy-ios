@@ -23,6 +23,7 @@ static NSString *Path = @"stats/launch.php";
 							   crashes:(int)crashes
 							  playtime:(NSTimeInterval)playtime
 							  currency:(NSArray *)currency
+						  screenVisits:(NSDictionary *)screenVisits
 {
 	NSDictionary *queryParameters = [self queryParametersForToken:token
 														 launches:launches
@@ -30,7 +31,12 @@ static NSString *Path = @"stats/launch.php";
 														 playtime:playtime
 														 currency:currency];
 	
-	YRDLaunchRequest *request = [[self alloc] initWithPath:Path queryParameters:queryParameters];
+	NSDictionary *bodyParameters = nil;
+	if (screenVisits.count > 0) {
+		bodyParameters = [self bodyParametersForScreenVisits:screenVisits];
+	}
+	
+	YRDLaunchRequest *request = [[self alloc] initWithPath:Path queryParameters:queryParameters bodyParameters:bodyParameters];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class] rootKey:@"@attributes"];
 	return request;
 }
@@ -68,6 +74,19 @@ static NSString *Path = @"stats/launch.php";
 		@"playtime" : @((int)roundf(playtime)),
 		@"currency" : currencyString,
 	};
+}
+
++ (NSDictionary *)bodyParametersForScreenVisits:(NSDictionary *)screenVisits
+{
+	NSMutableDictionary *bodyParameters = [NSMutableDictionary dictionary];
+	for (NSString *screenName in screenVisits) {
+		NSString *sanitizedName = [[screenName stringByReplacingOccurrencesOfString:@"[" withString:@" "]
+								   stringByReplacingOccurrencesOfString:@"]" withString:@" "];
+		
+		NSString *paramName = [NSString stringWithFormat:@"nav[%@]", sanitizedName];
+		bodyParameters[paramName] = screenVisits[screenName];
+	}
+	return bodyParameters;
 }
 
 @end

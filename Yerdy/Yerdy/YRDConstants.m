@@ -29,6 +29,8 @@ NSString *YRDABTagDefaultsKey = @"YRDABTag";
 NSString *YRDTimePlayedDefaultsKey = @"YRDTimePlayed";
 NSString *YRDMinutesPlayedDefaultsKey = @"YRDMinutesPlayed";
 
+NSString *YRDScreenVisitsDefaultsKey = @"YRDScreenVisits";
+
 NSString *YRDAppliedInitialCurrencyDefaultsKey = @"YRDAppliedInitialCurrency";
 
 NSString *YRDEarnedCurrencyDefaultsKey = @"YRDEarnedCurrency";

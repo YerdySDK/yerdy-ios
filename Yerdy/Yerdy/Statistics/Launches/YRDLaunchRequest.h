@@ -14,6 +14,7 @@
 							  launches:(int)launches
 							   crashes:(int)crashes
 							  playtime:(NSTimeInterval)playtime
-							  currency:(NSArray *)currency;
+							  currency:(NSArray *)currency
+						  screenVisits:(NSDictionary *)screenVisits;
 
 @end

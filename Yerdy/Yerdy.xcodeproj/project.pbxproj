@@ -37,6 +37,7 @@
 		4711E18218BE79B700966C93 /* YRDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E17A18BE79B700966C93 /* YRDRequest.m */; };
 		4711E18318BE79B700966C93 /* YRDResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E17C18BE79B700966C93 /* YRDResponseHandler.m */; };
 		4711E18418BE79B700966C93 /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E17E18BE79B700966C93 /* YRDURLConnection.m */; };
+		474B4F7018C7EBA200DF67E2 /* YRDScreenVisitTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */; };
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
@@ -128,6 +129,8 @@
 		4711E17C18BE79B700966C93 /* YRDResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDResponseHandler.m; sourceTree = "<group>"; };
 		4711E17D18BE79B700966C93 /* YRDURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDURLConnection.h; sourceTree = "<group>"; };
 		4711E17E18BE79B700966C93 /* YRDURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDURLConnection.m; sourceTree = "<group>"; };
+		474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDScreenVisitTracker.h; sourceTree = "<group>"; };
+		474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDScreenVisitTracker.m; sourceTree = "<group>"; };
 		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -360,6 +363,8 @@
 				95CA641918B948DA0047D2E2 /* YRDConversionTracker.m */,
 				95CA641B18BDAB3F0047D2E2 /* YRDCurrencyTracker.h */,
 				95CA641C18BDAB3F0047D2E2 /* YRDCurrencyTracker.m */,
+				474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */,
+				474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				4711E15218BE778A00966C93 /* YRDMessageViewController.m in Sources */,
 				4711E18218BE79B700966C93 /* YRDRequest.m in Sources */,
 				4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */,
+				474B4F7018C7EBA200DF67E2 /* YRDScreenVisitTracker.m in Sources */,
 				4711E17F18BE79B700966C93 /* YRDImageCache.m in Sources */,
 				4711E12D18BE770700966C93 /* YRDTimer.m in Sources */,
 				4711E15118BE778A00966C93 /* YRDMessageView.m in Sources */,

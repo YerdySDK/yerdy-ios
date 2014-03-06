@@ -25,6 +25,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	NSDictionary *initialCurrency = @{ Gold : @30, Silver : @20, Bronze : @10 };
+	[[NSUserDefaults standardUserDefaults] registerDefaults:initialCurrency];
+	
+	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
+	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
+	[yerdy setInitialCurrencies:initialCurrency];
+	yerdy.delegate = self;
+	
 	CGRect screenBounds = [UIScreen mainScreen].bounds;
 	_window = [[UIWindow alloc] initWithFrame:screenBounds];
 	_window.backgroundColor = [UIColor whiteColor];
@@ -38,14 +46,6 @@
 	[HTTPMock enableWithPlist:@"HTTPMock.plist"];
 	
 	YRDSetLogLevel(YRDLogDebug);
-	
-	NSDictionary *initialCurrency = @{ Gold : @30, Silver : @20, Bronze : @10 };
-	[[NSUserDefaults standardUserDefaults] registerDefaults:initialCurrency];
-	
-	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
-	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
-	[yerdy setInitialCurrencies:initialCurrency];
-	yerdy.delegate = self;
 	
 	// Fake getting a push token
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));

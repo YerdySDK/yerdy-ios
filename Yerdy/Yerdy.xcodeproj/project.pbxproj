@@ -40,6 +40,7 @@
 		474B4F7018C7EBA200DF67E2 /* YRDScreenVisitTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */; };
 		474B4F7B18C9165B00DF67E2 /* YRDTrackCounterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */; };
 		474B4F7E18C9187600DF67E2 /* YRDTrackCounterResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7D18C9187600DF67E2 /* YRDTrackCounterResponse.m */; };
+		474B4F8118C91BB000DF67E2 /* YRDProgressionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8018C91BB000DF67E2 /* YRDProgressionTracker.m */; };
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
@@ -137,6 +138,8 @@
 		474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackCounterRequest.m; sourceTree = "<group>"; };
 		474B4F7C18C9187600DF67E2 /* YRDTrackCounterResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackCounterResponse.h; sourceTree = "<group>"; };
 		474B4F7D18C9187600DF67E2 /* YRDTrackCounterResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDTrackCounterResponse.m; sourceTree = "<group>"; };
+		474B4F7F18C91BB000DF67E2 /* YRDProgressionTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDProgressionTracker.h; sourceTree = "<group>"; };
+		474B4F8018C91BB000DF67E2 /* YRDProgressionTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDProgressionTracker.m; sourceTree = "<group>"; };
 		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -371,6 +374,8 @@
 				95CA641C18BDAB3F0047D2E2 /* YRDCurrencyTracker.m */,
 				474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */,
 				474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */,
+				474B4F7F18C91BB000DF67E2 /* YRDProgressionTracker.h */,
+				474B4F8018C91BB000DF67E2 /* YRDProgressionTracker.m */,
 				474B4F7918C9165B00DF67E2 /* YRDTrackCounterRequest.h */,
 				474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */,
 				474B4F7C18C9187600DF67E2 /* YRDTrackCounterResponse.h */,
@@ -439,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				474B4F8118C91BB000DF67E2 /* YRDProgressionTracker.m in Sources */,
 				4711E14D18BE778A00966C93 /* YRDMessagePresenter.m in Sources */,
 				4711E14A18BE778A00966C93 /* YRDInAppPurchase.m in Sources */,
 				4711E15018BE778A00966C93 /* YRDMessagesRequest.m in Sources */,

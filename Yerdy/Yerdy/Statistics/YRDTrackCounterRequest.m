@@ -10,6 +10,7 @@
 #import "YRDJSONResponseHandler.h"
 #import "YRDTrackCounterResponse.h"
 #import "YRDUtil.h"
+#import "Yerdy_Private.h"
 
 
 @implementation YRDTrackCounterRequest
@@ -24,6 +25,8 @@
 		@"name" : YRDToString(name),
 		@"value" : YRDToString(value),
 		@"incr" : @(valueIncrement),
+		@"tag" : YRDToString([Yerdy sharedYerdy].ABTag),
+		@"api" : @3,
 	} mutableCopy];
 	
 	for (NSString *parameterName in parameters) {

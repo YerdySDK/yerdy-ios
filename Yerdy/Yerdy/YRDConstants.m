@@ -41,3 +41,8 @@ NSString *YRDPurchasedCurrencyDefaultsKey = @"YRDPurchasedCurrency";
 
 NSString *YRDItemsPurchasedDefaultsKey = @"YRDItemsPurchased";
 NSString *YRDItemsPurchasedSinceInAppDefaultsKey = @"YRDItemsPurchasedSinceInApp";
+
+NSString *YRDProgressionLastEarnedCurrencyDefaultsKey = @"YRDProgressionLastEarnedCurrency";
+NSString *YRDProgressionLastPurchasedCurrencyDefaultsKey = @"YRDProgressionLastPurchasedCurrency";
+NSString *YRDProgressionLastSpentCurrencyDefaultsKey = @"YRDProgressionLastSpentCurrency";
+NSString *YRDProgressionLastItemPurchasesDefaultsKey = @"YRDProgressionLastItemPurchases";

@@ -33,6 +33,7 @@
 #import "YRDPurchase_Private.h"
 #import "YRDScreenVisitTracker.h"
 #import "YRDUtil.h"
+#import "YRDProgressionTracker.h"
 
 
 static Yerdy *sharedInstance;
@@ -65,10 +66,10 @@ static const NSUInteger MaxImagePreloads = 6;
 	NSUInteger _messagesPresentedInRow;
 	
 	YRDConversionTracker *_conversionTracker;
-	
 	YRDCurrencyTracker *_currencyTracker;
-	
 	YRDScreenVisitTracker *_screenVisitTracker;
+	
+	YRDProgressionTracker *_progressionTracker;
 }
 @end
 
@@ -125,6 +126,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	_conversionTracker = [[YRDConversionTracker alloc] init];
 	_currencyTracker = [[YRDCurrencyTracker alloc] init];
 	_screenVisitTracker = [[YRDScreenVisitTracker alloc] init];
+	
+	_progressionTracker = [[YRDProgressionTracker alloc] initWithCurrencyTracker:_currencyTracker];
 	
 	[self reportLaunch:YES];
 	
@@ -303,6 +306,11 @@ static const NSUInteger MaxImagePreloads = 6;
 - (BOOL)isPremiumUser
 {
 	return self.userType == YRDUserTypePay;
+}
+
+- (int)itemsPurchased
+{
+	return [[NSUserDefaults standardUserDefaults] integerForKey:YRDItemsPurchasedDefaultsKey];
 }
 
 #pragma mark - Messaging

@@ -14,4 +14,6 @@
 @property (nonatomic, copy) NSString *ABTag;
 @property (nonatomic, assign) YRDUserType userType;
 
+@property (nonatomic, readonly) int itemsPurchased;
+
 @end

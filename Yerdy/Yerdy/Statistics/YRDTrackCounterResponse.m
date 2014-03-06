@@ -23,7 +23,9 @@
 {
 	return @{
 		@"code" : ^id(id input) {
-			if ([input isKindOfClass:[NSString class]] && [input isEqualToString:@"0"]) {
+			if ([input isKindOfClass:[NSNumber class]] && [input isEqualToNumber:@0]) {
+				return @(YRDTrackCounterResultSuccess);
+			} else if ([input isKindOfClass:[NSString class]] && [input isEqualToString:@"0"]) {
 				return @(YRDTrackCounterResultSuccess);
 			} else {
 				return @(YRDTrackCounterResultFailure);

@@ -38,6 +38,7 @@
 #import "YRDCounterEvent.h"
 #import "YRDReachability.h"
 #import "YRDRequestCache.h"
+#import "YRDPurchaseSubmitter.h"
 
 
 static Yerdy *sharedInstance;
@@ -79,6 +80,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDProgressionTracker *_progressionTracker;
 	
 	YRDTrackCounterBatcher *_trackCounterBatcher;
+	
+	YRDPurchaseSubmitter *_purchaseSubmitter;
 }
 @end
 
@@ -143,6 +146,8 @@ static const NSUInteger MaxImagePreloads = 6;
 																	 timeTracker:_timeTracker
 																  counterBatcher:_trackCounterBatcher];
 	
+	_purchaseSubmitter = [YRDPurchaseSubmitter loadFromDisk];
+	
 	_defaultMaxFailoverCount = NSUIntegerMax;
 	_maxFailoverCounts = [NSMutableDictionary dictionary];
 	
@@ -203,6 +208,7 @@ static const NSUInteger MaxImagePreloads = 6;
 				
 				if ([YRDReachability internetReachable])
 					[[YRDRequestCache sharedCache] sendStoredRequests];
+				[_purchaseSubmitter uploadIfNeeded];
 			} else {
 				YRDError(@"Failed to report launch: %@", error);
 			}
@@ -646,34 +652,7 @@ static const NSUInteger MaxImagePreloads = 6;
 																	  purchasedCurrency:_currencyTracker.currencyPurchased
 																		 itemsPurchased:itemsPurchased
 																	conversionMessageId:conversionMessageId];
-		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
-			BOOL retry = NO;
-			
-			if (error && [error.domain isEqualToString:YRDErrorDomain]) {
-				if (error.code == 401 || error.code == 403) {
-					YRDError(@"trackPurchase - likely invalid publisher key/secret (HTTP status code %d)", error.code);
-				} else if (error.code == 402) {
-					YRDError(@"trackPurchase - missing receipt/invalid purchase (HTTP status code %d)", error.code);
-				} else if (error.code == 501) {
-					YRDError(@"trackPurchase - invalid/unsupported API version (HTTP status code %d)", error.code);
-				} else {
-					YRDError(@"trackPurchase - retry, other status code: (HTTP status code %d)", error.code);
-					retry = YES;
-				}
-			} else if (error) {
-				YRDError(@"trackPurchase - retry, generic error: %@", error);
-				retry = YES;
-			} else if (response.result == YRDTrackPurchaseResultServerError) {
-				YRDError(@"trackPurchase - retry, server error: %@", error);
-				retry = YES;
-			}
-			
-			if (response.result == YRDTrackPurchaseResultSuccess) {
-				[[NSUserDefaults standardUserDefaults] setObject:@0 forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
-			}
-			
-			YRDDebug(@"trackPurchase result: %d", response.result);
-		}];
+		[_purchaseSubmitter addRequest:request];
 	}];
 	
 	[_currencyTracker purchasedCurrencies:currencies];

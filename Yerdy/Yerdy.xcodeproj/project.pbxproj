@@ -43,6 +43,7 @@
 		474B4F8118C91BB000DF67E2 /* YRDProgressionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8018C91BB000DF67E2 /* YRDProgressionTracker.m */; };
 		474B4F8418CA344900DF67E2 /* YRDReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8318CA344900DF67E2 /* YRDReachability.m */; };
 		474B4F8718CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8618CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m */; };
+		474B4F8F18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8E18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m */; };
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
@@ -148,6 +149,8 @@
 		474B4F8318CA344900DF67E2 /* YRDReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDReachability.m; sourceTree = "<group>"; };
 		474B4F8518CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDIgnoreResponseHandler.h; sourceTree = "<group>"; };
 		474B4F8618CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDIgnoreResponseHandler.m; sourceTree = "<group>"; };
+		474B4F8D18CA70FC00DF67E2 /* YRDPurchaseSubmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDPurchaseSubmitter.h; sourceTree = "<group>"; };
+		474B4F8E18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDPurchaseSubmitter.m; sourceTree = "<group>"; };
 		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -270,6 +273,8 @@
 				95FD8EF518BEE3E7009C2389 /* YRDTrackPurchaseRequest.m */,
 				4711E15D18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.h */,
 				4711E15E18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m */,
+				474B4F8D18CA70FC00DF67E2 /* YRDPurchaseSubmitter.h */,
+				474B4F8E18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m */,
 			);
 			path = Purchasing;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				4711E16418BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m in Sources */,
 				4711E12E18BE770700966C93 /* YRDUtil.m in Sources */,
 				4711E16D18BE79A500966C93 /* YRDViewController.m in Sources */,
+				474B4F8F18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m in Sources */,
 				47D716F418C688B0001AE028 /* YRDProductRequest.m in Sources */,
 				4711E18418BE79B700966C93 /* YRDURLConnection.m in Sources */,
 				4711E16318BE798200966C93 /* YRDPurchase.m in Sources */,

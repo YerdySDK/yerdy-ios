@@ -67,4 +67,15 @@
 	return YRDToString([currencies componentsJoinedByString:@";"]);
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (!self)
+		return nil;
+	
+	self.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDTrackPurchaseResponse class]];
+	
+	return self;
+}
+
 @end

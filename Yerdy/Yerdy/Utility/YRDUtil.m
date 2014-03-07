@@ -8,6 +8,7 @@
 
 #import "YRDUtil.h"
 #import "YRDConstants.h"
+#import "YRDLog.h"
 #import <UIKit/UIKit.h>
 
 #if !YRD_COMPILING_FOR_IOS_7
@@ -123,6 +124,28 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 	fb = MAX(0.0, MIN(fb, 1.0));
 	
 	return [UIColor colorWithRed:fr green:fg blue:fb alpha:1.0];
+}
+
++ (NSString *)sanitizeParamKey:(NSString *)input context:(NSString *)context
+{
+	static NSRegularExpression *regex = nil;
+	
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NSError *error;
+		regex = [[NSRegularExpression alloc] initWithPattern:@"[^a-zA-Z._\\- ]" options:0 error:&error];
+		if (!regex)
+			YRDError(@"Failed to create regex: %@", error);
+	});
+	
+	NSString *sanitized = [regex stringByReplacingMatchesInString:input
+														  options:0
+															range:NSMakeRange(0, input.length)
+													 withTemplate:@""];
+	if (context && [sanitized isEqualToString:input] == NO) {
+		YRDWarn(@"%@ (\"%@\") has some invalid characters.  Using \"%@\" instead", context, input, sanitized);
+	}
+	return sanitized;
 }
 
 @end

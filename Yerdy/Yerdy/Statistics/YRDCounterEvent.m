@@ -8,6 +8,7 @@
 
 #import "YRDCounterEvent.h"
 #import "YRDLog.h"
+#import "YRDUtil.h"
 
 @interface YRDCounterEvent ()
 {
@@ -33,6 +34,8 @@
 		return nil;
 
 	_type = type;
+	
+	name = [YRDUtil sanitizeParamKey:name context:@"Event name"];
 	_name = [name copy];
 	
 	_idx = [@{ name : value } mutableCopy];
@@ -85,12 +88,15 @@
 
 - (void)setValue:(NSString *)value increment:(NSUInteger)increment forParameter:(NSString *)param
 {
+	param = [YRDUtil sanitizeParamKey:param context:@"Parameter name"];
 	_idx[param] = value;
 	_mod[param] = @(increment);
 }
 
 - (void)incrementParameter:(NSString *)param byAmount:(NSUInteger)increment
 {
+	param = [YRDUtil sanitizeParamKey:param context:@"Parameter name"];
+	
 	if (!_idx[param]) {
 		YRDError(@"Attempting to increment non-existent parameter: %@", param);
 		return;
@@ -100,6 +106,8 @@
 
 - (void)removeParameter:(NSString *)param
 {
+	param = [YRDUtil sanitizeParamKey:param context:@"Parameter name"];
+	
 	[_idx removeObjectForKey:param];
 	[_mod removeObjectForKey:param];
 }
@@ -111,11 +119,13 @@
 
 - (NSString *)valueForParameter:(NSString *)param
 {
+	param = [YRDUtil sanitizeParamKey:param context:@"Parameter name"];
 	return _idx[param];
 }
 
 - (NSUInteger)incrementForParameter:(NSString *)param
 {
+	param = [YRDUtil sanitizeParamKey:param context:@"Parameter name"];
 	return [_mod[param] unsignedIntegerValue];
 }
 

@@ -26,6 +26,10 @@
 
 + (UIColor *)colorFromHexString:(NSString *)hex;
 
+// If context is specified, prints out a warning to the console when input has some
+// invalid characters
++ (NSString *)sanitizeParamKey:(NSString *)input context:(NSString *)context;
+
 @end
 
 // Converts object to a string by sending it the -description message.  If object

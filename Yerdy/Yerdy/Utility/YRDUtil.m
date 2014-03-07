@@ -133,7 +133,7 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		NSError *error;
-		regex = [[NSRegularExpression alloc] initWithPattern:@"[^a-zA-Z._\\- ]" options:0 error:&error];
+		regex = [[NSRegularExpression alloc] initWithPattern:@"[^a-zA-Z0-9._\\- ]" options:0 error:&error];
 		if (!regex)
 			YRDError(@"Failed to create regex: %@", error);
 	});

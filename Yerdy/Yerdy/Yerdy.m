@@ -545,12 +545,12 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_currencyTracker registerCurrencies:currencies];
 }
 
-- (void)setInitialCurrencies:(NSDictionary *)initialCurrencies
+- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies
 {
-	BOOL applied = [[self persistentObjectForKey:YRDAppliedInitialCurrencyDefaultsKey] boolValue];
+	BOOL applied = [[self persistentObjectForKey:YRDAppliedExistingCurrencyDefaultsKey] boolValue];
 	if (!applied) {
-		[_currencyTracker earnedCurrencies:initialCurrencies];
-		[self setPersistentObject:@YES forKey:YRDAppliedInitialCurrencyDefaultsKey];
+		[_currencyTracker earnedCurrencies:existingCurrencies];
+		[self setPersistentObject:@YES forKey:YRDAppliedExistingCurrencyDefaultsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
 }

@@ -25,14 +25,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	NSDictionary *initialCurrency = @{ Gold : @30, Silver : @20, Bronze : @10 };
-	[[NSUserDefaults standardUserDefaults] registerDefaults:initialCurrency];
-	
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
 	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
-	[yerdy setInitialCurrencies:initialCurrency];
 	[yerdy setMaxFailoverCount:0 forPlacement:@"launch2"];
 	yerdy.delegate = self;
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *initialCurrency = @{ Gold : @30, Silver : @20, Bronze : @10 };
+	if ([defaults objectForKey:Gold] == nil
+		&& [defaults objectForKey:Silver] == nil
+		&& [defaults objectForKey:Bronze] == nil) {
+		
+		for (NSString *key in initialCurrency) {
+			[defaults setObject:initialCurrency[key] forKey:key];
+		}
+		[yerdy earnedCurrencies:initialCurrency];
+	}
 	
 	CGRect screenBounds = [UIScreen mainScreen].bounds;
 	_window = [[UIWindow alloc] initWithFrame:screenBounds];

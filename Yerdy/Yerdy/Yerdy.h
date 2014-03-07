@@ -53,7 +53,7 @@
 // TODO: Document these!
 - (void)registerCurrencies:(NSArray *)currencies;
 
-- (void)setInitialCurrencies:(NSDictionary *)initialCurrencies;
+- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies;
 
 - (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)earnedCurrencies:(NSDictionary *)currencies;

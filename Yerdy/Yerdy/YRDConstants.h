@@ -48,7 +48,7 @@ extern NSString *YRDVersionStartTimeOffsetDefaultsKey;
 extern NSString *YRDScreenVisitsDefaultsKey;
 
 // See YRDCurrencyTracker
-extern NSString *YRDAppliedInitialCurrencyDefaultsKey;
+extern NSString *YRDAppliedExistingCurrencyDefaultsKey;
 
 extern NSString *YRDEarnedCurrencyDefaultsKey;
 extern NSString *YRDSpentCurrencyDefaultsKey;

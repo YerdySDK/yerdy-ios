@@ -33,7 +33,7 @@ NSString *YRDVersionStartTimeOffsetDefaultsKey = @"YRDVersionStartTimeOffset";
 
 NSString *YRDScreenVisitsDefaultsKey = @"YRDScreenVisits";
 
-NSString *YRDAppliedInitialCurrencyDefaultsKey = @"YRDAppliedInitialCurrency";
+NSString *YRDAppliedExistingCurrencyDefaultsKey = @"YRDAppliedExistingCurrency";
 
 NSString *YRDEarnedCurrencyDefaultsKey = @"YRDEarnedCurrency";
 NSString *YRDSpentCurrencyDefaultsKey = @"YRDSpentCurrency";

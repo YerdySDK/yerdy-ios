@@ -31,6 +31,7 @@
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
 	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
 	[yerdy setInitialCurrencies:initialCurrency];
+	[yerdy setMaxFailoverCount:0 forPlacement:@"launch2"];
 	yerdy.delegate = self;
 	
 	CGRect screenBounds = [UIScreen mainScreen].bounds;

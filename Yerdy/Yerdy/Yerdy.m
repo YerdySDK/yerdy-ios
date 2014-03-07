@@ -67,6 +67,9 @@ static const NSUInteger MaxImagePreloads = 6;
 	NSString *_currentPlacement;
 	NSUInteger _messagesPresentedInRow;
 	
+	NSUInteger _defaultMaxFailoverCount;
+	NSMutableDictionary *_maxFailoverCounts;
+	
 	YRDConversionTracker *_conversionTracker;
 	YRDCurrencyTracker *_currencyTracker;
 	YRDScreenVisitTracker *_screenVisitTracker;
@@ -137,6 +140,9 @@ static const NSUInteger MaxImagePreloads = 6;
 																   launchTracker:_launchTracker
 																	 timeTracker:_timeTracker
 																  counterBatcher:_trackCounterBatcher];
+	
+	_defaultMaxFailoverCount = NSUIntegerMax;
+	_maxFailoverCounts = [NSMutableDictionary dictionary];
 	
 	[self reportLaunch:YES];
 	
@@ -391,6 +397,15 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_messagePresenter dismiss];
 }
 
+- (void)setMaxFailoverCount:(NSUInteger)count forPlacement:(NSString *)placement
+{
+	if (placement == nil) {
+		_defaultMaxFailoverCount = count;
+	} else {
+		_maxFailoverCounts[placement] = @(count);
+	}
+}
+
 #pragma mark - YRDMessagePresenterDelegate
 
 // The Yerdy class acts a proxy between YRDMessagePresenter & the messageDelegate
@@ -398,6 +413,13 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (BOOL)shouldShowAnotherMessage
 {
+	NSUInteger max = _defaultMaxFailoverCount;
+	if (_currentPlacement && _maxFailoverCounts[_currentPlacement])
+		max = [_maxFailoverCounts[_currentPlacement] unsignedIntegerValue];
+		
+	if (_messagesPresentedInRow > max)
+		return NO;
+	
 	return !_didDismissMessage && [self messageAvailable:_currentPlacement];
 }
 

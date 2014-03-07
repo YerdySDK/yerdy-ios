@@ -74,7 +74,7 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 		NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 		
 		NSDictionary *currencyDeltas = [self calculateCurrencyDeltasAndReset];
-		// add all param[]=0 for currencies
+		// add all idx[]=0 for currencies
 		for (NSString *paramName in currencyDeltas) {
 			parameters[paramName] = @0;
 		}

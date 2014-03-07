@@ -21,16 +21,22 @@
 							parameters:(NSDictionary *)parameters
 				   parameterIncrements:(NSDictionary *)parameterIncrements
 {
+	NSString *mainParamName = [NSString stringWithFormat:@"idx[%@]", name];
+	NSString *mainModName = [NSString stringWithFormat:@"mod[%@]", name];
+	
 	NSMutableDictionary *query = [@{
 		@"name" : YRDToString(name),
-		@"value" : YRDToString(value),
-		@"incr" : @(valueIncrement),
 		@"tag" : YRDToString([Yerdy sharedYerdy].ABTag),
 		@"api" : @3,
+		
+		// idx[<name>]=<value>
+		mainParamName : value,
+		// mod[<name>]=<value>
+		mainModName : @(valueIncrement),
 	} mutableCopy];
 	
 	for (NSString *parameterName in parameters) {
-		NSString *queryParamName = [NSString stringWithFormat:@"param[%@]", parameterName];
+		NSString *queryParamName = [NSString stringWithFormat:@"idx[%@]", parameterName];
 		query[queryParamName] = parameters[parameterName];
 	}
 	

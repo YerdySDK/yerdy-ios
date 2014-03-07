@@ -65,44 +65,9 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
 {
 	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypePlayer name:category value:milestone];
-	[event setValue:milestone increment:[self calculateLaunchCountDeltaAndReset:category] forParameter:@"launch_count"];
-	[event setValue:milestone increment:[self calculateSessionTimeDeltaAndReset:category] forParameter:@"playtime"];
+	[event setValue:milestone increment:MAX(0, _launchTracker.totalLaunchCount) forParameter:@"launch_count"];
+	[event setValue:milestone increment:MAX(0, (NSUInteger)round(_timeTracker.timePlayed)) forParameter:@"playtime"];
 	[_counterBatcher addEvent:event];
-}
-
-- (NSUInteger)calculateLaunchCountDeltaAndReset:(NSString *)category
-{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSMutableDictionary *categories = [[defaults objectForKey:YRDProgressionLastLaunchCountDefaultsKey] mutableCopy];
-	if (!categories || ![categories isKindOfClass:[NSMutableDictionary class]]) {
-		categories = [NSMutableDictionary dictionary];
-	}
-	
-	NSInteger previousCount = [categories[category] integerValue];
-	NSInteger currentCount = _launchTracker.totalLaunchCount;
-	
-	categories[category] = @(currentCount);
-	[defaults setObject:categories forKey:YRDProgressionLastLaunchCountDefaultsKey];
-	
-	return currentCount - previousCount;
-}
-
-- (NSUInteger)calculateSessionTimeDeltaAndReset:(NSString *)category
-{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSMutableDictionary *categories = [[defaults objectForKey:YRDProgressionLastPlaytimeDefaultsKey] mutableCopy];
-	if (!categories || ![categories isKindOfClass:[NSMutableDictionary class]]) {
-		categories = [NSMutableDictionary dictionary];
-	}
-	
-	double previous = [categories[category] doubleValue];
-	double current = _timeTracker.timePlayed;
-	
-	categories[category] = @(current);
-	[defaults setObject:categories forKey:YRDProgressionLastPlaytimeDefaultsKey];
-	
-	NSUInteger delta = (NSUInteger)round(current - previous);
-	return MAX(0, delta);
 }
 
 #pragma mark - Time events

@@ -43,7 +43,6 @@ extern NSString *YRDABTagDefaultsKey;
 extern NSString *YRDTimePlayedDefaultsKey;
 extern NSString *YRDMinutesPlayedDefaultsKey;
 extern NSString *YRDVersionStartTimeOffsetDefaultsKey;
-extern NSString *YRDMilestoneStartTimeOffsetDefaultsKey;
 
 // See YRDScreenVisitTracker
 extern NSString *YRDScreenVisitsDefaultsKey;
@@ -63,7 +62,3 @@ extern NSString *YRDProgressionLastEarnedCurrencyDefaultsKey;
 extern NSString *YRDProgressionLastPurchasedCurrencyDefaultsKey;
 extern NSString *YRDProgressionLastSpentCurrencyDefaultsKey;
 extern NSString *YRDProgressionLastItemPurchasesDefaultsKey;
-
-// See YRDProgressionTracker - Player events
-extern NSString *YRDProgressionLastPlaytimeDefaultsKey;
-extern NSString *YRDProgressionLastLaunchCountDefaultsKey;

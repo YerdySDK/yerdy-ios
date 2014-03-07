@@ -175,17 +175,4 @@ static const double ErrorRatio = 2.0;
 	[defaults setDouble:self.timePlayed forKey:YRDVersionStartTimeOffsetDefaultsKey];
 }
 
-- (NSTimeInterval)milestoneTimePlayed
-{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSTimeInterval startOffset = [defaults doubleForKey:YRDMilestoneStartTimeOffsetDefaultsKey];
-	return self.timePlayed - startOffset;
-}
-
-- (void)resetMilestoneTimePlayed
-{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setDouble:self.timePlayed forKey:YRDMilestoneStartTimeOffsetDefaultsKey];
-}
-
 @end

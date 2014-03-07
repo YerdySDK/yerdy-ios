@@ -30,7 +30,6 @@ NSString *YRDABTagDefaultsKey = @"YRDABTag";
 NSString *YRDTimePlayedDefaultsKey = @"YRDTimePlayed";
 NSString *YRDMinutesPlayedDefaultsKey = @"YRDMinutesPlayed";
 NSString *YRDVersionStartTimeOffsetDefaultsKey = @"YRDVersionStartTimeOffset";
-NSString *YRDMilestoneStartTimeOffsetDefaultsKey = @"YRDMilestoneStartTimeOffset";
 
 NSString *YRDScreenVisitsDefaultsKey = @"YRDScreenVisits";
 
@@ -47,6 +46,3 @@ NSString *YRDProgressionLastEarnedCurrencyDefaultsKey = @"YRDProgressionLastEarn
 NSString *YRDProgressionLastPurchasedCurrencyDefaultsKey = @"YRDProgressionLastPurchasedCurrency";
 NSString *YRDProgressionLastSpentCurrencyDefaultsKey = @"YRDProgressionLastSpentCurrency";
 NSString *YRDProgressionLastItemPurchasesDefaultsKey = @"YRDProgressionLastItemPurchases";
-
-NSString *YRDProgressionLastPlaytimeDefaultsKey = @"YRDProgressionLastPlaytime";
-NSString *YRDProgressionLastLaunchCountDefaultsKey = @"YRDProgressionLastLaunchCount";

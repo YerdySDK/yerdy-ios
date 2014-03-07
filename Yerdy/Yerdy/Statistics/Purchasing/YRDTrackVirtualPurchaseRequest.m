@@ -16,6 +16,7 @@
 
 + (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies onSale:(BOOL)onSale
 				  firstPurchase:(BOOL)firstPurchase purchasesSinceInApp:(NSNumber *)purchasesSinceInApp
+			conversionMessageId:(NSString *)conversionMessageId
 {
 	NSString *currencyString = [currencies componentsJoinedByString:@";"];
 	
@@ -30,6 +31,9 @@
 	
 	if (purchasesSinceInApp)
 		query[@"indexiap"] = purchasesSinceInApp;
+	
+	if (conversionMessageId)
+		query[@"msgid"] = conversionMessageId;
 	
 	YRDTrackVirtualPurchaseRequest *request = [[self alloc] initWithPath:@"stats/trackVirtualPurchase.php"
 														 queryParameters:query];

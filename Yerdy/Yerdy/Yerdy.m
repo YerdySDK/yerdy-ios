@@ -557,13 +557,16 @@ static const NSUInteger MaxImagePreloads = 6;
 		[defaults setObject:itemsPurchasedSinceInApp forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
 	}
 	
+	NSString *conversionMessageId = [_conversionTracker checkItemConversion:item];
+	
 	// send track virtual purchase
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
 	YRDTrackVirtualPurchaseRequest *request = [YRDTrackVirtualPurchaseRequest requestWithItem:item
 																						price:currencyArray
 																					   onSale:onSale
 																				firstPurchase:itemsPurchased == 1
-																		  purchasesSinceInApp:itemsPurchasedSinceInApp];
+																		  purchasesSinceInApp:itemsPurchasedSinceInApp
+																		  conversionMessageId:conversionMessageId];
 	
 	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
 		YRDDebug(@"trackVirtualPurchase result: %d", response.result);
@@ -590,6 +593,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
 	NSInteger itemsPurchased = [[NSUserDefaults standardUserDefaults] integerForKey:YRDItemsPurchasedDefaultsKey];
 	
+	NSString *conversionMessageId = [_conversionTracker checkInAppConversion:purchase.productIdentifier];
+	
 	[purchase completeObjectWithCompletionHandler:^(BOOL success) {
 		YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
 																			   currency:currencyArray
@@ -599,7 +604,8 @@ static const NSUInteger MaxImagePreloads = 6;
 																		 earnedCurrency:_currencyTracker.currencyEarned
 																		  spentCurrency:_currencyTracker.currencySpent
 																	  purchasedCurrency:_currencyTracker.currencyPurchased
-																		 itemsPurchased:itemsPurchased];
+																		 itemsPurchased:itemsPurchased
+																	conversionMessageId:conversionMessageId];
 		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
 			BOOL retry = NO;
 			

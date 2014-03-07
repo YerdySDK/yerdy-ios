@@ -25,12 +25,13 @@
 					  spentCurrency:(NSArray *)spentCurrency
 				  purchasedCurrency:(NSArray *)purchasedCurrency
 					 itemsPurchased:(int)itemsPurchased
+				conversionMessageId:(NSString *)conversionMessageId
 {
 	// TODO: Build body
 	UIDevice *device = [UIDevice currentDevice];
 	NSString *os = [NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion];
 		
-	NSDictionary *query = @{
+	NSMutableDictionary *query = [@{
 		@"os" : YRDToString(os),
 		@"cc" : YRDToString(purchase.storeCountryCode),
 		@"currency" : [self currencyString:currency],
@@ -38,7 +39,10 @@
 		@"value" : [NSString stringWithFormat:@"%@%@", purchase.price, purchase.currencyCode],
 		@"tag" : YRDToString([Yerdy sharedYerdy].ABTag),
 		@"api" : @3
-	};
+	} mutableCopy];
+	
+	if (conversionMessageId)
+		query[@"msgid"] = conversionMessageId;
 	
 	NSDictionary *body = @{
 		@"receipt" : YRDToString([YRDUtil base64String:purchase.receipt]),

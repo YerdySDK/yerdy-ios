@@ -11,6 +11,7 @@
 @interface YRDTrackVirtualPurchaseRequest : YRDRequest
 
 + (instancetype)requestWithItem:(NSString *)item price:(NSArray *)currencies onSale:(BOOL)onSale
-				  firstPurchase:(BOOL)firstPurchase purchasesSinceInApp:(NSNumber *)purchasesSinceInApp;
+				  firstPurchase:(BOOL)firstPurchase purchasesSinceInApp:(NSNumber *)purchasesSinceInApp
+			conversionMessageId:(NSString *)conversionMessageId;
 
 @end

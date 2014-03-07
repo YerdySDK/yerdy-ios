@@ -21,6 +21,7 @@
 					 earnedCurrency:(NSArray *)earnedCurrency
 					  spentCurrency:(NSArray *)spentCurrency
 				  purchasedCurrency:(NSArray *)purchasedCurrency
-					 itemsPurchased:(int)itemsPurchased;
+					 itemsPurchased:(int)itemsPurchased
+				conversionMessageId:(NSString *)conversionMessageId;
 
 @end

@@ -23,7 +23,7 @@
 				"watermark": "br",
 				"watermark_image": "http://services.yerdy.com/app_messages/image/testwatermark.png",
 				"action_type": "2",
-				"action": "reward:coffee,1;",
+				"action": "item:biscuit",
 				"force_action": "0",
 				"force_refresh": "1"
 				},

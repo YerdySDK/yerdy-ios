@@ -8,6 +8,7 @@
 
 #import "YRDScreenVisitTracker.h"
 #import "YRDConstants.h"
+#import "YRDUtil.h"
 
 @implementation YRDScreenVisitTracker
 
@@ -22,6 +23,8 @@
 
 - (void)logScreenVisit:(NSString *)screenName
 {
+	screenName = [YRDUtil sanitizeParamKey:screenName context:@"Screen name"];
+	
 	NSMutableDictionary *currentVisits = [self.loggedScreenVisits mutableCopy];
 	
 	NSInteger prevCount = [currentVisits[screenName] integerValue];

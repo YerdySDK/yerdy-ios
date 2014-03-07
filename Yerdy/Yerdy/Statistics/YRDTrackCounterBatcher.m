@@ -20,6 +20,9 @@
 
 #import "YRDURLConnection.h"
 
+#import "YRDReachability.h"
+#import "YRDRequestCache.h"
+
 
 // Upload every X minutes
 static const int SEND_INTERVAL_MINUTES = 5;
@@ -185,9 +188,14 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	for (NSArray *eventGroup in allEvents) {
 		YRDTrackCounterRequest *request = [YRDTrackCounterRequest requestWithCounterEvents:eventGroup];
 		YRDInfo(@"trackCounter - %@", request.queryParameters);
-		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackCounterResponse *response, NSError *error) {
-			// do nothing for now...
-		}];
+		
+		if ([YRDReachability internetReachable]) {
+			[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackCounterResponse *response, NSError *error) {
+				// do nothing for now...
+			}];
+		} else {
+			[[YRDRequestCache sharedCache] storeRequest:request];
+		}
 	}
 	
 	[_customEvents removeAllObjects];

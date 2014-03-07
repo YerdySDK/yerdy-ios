@@ -18,6 +18,8 @@
 #import "YRDLog.h"
 #import "YRDLaunchTracker.h"
 #import "YRDTimeTracker.h"
+#import "YRDReachability.h"
+#import "YRDRequestCache.h"
 
 
 // Report an event on each of these intervals & then every 30 minutes
@@ -130,9 +132,13 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 		YRDTrackCounterRequest *request = [YRDTrackCounterRequest requestWithCounterEvent:event];
 		YRDInfo(@"Counter '%@' with item bucket: %@ and currency deltas since last: %@", counterName, vgp, currencyDeltas);
 		
-		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackCounterResponse *response, NSError *error) {
-			YRDInfo(@"trackCounter.php - %d", response.result);
-		}];
+		if ([YRDReachability internetReachable]) {
+			[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackCounterResponse *response, NSError *error) {
+				YRDInfo(@"trackCounter.php - %d", response.result);
+			}];
+		} else {
+			[[YRDRequestCache sharedCache] storeRequest:request];
+		}
 	}
 }
 

@@ -131,9 +131,12 @@ static const NSUInteger MaxImagePreloads = 6;
 	_currencyTracker = [[YRDCurrencyTracker alloc] init];
 	_screenVisitTracker = [[YRDScreenVisitTracker alloc] init];
 	
-	_progressionTracker = [[YRDProgressionTracker alloc] initWithCurrencyTracker:_currencyTracker];
-	
 	_trackCounterBatcher = [YRDTrackCounterBatcher loadFromDisk];
+
+	_progressionTracker = [[YRDProgressionTracker alloc] initWithCurrencyTracker:_currencyTracker
+																   launchTracker:_launchTracker
+																	 timeTracker:_timeTracker
+																  counterBatcher:_trackCounterBatcher];
 	
 	[self reportLaunch:YES];
 	
@@ -646,6 +649,11 @@ static const NSUInteger MaxImagePreloads = 6;
 }
 
 #pragma mark - Screen Visit Tracking
+
+- (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
+{
+	[_progressionTracker logPlayerProgression:category milestone:milestone];
+}
 
 - (void)logScreenVisit:(NSString *)screenName
 {

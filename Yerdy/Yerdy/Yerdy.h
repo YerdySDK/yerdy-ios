@@ -59,6 +59,12 @@
 - (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies;
 
 
+// Logs a player progression event.
+// Milestones are grouped by category.  For example, you may have a 'map' category and your milestones
+// could be 'unlocked world 1', 'unlocked world 2', 'unlocked world 3', etc...
+- (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone;
+
+
 // TODO: Document these
 - (void)logScreenVisit:(NSString *)screenName;
 

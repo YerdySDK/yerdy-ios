@@ -11,10 +11,13 @@
 #import "YRDCurrencyTracker.h"
 #import "YRDTimeTracker.h"
 #import "Yerdy_Private.h"
+#import "YRDTrackCounterBatcher.h"
 #import "YRDTrackCounterRequest.h"
 #import "YRDTrackCounterResponse.h"
 #import "YRDURLConnection.h"
 #import "YRDLog.h"
+#import "YRDLaunchTracker.h"
+#import "YRDTimeTracker.h"
 
 
 // Report an event on each of these intervals & then every 30 minutes
@@ -23,19 +26,26 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 @interface YRDProgressionTracker ()
 {
 	YRDCurrencyTracker *_currencyTracker;
+	YRDTrackCounterBatcher *_counterBatcher;
+	YRDLaunchTracker *_launchTracker;
+	YRDTimeTracker *_timeTracker;
 }
 @end
 
 
 @implementation YRDProgressionTracker
 
-- (id)initWithCurrencyTracker:(YRDCurrencyTracker *)currencyTracker
+- (id)initWithCurrencyTracker:(YRDCurrencyTracker *)currencyTracker launchTracker:(YRDLaunchTracker *)launchTracker
+				  timeTracker:(YRDTimeTracker *)timeTracker counterBatcher:(YRDTrackCounterBatcher *)batcher
 {
 	self = [super init];
 	if (!self)
 		return nil;
 	
 	_currencyTracker = currencyTracker;
+	_launchTracker = launchTracker;
+	_timeTracker = timeTracker;
+	_counterBatcher = batcher;
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minuteOfGameplayPassed:)
 												 name:YRDTimeTrackerMinutePassedNotification object:nil];
@@ -48,22 +58,52 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (BOOL)shouldReportOnMinute:(int)minute
+#pragma mark - Player progression events
+
+- (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
 {
-	if (minute <= 0)
-		return NO;
-	
-	for (size_t i = 0; i < sizeof(MinutesToReport)/sizeof(int); i++) {
-		if (minute == MinutesToReport[i])
-			return YES;
-	}
-	
-	if (minute % 30 == 0) {
-		return YES;
-	}
-	
-	return NO;
+	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypePlayer name:category value:milestone];
+	[event setValue:milestone increment:[self calculateLaunchCountDeltaAndReset:category] forParameter:@"launch_count"];
+	[event setValue:milestone increment:[self calculateSessionTimeDeltaAndReset:category] forParameter:@"playtime"];
+	[_counterBatcher addEvent:event];
 }
+
+- (NSUInteger)calculateLaunchCountDeltaAndReset:(NSString *)category
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSMutableDictionary *categories = [[defaults objectForKey:YRDProgressionLastLaunchCountDefaultsKey] mutableCopy];
+	if (!categories || ![categories isKindOfClass:[NSMutableDictionary class]]) {
+		categories = [NSMutableDictionary dictionary];
+	}
+	
+	NSInteger previousCount = [categories[category] integerValue];
+	NSInteger currentCount = _launchTracker.totalLaunchCount;
+	
+	categories[category] = @(currentCount);
+	[defaults setObject:categories forKey:YRDProgressionLastLaunchCountDefaultsKey];
+	
+	return currentCount - previousCount;
+}
+
+- (NSUInteger)calculateSessionTimeDeltaAndReset:(NSString *)category
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSMutableDictionary *categories = [[defaults objectForKey:YRDProgressionLastPlaytimeDefaultsKey] mutableCopy];
+	if (!categories || ![categories isKindOfClass:[NSMutableDictionary class]]) {
+		categories = [NSMutableDictionary dictionary];
+	}
+	
+	double previous = [categories[category] doubleValue];
+	double current = _timeTracker.timePlayed;
+	
+	categories[category] = @(current);
+	[defaults setObject:categories forKey:YRDProgressionLastPlaytimeDefaultsKey];
+	
+	NSUInteger delta = (NSUInteger)round(current - previous);
+	return MAX(0, delta);
+}
+
+#pragma mark - Time events
 
 - (void)minuteOfGameplayPassed:(NSNotification *)notification
 {
@@ -96,7 +136,24 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	}
 }
 
-#pragma mark - Currencies
+- (BOOL)shouldReportOnMinute:(int)minute
+{
+	if (minute <= 0)
+		return NO;
+	
+	for (size_t i = 0; i < sizeof(MinutesToReport)/sizeof(int); i++) {
+		if (minute == MinutesToReport[i])
+			return YES;
+	}
+	
+	if (minute % 30 == 0) {
+		return YES;
+	}
+	
+	return NO;
+}
+
+#pragma mark Currencies
 
 // Builds a dictionary mapping parameters -> increment values (basically mod[]= in trackCounter.php)
 // for game progression events (game-<minutes>)
@@ -160,7 +217,7 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	return delta;
 }
 
-#pragma mark - Items purchased
+#pragma mark Items purchased
 
 - (NSNumber *)calculateItemsDeltaBucketAndReset
 {

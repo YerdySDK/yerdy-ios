@@ -58,6 +58,13 @@
 	[[Yerdy sharedYerdy] logEvent:@"buttonPressed" parameters:@{ @"title" : buttonTitle }];
 }
 
+- (IBAction)logPlayerProgression:(id)sender
+{
+	NSString *buttonTitle = [sender titleForState:UIControlStateNormal];
+	
+	[[Yerdy sharedYerdy] logPlayerProgression:@"level" milestone:buttonTitle];
+}
+
 - (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement
 {
 	NSLog(@"*** %@", NSStringFromSelector(_cmd));

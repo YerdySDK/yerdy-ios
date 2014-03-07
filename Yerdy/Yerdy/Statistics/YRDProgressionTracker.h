@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class YRDCurrencyTracker;
+@class YRDCurrencyTracker, YRDLaunchTracker, YRDTimeTracker, YRDTrackCounterBatcher;
 
 
 @interface YRDProgressionTracker : NSObject
 
-- (id)initWithCurrencyTracker:(YRDCurrencyTracker *)currencyTracker;
+- (id)initWithCurrencyTracker:(YRDCurrencyTracker *)currencyTracker launchTracker:(YRDLaunchTracker *)launchTracker
+				  timeTracker:(YRDTimeTracker *)timeTracker counterBatcher:(YRDTrackCounterBatcher *)batcher;
+
+- (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone;
 
 @end

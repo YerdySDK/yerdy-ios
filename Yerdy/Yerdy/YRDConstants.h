@@ -58,8 +58,12 @@ extern NSString *YRDPurchasedCurrencyDefaultsKey;
 extern NSString *YRDItemsPurchasedDefaultsKey;
 extern NSString *YRDItemsPurchasedSinceInAppDefaultsKey;
 
-// See YRDProgressionTracker
+// See YRDProgressionTracker - Time events
 extern NSString *YRDProgressionLastEarnedCurrencyDefaultsKey;
 extern NSString *YRDProgressionLastPurchasedCurrencyDefaultsKey;
 extern NSString *YRDProgressionLastSpentCurrencyDefaultsKey;
 extern NSString *YRDProgressionLastItemPurchasesDefaultsKey;
+
+// See YRDProgressionTracker - Player events
+extern NSString *YRDProgressionLastPlaytimeDefaultsKey;
+extern NSString *YRDProgressionLastLaunchCountDefaultsKey;

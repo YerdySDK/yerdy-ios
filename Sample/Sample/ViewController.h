@@ -15,5 +15,6 @@
 - (IBAction)showBank:(id)sender;
 
 - (IBAction)logButtonPressEvent:(id)sender;
+- (IBAction)logPlayerProgression:(id)sender;
 
 @end

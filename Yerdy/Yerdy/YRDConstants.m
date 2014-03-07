@@ -47,3 +47,6 @@ NSString *YRDProgressionLastEarnedCurrencyDefaultsKey = @"YRDProgressionLastEarn
 NSString *YRDProgressionLastPurchasedCurrencyDefaultsKey = @"YRDProgressionLastPurchasedCurrency";
 NSString *YRDProgressionLastSpentCurrencyDefaultsKey = @"YRDProgressionLastSpentCurrency";
 NSString *YRDProgressionLastItemPurchasesDefaultsKey = @"YRDProgressionLastItemPurchases";
+
+NSString *YRDProgressionLastPlaytimeDefaultsKey = @"YRDProgressionLastPlaytime";
+NSString *YRDProgressionLastLaunchCountDefaultsKey = @"YRDProgressionLastLaunchCount";

@@ -22,5 +22,6 @@ typedef void(^YRDURLConnectionCompletionHandler)(id response, NSError *error);
 	completionHandler:(YRDURLConnectionCompletionHandler)completionHandler;
 
 - (void)send;
+- (void)sendSynchronously;
 
 @end

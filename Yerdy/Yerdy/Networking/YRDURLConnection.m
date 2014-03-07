@@ -92,6 +92,30 @@
 	[_connection start];
 }
 
+- (void)sendSynchronously
+{
+	NSAssert(_connection == nil, @"Attempting to send multiple requests using the same YDURLConnection");
+	
+	// When assertions are disabled, we should still exit early
+	if (_connection != nil)
+		return;
+	
+	YRDDebug(@"Sending request (synchronously): %@", _request.fullURL);
+	
+	NSURLRequest *request = _request.urlRequest;
+	
+	NSURLResponse *response;
+	NSError *error;
+	NSData *data = [NSURLConnection sendSynchronousRequest:request
+										returningResponse:&response
+													error:&error];
+	_responseBody = [data mutableCopy];
+	_response = response;
+	_error = error;
+	
+	[self didFinishLoading];
+}
+
 - (void)finishRequestWithResponse:(id)response error:(NSError *)error
 {
 	if (response) {

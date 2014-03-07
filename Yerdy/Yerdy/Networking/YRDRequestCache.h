@@ -25,17 +25,6 @@
 // Stores a request
 - (void)storeRequest:(YRDRequest *)request;
 
-
-// Retrieves the request to send
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId;
-
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId
-		 afterRequestId:(NSInteger)after;
-
-
-// Removes a cached request (usually on successful submission)
-- (void)removeRequestId:(NSString *)requestId;
+- (void)sendStoredRequests;
 
 @end

@@ -36,6 +36,8 @@
 #import "YRDProgressionTracker.h"
 #import "YRDTrackCounterBatcher.h"
 #import "YRDCounterEvent.h"
+#import "YRDReachability.h"
+#import "YRDRequestCache.h"
 
 
 static Yerdy *sharedInstance;
@@ -198,6 +200,9 @@ static const NSUInteger MaxImagePreloads = 6;
 			if (response.success) {
 				weakSelf.ABTag = response.tag;
 				weakSelf.userType = response.userType;
+				
+				if ([YRDReachability internetReachable])
+					[[YRDRequestCache sharedCache] sendStoredRequests];
 			} else {
 				YRDError(@"Failed to report launch: %@", error);
 			}
@@ -599,9 +604,13 @@ static const NSUInteger MaxImagePreloads = 6;
 																		  purchasesSinceInApp:itemsPurchasedSinceInApp
 																		  conversionMessageId:conversionMessageId];
 	
-	[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
-		YRDDebug(@"trackVirtualPurchase result: %d", response.result);
-	}];
+	if ([YRDReachability internetReachable]) {
+		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
+			YRDDebug(@"trackVirtualPurchase result: %d", response.result);
+		}];
+	} else {
+		[[YRDRequestCache sharedCache] storeRequest:request];
+	}
 	
 	// update currencies
 	[_currencyTracker spentCurrencies:currencies];

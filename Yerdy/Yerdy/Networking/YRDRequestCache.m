@@ -9,6 +9,9 @@
 #import "YRDRequestCache.h"
 #import "YRDPaths.h"
 #import "YRDLog.h"
+#import "YRDReachability.h"
+#import "YRDURLConnection.h"
+#import "YRDIgnoreResponseHandler.h"
 
 
 @interface YRDRequestCache ()
@@ -51,9 +54,12 @@
 	if (![self setupDirectory])
 		return nil;
 	
-	_cachedRequestIds = [[_fileManager contentsAtPath:_directoryPath] mutableCopy];
-	if (!_cachedRequestIds)
+	NSError *error;
+	_cachedRequestIds = [[_fileManager contentsOfDirectoryAtPath:_directoryPath error:&error] mutableCopy];
+	if (!_cachedRequestIds) {
+		YRDError(@"Error getting cached requests: %@", error);
 		return nil;
+	}
 	
 	_reservedRequestIds = [NSMutableSet set];
 	_requestIdSyncObject = [[NSObject alloc] init];
@@ -90,6 +96,8 @@
 		return;
 	
 	dispatch_async([self dispatchQueue], ^{
+		// generate a request ID in the format of "[timestamp].[suffix]" where suffix is an integer
+		// that is incremented until a unique id is found
 		long long int timestamp = (long long int)round([[NSDate date] timeIntervalSince1970]);
 		NSString *requestId = nil;
 		
@@ -129,36 +137,45 @@
 	});
 }
 
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId
+- (void)sendStoredRequests
 {
-	return NO;
+	if ([YRDReachability internetReachable])
+		[self performSelectorInBackground:@selector(sendStoredRequestsInBackground) withObject:nil];
 }
 
-- (BOOL)retrieveRequest:(YRDRequest * __autoreleasing *)request
-			  requestId:(NSString * __autoreleasing *)requestId
-		 afterRequestId:(NSInteger)after
+- (void)sendStoredRequestsInBackground
 {
-	return NO;
-}
-
-- (void)removeRequestId:(NSString *)requestId
-{
-	if (!requestId)
-		return;
-	
+	NSArray *cachedRequestIds = nil;
 	@synchronized (_requestIdSyncObject) {
-		[_cachedRequestIds removeObject:requestId];
+		cachedRequestIds = [_cachedRequestIds copy];
 	}
 	
-	dispatch_async([self dispatchQueue], ^{
-		NSString *path = [_directoryPath stringByAppendingPathComponent:requestId];
-		NSError *error;
+	for (NSString *requestId in cachedRequestIds) {
+		YRDRequest *request = nil;
 		
-		if (![_fileManager removeItemAtPath:path error:&error]) {
-			YRDError(@"Unable to remove cached request at '%@': %@", path, error);
+		@synchronized (_requestIdSyncObject) {
+			// ensure it is still around
+			if ([_cachedRequestIds containsObject:requestId]) {
+				[_cachedRequestIds removeObject:requestId];
+				
+				NSString *filePath = [_directoryPath stringByAppendingPathComponent:requestId];
+				@try {
+					request = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+				} @catch (...) {
+					request = nil;
+				} @finally {
+					[_fileManager removeItemAtPath:filePath error:NULL];
+				}
+			}
 		}
-	});
+		
+		if (request) {
+			request.responseHandler = [[YRDIgnoreResponseHandler alloc] init];
+			
+			YRDURLConnection *conn = [[YRDURLConnection alloc] initWithRequest:request completionHandler:NULL];
+			[conn sendSynchronously];
+		}
+	}
 }
 
 @end

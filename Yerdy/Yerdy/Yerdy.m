@@ -133,7 +133,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	_progressionTracker = [[YRDProgressionTracker alloc] initWithCurrencyTracker:_currencyTracker];
 	
-	_trackCounterBatcher = [[YRDTrackCounterBatcher alloc] init];
+	_trackCounterBatcher = [YRDTrackCounterBatcher loadFromDisk];
 	
 	[self reportLaunch:YES];
 	

@@ -41,6 +41,29 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super init];
+	if (!self)
+		return nil;
+	
+	_type = [aDecoder decodeIntForKey:@"type"];
+	_name = [aDecoder decodeObjectForKey:@"name"];
+	
+	_idx = [aDecoder decodeObjectForKey:@"idx"];
+	_mod = [aDecoder decodeObjectForKey:@"mod"];
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+	[aCoder encodeInt:_type forKey:@"type"];
+	if (_name) [aCoder encodeObject:_name forKey:@"name"];
+	if (_idx) [aCoder encodeObject:_idx forKey:@"idx"];
+	if (_mod) [aCoder encodeObject:_mod forKey:@"mod"];
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
 	YRDCounterEvent *copy = [[[self class] alloc] init];

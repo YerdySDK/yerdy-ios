@@ -6,9 +6,13 @@
 //  Copyright (c) 2014 Yerdy. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 #import "YRDTrackCounterBatcher.h"
 #import "YRDCounterEvent.h"
 #import "YRDLog.h"
+
+#import "YRDPaths.h"
 
 #import "YRDTimeTracker.h"
 #import "YRDTrackCounterRequest.h"
@@ -33,6 +37,31 @@ static const int SEND_INTERVAL_MINUTES = 5;
 
 @implementation YRDTrackCounterBatcher
 
++ (NSString *)path
+{
+	return [[YRDPaths dataFilesDirectory] stringByAppendingPathComponent:@"batchedEvents.dat"];
+}
+
++ (YRDTrackCounterBatcher *)loadFromDisk
+{
+	@try {
+		YRDTrackCounterBatcher *fromDisk = [NSKeyedUnarchiver unarchiveObjectWithFile:[self path]];
+		if (fromDisk)
+			return fromDisk;
+		else
+			return [[YRDTrackCounterBatcher alloc] init];
+	} @catch (...) {
+		return [[YRDTrackCounterBatcher alloc] init];
+	}
+}
+
+- (void)saveToDisk
+{
+	@try {
+		[NSKeyedArchiver archiveRootObject:self toFile:[[self class] path]];
+	} @catch (...) { }
+}
+
 - (id)init
 {
 	self = [super init];
@@ -46,7 +75,39 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minutePassedNotification:)
 												 name:YRDTimeTrackerMinutePassedNotification object:nil];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveToDisk)
+												 name:UIApplicationDidEnterBackgroundNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveToDisk)
+												 name:UIApplicationWillTerminateNotification object:nil];
+	
 	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	// Call -[self init] so we get regular init stuff (like registering for notifcations)
+	// and some sane default values (in case reading from aDecoder gives us nils)
+	self = [self init];
+	if (!self)
+		return nil;
+	
+	NSDictionary *customEvents = [aDecoder decodeObjectForKey:@"customEvents"];
+	if (customEvents) _customEvents = [customEvents mutableCopy];
+	
+	NSDictionary *timeEvents = [aDecoder decodeObjectForKey:@"timeEvents"];
+	if (timeEvents) _timeEvents = [timeEvents mutableCopy];
+	
+	NSDictionary *playerEvents = [aDecoder decodeObjectForKey:@"playerEvents"];
+	if (playerEvents) _playerEvents = [playerEvents mutableCopy];
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+	if (_customEvents) [aCoder encodeObject:_customEvents forKey:@"customEvents"];
+	if (_timeEvents) [aCoder encodeObject:_timeEvents forKey:@"timeEvents"];
+	if (_playerEvents) [aCoder encodeObject:_playerEvents forKey:@"playerEvents"];
 }
 
 - (void)dealloc
@@ -132,6 +193,8 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	[_customEvents removeAllObjects];
 	[_timeEvents removeAllObjects];
 	[_playerEvents removeAllObjects];
+	
+	[self saveToDisk];
 }
 
 @end

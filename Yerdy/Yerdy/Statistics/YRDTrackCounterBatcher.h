@@ -14,8 +14,11 @@
 @class YRDCounterEvent;
 
 
-@interface YRDTrackCounterBatcher : NSObject
+@interface YRDTrackCounterBatcher : NSObject <NSCoding>
+
++ (YRDTrackCounterBatcher *)loadFromDisk;
 
 - (void)addEvent:(YRDCounterEvent *)event;
+- (void)saveToDisk;
 
 @end

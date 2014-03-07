@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
+// Persisted between launches, please make sure underlying values aren't modified
 typedef enum YRDCounterType {
 	YRDCounterTypeCustom = 0,	// custom events (custom events from app)
 	YRDCounterTypeTime = 1,		// time based events (tracked internally by Yerdy)
@@ -16,7 +17,7 @@ typedef enum YRDCounterType {
 } YRDCounterType;
 
 
-@interface YRDCounterEvent : NSObject <NSCopying>
+@interface YRDCounterEvent : NSObject <NSCopying, NSCoding>
 
 // Values for services
 @property (nonatomic, readonly) NSString *name;

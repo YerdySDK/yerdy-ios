@@ -71,19 +71,23 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	if ([self shouldReportOnMinute:minute]) {
 		NSString *counterName = [NSString stringWithFormat:@"game-%d", minute];
 
-		NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+		YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypeTime
+																  name:counterName
+																 value:@"0"];
 		
+		// Add currency changes since last event
 		NSDictionary *currencyDeltas = [self calculateCurrencyDeltasAndReset];
-		// add all idx[]=0 for currencies
 		for (NSString *paramName in currencyDeltas) {
-			parameters[paramName] = @0;
+			[event setValue:@"0"
+				  increment:[currencyDeltas[paramName] unsignedIntegerValue]
+			   forParameter:paramName];
 		}
 		
 		NSNumber *vgp = [self calculateItemsDeltaBucketAndReset];
-		parameters[@"vgp"] = vgp;
+		[event setValue:[vgp description] forParameter:@"vgp"];
 		
-		YRDTrackCounterRequest *request = [YRDTrackCounterRequest requestWithCounterName:counterName value:@"0" increment:1
-																			  parameters:parameters parameterIncrements:currencyDeltas];
+
+		YRDTrackCounterRequest *request = [YRDTrackCounterRequest requestWithCounterEvent:event];
 		YRDInfo(@"Counter '%@' with item bucket: %@ and currency deltas since last: %@", counterName, vgp, currencyDeltas);
 		
 		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackCounterResponse *response, NSError *error) {

@@ -7,13 +7,13 @@
 //
 
 #import "YRDRequest.h"
+#import "YRDCounterEvent.h"
 
 @interface YRDTrackCounterRequest : YRDRequest
 
-+ (instancetype)requestWithCounterName:(NSString *)name
-								 value:(NSString *)value
-							 increment:(int)valueIncrement
-							parameters:(NSDictionary *)parameters
-				   parameterIncrements:(NSDictionary *)parameterIncrements;
++ (instancetype)requestWithCounterEvent:(YRDCounterEvent *)event;
+
+// Each event MUST have the same name & type
++ (instancetype)requestWithCounterEvents:(NSArray *)events;
 
 @end

@@ -51,6 +51,13 @@
 	[self presentViewController:bankViewController animated:YES completion:NULL];
 }
 
+- (IBAction)logButtonPressEvent:(id)sender
+{
+	NSString *buttonTitle = [sender titleForState:UIControlStateNormal];
+	
+	[[Yerdy sharedYerdy] logEvent:@"buttonPressed" parameters:@{ @"title" : buttonTitle }];
+}
+
 - (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement
 {
 	NSLog(@"*** %@", NSStringFromSelector(_cmd));

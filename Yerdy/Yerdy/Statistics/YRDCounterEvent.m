@@ -7,6 +7,7 @@
 //
 
 #import "YRDCounterEvent.h"
+#import "YRDLog.h"
 
 @interface YRDCounterEvent ()
 {
@@ -32,10 +33,24 @@
 		return nil;
 
 	_type = type;
-	_name = name;
+	_name = [name copy];
 	
 	_idx = [@{ name : value } mutableCopy];
 	_mod = [@{ name : @(increment) } mutableCopy];
+	
+	return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	YRDCounterEvent *copy = [[[self class] alloc] init];
+	if (!copy)
+		return nil;
+	
+	copy->_type = _type;
+	copy->_name = _name;
+	copy->_idx = [_idx mutableCopy];
+	copy->_mod = [_mod mutableCopy];
 	
 	return self;
 }
@@ -49,6 +64,36 @@
 {
 	_idx[param] = value;
 	_mod[param] = @(increment);
+}
+
+- (void)incrementParameter:(NSString *)param byAmount:(NSUInteger)increment
+{
+	if (!_idx[param]) {
+		YRDError(@"Attempting to increment non-existent parameter: %@", param);
+		return;
+	}
+	_mod[param] = @([_mod[param] integerValue] + increment);
+}
+
+- (void)removeParameter:(NSString *)param
+{
+	[_idx removeObjectForKey:param];
+	[_mod removeObjectForKey:param];
+}
+
+- (NSArray *)parameterNames
+{
+	return _idx.allKeys;
+}
+
+- (NSString *)valueForParameter:(NSString *)param
+{
+	return _idx[param];
+}
+
+- (NSUInteger)incrementForParameter:(NSString *)param
+{
+	return [_mod[param] unsignedIntegerValue];
 }
 
 @end

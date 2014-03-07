@@ -34,6 +34,8 @@
 #import "YRDScreenVisitTracker.h"
 #import "YRDUtil.h"
 #import "YRDProgressionTracker.h"
+#import "YRDTrackCounterBatcher.h"
+#import "YRDCounterEvent.h"
 
 
 static Yerdy *sharedInstance;
@@ -70,6 +72,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDScreenVisitTracker *_screenVisitTracker;
 	
 	YRDProgressionTracker *_progressionTracker;
+	
+	YRDTrackCounterBatcher *_trackCounterBatcher;
 }
 @end
 
@@ -128,6 +132,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	_screenVisitTracker = [[YRDScreenVisitTracker alloc] init];
 	
 	_progressionTracker = [[YRDProgressionTracker alloc] initWithCurrencyTracker:_currencyTracker];
+	
+	_trackCounterBatcher = [[YRDTrackCounterBatcher alloc] init];
 	
 	[self reportLaunch:YES];
 	
@@ -646,5 +652,25 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_screenVisitTracker logScreenVisit:screenName];
 }
 
+- (void)logEvent:(NSString *)eventName parameters:(NSDictionary *)parameters
+{
+	// TODO: Validate args
+	
+	// Put it in the '0' bucket for now... (maybe change later? - talk to Michal)
+	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypeCustom
+															  name:eventName
+															 value:@"0"];
+	
+	for (NSString *paramName in parameters) {
+		if ([paramName isEqualToString:eventName]) {
+			YRDError(@"logEvent: Parameter name (%@) must not be the same as event name (%@). "
+					 @"Discarding parameter...", paramName, eventName);
+			continue;
+		}
+		[event setValue:[parameters[paramName] description] forParameter:paramName];
+	}
+	
+	[_trackCounterBatcher addEvent:event];
+}
 
 @end

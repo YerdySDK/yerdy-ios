@@ -14,4 +14,6 @@
 
 - (IBAction)showBank:(id)sender;
 
+- (IBAction)logButtonPressEvent:(id)sender;
+
 @end

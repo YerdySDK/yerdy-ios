@@ -71,7 +71,7 @@ static NSString *Path = @"stats/launch.php";
 		@"language" : YRDToString(languageCode),
 		@"launches" : @(launches),
 		@"crashes" : @(crashes),
-		@"playtime" : @((int)roundf(playtime)),
+		@"playtime" : @((int)round(playtime)),
 		@"currency" : currencyString,
 	};
 }

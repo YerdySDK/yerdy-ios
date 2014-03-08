@@ -49,7 +49,7 @@
 		@"product" : YRDToString(purchase.productIdentifier),
 		@"sandbox" : @(purchase.isSandboxStore),
 		@"launch_count" : @(launchCount),
-		@"playtime" : @(playtime),
+		@"playtime" : @((int)round(playtime)),
 		@"currency" : [self currencyString:currencyBalance],
 		@"currency_earned" : [self currencyString:earnedCurrency],
 		@"currency_bought" : [self currencyString:purchasedCurrency],

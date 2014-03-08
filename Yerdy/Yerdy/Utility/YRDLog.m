@@ -29,6 +29,10 @@ void YRDSetLogLevel(YRDLogLevel level)
 	logLevel = level;
 }
 
+YRDLogLevel YRDGetLogLevel()
+{
+	return logLevel;
+}
 
 void YRDLogv(YRDLogLevel level, NSString *fmt, va_list args)
 {

@@ -167,6 +167,9 @@ static const NSUInteger MAX_CURRENCIES = 6;
 {
 	[self addCurrencies:currencies toCArray:_earned];
 	[self saveCArray:_earned toKey:YRDEarnedCurrencyDefaultsKey];
+	
+	[self debugLogCurrencies:currencies description:@"Earned"];
+	[self debugLogBalance];
 }
 
 - (void)spentCurrency:(NSString *)currency amount:(NSUInteger)amount
@@ -184,6 +187,9 @@ static const NSUInteger MAX_CURRENCIES = 6;
 {
 	[self addCurrencies:currencies toCArray:_spent];
 	[self saveCArray:_spent toKey:YRDSpentCurrencyDefaultsKey];
+	
+	[self debugLogCurrencies:currencies description:@"Spent"];
+	[self debugLogBalance];
 }
 
 - (void)purchasedCurrency:(NSString *)currency amount:(NSUInteger)amount
@@ -201,6 +207,29 @@ static const NSUInteger MAX_CURRENCIES = 6;
 {
 	[self addCurrencies:currencies toCArray:_purchased];
 	[self saveCArray:_purchased toKey:YRDPurchasedCurrencyDefaultsKey];
+	
+	[self debugLogCurrencies:currencies description:@"Purchased"];
+	[self debugLogBalance];
+}
+
+#pragma mark - Debugging
+
+- (void)debugLogCurrencies:(NSDictionary *)currencies description:(NSString *)description
+{
+	if (YRDGetLogLevel() < YRDLogDebug)
+		return; // to minimize performance hit when not using YRDLogDebug
+	
+	NSArray *currencyArray = [self currencyDictionaryToArray:currencies];
+	YRDDebug(@"%@: %@", description, [currencyArray componentsJoinedByString:@", "]);
+}
+
+- (void)debugLogBalance
+{
+	if (YRDGetLogLevel() < YRDLogDebug)
+		return; // to minimize performance hit when not using YRDLogDebug
+	
+	YRDDebug(@"Balance: %@", [self.currencyBalance componentsJoinedByString:@", "]);
+
 }
 
 @end

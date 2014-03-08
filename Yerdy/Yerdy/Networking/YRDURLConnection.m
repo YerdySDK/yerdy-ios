@@ -88,7 +88,11 @@
 	NSURLRequest *request = _request.urlRequest;
 	
 	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-	[_connection setDelegateQueue:[[self class] delegateOperationQueue]];
+	
+	// using -setDelegateQueue: seems to deadlock on iOS 5 when the connection finishes... Grrrr...
+	if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_6_0)
+		[_connection setDelegateQueue:[[self class] delegateOperationQueue]];
+	
 	[_connection start];
 }
 

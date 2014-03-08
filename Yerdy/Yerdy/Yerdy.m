@@ -466,7 +466,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		}
 	}
 	
-	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:willDismissMessageForPlacement:)])
 		[_messageDelegate yerdy:self willDismissMessageForPlacement:_currentPlacement];
 }
 
@@ -477,7 +477,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	_messagePresenter = nil;
 	
-	if ([_messageDelegate respondsToSelector:@selector(yerdy:didPresentMessageForPlacement:)])
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:didDismissMessageForPlacement:)])
 		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];
 	
 	if (action != nil) {

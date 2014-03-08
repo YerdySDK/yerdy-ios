@@ -662,6 +662,7 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
 {
+	milestone = [NSString stringWithFormat:@"_%@", milestone];
 	[_progressionTracker logPlayerProgression:category milestone:milestone];
 }
 
@@ -685,7 +686,8 @@ static const NSUInteger MaxImagePreloads = 6;
 					 @"Discarding parameter...", paramName, eventName);
 			continue;
 		}
-		[event setValue:[parameters[paramName] description] forParameter:paramName];
+		NSString *value = [NSString stringWithFormat:@"_%@", parameters[paramName]];
+		[event setValue:value forParameter:paramName];
 	}
 	
 	[_trackCounterBatcher addEvent:event];

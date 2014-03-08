@@ -20,6 +20,7 @@
 #import "YRDTimeTracker.h"
 #import "YRDReachability.h"
 #import "YRDRequestCache.h"
+#import "Yerdy.h"
 
 
 // Report an event on each of these intervals & then every 30 minutes
@@ -60,10 +61,25 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (BOOL)shouldTrackEventsForUser
+{
+	Yerdy *yerdy = [Yerdy sharedYerdy];
+	if (yerdy.isExistingUser) {
+		return yerdy.shouldTrackExistingUsersProgression;
+	} else {
+		return YES;
+	}
+}
+
 #pragma mark - Player progression events
 
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
 {
+	if (![self shouldTrackEventsForUser]) {
+		YRDDebug(@"Ignoring milestone '%@' in '%@' for existing user", milestone, category);
+		return;
+	}
+	
 	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypePlayer name:category value:milestone];
 	[event setValue:milestone increment:MAX(0, _launchTracker.totalLaunchCount) forParameter:@"launch_count"];
 	[event setValue:milestone increment:MAX(0, (NSUInteger)round(_timeTracker.timePlayed)) forParameter:@"playtime"];
@@ -76,6 +92,11 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 {
 	int minute = [notification.userInfo[YRDTimeTrackerMinutesPassedKey] intValue];
 	if ([self shouldReportOnMinute:minute]) {
+		if (![self shouldTrackEventsForUser]) {
+			YRDDebug(@"Ignoring time event at '%d minutes' for existing user", minute);
+			return;
+		}
+		
 		NSString *counterName = [NSString stringWithFormat:@"game-%d", minute];
 
 		YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypeTime

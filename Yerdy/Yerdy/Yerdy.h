@@ -53,8 +53,6 @@
 // TODO: Document these!
 - (void)registerCurrencies:(NSArray *)currencies;
 
-- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies;
-
 - (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)earnedCurrencies:(NSDictionary *)currencies;
 
@@ -66,6 +64,14 @@
 - (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies;
 
+
+// If the user is existing, we don't track progression events for them unless
+// shouldTrackExistingUsersProgression is YES
+@property (nonatomic, assign, getter = isExistingUser) BOOL existingUser;
+@property (nonatomic, assign) BOOL shouldTrackExistingUsersProgression;
+
+// Sets existingUser = YES
+- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies;
 
 // Logs a player progression event.
 // Milestones are grouped by category.  For example, you may have a 'map' category and your milestones

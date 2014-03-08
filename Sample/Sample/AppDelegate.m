@@ -18,6 +18,9 @@
 #import "PublisherKey.h"
 
 
+static const BOOL TREAT_AS_EXISTING_USER = NO;
+
+
 @interface AppDelegate () <YerdyDelegate>
 @end
 
@@ -32,14 +35,20 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *initialCurrency = @{ Gold : @30, Silver : @20, Bronze : @10 };
-	if ([defaults objectForKey:Gold] == nil
-		&& [defaults objectForKey:Silver] == nil
-		&& [defaults objectForKey:Bronze] == nil) {
+
+	BOOL initialized = [[defaults objectForKey:@"Initialized"] boolValue];
+	if (!initialized) {
+		[defaults setObject:@YES forKey:@"Initialized"];
 		
 		for (NSString *key in initialCurrency) {
 			[defaults setObject:initialCurrency[key] forKey:key];
 		}
-		[yerdy earnedCurrencies:initialCurrency];
+		
+		if (TREAT_AS_EXISTING_USER) {
+			[yerdy setExistingCurrenciesForExistingUser:initialCurrency];
+		} else {
+			[yerdy earnedCurrencies:initialCurrency];
+		}
 	}
 	
 	CGRect screenBounds = [UIScreen mainScreen].bounds;

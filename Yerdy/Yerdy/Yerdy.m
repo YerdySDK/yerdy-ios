@@ -551,16 +551,6 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_currencyTracker registerCurrencies:currencies];
 }
 
-- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies
-{
-	BOOL applied = [[self persistentObjectForKey:YRDAppliedExistingCurrencyDefaultsKey] boolValue];
-	if (!applied) {
-		[_currencyTracker earnedCurrencies:existingCurrencies];
-		[self setPersistentObject:@YES forKey:YRDAppliedExistingCurrencyDefaultsKey];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
-}
-
 - (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount
 {
 	[_currencyTracker earnedCurrency:currency amount:amount];
@@ -656,6 +646,30 @@ static const NSUInteger MaxImagePreloads = 6;
 	}];
 	
 	[_currencyTracker purchasedCurrencies:currencies];
+}
+
+#pragma mark - Existing users
+
+- (void)setExistingUser:(BOOL)existingUser
+{
+	[self setPersistentObject:@(existingUser) forKey:YRDIsUserExistingUserDefaultsKey];
+}
+
+- (BOOL)isExistingUser
+{
+	return [[self persistentObjectForKey:YRDIsUserExistingUserDefaultsKey] boolValue];
+}
+
+- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies
+{
+	BOOL applied = [[self persistentObjectForKey:YRDAppliedExistingCurrencyDefaultsKey] boolValue];
+	if (!applied) {
+		self.existingUser = YES;
+		
+		[_currencyTracker earnedCurrencies:existingCurrencies];
+		[self setPersistentObject:@YES forKey:YRDAppliedExistingCurrencyDefaultsKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
 #pragma mark - Screen Visit Tracking

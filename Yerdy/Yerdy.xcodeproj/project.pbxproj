@@ -162,6 +162,7 @@
 		4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDLaunchTracker.m; sourceTree = "<group>"; };
 		4790C47D18A05D2C001BBD3D /* YRDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDConstants.h; sourceTree = "<group>"; };
 		4790C47E18A05D2C001BBD3D /* YRDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDConstants.m; sourceTree = "<group>"; };
+		4795C3A718E0AB7E00DE471A /* YRDCompilerChecks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDCompilerChecks.h; sourceTree = "<group>"; };
 		47D716F018C68717001AE028 /* YRDPurchase_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDPurchase_Private.h; sourceTree = "<group>"; };
 		47D716F218C688B0001AE028 /* YRDProductRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDProductRequest.h; sourceTree = "<group>"; };
 		47D716F318C688B0001AE028 /* YRDProductRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDProductRequest.m; sourceTree = "<group>"; };
@@ -363,6 +364,7 @@
 				47E9B6C518A94557004A622F /* YRDDefines.h */,
 				4790C47D18A05D2C001BBD3D /* YRDConstants.h */,
 				4790C47E18A05D2C001BBD3D /* YRDConstants.m */,
+				4795C3A718E0AB7E00DE471A /* YRDCompilerChecks.h */,
 				4711E16618BE79A500966C93 /* Display */,
 				4711E12F18BE778A00966C93 /* Messaging */,
 				4711E17018BE79B700966C93 /* Networking */,
@@ -582,6 +584,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

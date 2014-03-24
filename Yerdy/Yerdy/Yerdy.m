@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Yerdy. All rights reserved.
 //
 
+#import "YRDCompilerChecks.h"
+
 #import "Yerdy.h"
 #import "Yerdy_Private.h"
 #import "YRDConstants.h"

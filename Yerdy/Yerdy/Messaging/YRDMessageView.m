@@ -154,9 +154,10 @@ typedef enum YRDButtonType {
 {
 	CGRect bounds = self.bounds;
 	CGRect containerBounds = CGRectMake(0.0, 0.0, [self shortDimension], [self longDimension]);
+	CGPoint containerCenter = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds) + [self statusBarHeight]/2.0);
 	
 	_contentContainer.bounds = containerBounds;
-	_contentContainer.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+	_contentContainer.center = containerCenter;
 	
 	CGFloat currentY = 0.0;
 	
@@ -207,8 +208,10 @@ typedef enum YRDButtonType {
 		containerBounds.size.width += [self padding] * 4.0;
 	}
 	
+	CGPoint containerCenter = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds) + [self statusBarHeight]/2.0);
+	
 	_contentContainer.bounds = containerBounds;
-	_contentContainer.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
+	_contentContainer.center = containerCenter;
 		
 	_imageView.frame = CGRectMake(0.0, 0.0, [self shortDimension], [self shortDimension]);
 	
@@ -371,7 +374,7 @@ typedef enum YRDButtonType {
 - (CGFloat)shortDimension
 {
 	if (YRD_IS_4_INCH_RETINA()) {
-		return 300.0;
+		return 280.0;
 	} else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
 		return 240.0;
 	} else {
@@ -384,6 +387,14 @@ typedef enum YRDButtonType {
 {
 	CGRect screenBounds = [UIScreen mainScreen].bounds;
 	return screenBounds.size.height - 80.0;
+}
+
+- (CGFloat)statusBarHeight
+{
+	CGRect frame = [UIApplication sharedApplication].statusBarFrame;
+	// the "height" will always be the shorter dimension (it might be the frame's
+	// width or height depending on whether we are in portrait or landscape)
+	return MIN(frame.size.width, frame.size.height);
 }
 
 // padding/spacing used in various places

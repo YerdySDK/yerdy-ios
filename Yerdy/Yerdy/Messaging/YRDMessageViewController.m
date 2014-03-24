@@ -29,7 +29,15 @@
 	
 	_message = message;
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarFrameChanged:)
+												 name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+	
 	return self;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadView
@@ -76,6 +84,13 @@
 		});
 	} else {
 		_cancelButton.hidden = NO;
+	}
+}
+
+- (void)statusBarFrameChanged:(NSNotification *)notification
+{
+	if (self.isViewLoaded) {
+		[self.view setNeedsLayout];
 	}
 }
 

@@ -62,6 +62,7 @@ typedef enum YRDButtonType {
 	_watermarkImageView = [[UIImageView alloc] init];
 	_watermarkImageView.backgroundColor = [UIColor clearColor];
 	_watermarkImageView.opaque = NO;
+	_watermarkImageView.clipsToBounds = YES;
 	[_contentContainer addSubview:_watermarkImageView];
 	viewController.watermarkImageView = _watermarkImageView;
 	

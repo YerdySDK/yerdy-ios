@@ -9,6 +9,7 @@
 #import "YRDMessagePresenter.h"
 #import "Yerdy.h"
 #import "YRDAppActionParser.h"
+#import "YRDIgnoreResponseHandler.h"
 #import "YRDLog.h"
 #import "YRDMessagePresenterImage.h"
 #import "YRDMessagePresenterSystem.h"
@@ -131,6 +132,7 @@ typedef enum YRDMessageOutcome {
 - (void)reportOutcomeToURL:(NSURL *)URL
 {
 	YRDRequest *request = [[YRDRequest alloc] initWithURL:URL];
+	request.responseHandler = [[YRDIgnoreResponseHandler alloc] init];
 	[YRDURLConnection sendRequest:request completionHandler:^(id response, NSError *error) {
 		if (error)
 			YRDError(@"Failed to report message outcome to '%@': %@", request.URL, error);

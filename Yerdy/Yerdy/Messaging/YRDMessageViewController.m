@@ -40,6 +40,8 @@
 
 - (void)viewDidLoad
 {
+	[super viewDidLoad];
+	
 	if (_message.image) {
 		__weak UIImageView *weakImageView = _imageView;
 		[[YRDImageCache sharedCache] loadImageAtURL:_message.image completionHandler:^(UIImage *image) {
@@ -63,6 +65,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+	[super viewDidAppear:animated];
+	
 	if (_message.cancelDelay > 0.0 && _cancelButton) {
 		__weak UIButton *weakCancel = _cancelButton;
 		

@@ -20,6 +20,8 @@
 + (NSString *)appBundleIdentifierAndPlatform;
 + (NSString *)appVersion;
 
++ (NSString *)stripCharactersInSet:(NSCharacterSet *)charSet fromString:(NSString *)string;
+
 + (NSString *)base64String:(NSData *)data;
 
 + (NSString *)URLEncode:(NSString *)string;

@@ -79,19 +79,39 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 	}
 }
 
++ (NSString *)stripCharactersInSet:(NSCharacterSet *)charSet fromString:(NSString *)string
+{
+	NSScanner *scanner = [NSScanner scannerWithString:string];
+	NSMutableString *stripped = [NSMutableString stringWithCapacity:string.length];
+	
+	while (![scanner isAtEnd]) {
+		NSString *result;
+		if ([scanner scanUpToCharactersFromSet:charSet intoString:&result]) {
+			[stripped appendString:result];
+			[scanner scanCharactersFromSet:charSet intoString:NULL];
+		}
+	}
+	
+	return stripped;
+}
+
 + (NSString *)base64String:(NSData *)data
 {
+	NSString *base64;
+	
 #if YRD_COMPILING_FOR_IOS_7
 	if ([data respondsToSelector:@selector(base64EncodedStringWithOptions:)]) {
 		// iOS 7+
-		return [data base64EncodedStringWithOptions:0];
+		base64 = [data base64EncodedStringWithOptions:0];
 	} else {
 		// iOS 4-6
-		return [data base64Encoding];
+		base64 = [data base64Encoding];
 	}
 #else
-	return [data base64Encoding];
+	base64 = [data base64Encoding];
 #endif
+	
+	return [self stripCharactersInSet:[NSCharacterSet newlineCharacterSet] fromString:base64];
 }
 
 + (NSString *)URLEncode:(NSString *)string

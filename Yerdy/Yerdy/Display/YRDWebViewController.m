@@ -7,9 +7,12 @@
 //
 
 #import "YRDWebViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 static const CGFloat ToolbarHeight = 44.0;
 static const CGFloat IconButtonWidth = 50.0;
+
+static const CFTimeInterval PresentDismissAnimationDuration = 0.2;
 
 static NSString *BackCharacter = @"◄";
 static NSString *ForwardCharacter = @"►";
@@ -38,7 +41,15 @@ static NSString *ForwardCharacter = @"►";
 	
 	_URL = URL;
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarFrameChanged:)
+												 name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+	
 	return self;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadView
@@ -54,12 +65,13 @@ static NSString *ForwardCharacter = @"►";
 	[self.view addSubview:_toolbar];
 	
 	[self setupToolbarItems];
-	
+		
 	_webView = [[UIWebView alloc] init];
 	_webView.delegate = self;
-	_webView.frame = CGRectMake(0.0, 0.0, viewBounds.size.width, viewBounds.size.height - ToolbarHeight);
 	_webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.view addSubview:_webView];
+	
+	[self setWebViewFrame];
 }
 
 - (void)viewDidLoad
@@ -71,6 +83,31 @@ static NSString *ForwardCharacter = @"►";
 - (void)present
 {
 	[self addToWindow];
+	
+	CALayer *layer = self.view.layer;
+	
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"anchorPoint"];
+	animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+	animation.duration = 0.2;
+	animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.5, -0.5)];
+	animation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.5, 0.5)];
+	[layer addAnimation:animation forKey:nil];
+}
+
+- (void)setWebViewFrame
+{
+	CGRect viewBounds = self.view.bounds;
+	CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+	// the "height" may be width or height, depending on if we are in portrait/landscape
+	CGFloat statusBarHeight = MIN(statusBarFrame.size.width, statusBarFrame.size.height);
+
+	_webView.frame = CGRectMake(0.0, statusBarHeight, viewBounds.size.width, viewBounds.size.height - ToolbarHeight - statusBarHeight);
+}
+
+- (void)statusBarFrameChanged:(NSNotification *)notification
+{
+	if (self.isViewLoaded)
+		[self setWebViewFrame];
 }
 
 #pragma mark - Toolbar items
@@ -211,7 +248,19 @@ static NSString *ForwardCharacter = @"►";
 
 - (void)done
 {
-	[self removeFromWindow];
+	CALayer *layer = self.view.layer;
+	
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"anchorPoint"];
+	animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+	animation.duration = PresentDismissAnimationDuration;
+	animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.5, 0.5)];
+	animation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.5, -0.5)];
+	[layer addAnimation:animation forKey:nil];
+
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(PresentDismissAnimationDuration * NSEC_PER_SEC));
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+		[self removeFromWindow];
+	});
 }
 
 #pragma mark - UIWebViewDelegate

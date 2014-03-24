@@ -8,6 +8,7 @@
 
 #import "YRDLaunchTracker.h"
 #import "YRDConstants.h"
+#import "YRDDataStore.h"
 #import "YRDUtil.h"
 #import <UIKit/UIKit.h>
 
@@ -106,16 +107,16 @@ typedef enum YRDLaunchCounterType {
 
 - (NSInteger)versionLaunchCount
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	YRDDataStore *defaults = [YRDDataStore sharedDataStore];
 	return [defaults integerForKey:YRDVersionLaunchesDefaultsKey];
 }
 
 - (NSInteger)versionCrashCount
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSInteger launches = [defaults integerForKey:YRDVersionLaunchesDefaultsKey];
-	NSInteger resumes = [defaults integerForKey:YRDVersionResumesDefaultsKey];
-	NSInteger exits = [defaults integerForKey:YRDVersionExitsDefaultsKey];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+	NSInteger launches = [dataStore integerForKey:YRDVersionLaunchesDefaultsKey];
+	NSInteger resumes = [dataStore integerForKey:YRDVersionResumesDefaultsKey];
+	NSInteger exits = [dataStore integerForKey:YRDVersionExitsDefaultsKey];
 	
 	NSInteger crashes = launches + resumes - exits;
 	// launches + resumes will be 1 higher than exits if we haven't exited the app yet
@@ -127,8 +128,8 @@ typedef enum YRDLaunchCounterType {
 
 - (NSInteger)totalLaunchCount
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	return [defaults integerForKey:YRDTotalLaunchesDefaultsKey];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+	return [dataStore integerForKey:YRDTotalLaunchesDefaultsKey];
 }
 
 #pragma mark - Launch tracking
@@ -138,23 +139,23 @@ typedef enum YRDLaunchCounterType {
 	if (_countedLaunch)
 		return;
 	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
 	
 	NSString *key = nil;
 	if (type == YRDLaunchCounterLaunch) {
 		key = YRDVersionLaunchesDefaultsKey;
 		
-		NSInteger totalLaunches = [defaults integerForKey:YRDTotalLaunchesDefaultsKey];
+		NSInteger totalLaunches = [dataStore integerForKey:YRDTotalLaunchesDefaultsKey];
 		totalLaunches += 1;
-		[defaults setInteger:totalLaunches forKey:YRDTotalLaunchesDefaultsKey];
+		[dataStore setInteger:totalLaunches forKey:YRDTotalLaunchesDefaultsKey];
 	} else if (type == YRDLaunchCounterResume) {
 		key = YRDVersionResumesDefaultsKey;
 	}
 	
-	NSInteger launches = [defaults integerForKey:key];
+	NSInteger launches = [dataStore integerForKey:key];
 	
-	[defaults setInteger:launches + 1 forKey:key];
-	[defaults synchronize];
+	[dataStore setInteger:launches + 1 forKey:key];
+	[dataStore synchronize];
 	_countedLaunch = YES;
 	_countedExit = NO;
 }
@@ -164,22 +165,22 @@ typedef enum YRDLaunchCounterType {
 	if (_countedExit)
 		return;
 	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSInteger exits = [defaults integerForKey:YRDVersionExitsDefaultsKey];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+	NSInteger exits = [dataStore integerForKey:YRDVersionExitsDefaultsKey];
 	
-	[defaults setInteger:exits + 1 forKey:YRDVersionExitsDefaultsKey];
-	[defaults synchronize];
+	[dataStore setInteger:exits + 1 forKey:YRDVersionExitsDefaultsKey];
+	[dataStore synchronize];
 	_countedLaunch = NO;
 	_countedExit = YES;
 }
 
 - (void)reset
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
 	
-	[defaults setInteger:1 forKey:YRDVersionLaunchesDefaultsKey];
-	[defaults setInteger:0 forKey:YRDVersionResumesDefaultsKey];
-	[defaults setInteger:0 forKey:YRDVersionExitsDefaultsKey];
+	[dataStore setInteger:1 forKey:YRDVersionLaunchesDefaultsKey];
+	[dataStore setInteger:0 forKey:YRDVersionResumesDefaultsKey];
+	[dataStore setInteger:0 forKey:YRDVersionExitsDefaultsKey];
 }
 
 @end

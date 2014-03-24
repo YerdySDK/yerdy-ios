@@ -12,6 +12,7 @@
 #import "YRDReachability.h"
 #import "YRDURLConnection.h"
 #import "YRDConstants.h"
+#import "YRDDataStore.h"
 #import "YRDLog.h"
 #import "YRDPaths.h"
 
@@ -138,7 +139,7 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 		}
 		
 		if (response.result == YRDTrackPurchaseResultSuccess) {
-			[[NSUserDefaults standardUserDefaults] setObject:@0 forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
+			[[YRDDataStore sharedDataStore] setObject:@0 forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
 		}
 		
 		YRDDebug(@"trackPurchase result: %d", response.result);

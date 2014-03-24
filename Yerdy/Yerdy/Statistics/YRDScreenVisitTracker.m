@@ -8,13 +8,14 @@
 
 #import "YRDScreenVisitTracker.h"
 #import "YRDConstants.h"
+#import "YRDDataStore.h"
 #import "YRDUtil.h"
 
 @implementation YRDScreenVisitTracker
 
 - (NSDictionary *)loggedScreenVisits
 {
-	NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:YRDScreenVisitsDefaultsKey];
+	NSDictionary *dictionary = [[YRDDataStore sharedDataStore] objectForKey:YRDScreenVisitsDefaultsKey];
 	if (dictionary == nil || ![dictionary isKindOfClass:[NSDictionary class]]) {
 		dictionary = @{};
 	}
@@ -30,12 +31,12 @@
 	NSInteger prevCount = [currentVisits[screenName] integerValue];
 	currentVisits[screenName] = @(prevCount + 1);
 	
-	[[NSUserDefaults standardUserDefaults] setObject:currentVisits forKey:YRDScreenVisitsDefaultsKey];
+	[[YRDDataStore sharedDataStore] setObject:currentVisits forKey:YRDScreenVisitsDefaultsKey];
 }
 
 - (void)reset
 {
-	[[NSUserDefaults standardUserDefaults] removeObjectForKey:YRDScreenVisitsDefaultsKey];
+	[[YRDDataStore sharedDataStore] removeObjectForKey:YRDScreenVisitsDefaultsKey];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "YRDTimeTracker.h"
 #import "YRDConstants.h"
+#import "YRDDataStore.h"
 #import "YRDLog.h"
 #import "YRDTimer.h"
 
@@ -85,7 +86,7 @@ static const double ErrorRatio = 2.0;
 		return;
 	
 	// attempt to calculate startOffset so that the next timer fires on a multiple of TimeInterval
-	NSTimeInterval timePlayed = [[NSUserDefaults standardUserDefaults] doubleForKey:YRDTimePlayedDefaultsKey];
+	NSTimeInterval timePlayed = [[YRDDataStore sharedDataStore] doubleForKey:YRDTimePlayedDefaultsKey];
 	NSTimeInterval startOffset = ceil(timePlayed/FireInterval) * FireInterval - timePlayed;
 	
 	_lastCheckpoint = [NSDate date];
@@ -120,15 +121,15 @@ static const double ErrorRatio = 2.0;
 		return;
 	}
 	
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
 	
 	// update time played
-	NSTimeInterval timePlayed = [userDefaults doubleForKey:YRDTimePlayedDefaultsKey];
+	NSTimeInterval timePlayed = [dataStore doubleForKey:YRDTimePlayedDefaultsKey];
 	timePlayed += timePassed;
-	[userDefaults setDouble:timePlayed forKey:YRDTimePlayedDefaultsKey];
+	[dataStore setDouble:timePlayed forKey:YRDTimePlayedDefaultsKey];
 	
 	// determine whether or not we should fire a YRDTimeTrackerMinutePassedNotification
-	NSInteger lastMinutesReported = [userDefaults integerForKey:YRDMinutesPlayedDefaultsKey];
+	NSInteger lastMinutesReported = [dataStore integerForKey:YRDMinutesPlayedDefaultsKey];
 	int minutesPassed = (int)(round(timePlayed + (FireInterval * ToleranceRatio)) / 60.0);
 	
 	// very unlikely, but if things get really out of whack, we may fire 2 (or more) notifications
@@ -142,14 +143,14 @@ static const double ErrorRatio = 2.0;
 		[[NSNotificationCenter defaultCenter] postNotificationName:YRDTimeTrackerMinutePassedNotification
 															object:self userInfo:userInfo];
 	}
-	[userDefaults setInteger:minutesPassed forKey:YRDMinutesPlayedDefaultsKey];
+	[dataStore setInteger:minutesPassed forKey:YRDMinutesPlayedDefaultsKey];
 }
 
 
 - (NSTimeInterval)timePlayed
 {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSTimeInterval timePlayed = [userDefaults doubleForKey:YRDTimePlayedDefaultsKey];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+	NSTimeInterval timePlayed = [dataStore doubleForKey:YRDTimePlayedDefaultsKey];
 	
 	NSTimeInterval timePassed = [[NSDate date] timeIntervalSinceDate:_lastCheckpoint];
 	
@@ -164,15 +165,15 @@ static const double ErrorRatio = 2.0;
 
 - (NSTimeInterval)versionTimePlayed
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSTimeInterval startOffset = [defaults doubleForKey:YRDVersionStartTimeOffsetDefaultsKey];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+	NSTimeInterval startOffset = [dataStore doubleForKey:YRDVersionStartTimeOffsetDefaultsKey];
 	return self.timePlayed - startOffset;
 }
 
 - (void)resetVersionTimePlayed
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setDouble:self.timePlayed forKey:YRDVersionStartTimeOffsetDefaultsKey];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+	[dataStore setDouble:self.timePlayed forKey:YRDVersionStartTimeOffsetDefaultsKey];
 }
 
 @end

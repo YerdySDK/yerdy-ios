@@ -11,6 +11,7 @@
 #import "Yerdy.h"
 #import "Yerdy_Private.h"
 #import "YRDConstants.h"
+#import "YRDDataStore.h"
 #import "YRDDelayedBlock.h"
 #import "YRDLog.h"
 #import "YRDLaunchRequest.h"
@@ -162,12 +163,12 @@ static const NSUInteger MaxImagePreloads = 6;
 {
 	// Various stats are tracked per version, so we need to reset them
 	// when we detect a new version of the application
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *lastKnownAppVersion = [defaults objectForKey:YRDAppVersionDefaultsKey];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+	NSString *lastKnownAppVersion = [dataStore objectForKey:YRDAppVersionDefaultsKey];
 	NSString *appVersion = [YRDUtil appVersion];
 	
 	if (![lastKnownAppVersion isEqualToString:appVersion]) {
-		[defaults setObject:appVersion forKey:YRDAppVersionDefaultsKey];
+		[dataStore setObject:appVersion forKey:YRDAppVersionDefaultsKey];
 		return YES;
 	} else {
 		return NO;
@@ -287,15 +288,15 @@ static const NSUInteger MaxImagePreloads = 6;
 - (void)setPersistentObject:(id)object forKey:(NSString *)key
 {
 	if (object) {
-		[[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
+		[[YRDDataStore sharedDataStore] setObject:object forKey:key];
 	} else {
-		[[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+		[[YRDDataStore sharedDataStore] removeObjectForKey:key];
 	}
 }
 
 - (id)persistentObjectForKey:(NSString *)key
 {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+	return [[YRDDataStore sharedDataStore] objectForKey:key];
 }
 
 - (void)setPushToken:(NSData *)pushToken
@@ -338,7 +339,7 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (int)itemsPurchased
 {
-	return [[NSUserDefaults standardUserDefaults] integerForKey:YRDItemsPurchasedDefaultsKey];
+	return [[YRDDataStore sharedDataStore] integerForKey:YRDItemsPurchasedDefaultsKey];
 }
 
 #pragma mark - Messaging
@@ -580,7 +581,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	// TODO: arg validation
 	
 	// update items purchased count
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	YRDDataStore *defaults = [YRDDataStore sharedDataStore];
 	NSInteger itemsPurchased = [defaults integerForKey:YRDItemsPurchasedDefaultsKey];
 	itemsPurchased += 1;
 	[defaults setInteger:itemsPurchased forKey:YRDItemsPurchasedDefaultsKey];
@@ -629,7 +630,7 @@ static const NSUInteger MaxImagePreloads = 6;
 {
 	// TODO: arg validation
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
-	NSInteger itemsPurchased = [[NSUserDefaults standardUserDefaults] integerForKey:YRDItemsPurchasedDefaultsKey];
+	NSInteger itemsPurchased = [[YRDDataStore sharedDataStore] integerForKey:YRDItemsPurchasedDefaultsKey];
 	
 	NSString *conversionMessageId = [_conversionTracker checkInAppConversion:purchase.productIdentifier];
 	
@@ -670,7 +671,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		
 		[_currencyTracker earnedCurrencies:existingCurrencies];
 		[self setPersistentObject:@YES forKey:YRDAppliedExistingCurrencyDefaultsKey];
-		[[NSUserDefaults standardUserDefaults] synchronize];
+		[[YRDDataStore sharedDataStore] synchronize];
 	}
 }
 

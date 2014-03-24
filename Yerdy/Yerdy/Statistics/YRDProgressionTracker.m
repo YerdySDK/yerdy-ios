@@ -9,6 +9,7 @@
 #import "YRDProgressionTracker.h"
 #import "YRDConstants.h"
 #import "YRDCurrencyTracker.h"
+#import "YRDDataStore.h"
 #import "YRDTimeTracker.h"
 #import "Yerdy_Private.h"
 #import "YRDTrackCounterBatcher.h"
@@ -151,28 +152,28 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 // for game progression events (game-<minutes>)
 - (NSDictionary *)calculateCurrencyDeltasAndReset
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
 	NSMutableDictionary *paramsToValues = [NSMutableDictionary dictionary];
 	
 	// earned-1 ... earned-6
 	NSDictionary *earned = [self currencyChangeParamsWithPrefix:@"earned" currentAmount:_currencyTracker.currencyEarned
 									  previousAmountDefaultsKey:YRDProgressionLastEarnedCurrencyDefaultsKey];
 	[paramsToValues addEntriesFromDictionary:earned];
-	[defaults setObject:_currencyTracker.currencyEarned forKey:YRDProgressionLastEarnedCurrencyDefaultsKey];
+	[dataStore setObject:_currencyTracker.currencyEarned forKey:YRDProgressionLastEarnedCurrencyDefaultsKey];
 	
 	
 	// purchased-1 ... purchased-6
 	NSDictionary *purchased = [self currencyChangeParamsWithPrefix:@"purchased" currentAmount:_currencyTracker.currencyPurchased
 										 previousAmountDefaultsKey:YRDProgressionLastPurchasedCurrencyDefaultsKey];
 	[paramsToValues addEntriesFromDictionary:purchased];
-	[defaults setObject:_currencyTracker.currencyPurchased forKey:YRDProgressionLastPurchasedCurrencyDefaultsKey];
+	[dataStore setObject:_currencyTracker.currencyPurchased forKey:YRDProgressionLastPurchasedCurrencyDefaultsKey];
 	
 	
 	// spent-1 ... spent-6
 	NSDictionary *spent = [self currencyChangeParamsWithPrefix:@"spent" currentAmount:_currencyTracker.currencySpent
 									 previousAmountDefaultsKey:YRDProgressionLastSpentCurrencyDefaultsKey];
 	[paramsToValues addEntriesFromDictionary:spent];
-	[defaults setObject:_currencyTracker.currencySpent forKey:YRDProgressionLastSpentCurrencyDefaultsKey];
+	[dataStore setObject:_currencyTracker.currencySpent forKey:YRDProgressionLastSpentCurrencyDefaultsKey];
 	
 	return paramsToValues;
 }
@@ -180,7 +181,7 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 - (NSDictionary *)currencyChangeParamsWithPrefix:(NSString *)prefix currentAmount:(NSArray *)currentAmount
 					   previousAmountDefaultsKey:(NSString *)previousAmountDefaultsKey
 {
-	NSArray *previous = [[NSUserDefaults standardUserDefaults] arrayForKey:previousAmountDefaultsKey];
+	NSArray *previous = [[YRDDataStore sharedDataStore] arrayForKey:previousAmountDefaultsKey];
 	NSArray *increases = [self calculateCurrencyIncreasesFrom:previous to:currentAmount];
 	
 	NSMutableDictionary *paramsToValues = [NSMutableDictionary dictionary];
@@ -213,12 +214,12 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 
 - (NSNumber *)calculateItemsDeltaBucketAndReset
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
 	
 	// vgp
 	int currentItemsPurchased = [Yerdy sharedYerdy].itemsPurchased;
-	int previousItemsPurchased = [defaults integerForKey:YRDProgressionLastItemPurchasesDefaultsKey];
-	[defaults setInteger:currentItemsPurchased forKey:YRDProgressionLastItemPurchasesDefaultsKey];
+	int previousItemsPurchased = [dataStore integerForKey:YRDProgressionLastItemPurchasesDefaultsKey];
+	[dataStore setInteger:currentItemsPurchased forKey:YRDProgressionLastItemPurchasesDefaultsKey];
 
 	return [self bucketForItemsPurchasedDelta:currentItemsPurchased - previousItemsPurchased];
 }

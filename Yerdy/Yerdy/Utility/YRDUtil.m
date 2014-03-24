@@ -8,6 +8,7 @@
 
 #import "YRDUtil.h"
 #import "YRDConstants.h"
+#import "YRDDataStore.h"
 #import "YRDLog.h"
 #import <UIKit/UIKit.h>
 
@@ -44,13 +45,13 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 	}
 	
 	// fallback on custom ID
-	NSString *customID = [[NSUserDefaults standardUserDefaults] stringForKey:YRDCustomDeviceIDDefaultsKey];
+	NSString *customID = [[YRDDataStore sharedDataStore] stringForKey:YRDCustomDeviceIDDefaultsKey];
 	if (!customID) {
 		CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
 		customID = CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid));
 		CFRelease(uuid);
 		
-		[[NSUserDefaults standardUserDefaults] setObject:customID forKey:YRDCustomDeviceIDDefaultsKey];
+		[[YRDDataStore sharedDataStore] setObject:customID forKey:YRDCustomDeviceIDDefaultsKey];
 	}
 	return customID;
 }

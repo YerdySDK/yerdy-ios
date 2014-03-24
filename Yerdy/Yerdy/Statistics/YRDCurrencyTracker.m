@@ -9,6 +9,7 @@
 #import "YRDCurrencyTracker.h"
 #import "YRDLog.h"
 #import "YRDConstants.h"
+#import "YRDDataStore.h"
 
 
 static const NSUInteger MAX_CURRENCIES = 6;
@@ -98,14 +99,14 @@ static const NSUInteger MAX_CURRENCIES = 6;
 
 - (void)readKey:(NSString *)key intoCArray:(NSInteger[MAX_CURRENCIES])cArray
 {
-	NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
+	NSArray *array = [[YRDDataStore sharedDataStore] arrayForKey:key];
 	[self array:array toCArray:cArray];
 }
 
 - (void)saveCArray:(NSInteger[MAX_CURRENCIES])cArray toKey:(NSString *)key
 {
 	NSArray *array = [self arrayFromCArray:cArray];
-	[[NSUserDefaults standardUserDefaults] setObject:array forKey:key];
+	[[YRDDataStore sharedDataStore] setObject:array forKey:key];
 }
 
 #pragma mark - Reading currency amounts

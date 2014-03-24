@@ -90,7 +90,7 @@
 	CATransform3D transform = CATransform3DIdentity;
 	transform.m34 = 1.0 / -100;
 	transform = CATransform3DScale(transform, 0.9, 0.5, 1.0);
-	transform = CATransform3DTranslate(transform, -[UIScreen mainScreen].bounds.size.width * 2.0, 0, 0);
+	transform = CATransform3DTranslate(transform, -self.view.bounds.size.width * 2.0, 0, 0);
 	transform = CATransform3DRotate(transform, -45.0 * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
 	containerLayer.transform = transform;
 	
@@ -110,7 +110,7 @@
 	CATransform3D transform = CATransform3DIdentity;
 	transform.m34 = 1.0 / -100;
 	transform = CATransform3DScale(transform, 0.9, 0.5, 1.0);
-	transform = CATransform3DTranslate(transform, [UIScreen mainScreen].bounds.size.width * 2.0, 0, 0);
+	transform = CATransform3DTranslate(transform, self.view.bounds.size.width * 2.0, 0, 0);
 	transform = CATransform3DRotate(transform, 45.0 * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
 	
 	[UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{

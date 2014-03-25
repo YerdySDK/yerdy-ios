@@ -343,7 +343,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	return self.userType == YRDUserTypePay;
 }
 
-- (int)itemsPurchased
+- (NSInteger)itemsPurchased
 {
 	return [[YRDDataStore sharedDataStore] integerForKey:YRDItemsPurchasedDefaultsKey];
 }
@@ -498,7 +498,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		if (message.forceRefresh)
 			_forceMessageFetchNextResume = YES;
 		
-		YRDMessageActionType actionType = action.integerValue;
+		YRDMessageActionType actionType = action.intValue;
 		if (actionType == YRDMessageActionTypeExternalBrowser) {
 			[[UIApplication sharedApplication] openURL:actionParameter];
 		} else if (actionType == YRDMessageActionTypeInternalBrowser) {

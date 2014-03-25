@@ -217,14 +217,14 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
 	
 	// vgp
-	int currentItemsPurchased = [Yerdy sharedYerdy].itemsPurchased;
-	int previousItemsPurchased = [dataStore integerForKey:YRDProgressionLastItemPurchasesDefaultsKey];
+	NSInteger currentItemsPurchased = [Yerdy sharedYerdy].itemsPurchased;
+	NSInteger previousItemsPurchased = [dataStore integerForKey:YRDProgressionLastItemPurchasesDefaultsKey];
 	[dataStore setInteger:currentItemsPurchased forKey:YRDProgressionLastItemPurchasesDefaultsKey];
 
 	return [self bucketForItemsPurchasedDelta:currentItemsPurchased - previousItemsPurchased];
 }
 
-- (NSNumber *)bucketForItemsPurchasedDelta:(int)delta
+- (NSNumber *)bucketForItemsPurchasedDelta:(NSInteger)delta
 {
 	if (delta <= 0)			// 0
 		return @0;

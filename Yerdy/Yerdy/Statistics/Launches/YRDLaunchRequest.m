@@ -19,8 +19,8 @@ static NSString *Path = @"stats/launch.php";
 @implementation YRDLaunchRequest
 
 + (instancetype)launchRequestWithToken:(NSData *)token
-							  launches:(int)launches
-							   crashes:(int)crashes
+							  launches:(NSInteger)launches
+							   crashes:(NSInteger)crashes
 							  playtime:(NSTimeInterval)playtime
 							  currency:(NSArray *)currency
 						  screenVisits:(NSDictionary *)screenVisits
@@ -42,14 +42,14 @@ static NSString *Path = @"stats/launch.php";
 }
 
 + (NSDictionary *)queryParametersForToken:(NSData *)token
-								 launches:(int)launches
-								  crashes:(int)crashes
+								 launches:(NSInteger)launches
+								  crashes:(NSInteger)crashes
 								 playtime:(NSTimeInterval)playtime
 								 currency:(NSArray *)currency
 {
 	// timezone string format: -700 for -7 hours, 300 for +3 hours, etc...
 	NSTimeZone *timezone = [NSTimeZone localTimeZone];
-	NSString *timezoneString = [NSString stringWithFormat:@"%04.0d", [timezone secondsFromGMT] / 36];
+	NSString *timezoneString = [NSString stringWithFormat:@"%04.0ld", [timezone secondsFromGMT] / 36];
 	
 	UIDevice *device = [UIDevice currentDevice];
 	NSString *os = [NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion];

@@ -15,13 +15,13 @@
 
 + (instancetype)requestWithPurchase:(YRDPurchase *)purchase
 						   currency:(NSArray *)currency
-						   launches:(int)launchCount
+						   launches:(NSInteger)launchCount
 						   playtime:(NSTimeInterval)playtime
 					currencyBalance:(NSArray *)currencyBalance
 					 earnedCurrency:(NSArray *)earnedCurrency
 					  spentCurrency:(NSArray *)spentCurrency
 				  purchasedCurrency:(NSArray *)purchasedCurrency
-					 itemsPurchased:(int)itemsPurchased
+					 itemsPurchased:(NSInteger)itemsPurchased
 				conversionMessageId:(NSString *)conversionMessageId;
 
 @end

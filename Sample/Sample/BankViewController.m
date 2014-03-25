@@ -152,8 +152,8 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 	
 	for (NSString *currency in labels) {
 		UILabel *label = labels[currency];
-		int value = [[NSUserDefaults standardUserDefaults] integerForKey:currency];
-		label.text = [NSString stringWithFormat:@"%d", value];
+		NSInteger value = [[NSUserDefaults standardUserDefaults] integerForKey:currency];
+		label.text = [NSString stringWithFormat:@"%ld", (long)value];
 	}
 }
 

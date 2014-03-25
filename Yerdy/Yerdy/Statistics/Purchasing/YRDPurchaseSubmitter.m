@@ -121,13 +121,13 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 		
 		if (error && [error.domain isEqualToString:YRDErrorDomain]) {
 			if (error.code == 401 || error.code == 403) {
-				YRDError(@"trackPurchase - likely invalid publisher key/secret (HTTP status code %d)", error.code);
+				YRDError(@"trackPurchase - likely invalid publisher key/secret (HTTP status code %ld)", (long)error.code);
 			} else if (error.code == 402) {
-				YRDError(@"trackPurchase - missing receipt/invalid purchase (HTTP status code %d)", error.code);
+				YRDError(@"trackPurchase - missing receipt/invalid purchase (HTTP status code %ld)", (long)error.code);
 			} else if (error.code == 501) {
-				YRDError(@"trackPurchase - invalid/unsupported API version (HTTP status code %d)", error.code);
+				YRDError(@"trackPurchase - invalid/unsupported API version (HTTP status code %ld)", (long)error.code);
 			} else {
-				YRDError(@"trackPurchase - retry, other status code: (HTTP status code %d)", error.code);
+				YRDError(@"trackPurchase - retry, other status code: (HTTP status code %ld)", (long)error.code);
 				retry = YES;
 			}
 		} else if (error) {

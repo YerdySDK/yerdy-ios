@@ -56,7 +56,7 @@ static const NSTimeInterval TokenTimeout = 5.0;
 static const NSUInteger MaxImagePreloads = 6;
 
 
-@interface Yerdy () <YRDLaunchTrackerDelegate, YRDMessagePresenterDelegate>
+@interface Yerdy () <YRDLaunchTrackerDelegate, YRDMessagePresenterDelegate, YRDWebViewControllerDelegate>
 {
 	NSString *_publisherKey;
 	
@@ -69,6 +69,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDMessagePresenter *_messagePresenter;
 	BOOL _forceMessageFetchNextResume;
 	BOOL _didDismissMessage;
+	YRDWebViewController *_currentWebViewController;
 	
 	NSString *_currentPlacement;
 	NSUInteger _messagesPresentedInRow;
@@ -377,7 +378,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		window = [[UIApplication sharedApplication] keyWindow];
 	}
 	
-	if (_messagePresenter)
+	if (_messagePresenter || _currentWebViewController)
 		return NO;
 	
 	YRDMessage *message = [self messageForPlacement:placement];
@@ -469,7 +470,9 @@ static const NSUInteger MaxImagePreloads = 6;
 		}
 	}
 	
-	if ([_messageDelegate respondsToSelector:@selector(yerdy:willDismissMessageForPlacement:)])
+	// we don't send the "will dismiss" delegate method when the action is an internal browser,
+	// as we'll be sending them later on when the browser is dismissed
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:willDismissMessageForPlacement:)] && (action.intValue != YRDMessageActionTypeInternalBrowser))
 		[_messageDelegate yerdy:self willDismissMessageForPlacement:_currentPlacement];
 }
 
@@ -480,7 +483,10 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	_messagePresenter = nil;
 	
-	if ([_messageDelegate respondsToSelector:@selector(yerdy:didDismissMessageForPlacement:)])
+	// we don't send the "will dismiss" delegate method when the action is an internal browser,
+	// as we'll be sending them later on when the browser is dismissed
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:didDismissMessageForPlacement:)]
+		&& action.integerValue != YRDMessageActionTypeInternalBrowser)
 		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];
 	
 	if (action != nil) {
@@ -491,8 +497,9 @@ static const NSUInteger MaxImagePreloads = 6;
 		if (actionType == YRDMessageActionTypeExternalBrowser) {
 			[[UIApplication sharedApplication] openURL:actionParameter];
 		} else if (actionType == YRDMessageActionTypeInternalBrowser) {
-			YRDWebViewController *web = [[YRDWebViewController alloc] initWithWindow:presenter.window URL:actionParameter];
-			[web present];
+			_currentWebViewController = [[YRDWebViewController alloc] initWithWindow:presenter.window URL:actionParameter];
+			_currentWebViewController.delegate = self;
+			[_currentWebViewController present];
 		} else if (actionType == YRDMessageActionTypeApp) {
 			YRDAppActionParser *parser = actionParameter;
 			if (parser.actionType == YRDAppActionTypeInAppPurchase) {
@@ -504,6 +511,25 @@ static const NSUInteger MaxImagePreloads = 6;
 			}
 		}
 	}
+}
+
+- (void)webViewControllerWillDismiss:(YRDWebViewController *)webViewController
+{
+	if (webViewController != _currentWebViewController)
+		return;
+	
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:willDismissMessageForPlacement:)])
+		[_messageDelegate yerdy:self willDismissMessageForPlacement:_currentPlacement];
+}
+
+- (void)webViewControllerDidDismiss:(YRDWebViewController *)webViewController
+{
+	if (webViewController != _currentWebViewController)
+		return;
+	_currentWebViewController = nil;
+	
+	if ([_messageDelegate respondsToSelector:@selector(yerdy:didDismissMessageForPlacement:)])
+		[_messageDelegate yerdy:self didDismissMessageForPlacement:_currentPlacement];
 }
 
 #pragma mark Purchases & rewards

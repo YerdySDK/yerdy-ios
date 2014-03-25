@@ -17,6 +17,10 @@ static const CFTimeInterval PresentDismissAnimationDuration = 0.2;
 static NSString *BackCharacter = @"◄";
 static NSString *ForwardCharacter = @"►";
 
+static NSString *AnimatingInKey = @"animatingWebViewIn";
+static NSString *AnimatingOutKey = @"animatingWebViewOut";
+
+
 @interface YRDWebViewController () <UIWebViewDelegate>
 {
 	NSURL *_URL;
@@ -91,6 +95,10 @@ static NSString *ForwardCharacter = @"►";
 	animation.duration = 0.2;
 	animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.5, -0.5)];
 	animation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.5, 0.5)];
+	
+	animation.delegate = self;
+	[animation setValue:@YES forKey:AnimatingInKey];
+	
 	[layer addAnimation:animation forKey:nil];
 }
 
@@ -255,12 +263,11 @@ static NSString *ForwardCharacter = @"►";
 	animation.duration = PresentDismissAnimationDuration;
 	animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.5, 0.5)];
 	animation.toValue = [NSValue valueWithCGPoint:CGPointMake(0.5, -0.5)];
+	
+	animation.delegate = self;
+	[animation setValue:@YES forKey:AnimatingOutKey];
+	
 	[layer addAnimation:animation forKey:nil];
-
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(PresentDismissAnimationDuration * NSEC_PER_SEC));
-	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-		[self removeFromWindow];
-	});
 }
 
 #pragma mark - UIWebViewDelegate
@@ -273,6 +280,35 @@ static NSString *ForwardCharacter = @"►";
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
 	[self updateToolbarState];
+}
+
+#pragma mark - CAAnimation delegate
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+	if ([anim valueForKey:AnimatingInKey] != nil) {
+		if ([_delegate respondsToSelector:@selector(webViewControllerWillPresent:)]) {
+			[_delegate webViewControllerWillPresent:self];
+		}
+	} else if ([anim valueForKey:AnimatingOutKey] != nil) {
+		if ([_delegate respondsToSelector:@selector(webViewControllerWillDismiss:)]) {
+			[_delegate webViewControllerWillDismiss:self];
+		}
+	}
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+	if ([anim valueForKey:AnimatingInKey] != nil) {
+		if ([_delegate respondsToSelector:@selector(webViewControllerDidPresent:)]) {
+			[_delegate webViewControllerDidPresent:self];
+		}
+	} else if ([anim valueForKey:AnimatingOutKey] != nil) {
+		if ([_delegate respondsToSelector:@selector(webViewControllerDidDismiss:)]) {
+			[_delegate webViewControllerDidDismiss:self];
+		}
+		[self removeFromWindow];
+	}
 }
 
 @end

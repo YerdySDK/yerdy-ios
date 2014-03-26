@@ -49,7 +49,7 @@ static NSString *Path = @"stats/launch.php";
 {
 	// timezone string format: -700 for -7 hours, 300 for +3 hours, etc...
 	NSTimeZone *timezone = [NSTimeZone localTimeZone];
-	NSString *timezoneString = [NSString stringWithFormat:@"%04.0ld", [timezone secondsFromGMT] / 36];
+	NSString *timezoneString = [NSString stringWithFormat:@"%04.0ld", (long)[timezone secondsFromGMT] / 36];
 	
 	UIDevice *device = [UIDevice currentDevice];
 	NSString *os = [NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion];

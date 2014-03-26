@@ -8,13 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+/** Contains information about a reward coming from a message
+ 
+ @see YerdyMessageDelegate
+ */
 @interface YRDReward : NSObject
 
-// Maps reward name to amount.  For example:
-// @{
-//		@"Lives" : @10,
-//		@"Coins" : @1000
-// }
+/** A dictionary containing rewards and amounts
+ 
+ For example:
+ 
+	@{
+		@"Lives" : @10,
+		@"Coins" : @1000
+	}
+ */
 @property (nonatomic, readonly) NSDictionary *rewards;
 
 @end

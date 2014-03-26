@@ -8,8 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+/** Contains information about an in-app purchase coming from a message
+ 
+ @see YerdyMessageDelegate
+ */
 @interface YRDInAppPurchase : NSObject
 
+/** The in-app purchase's product identifier
+ 
+ */
 @property (nonatomic, readonly) NSString *productIdentifier;
 
 @end

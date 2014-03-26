@@ -14,59 +14,128 @@
 
 @class Yerdy;
 
+/** Defines global Yerdy callbacks
+ 
+ */
 
 @protocol YerdyDelegate <NSObject>
 @optional
 
-// Called when a successful connection has been made to the Yerdy servers and
-// messages have been downloaded
+/** Called when a launch has been successfully reported to the Yerdy servers
+ 
+ This method is also called when new messages are received (on subsequent resumes
+ of the app if enough time has passed)
+ 
+ */
 - (void)yerdyConnected;
 
 @end
 
 
 
+/** Defines all the messaging related delegate methods
+ 
+ ### Messaging Lifecycle ###
 
+ *App requests that a message be shown*
+ 
+ - `-yerdy:willPresentMessageForPlacement:`
+ 
+ *Message is presented*
+ 
+ - `-yerdy:didPresentMessageForPlacement:`
+ 
+ *User interacts with message*
+ 
+ - `-yerdy:willDismissMessageForPlacement:`
+ 
+ *Message is dismissed*
+ 
+ - `-yerdy:didDismissMessageForPlacement:`
+ 
+ *If the message has action that the app should handle, one of:*
+ 
+ - `-yerdy:handleInAppPurchase:`
+ - `-yerdy:handleItemPurchase:`
+ - `-yerdy:handleReward:`
+ 
+ */
 
 @protocol YerdyMessageDelegate <NSObject>
 @optional
 
-// Message lifecycle:
-//
-//	(app requests that a message be shown)
-//
-//	-yerdy:willPresentMessageForPlacement:
-//	(message is presented)
-//	-yerdy:didPresentMessageForPlacement:
-//
-//	(user interacts with message)
-//
-//	-yerdy:willDismissMessageForPlacement:
-//	(message is dismissed)
-//	-yerdy:didDismissMessageForPlacement:
-//
-//	(only if message has action that the app should handle)
-//	-yerdy:handleInAppPurchase:
-//	or -yerdy:handleItemPurchase:
-//	or -yerdy:handleReward:
-
-
-// Called right before a message is presented
+/** Called right before a message is presented
+ 
+ @param yerdy The shared Yerdy instance
+ @param placement The placement passed in to `-[Yerdy showMessage:]`
+ 
+ @see yerdy:didPresentMessageForPlacement:
+ 
+ */
 - (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement;
-// Called right after a message is presented (i.e. after it has animated in)
+
+/** Called right after a message is presented (i.e. after it has animated in)
+ 
+ @param yerdy The shared Yerdy instance
+ @param placement The placement passed in to `-[Yerdy showMessage:]`
+ 
+ @see yerdy:willPresentMessageForPlacement:
+ 
+ */
 - (void)yerdy:(Yerdy *)yerdy didPresentMessageForPlacement:(NSString *)placement;
 
-// Called after a user has tapped a button but before the message has been dismissed
+/** Called after a user has tapped a button but before the message has been dismissed
+ 
+ @param yerdy The shared Yerdy instance
+ @param placement The placement passed in to `-[Yerdy showMessage:]`
+ 
+ @see yerdy:didDismissMessageForPlacement:
+ 
+ */
 - (void)yerdy:(Yerdy *)yerdy willDismissMessageForPlacement:(NSString *)placement;
-// Called after a message has been dismissed (i.e. after it has animated out)
+
+/** Called after a message has been dismissed (i.e. after it has animated out)
+ 
+ @param yerdy The shared Yerdy instance
+ @param placement The placement passed in to `-[Yerdy showMessage:]`
+ 
+ @see yerdy:willDismissMessageForPlacement:
+ 
+ */
 - (void)yerdy:(Yerdy *)yerdy didDismissMessageForPlacement:(NSString *)placement;
 
-// Called when your app should handle an in app purchase, item purchase or rewards
+/** Called when your app should handle an in-app purchase
+ 
+ @param yerdy The shared Yerdy instance
+ @param purchase An object containing the product identifier for the in-app purchase
+ 
+ @see yerdy:handleItemPurchase:
+ @see yerdy:handleReward:
+ 
+ */
 - (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase;
+ 
+/** Called when your app should handle an in-game item purchase
+ 
+ @param yerdy The shared Yerdy instance
+ @param purchase An object containing the name of the in-game item to purchase
+ 
+ @see yerdy:handleInAppPurchase:
+ @see yerdy:handleReward:
+ 
+ */
 - (void)yerdy:(Yerdy *)yerdy handleItemPurchase:(YRDItemPurchase *)purchase;
+
+/** Called when your app should handle a reward
+ 
+ @param yerdy The shared Yerdy instance
+ @param reward An object containing the rewards for the user
+ 
+ @see yerdy:handleInAppPurchase:
+ @see yerdy:handleItemPurchase:
+ 
+ */
 - (void)yerdy:(Yerdy *)yerdy handleReward:(YRDReward *)reward;
 
-
-// TODO: Add callbacks for internal web view??
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "YerdyDelegate.h"
 #import "YRDPurchase.h"
+#import "YRDLogLevel.h"
 
 /** Public interface to Yerdy
  
@@ -163,6 +164,14 @@
  @see startWithPublisherKey:
  */
 + (instancetype)sharedYerdy;
+
+/** Sets the log level
+ 
+ @param logLevel The log level.  It is recommended you keep at very least default (YRDLogWarn)
+ 
+ @see YRDLogLevel
+ */
++ (void)setLogLevel:(YRDLogLevel)logLevel;
 
 /*******************************************************************************
  @name Properties

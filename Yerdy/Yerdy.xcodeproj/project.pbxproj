@@ -152,6 +152,7 @@
 		474B4F8618CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDIgnoreResponseHandler.m; sourceTree = "<group>"; };
 		474B4F8D18CA70FC00DF67E2 /* YRDPurchaseSubmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDPurchaseSubmitter.h; sourceTree = "<group>"; };
 		474B4F8E18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDPurchaseSubmitter.m; sourceTree = "<group>"; };
+		4757881818E38B2A00977CBE /* YRDLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDLogLevel.h; sourceTree = "<group>"; };
 		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -208,6 +209,7 @@
 				4711E12118BE770700966C93 /* YRDDelayedBlock.m */,
 				4711E12218BE770700966C93 /* YRDFontSizing.h */,
 				4711E12318BE770700966C93 /* YRDFontSizing.m */,
+				4757881818E38B2A00977CBE /* YRDLogLevel.h */,
 				4711E12418BE770700966C93 /* YRDLog.h */,
 				4711E12518BE770700966C93 /* YRDLog.m */,
 				4711E12618BE770700966C93 /* YRDTimer.h */,

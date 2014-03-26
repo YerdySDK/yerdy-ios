@@ -120,6 +120,11 @@ static const NSUInteger MaxImagePreloads = 6;
 	return sharedInstance;
 }
 
++ (void)setLogLevel:(YRDLogLevel)logLevel
+{
+	YRDSetLogLevel(logLevel);
+}
+
 - (id)initWithPublisherKey:(NSString *)publisherKey
 {
 	self = [super init];

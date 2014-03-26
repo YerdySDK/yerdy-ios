@@ -8,14 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "YRDDefines.h"
-
-typedef enum YRDLogLevel {
-	YRDLogSilent = 0,
-	YRDLogError,
-	YRDLogWarn,
-	YRDLogInfo,
-	YRDLogDebug,
-} YRDLogLevel;
+#import "YRDLogLevel.h"
 
 YRD_EXTERN void YRDSetLogLevel(YRDLogLevel level);
 YRD_EXTERN YRDLogLevel YRDGetLogLevel();

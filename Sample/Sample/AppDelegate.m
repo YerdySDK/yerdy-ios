@@ -13,7 +13,6 @@
 #import "HTTPMock.h"
 
 #import "Yerdy.h"
-#import "YRDLog.h"
 
 #import "PublisherKey.h"
 
@@ -28,6 +27,8 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[Yerdy setLogLevel:YRDLogDebug];
+	
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
 	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
 	[yerdy setMaxFailoverCount:0 forPlacement:@"launch2"];
@@ -62,8 +63,6 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 	_window.rootViewController = _viewController;
 	
 	[HTTPMock enableWithPlist:@"HTTPMock.plist"];
-	
-	YRDSetLogLevel(YRDLogDebug);
 	
 	// Fake getting a push token
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));

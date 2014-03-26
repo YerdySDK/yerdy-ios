@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		47C68FB818E395A800A4BAD4 /* YerdyUniversal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 47C68FBB18E395A800A4BAD4 /* Build configuration list for PBXAggregateTarget "YerdyUniversal" */;
+			buildPhases = (
+				47C68FBC18E395C500A4BAD4 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = YerdyUniversal;
+			productName = YerdyUniversal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		4711E12A18BE770700966C93 /* YRDDelayedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E12118BE770700966C93 /* YRDDelayedBlock.m */; };
 		4711E12B18BE770700966C93 /* YRDFontSizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E12318BE770700966C93 /* YRDFontSizing.m */; };
@@ -49,6 +63,12 @@
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
 		4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47E18A05D2C001BBD3D /* YRDConstants.m */; };
 		4795C3AA18E0D59500DE471A /* YRDDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4795C3A918E0D59500DE471A /* YRDDataStore.m */; };
+		47C68FBD18E3997A00A4BAD4 /* Yerdy.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4790C47618A0570F001BBD3D /* Yerdy.h */; };
+		47C68FBE18E3997A00A4BAD4 /* YRDItemPurchase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4711E13518BE778A00966C93 /* YRDItemPurchase.h */; };
+		47C68FBF18E3997A00A4BAD4 /* YRDInAppPurchase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4711E13218BE778A00966C93 /* YRDInAppPurchase.h */; };
+		47C68FC018E3997A00A4BAD4 /* YRDReward.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4711E14618BE778A00966C93 /* YRDReward.h */; };
+		47C68FC118E3997A00A4BAD4 /* YRDLogLevel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4757881818E38B2A00977CBE /* YRDLogLevel.h */; };
+		47C68FC218E3998500A4BAD4 /* YRDPurchase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4711E15B18BE798200966C93 /* YRDPurchase.h */; };
 		47D716F418C688B0001AE028 /* YRDProductRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 47D716F318C688B0001AE028 /* YRDProductRequest.m */; };
 		9505137318C97B7C0006D129 /* YRDCounterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9505137218C97B7C0006D129 /* YRDCounterEvent.m */; };
 		9505137618C97D9F0006D129 /* YRDTrackCounterBatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9505137518C97D9F0006D129 /* YRDTrackCounterBatcher.m */; };
@@ -64,9 +84,15 @@
 		4790C44818A04ECB001BBD3D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				47C68FC218E3998500A4BAD4 /* YRDPurchase.h in CopyFiles */,
+				47C68FBD18E3997A00A4BAD4 /* Yerdy.h in CopyFiles */,
+				47C68FBE18E3997A00A4BAD4 /* YRDItemPurchase.h in CopyFiles */,
+				47C68FBF18E3997A00A4BAD4 /* YRDInAppPurchase.h in CopyFiles */,
+				47C68FC018E3997A00A4BAD4 /* YRDReward.h in CopyFiles */,
+				47C68FC118E3997A00A4BAD4 /* YRDLogLevel.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,9 +495,26 @@
 			projectRoot = "";
 			targets = (
 				4790C44918A04ECB001BBD3D /* Yerdy */,
+				47C68FB818E395A800A4BAD4 /* YerdyUniversal */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		47C68FBC18E395C500A4BAD4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "XCODE_PROJECT=\"Yerdy.xcodeproj\"\nXCODE_TARGET=\"Yerdy\"\n\nxcodebuild -project \"${XCODE_PROJECT}\" -target \"${XCODE_TARGET}\" -configuration \"${CONFIGURATION}\" -sdk iphoneos clean\n\nUNIVERSAL_OUTDIR=\"${BUILD_DIR}/${CONFIGURATION}-universal\"\nrm -rf \"${UNIVERSAL_OUTDIR}\"\nmkdir -p \"${UNIVERSAL_OUTDIR}\"\n\n# iOS\nxcodebuild -project \"${XCODE_PROJECT}\" -target \"${XCODE_TARGET}\" -configuration \"${CONFIGURATION}\" -sdk iphoneos ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n# Simulator\nxcodebuild -project \"${XCODE_PROJECT}\" -target \"${XCODE_TARGET}\" -configuration ${CONFIGURATION} -sdk iphonesimulator VALID_ARCHS=\"i386 x86_64\" ARCHS=\"i386 x86_64\" ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# lipo\nLIB_FILENAME=\"libYerdy.a\"\nlipo -create -output \"${UNIVERSAL_OUTDIR}/${LIB_FILENAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${LIB_FILENAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${LIB_FILENAME}\"\n\n# headers\ncp \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/\"*.h \"${UNIVERSAL_OUTDIR}\"\n\nopen \"${UNIVERSAL_OUTDIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4790C44618A04ECB001BBD3D /* Sources */ = {
@@ -629,6 +672,22 @@
 			};
 			name = Release;
 		};
+		47C68FB918E395A800A4BAD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		47C68FBA18E395A800A4BAD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -649,6 +708,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		47C68FBB18E395A800A4BAD4 /* Build configuration list for PBXAggregateTarget "YerdyUniversal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47C68FB918E395A800A4BAD4 /* Debug */,
+				47C68FBA18E395A800A4BAD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

@@ -367,7 +367,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		return nil;
 }
 
-- (BOOL)messageAvailable:(NSString *)placement
+- (BOOL)isMessageAvailable:(NSString *)placement
 {
 	return [self messageForPlacement:placement] != nil;
 }
@@ -445,7 +445,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	if (_messagesPresentedInRow > max)
 		return NO;
 	
-	return !_didDismissMessage && [self messageAvailable:_currentPlacement];
+	return !_didDismissMessage && [self isMessageAvailable:_currentPlacement];
 }
 
 #pragma mark Display lifecycle

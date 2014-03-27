@@ -34,7 +34,7 @@
 	Yerdy *yerdy = [Yerdy sharedYerdy];
 	yerdy.messageDelegate = self;
 	
-	BOOL hasMessage = [yerdy messageAvailable:@"launch"];
+	BOOL hasMessage = [yerdy isMessageAvailable:@"launch"];
 	NSLog(@"Message available for 'launch' placement? %s", hasMessage ? "yes" : "no");
 	
 	if (hasMessage) {

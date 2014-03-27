@@ -35,9 +35,9 @@
  
 	[[Yerdy sharedYerdy] showMessage:@"launch"];
  
- If you wish to check if a messsage is available before trying to show one, you can use `messageAvailable:`:
+ If you wish to check if a messsage is available before trying to show one, you can use `isMessageAvailable:`:
 
-	if ([[Yerdy sharedYerdy] messageAvailable:@"launch"]) {
+	if ([[Yerdy sharedYerdy] isMessageAvailable:@"launch"]) {
 		[[Yerdy sharedYerdy] showMessage:@"launch"];
 	} else {
 		NSLog(@"No message available");
@@ -222,7 +222,7 @@
  @return Whether or not a message is available
  
  */
-- (BOOL)messageAvailable:(NSString *)placement;
+- (BOOL)isMessageAvailable:(NSString *)placement;
 
 /** Shows a message (if available)
  
@@ -232,7 +232,7 @@
  
  @return Whether or not a message was shown
  
- @see messageAvailable:
+ @see isMessageAvailable:
  @see showMessage:inWindow:
  
  @warning This method presents the message in the applications keyWindow.  You should instead pass in the UIWindow you created to showMessage:inWindow:
@@ -247,7 +247,7 @@
  
  @return Whether or not a message was shown
  
- @see messageAvailable:
+ @see isMessageAvailable:
  @see showMessage:
  */
 - (BOOL)showMessage:(NSString *)placement inWindow:(UIWindow *)window;

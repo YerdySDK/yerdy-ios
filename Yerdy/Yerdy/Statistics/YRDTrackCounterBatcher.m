@@ -6,23 +6,18 @@
 //  Copyright (c) 2014 Yerdy. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "YRDTrackCounterBatcher.h"
 #import "YRDCounterEvent.h"
 #import "YRDLog.h"
-
 #import "YRDPaths.h"
-
+#import "YRDReachability.h"
+#import "YRDRequestCache.h"
 #import "YRDTimeTracker.h"
 #import "YRDTrackCounterRequest.h"
 #import "YRDTrackCounterResponse.h"
-
 #import "YRDURLConnection.h"
 
-#import "YRDReachability.h"
-#import "YRDRequestCache.h"
-
+#import <UIKit/UIKit.h>
 
 // Upload every X minutes
 static const int SEND_INTERVAL_MINUTES = 5;

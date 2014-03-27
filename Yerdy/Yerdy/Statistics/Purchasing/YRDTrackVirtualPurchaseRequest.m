@@ -9,8 +9,8 @@
 #import "YRDTrackVirtualPurchaseRequest.h"
 #import "YRDJSONResponseHandler.h"
 #import "YRDTrackPurchaseResponse.h"
-#import "Yerdy_Private.h"
 #import "YRDUtil.h"
+#import "Yerdy_Private.h"
 
 @implementation YRDTrackVirtualPurchaseRequest
 

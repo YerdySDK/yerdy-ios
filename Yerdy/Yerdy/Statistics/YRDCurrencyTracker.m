@@ -7,9 +7,9 @@
 //
 
 #import "YRDCurrencyTracker.h"
-#import "YRDLog.h"
 #import "YRDConstants.h"
 #import "YRDDataStore.h"
+#import "YRDLog.h"
 
 
 static const NSUInteger MAX_CURRENCIES = 6;

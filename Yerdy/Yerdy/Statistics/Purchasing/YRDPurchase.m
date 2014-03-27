@@ -7,8 +7,8 @@
 //
 
 #import "YRDPurchase.h"
-#import "YRDProductRequest.h"
 #import "YRDLog.h"
+#import "YRDProductRequest.h"
 
 @implementation YRDPurchase
 

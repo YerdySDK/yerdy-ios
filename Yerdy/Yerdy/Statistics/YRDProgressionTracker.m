@@ -7,21 +7,21 @@
 //
 
 #import "YRDProgressionTracker.h"
+#import "Yerdy.h"
+#import "Yerdy_Private.h"
 #import "YRDConstants.h"
 #import "YRDCurrencyTracker.h"
 #import "YRDDataStore.h"
+#import "YRDLaunchTracker.h"
+#import "YRDLog.h"
+#import "YRDReachability.h"
+#import "YRDRequestCache.h"
 #import "YRDTimeTracker.h"
-#import "Yerdy_Private.h"
 #import "YRDTrackCounterBatcher.h"
 #import "YRDTrackCounterRequest.h"
 #import "YRDTrackCounterResponse.h"
 #import "YRDURLConnection.h"
-#import "YRDLog.h"
-#import "YRDLaunchTracker.h"
-#import "YRDTimeTracker.h"
-#import "YRDReachability.h"
-#import "YRDRequestCache.h"
-#import "Yerdy.h"
+
 
 
 // Report an event on each of these intervals & then every 30 minutes

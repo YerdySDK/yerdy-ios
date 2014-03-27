@@ -8,9 +8,9 @@
 
 #import "YRDMessageView.h"
 #import "YRDConstants.h"
+#import "YRDFontSizing.h"
 #import "YRDMessageViewController.h"
 #import "YRDMessage.h"
-#import "YRDFontSizing.h"
 
 
 typedef enum YRDButtonType {

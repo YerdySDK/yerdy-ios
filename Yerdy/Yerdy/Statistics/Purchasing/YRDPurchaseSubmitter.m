@@ -7,14 +7,14 @@
 //
 
 #import "YRDPurchaseSubmitter.h"
-#import "YRDTrackPurchaseRequest.h"
-#import "YRDTrackPurchaseResponse.h"
-#import "YRDReachability.h"
-#import "YRDURLConnection.h"
 #import "YRDConstants.h"
 #import "YRDDataStore.h"
 #import "YRDLog.h"
 #import "YRDPaths.h"
+#import "YRDReachability.h"
+#import "YRDTrackPurchaseRequest.h"
+#import "YRDTrackPurchaseResponse.h"
+#import "YRDURLConnection.h"
 
 static const int MIN_SLOTS = 1; /* 2^3 =  8 * slot time */
 static const int MAX_SLOTS = 5; /* 2^10 = 1024 * slot time */

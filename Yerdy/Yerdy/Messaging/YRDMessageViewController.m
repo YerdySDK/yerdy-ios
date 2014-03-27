@@ -7,9 +7,9 @@
 //
 
 #import "YRDMessageViewController.h"
+#import "YRDImageCache.h"
 #import "YRDMessage.h"
 #import "YRDMessageView.h"
-#import "YRDImageCache.h"
 
 #import <QuartzCore/QuartzCore.h>
 

@@ -30,7 +30,7 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 	[Yerdy setLogLevel:YRDLogDebug];
 	
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
-	[yerdy registerCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
+	[yerdy configureCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
 	[yerdy setMaxFailoverCount:0 forPlacement:@"launch2"];
 	yerdy.delegate = self;
 	

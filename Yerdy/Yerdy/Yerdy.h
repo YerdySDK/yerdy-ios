@@ -89,12 +89,12 @@
  
  ### Registering Currencies ###
  
- You can register up to 6 currencies via the `registerCurrencies:` method. For example:
+ You can register up to 6 currencies via the `configureCurrencies:` method. For example:
  
 	// Currency 1 -> Gold
 	// Currency 2 -> Silver
 	// Currency 3 -> Bronze
-	[[Yerdy sharedYerdy] registerCurrencies:@[ @"Gold", @"Silver", @"Bronze" ]];
+	[[Yerdy sharedYerdy] configureCurrencies:@[ @"Gold", @"Silver", @"Bronze" ]];
  
  **Note:** The order of the currencies is important. You **MUST NOT** reorder them. However,
  you can append new currencies.  For example, if we add a new currency to our game in
@@ -289,7 +289,7 @@
  
  @warning You **MUST NOT** change the order of currencies.  However, you may append new currencies.
  */
-- (void)registerCurrencies:(NSArray *)currencies;
+- (void)configureCurrencies:(NSArray *)currencies;
 
 /** Tracks currency earned by the user.
  

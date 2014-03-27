@@ -585,7 +585,7 @@ static const NSUInteger MaxImagePreloads = 6;
 
 #pragma mark - Currency analytics
 
-- (void)registerCurrencies:(NSArray *)currencies
+- (void)configureCurrencies:(NSArray *)currencies
 {
 	VALIDATE_ARG_NON_NIL(@"registering currencies", currencies);
 	

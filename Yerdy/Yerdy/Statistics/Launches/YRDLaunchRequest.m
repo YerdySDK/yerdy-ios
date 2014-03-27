@@ -30,11 +30,29 @@ static NSString *Path = @"stats/launch.php";
 							  currency:(NSArray *)currency
 						  screenVisits:(NSDictionary *)screenVisits
 {
+	return [self launchRequestWithToken:token
+							   launches:launches
+								crashes:crashes
+							   playtime:playtime
+							   currency:currency
+						   screenVisits:screenVisits
+								refresh:NO];
+}
+
++ (instancetype)launchRequestWithToken:(NSData *)token
+							  launches:(NSInteger)launches
+							   crashes:(NSInteger)crashes
+							  playtime:(NSTimeInterval)playtime
+							  currency:(NSArray *)currency
+						  screenVisits:(NSDictionary *)screenVisits
+							   refresh:(BOOL)refresh
+{
 	NSDictionary *queryParameters = [self queryParametersForToken:token
 														 launches:launches
 														  crashes:crashes
 														 playtime:playtime
-														 currency:currency];
+														 currency:currency
+														  refresh:refresh];
 	
 	NSMutableDictionary *bodyParameters = [NSMutableDictionary dictionary];
 	
@@ -53,6 +71,7 @@ static NSString *Path = @"stats/launch.php";
 								  crashes:(NSInteger)crashes
 								 playtime:(NSTimeInterval)playtime
 								 currency:(NSArray *)currency
+								  refresh:(BOOL)refresh
 {
 	// timezone string format: -700 for -7 hours, 300 for +3 hours, etc...
 	NSTimeZone *timezone = [NSTimeZone localTimeZone];
@@ -80,6 +99,7 @@ static NSString *Path = @"stats/launch.php";
 		@"crashes" : @(crashes),
 		@"playtime" : @((int)round(playtime)),
 		@"currency" : currencyString,
+		@"refresh" : @(refresh),
 	};
 }
 

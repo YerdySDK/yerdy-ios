@@ -61,6 +61,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	NSString *_publisherKey;
 	
 	NSDate *_lastBackground;
+	BOOL _sentLaunchCall;
 	YRDDelayedBlock *_delayedLaunchCall;
 	YRDLaunchTracker *_launchTracker;
 	YRDTimeTracker *_timeTracker;
@@ -196,6 +197,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	__weak Yerdy *weakSelf = self;
 	
 	void(^block)(void) = ^{
+		((Yerdy *)weakSelf)->_sentLaunchCall = YES;
 		((Yerdy *)weakSelf)->_delayedLaunchCall = nil;
 		
 		// TODO: Should we call messages.php if the launch call fails?
@@ -211,18 +213,19 @@ static const NSUInteger MaxImagePreloads = 6;
 		[_screenVisitTracker reset];
 		
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
+			Yerdy *strongSelf = weakSelf;
 			if (response.success) {
-				weakSelf.ABTag = response.tag;
-				weakSelf.userType = response.userType;
+				strongSelf.ABTag = response.tag;
+				strongSelf.userType = response.userType;
 				
 				if ([YRDReachability internetReachable])
 					[[YRDRequestCache sharedCache] sendStoredRequests];
-				[_purchaseSubmitter uploadIfNeeded];
+				[strongSelf->_purchaseSubmitter uploadIfNeeded];
 			} else {
 				YRDError(@"Failed to report launch: %@", error);
 			}
 			
-			[weakSelf fetchMessages];
+			[strongSelf fetchMessages];
 		}];
 	};
 	
@@ -703,6 +706,25 @@ static const NSUInteger MaxImagePreloads = 6;
 		[_currencyTracker earnedCurrencies:existingCurrencies];
 		[self setPersistentObject:@YES forKey:YRDAppliedExistingCurrencyDefaultsKey];
 		[[YRDDataStore sharedDataStore] synchronize];
+		
+		if (_sentLaunchCall) {
+			// refresh our currency on the server
+			YRDDebug(@"Reporting existing currency...");
+			YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequestWithToken:self.pushToken
+																			  launches:_launchTracker.versionLaunchCount
+																			   crashes:_launchTracker.versionCrashCount
+																			  playtime:_timeTracker.versionTimePlayed
+																			  currency:_currencyTracker.currencyBalance
+																		  screenVisits:_screenVisitTracker.loggedScreenVisits
+																			   refresh:YES];
+			[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
+				if (response.success) {
+					YRDDebug(@"Reported existing currency");
+				} else {
+					YRDDebug(@"Failed to report existing currency: %@", error);
+				}
+			}];
+		}
 	}
 }
 

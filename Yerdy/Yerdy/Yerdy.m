@@ -209,8 +209,9 @@ static const NSUInteger MaxImagePreloads = 6;
 																		  playtime:_timeTracker.versionTimePlayed
 																		  currency:_currencyTracker.currencyBalance
 																	  screenVisits:_screenVisitTracker.loggedScreenVisits];
-		// TODO: Only reset if we have internet
-		[_screenVisitTracker reset];
+		
+		if ([YRDReachability internetReachable])
+			[_screenVisitTracker reset];
 		
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 			Yerdy *strongSelf = weakSelf;

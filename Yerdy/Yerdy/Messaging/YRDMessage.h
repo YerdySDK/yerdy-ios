@@ -46,7 +46,7 @@ typedef enum YRDMessageActionType {
 
 @property (nonatomic, assign) YRDMessageActionType actionType;
 @property (nonatomic, strong) NSString *action;
-@property (nonatomic, assign) BOOL forceAction;  // TODO: Implement forceAction
+@property (nonatomic, assign) BOOL forceAction;  // Not used
 
 @property (nonatomic, assign) BOOL forceRefresh;
 
@@ -63,9 +63,5 @@ typedef enum YRDMessageActionType {
 
 @property (nonatomic, strong) NSNumber *watermarkAnchor; // UIViewContentMode
 @property (nonatomic, strong) NSURL *watermarkImage;
-
-// TODO: Implement click messages
-// TODO: Implement expiry date
-// TODO: Implement message style
 
 @end

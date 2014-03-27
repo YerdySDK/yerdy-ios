@@ -33,7 +33,6 @@
 			return;
 		}
 		
-		// TODO: Set appropriate flags so directory is not synced to iCloud
 		path = yerdyPath;
 	});
 	

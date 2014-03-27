@@ -16,7 +16,6 @@
 
 @interface YRDRequestCache ()
 {
-	// TODO: Verify NSFileManager is thread safe!
 	NSFileManager *_fileManager;
 	NSString *_directoryPath;
 	

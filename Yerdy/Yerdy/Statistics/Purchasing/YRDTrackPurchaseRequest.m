@@ -27,7 +27,6 @@
 					 itemsPurchased:(NSInteger)itemsPurchased
 				conversionMessageId:(NSString *)conversionMessageId
 {
-	// TODO: Build body
 	UIDevice *device = [UIDevice currentDevice];
 	NSString *os = [NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion];
 		

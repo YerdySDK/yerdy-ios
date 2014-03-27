@@ -28,7 +28,6 @@
 
 - (BOOL)parseAction:(NSString *)appAction
 {
-	// TODO: Finalize formats
 	static NSString *iap = @"iap:";
 	static NSString *item = @"item:";
 	static NSString *reward = @"reward:";

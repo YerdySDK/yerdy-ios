@@ -200,9 +200,6 @@ static const NSUInteger MaxImagePreloads = 6;
 		((Yerdy *)weakSelf)->_sentLaunchCall = YES;
 		((Yerdy *)weakSelf)->_delayedLaunchCall = nil;
 		
-		// TODO: Should we call messages.php if the launch call fails?
-		//		 Should we call -yerdyConnected if one or both of the calls fails?
-		//		 Should we call -yerdyConnected if this is a resume launch
 		YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequestWithToken:self.pushToken
 																		  launches:_launchTracker.versionLaunchCount
 																		   crashes:_launchTracker.versionCrashCount

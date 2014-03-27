@@ -767,7 +767,6 @@ static const NSUInteger MaxImagePreloads = 6;
 - (void)logEvent:(NSString *)eventName parameters:(NSDictionary *)parameters
 {
 	VALIDATE_ARG_NON_NIL(@"logging event", eventName);
-	VALIDATE_ARG_NON_NIL(@"logging event", parameters);
 	
 	// Put it in the '0' bucket for now... (maybe change later? - talk to Michal)
 	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypeCustom

@@ -13,6 +13,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if ENABLE_IDFA
+#import <AdSupport/AdSupport.h>
+#endif
+
+
 static NSString *Path = @"stats/launch.php";
 
 
@@ -31,11 +36,13 @@ static NSString *Path = @"stats/launch.php";
 														 playtime:playtime
 														 currency:currency];
 	
-	NSDictionary *bodyParameters = nil;
-	if (screenVisits.count > 0) {
-		bodyParameters = [self bodyParametersForScreenVisits:screenVisits];
-	}
+	NSMutableDictionary *bodyParameters = [NSMutableDictionary dictionary];
 	
+	[bodyParameters addEntriesFromDictionary:[self bodyParametersForAds]];
+	if (screenVisits.count > 0) {
+		[bodyParameters addEntriesFromDictionary:[self bodyParametersForScreenVisits:screenVisits]];
+	}
+
 	YRDLaunchRequest *request = [[self alloc] initWithPath:Path queryParameters:queryParameters bodyParameters:bodyParameters];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDLaunchResponse class] rootKey:@"@attributes"];
 	return request;
@@ -87,6 +94,25 @@ static NSString *Path = @"stats/launch.php";
 		bodyParameters[paramName] = screenVisits[screenName];
 	}
 	return bodyParameters;
+}
+
++ (NSDictionary *)bodyParametersForAds
+{
+#if ENABLE_IDFA
+	if ([ASIdentifierManager class]) {
+		NSUUID *idfa = [ASIdentifierManager sharedManager].advertisingIdentifier;
+		BOOL trackAds = [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
+		
+		if (idfa) {
+			return @{
+				@"ad_aid" : [idfa UUIDString],
+				@"ad_track" : @(trackAds)
+			};
+		}
+	}
+#endif
+	
+	return @{};
 }
 
 @end

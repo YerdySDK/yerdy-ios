@@ -17,6 +17,8 @@
 		479B282518AAA2FE00148BB7 /* HTTPMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B282418AAA2FE00148BB7 /* HTTPMock.m */; };
 		479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 479B282618AAA67C00148BB7 /* HTTPMock.plist */; };
 		479B282918AAA69F00148BB7 /* launch.json in Resources */ = {isa = PBXBuildFile; fileRef = 479B282818AAA69F00148BB7 /* launch.json */; };
+		479CB2CE18E488BD005C4CC1 /* libYerdy-WithIDFA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C6901018E4876600A4BAD4 /* libYerdy-WithIDFA.a */; };
+		479CB2D018E488D7005C4CC1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479CB2CF18E488D7005C4CC1 /* AdSupport.framework */; };
 		47CEA49318B532C80097A90C /* testimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47CEA49218B532C80097A90C /* testimage.jpg */; };
 		47FFC78D18A93D900019673B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78C18A93D900019673B /* Foundation.framework */; };
 		47FFC78F18A93D900019673B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78E18A93D900019673B /* CoreGraphics.framework */; };
@@ -27,7 +29,6 @@
 		47FFC7A618A93D900019673B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FFC7A518A93D900019673B /* ViewController.m */; };
 		47FFC7C518A93DEC0019673B /* ViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47FFC7C418A93DEC0019673B /* ViewController~iphone.xib */; };
 		47FFC7C718A93DFB0019673B /* ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47FFC7C618A93DFB0019673B /* ViewController~ipad.xib */; };
-		47FFC7C918A93FAA0019673B /* libYerdy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC7C818A93FAA0019673B /* libYerdy.a */; };
 		95AA851018AB2A0B0022D6CC /* messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 95AA850F18AB2A0B0022D6CC /* messages.json */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,9 @@
 		479B282418AAA2FE00148BB7 /* HTTPMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMock.m; sourceTree = "<group>"; };
 		479B282618AAA67C00148BB7 /* HTTPMock.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTPMock.plist; sourceTree = "<group>"; };
 		479B282818AAA69F00148BB7 /* launch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = launch.json; sourceTree = "<group>"; };
+		479CB2CC18E48804005C4CC1 /* libYerdy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYerdy.a; path = "../Yerdy/build/Debug-iphoneos/libYerdy.a"; sourceTree = "<group>"; };
+		479CB2CF18E488D7005C4CC1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		47C6901018E4876600A4BAD4 /* libYerdy-WithIDFA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libYerdy-WithIDFA.a"; path = "../../../Library/Developer/Xcode/DerivedData/Yerdy-djjqpzsdannpqadtluifsgrkvipa/Build/Products/Debug-iphoneos/libYerdy-WithIDFA.a"; sourceTree = "<group>"; };
 		47CEA49218B532C80097A90C /* testimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testimage.jpg; sourceTree = "<group>"; };
 		47FFC78918A93D900019673B /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47FFC78C18A93D900019673B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,8 +74,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				479CB2D018E488D7005C4CC1 /* AdSupport.framework in Frameworks */,
+				479CB2CE18E488BD005C4CC1 /* libYerdy-WithIDFA.a in Frameworks */,
 				474B4F8918CA424F00DF67E2 /* SystemConfiguration.framework in Frameworks */,
-				47FFC7C918A93FAA0019673B /* libYerdy.a in Frameworks */,
 				47FFC78F18A93D900019673B /* CoreGraphics.framework in Frameworks */,
 				47FFC79118A93D900019673B /* UIKit.framework in Frameworks */,
 				47FFC78D18A93D900019673B /* Foundation.framework in Frameworks */,
@@ -101,6 +106,9 @@
 		47FFC78B18A93D900019673B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				479CB2CF18E488D7005C4CC1 /* AdSupport.framework */,
+				479CB2CC18E48804005C4CC1 /* libYerdy.a */,
+				47C6901018E4876600A4BAD4 /* libYerdy-WithIDFA.a */,
 				474B4F8818CA424F00DF67E2 /* SystemConfiguration.framework */,
 				47FFC7C818A93FAA0019673B /* libYerdy.a */,
 				47FFC78C18A93D900019673B /* Foundation.framework */,
@@ -332,7 +340,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sample/Sample-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Yerdy-djjqpzsdannpqadtluifsgrkvipa/Build/Products/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6A8F7421-74DC-4598-83C0-A17873F4A96B";
 				WRAPPER_EXTENSION = app;
@@ -351,7 +362,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sample/Sample-Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Yerdy-djjqpzsdannpqadtluifsgrkvipa/Build/Products/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

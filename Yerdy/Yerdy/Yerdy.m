@@ -44,6 +44,10 @@
 #import "YRDPurchaseSubmitter.h"
 
 
+#define VALIDATE_ARG_NON_NIL(context, arg)									\
+	if (arg == nil) { YRDError(@"Error %@: %s was nil", context, #arg); return; }
+
+
 static Yerdy *sharedInstance;
 
 // The user provided key is split on this index to get the internal key & secret
@@ -583,34 +587,45 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)registerCurrencies:(NSArray *)currencies
 {
+	VALIDATE_ARG_NON_NIL(@"registering currencies", currencies);
+	
 	[_currencyTracker registerCurrencies:currencies];
 }
 
 - (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount
 {
+	VALIDATE_ARG_NON_NIL(@"reporting earned currency", currency);
+	
 	[_currencyTracker earnedCurrency:currency amount:amount];
 }
 
 - (void)earnedCurrencies:(NSDictionary *)currencies
 {
+	VALIDATE_ARG_NON_NIL(@"reporting earned currency", currencies);
+	
 	[_currencyTracker earnedCurrencies:currencies];
 }
 
 - (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSUInteger)amount
 {
-	// TODO: arg validation
+	VALIDATE_ARG_NON_NIL(@"reporting item purchase", item);
+	VALIDATE_ARG_NON_NIL(@"reporting item purchase", currency);
+	
 	[self purchasedItem:item withCurrencies:@{ currency: @(amount) }];
 }
 
 - (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies
 {
-	// TODO: arg validation
+	VALIDATE_ARG_NON_NIL(@"reporting item purchase", item);
+	VALIDATE_ARG_NON_NIL(@"reporting item purchase", currencies);
+	
 	[self purchasedItem:item withCurrencies:currencies onSale:NO];
 }
 
 - (void)purchasedItem:(NSString *)item withCurrencies:(NSDictionary *)currencies onSale:(BOOL)onSale
 {
-	// TODO: arg validation
+	VALIDATE_ARG_NON_NIL(@"reporting item purchase", item);
+	VALIDATE_ARG_NON_NIL(@"reporting item purchase", currencies);
 	
 	// update items purchased count
 	YRDDataStore *defaults = [YRDDataStore sharedDataStore];
@@ -649,18 +664,22 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)purchasedInApp:(YRDPurchase *)purchase
 {
+	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", purchase);
 	[self purchasedInApp:purchase currencies:nil];
 }
 
 - (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount
 {
-	// TODO: arg validation
+	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", purchase);
+	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", currency);
 	[self purchasedInApp:purchase currencies:@{ currency : @(amount) }];
 }
 
 - (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies
 {
-	// TODO: arg validation
+	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", purchase);
+	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", currencies);
+	
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
 	NSInteger itemsPurchased = [[YRDDataStore sharedDataStore] integerForKey:YRDItemsPurchasedDefaultsKey];
 	
@@ -697,6 +716,8 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies
 {
+	VALIDATE_ARG_NON_NIL(@"setting existing currencies", existingCurrencies);
+	
 	BOOL applied = [[self persistentObjectForKey:YRDAppliedExistingCurrencyDefaultsKey] boolValue];
 	if (!applied) {
 		self.existingUser = YES;
@@ -730,18 +751,23 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
 {
+	VALIDATE_ARG_NON_NIL(@"logging milestone", category);
+	VALIDATE_ARG_NON_NIL(@"logging milestone", milestone);
+	
 	milestone = [NSString stringWithFormat:@"_%@", milestone];
 	[_progressionTracker logPlayerProgression:category milestone:milestone];
 }
 
 - (void)logScreenVisit:(NSString *)screenName
 {
+	VALIDATE_ARG_NON_NIL(@"logging screen visit", screenName);
 	[_screenVisitTracker logScreenVisit:screenName];
 }
 
 - (void)logEvent:(NSString *)eventName parameters:(NSDictionary *)parameters
 {
-	// TODO: Validate args
+	VALIDATE_ARG_NON_NIL(@"logging event", eventName);
+	VALIDATE_ARG_NON_NIL(@"logging event", parameters);
 	
 	// Put it in the '0' bucket for now... (maybe change later? - talk to Michal)
 	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypeCustom

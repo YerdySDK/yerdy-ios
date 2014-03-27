@@ -399,27 +399,27 @@
  Certain types of metrics aren't tracked for existing users (for example, metrics
  tracked at certain time intervals after install)
  
- @warning If the user has any existing currency, you must use `setExistingCurrenciesForExistingUser:` to ensure
+ @warning If the user has any existing currency, you must use `setExistingCurrenciesForPreYerdyUser:` to ensure
 	currency tracking is correct
  
- @see shouldTrackExistingUsersProgression
- @see setExistingCurrenciesForExistingUser:
+ @see shouldTrackPreYerdyUsersProgression
+ @see setExistingCurrenciesForPreYerdyUser:
  */
-@property (nonatomic, assign, getter = isExistingUser) BOOL existingUser;
+@property (nonatomic, assign, getter = isPreYerdyUser) BOOL preYerdyUser;
 
-/** Overrides the default behaviour of not tracking certain metrics when `existingUser` is `YES`
+/** Overrides the default behaviour of not tracking certain metrics when `preYerdyUser` is `YES`
  
- @see existingUser
+ @see preYerdyUser
  */
-@property (nonatomic, assign) BOOL shouldTrackExistingUsersProgression;
+@property (nonatomic, assign) BOOL shouldTrackPreYerdyUsersProgression;
 
 /** Marks a user as existing and sets their existing currency
  
  @param existingCurrencies The users current currency balance (see [In-Game Currency](#currencies) for more details)
  
- @see existingUser
+ @see preYerdyUser
  */
-- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies;
+- (void)setExistingCurrenciesForPreYerdyUser:(NSDictionary *)existingCurrencies;
 
 /*******************************************************************************
  @name Event tracking

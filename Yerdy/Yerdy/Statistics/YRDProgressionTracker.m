@@ -65,8 +65,8 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 - (BOOL)shouldTrackEventsForUser
 {
 	Yerdy *yerdy = [Yerdy sharedYerdy];
-	if (yerdy.isExistingUser) {
-		return yerdy.shouldTrackExistingUsersProgression;
+	if (yerdy.isPreYerdyUser) {
+		return yerdy.shouldTrackPreYerdyUsersProgression;
 	} else {
 		return YES;
 	}

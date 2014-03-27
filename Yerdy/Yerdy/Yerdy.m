@@ -704,23 +704,23 @@ static const NSUInteger MaxImagePreloads = 6;
 
 #pragma mark - Existing users
 
-- (void)setExistingUser:(BOOL)existingUser
+- (void)setPreYerdyUser:(BOOL)existingUser
 {
 	[self setPersistentObject:@(existingUser) forKey:YRDIsUserExistingUserDefaultsKey];
 }
 
-- (BOOL)isExistingUser
+- (BOOL)isPreYerdyUser
 {
 	return [[self persistentObjectForKey:YRDIsUserExistingUserDefaultsKey] boolValue];
 }
 
-- (void)setExistingCurrenciesForExistingUser:(NSDictionary *)existingCurrencies
+- (void)setExistingCurrenciesForPreYerdyUser:(NSDictionary *)existingCurrencies
 {
 	VALIDATE_ARG_NON_NIL(@"setting existing currencies", existingCurrencies);
 	
 	BOOL applied = [[self persistentObjectForKey:YRDAppliedExistingCurrencyDefaultsKey] boolValue];
 	if (!applied) {
-		self.existingUser = YES;
+		self.preYerdyUser = YES;
 		
 		[_currencyTracker earnedCurrencies:existingCurrencies];
 		[self setPersistentObject:@YES forKey:YRDAppliedExistingCurrencyDefaultsKey];

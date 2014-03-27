@@ -46,7 +46,7 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 		}
 		
 		if (TREAT_AS_EXISTING_USER) {
-			[yerdy setExistingCurrenciesForExistingUser:initialCurrency];
+			[yerdy setExistingCurrenciesForPreYerdyUser:initialCurrency];
 		} else {
 			[yerdy earnedCurrencies:initialCurrency];
 		}

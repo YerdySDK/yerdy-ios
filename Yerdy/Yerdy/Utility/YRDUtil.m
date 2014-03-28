@@ -83,6 +83,10 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 
 + (NSString *)stripCharactersInSet:(NSCharacterSet *)charSet fromString:(NSString *)string
 {
+	if (string == nil) {
+		return nil;
+	}
+	
 	NSScanner *scanner = [NSScanner scannerWithString:string];
 	NSMutableString *stripped = [NSMutableString stringWithCapacity:string.length];
 	

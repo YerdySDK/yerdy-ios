@@ -72,7 +72,15 @@
 	
 	SKProduct *product = productIndex != NSNotFound ? response.products[productIndex] : nil;
 	_completionHandler(product);
-	
+}
+
+- (void)requestDidFinish:(SKRequest *)request
+{
+	[[[self class] activeRequests] removeObject:self];
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error
+{
 	[[[self class] activeRequests] removeObject:self];
 }
 

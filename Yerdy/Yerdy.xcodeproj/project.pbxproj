@@ -63,6 +63,8 @@
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
 		4790C47F18A05D2C001BBD3D /* YRDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47E18A05D2C001BBD3D /* YRDConstants.m */; };
 		4795C3AA18E0D59500DE471A /* YRDDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4795C3A918E0D59500DE471A /* YRDDataStore.m */; };
+		479CB2D118E4C6D6005C4CC1 /* YerdyDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 95F97B9B18AB386000C65D10 /* YerdyDelegate.h */; };
+		479CB2D218E4C6DF005C4CC1 /* YerdyDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 95F97B9B18AB386000C65D10 /* YerdyDelegate.h */; };
 		47C68FBD18E3997A00A4BAD4 /* Yerdy.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4790C47618A0570F001BBD3D /* Yerdy.h */; };
 		47C68FBE18E3997A00A4BAD4 /* YRDItemPurchase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4711E13518BE778A00966C93 /* YRDItemPurchase.h */; };
 		47C68FBF18E3997A00A4BAD4 /* YRDInAppPurchase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4711E13218BE778A00966C93 /* YRDInAppPurchase.h */; };
@@ -144,6 +146,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				479CB2D118E4C6D6005C4CC1 /* YerdyDelegate.h in CopyFiles */,
 				47C68FC218E3998500A4BAD4 /* YRDPurchase.h in CopyFiles */,
 				47C68FBD18E3997A00A4BAD4 /* Yerdy.h in CopyFiles */,
 				47C68FBE18E3997A00A4BAD4 /* YRDItemPurchase.h in CopyFiles */,
@@ -159,6 +162,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				479CB2D218E4C6DF005C4CC1 /* YerdyDelegate.h in CopyFiles */,
 				47C6900618E4869100A4BAD4 /* YRDPurchase.h in CopyFiles */,
 				47C6900718E4869100A4BAD4 /* Yerdy.h in CopyFiles */,
 				47C6900818E4869100A4BAD4 /* YRDItemPurchase.h in CopyFiles */,

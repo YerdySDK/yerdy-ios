@@ -63,6 +63,9 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 			return fromDisk;
 		else
 			return [[YRDPurchaseSubmitter alloc] init];
+	} @catch (NSException *ex) {
+		YRDError(@"Failed to load purchases: %@", ex);
+		return [[YRDPurchaseSubmitter alloc] init];
 	} @catch (...) {
 		return [[YRDPurchaseSubmitter alloc] init];
 	}
@@ -173,6 +176,8 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 	[[[self class] operationQueue] addOperationWithBlock:^{
 		@try {
 			[NSKeyedArchiver archiveRootObject:self toFile:[[self class] filePath]];
+		} @catch (NSException *ex) {
+			YRDError(@"Failed to save purchases for tracking: %@", ex);
 		} @catch (...) {
 			// do nothing...
 		}

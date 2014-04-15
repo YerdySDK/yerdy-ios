@@ -280,7 +280,6 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 		[self incrementCurrencies:@{ Gold : @50 }];
 		
 		YRDPurchase *purchase = [YRDPurchase purchaseWithTransaction:transaction];
-		purchase.sandboxStore = YES; // never going to be released to App Store, hardcode to YES
 		purchase.onSale = _purchasesOnSale.isOn;
 		[[Yerdy sharedYerdy] purchasedInApp:purchase currency:Gold amount:50];
 	} else if ([productIdentifier isEqualToString:JewelPackProductIdentifier]) {
@@ -289,7 +288,6 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 		
 		YRDPurchase *purchase = [YRDPurchase purchaseWithProduct:_iapProducts[JewelPackProductIdentifier]
 													 transaction:transaction];
-		purchase.sandboxStore = YES; // never going to be released to App Store, hardcode to YES
 		purchase.onSale = _purchasesOnSale.isOn;
 		[[Yerdy sharedYerdy] purchasedInApp:purchase currencies:currencies];
 	}

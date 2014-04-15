@@ -19,12 +19,6 @@
 @property (nonatomic, readonly) NSString *currencyCode;
 @property (nonatomic, readonly) NSString *storeCountryCode;
 
-// Optional, set this to YES in development/ad hoc builds to verify purchases against
-// Apple's sandbox purchase verification services
-//
-// Defaults to NO
-@property (nonatomic, assign, getter = isSandboxStore) BOOL sandboxStore;
-
 // Optional, set this to YES to track this IAP purchase as being "on sale"
 // Defaults to NO
 @property (nonatomic, assign, getter = isOnSale) BOOL onSale;

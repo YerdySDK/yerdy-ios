@@ -29,6 +29,10 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 {
 	[Yerdy setLogLevel:YRDLogDebug];
 	
+#ifndef PUBLISHER_KEY
+#error Please see PublisherKey.h for adding your publisher key
+#endif
+	
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
 	[yerdy configureCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
 	[yerdy setMaxFailoverCount:0 forPlacement:@"launch2"];

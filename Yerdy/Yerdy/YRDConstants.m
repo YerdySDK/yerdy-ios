@@ -9,7 +9,10 @@
 #import "YRDConstants.h"
 
 // Base URL should end in '/', as we use RFC 1808 to determine the full URL
-NSString *YRDBaseURL = @"http://10.189.165.142/~michal/";
+// Internal test server:  http://10.189.165.237/~michal/
+NSString *YRDBaseURL = @"http://10.189.165.237/~michal/";
+
+
 NSTimeInterval YRDRequestTimeout = 10.0;
 
 NSString *YRDErrorDomain = @"com.yerdy.Error";

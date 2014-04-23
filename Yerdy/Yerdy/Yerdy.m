@@ -685,15 +685,22 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	NSString *conversionMessageId = [_conversionTracker checkInAppConversion:purchase.productIdentifier];
 	
+	NSInteger totalLaunchCount = _launchTracker.totalLaunchCount;
+	NSTimeInterval timePlayed = _timeTracker.timePlayed;
+	NSArray *currencyBalance = _currencyTracker.currencyBalance,
+			*currencyEarned = _currencyTracker.currencyEarned,
+			*currencySpent = _currencyTracker.currencySpent,
+			*currencyPurchased = _currencyTracker.currencyPurchased;
+	
 	[purchase completeObjectWithCompletionHandler:^(BOOL success) {
 		YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
 																			   currency:currencyArray
-																			   launches:_launchTracker.totalLaunchCount
-																			   playtime:_timeTracker.timePlayed
-																		currencyBalance:_currencyTracker.currencyBalance
-																		 earnedCurrency:_currencyTracker.currencyEarned
-																		  spentCurrency:_currencyTracker.currencySpent
-																	  purchasedCurrency:_currencyTracker.currencyPurchased
+																			   launches:totalLaunchCount
+																			   playtime:timePlayed
+																		currencyBalance:currencyBalance
+																		 earnedCurrency:currencyEarned
+																		  spentCurrency:currencySpent
+																	  purchasedCurrency:currencyPurchased
 																		 itemsPurchased:itemsPurchased
 																	conversionMessageId:conversionMessageId];
 		[_purchaseSubmitter addRequest:request];

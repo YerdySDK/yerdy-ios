@@ -256,7 +256,7 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)messagesReceived:(NSArray *)messages
 {
-	_messages = [messages mutableCopy];
+	_messages = [[self filterMessages:messages] mutableCopy];
 	
 	YRDImageCache *imageCache = [YRDImageCache sharedCache];
 	
@@ -292,6 +292,19 @@ static const NSUInteger MaxImagePreloads = 6;
 	finishedQueuingImages = YES;
 	if (imagesRemaining == 0)
 		finished();
+}
+
+- (NSArray *)filterMessages:(NSArray *)messages
+{
+	NSIndexSet *indexes = [messages indexesOfObjectsPassingTest:^BOOL(YRDMessage *obj, NSUInteger idx, BOOL *stop) {
+		if (obj.actionType == YRDMessageActionTypeApp) {
+			YRDAppActionParser *parser = [[YRDAppActionParser alloc] initWithAppAction:obj.action];
+			return parser != nil;
+		} else {
+			return YES;
+		}
+	}];
+	return [messages objectsAtIndexes:indexes];
 }
 
 #pragma mark - Persisted properties

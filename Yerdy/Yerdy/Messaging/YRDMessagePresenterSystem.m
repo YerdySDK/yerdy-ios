@@ -44,6 +44,11 @@
 	[_alertView show];
 }
 
+- (void)dealloc
+{
+	_alertView.delegate = nil;
+}
+
 - (void)dismiss
 {
 	if (!_dismissed) {

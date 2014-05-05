@@ -115,6 +115,9 @@ static const NSUInteger MaxImagePreloads = 6;
 		[YRDRequest setPublisherKey:publisherKey];
 		[YRDRequest setPublisherSecret:publisherSecret];
 		sharedInstance = [[self alloc] initWithPublisherKey:key];
+		
+		YRDInfo(@"To enable test mode for this device, copy/paste the device ID below into the Yerdy dashboard.");
+		YRDInfo(@"Device ID: %@", [YRDUtil deviceIdentifier]);
 	});
 	
 	return sharedInstance;

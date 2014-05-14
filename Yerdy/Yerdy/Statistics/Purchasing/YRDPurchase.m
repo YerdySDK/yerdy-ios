@@ -20,6 +20,7 @@
 + (instancetype)purchaseWithProduct:(SKProduct *)product transaction:(SKPaymentTransaction *)transaction
 {
 	return [self purchaseWithProductIdentifier:transaction.payment.productIdentifier
+						 transactionIdentifier:transaction.transactionIdentifier
 									   receipt:transaction.transactionReceipt
 										 price:[product.price stringValue]
 								  currencyCode:[product.priceLocale objectForKey:NSLocaleCurrencyCode]
@@ -27,12 +28,14 @@
 }
 
 + (instancetype)purchaseWithProductIdentifier:(NSString *)productIdentifier
+						transactionIdentifier:(NSString *)transactionIdentifier
 									  receipt:(NSData *)receipt
 										price:(NSString *)price
 								 currencyCode:(NSString *)currencyCode
 							 storeCountryCode:(NSString *)storeCountryCode
 {
 	return [[self alloc] initWithProductIdentifier:productIdentifier
+							 transactionIdentifier:transactionIdentifier
 										   receipt:receipt
 											 price:price
 									  currencyCode:currencyCode
@@ -40,6 +43,7 @@
 }
 
 - (id)initWithProductIdentifier:(NSString *)productIdentifier
+		  transactionIdentifier:(NSString *)transactionIdentifier
 						receipt:(NSData *)receipt
 						  price:(NSString *)price
 				   currencyCode:(NSString *)currencyCode
@@ -50,6 +54,7 @@
 		return nil;
 	
 	_productIdentifier = productIdentifier;
+	_transactionIdentifier = transactionIdentifier;
 	_price = price;
 	_currencyCode = currencyCode;
 	_storeCountryCode = storeCountryCode;

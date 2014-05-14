@@ -46,6 +46,7 @@
 	NSDictionary *body = @{
 		@"receipt" : YRDToString([YRDUtil base64String:purchase.receipt]),
 		@"product" : YRDToString(purchase.productIdentifier),
+		@"transaction" : YRDToString(purchase.transactionIdentifier),
 		@"launch_count" : @(launchCount),
 		@"playtime" : @((int)round(playtime)),
 		@"currency" : [self currencyString:currencyBalance],

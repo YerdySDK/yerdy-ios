@@ -474,7 +474,7 @@
  
 	- (void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd
 	{
-		[[Yerdy sharedYerdy] logAdFilled:@"iAd"];  // NOTE: Exact same string used above for logAdRequest:
+		[[Yerdy sharedYerdy] logAdFill:@"iAd"];  // NOTE: Exact same string used above for logAdRequest:
 	}
  
  @param adNetworkName The name of ad network

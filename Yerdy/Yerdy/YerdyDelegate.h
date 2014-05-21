@@ -58,6 +58,7 @@
  - `-yerdy:handleInAppPurchase:`
  - `-yerdy:handleItemPurchase:`
  - `-yerdy:handleReward:`
+ - `-yerdy:handleNavigation:`
  
  */
 
@@ -109,9 +110,6 @@
  @param yerdy The shared Yerdy instance
  @param purchase An object containing the product identifier for the in-app purchase
  
- @see yerdy:handleItemPurchase:
- @see yerdy:handleReward:
- 
  */
 - (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase;
  
@@ -119,9 +117,6 @@
  
  @param yerdy The shared Yerdy instance
  @param purchase An object containing the name of the in-game item to purchase
- 
- @see yerdy:handleInAppPurchase:
- @see yerdy:handleReward:
  
  */
 - (void)yerdy:(Yerdy *)yerdy handleItemPurchase:(YRDItemPurchase *)purchase;
@@ -131,11 +126,15 @@
  @param yerdy The shared Yerdy instance
  @param reward An object containing the rewards for the user
  
- @see yerdy:handleInAppPurchase:
- @see yerdy:handleItemPurchase:
- 
  */
 - (void)yerdy:(Yerdy *)yerdy handleReward:(YRDReward *)reward;
 
+/** Called when your app should navigate to a screen (from a pull message)
+ 
+ @param yerdy The shared Yerdy instance
+ @param screenName The name of the screen to navigate to
+ 
+ */
+- (void)yerdy:(Yerdy *)yerdy handleNavigation:(NSString *)screenName;
 
 @end

@@ -18,6 +18,7 @@ typedef enum YRDAppActionType {
 	YRDAppActionTypeReward,
 	YRDAppActionTypeInAppPurchase,
 	YRDAppActionTypeItemPurchase,
+	YRDAppActionTypeNavigation,
 } YRDAppActionType;
 
 
@@ -33,6 +34,7 @@ typedef enum YRDAppActionType {
 //	YRDAppActionTypeReward: YRDReward
 //	YRDAppActionTypeInAppPurchase: YRDInAppPurchase
 //	YRDAppActionTypeItemPurchase: YRDItemPurchase
+//	YRDAppActionTypeNavigation: NSString
 @property (nonatomic, readonly) id actionInfo;
 
 @end

@@ -151,6 +151,14 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 	NSLog(@"Rewarding user: %@", reward.rewards);
 }
 
+- (void)yerdy:(Yerdy *)yerdy handleNavigation:(NSString *)screenName
+{
+	NSLog(@"Showing: %@", screenName);
+	if ([screenName isEqual:@"bank"]) {
+		[self showBank:nil];
+	}
+}
+
 #pragma mark - iAd
 
 

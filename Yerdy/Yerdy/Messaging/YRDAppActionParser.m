@@ -31,6 +31,7 @@
 	static NSString *iap = @"iap:";
 	static NSString *item = @"item:";
 	static NSString *reward = @"reward:";
+	static NSString *nav = @"nav:";
 	
 	if ([appAction hasPrefix:iap]) {
 		return [self parseInApp:[appAction substringFromIndex:iap.length]];
@@ -38,6 +39,8 @@
 		return [self parseItem:[appAction substringFromIndex:item.length]];
 	} else if ([appAction hasPrefix:reward]) {
 		return [self parseRewards:[appAction substringFromIndex:reward.length]];
+	} else if ([appAction hasPrefix:nav]) {
+		return [self parseNavigation:[appAction substringFromIndex:nav.length]];
 	} else if ([appAction length] == 0) {
 		_actionType = YRDAppActionTypeEmpty;
 		return YES;
@@ -95,6 +98,13 @@
 	_actionType = YRDAppActionTypeReward;
 	_actionInfo = [[YRDReward alloc] initWithRewards:parsed];
 	
+	return YES;
+}
+
+- (BOOL)parseNavigation:(NSString *)string
+{
+	_actionType = YRDAppActionTypeNavigation;
+	_actionInfo = string;
 	return YES;
 }
 

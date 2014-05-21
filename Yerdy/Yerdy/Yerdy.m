@@ -545,6 +545,8 @@ static const NSUInteger MaxImagePreloads = 6;
 				[self handleItemPurchase:parser.actionInfo];
 			} else if (parser.actionType == YRDAppActionTypeReward) {
 				[self handleReward:parser.actionInfo];
+			} else if (parser.actionType == YRDAppActionTypeNavigation) {
+				[self handleNavigation:parser.actionInfo];
 			}
 		}
 	}
@@ -609,6 +611,13 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_messageDelegate yerdy:self handleReward:reward];
 }
 
+- (void)handleNavigation:(NSString *)screenName
+{
+	if (![self verifyMessageDelegateSetupFor:@selector(yerdy:handleNavigation:) context:@"navigation"]) {
+		return;
+	}
+	[_messageDelegate yerdy:self handleNavigation:screenName];
+}
 
 #pragma mark - Currency analytics
 

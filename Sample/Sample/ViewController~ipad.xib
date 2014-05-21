@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
             <connections>
                 <outlet property="adButton" destination="eQb-Gl-puh" id="Ddw-ZX-CGf"/>
+                <outlet property="fakeAdButton" destination="fv2-sf-3I1" id="s3a-Ip-SOK"/>
                 <outlet property="view" destination="kIZ-UG-MKi" id="ceC-LU-Anb"/>
             </connections>
         </placeholder>
@@ -182,6 +183,16 @@
                     </state>
                     <connections>
                         <action selector="requestAd:" destination="-1" eventType="touchUpInside" id="2cx-z4-aZi"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fv2-sf-3I1">
+                    <rect key="frame" x="268" y="414" width="232" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Request FakeAd">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="requestFakeAd:" destination="-1" eventType="touchUpInside" id="jnD-G5-7nD"/>
                     </connections>
                 </button>
             </subviews>

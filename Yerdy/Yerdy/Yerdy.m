@@ -10,6 +10,7 @@
 
 #import "Yerdy.h"
 #import "Yerdy_Private.h"
+#import "YRDAdRequestTracker.h"
 #import "YRDAppActionParser.h"
 #import "YRDConstants.h"
 #import "YRDConversionTracker.h"
@@ -91,6 +92,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDTrackCounterBatcher *_trackCounterBatcher;
 	
 	YRDPurchaseSubmitter *_purchaseSubmitter;
+	
+	YRDAdRequestTracker *_adRequestTracker;
 }
 @end
 
@@ -165,6 +168,10 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	_purchaseSubmitter = [YRDPurchaseSubmitter loadFromDisk];
 	
+	_adRequestTracker = [[YRDAdRequestTracker alloc] init];
+	if (newVersion)
+		[_adRequestTracker reset]; // reset on new versions, since this is mainly for tracking ad health, per version
+	
 	_defaultMaxFailoverCount = NSUIntegerMax;
 	_maxFailoverCounts = [NSMutableDictionary dictionary];
 	
@@ -212,10 +219,14 @@ static const NSUInteger MaxImagePreloads = 6;
 																		   crashes:_launchTracker.versionCrashCount
 																		  playtime:_timeTracker.versionTimePlayed
 																		  currency:_currencyTracker.currencyBalance
-																	  screenVisits:_screenVisitTracker.loggedScreenVisits];
+																	  screenVisits:_screenVisitTracker.loggedScreenVisits
+																		adRequests:_adRequestTracker.adRequests
+																		   adFills:_adRequestTracker.adFills];
 		
-		if ([YRDReachability internetReachable])
+		if ([YRDReachability internetReachable]) {
 			[_screenVisitTracker reset];
+			[_adRequestTracker reset];
+		}
 		
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 			Yerdy *strongSelf = weakSelf;
@@ -758,6 +769,8 @@ static const NSUInteger MaxImagePreloads = 6;
 																			  playtime:_timeTracker.versionTimePlayed
 																			  currency:_currencyTracker.currencyBalance
 																		  screenVisits:_screenVisitTracker.loggedScreenVisits
+																			adRequests:_adRequestTracker.adRequests
+																			   adFills:_adRequestTracker.adFills
 																			   refresh:YES];
 			[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 				if (response.success) {
@@ -807,6 +820,20 @@ static const NSUInteger MaxImagePreloads = 6;
 	}
 	
 	[_trackCounterBatcher addEvent:event];
+}
+
+#pragma mark - Ad tracking
+
+- (void)logAdRequest:(NSString *)adNetworkName
+{
+	VALIDATE_ARG_NON_NIL(@"logging ad request", adNetworkName);
+	[_adRequestTracker logAdRequest:adNetworkName];
+}
+
+- (void)logAdFill:(NSString *)adNetworkName
+{
+	VALIDATE_ARG_NON_NIL(@"logging ad fill", adNetworkName);
+	[_adRequestTracker logAdFill:adNetworkName];
 }
 
 @end

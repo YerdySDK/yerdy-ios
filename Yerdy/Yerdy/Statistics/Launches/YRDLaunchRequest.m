@@ -29,6 +29,8 @@ static NSString *Path = @"stats/launch.php";
 							  playtime:(NSTimeInterval)playtime
 							  currency:(NSArray *)currency
 						  screenVisits:(NSDictionary *)screenVisits
+							adRequests:(NSDictionary *)adRequests
+							   adFills:(NSDictionary *)adFills
 {
 	return [self launchRequestWithToken:token
 							   launches:launches
@@ -36,6 +38,8 @@ static NSString *Path = @"stats/launch.php";
 							   playtime:playtime
 							   currency:currency
 						   screenVisits:screenVisits
+							 adRequests:adRequests
+								adFills:adFills
 								refresh:NO];
 }
 
@@ -45,6 +49,8 @@ static NSString *Path = @"stats/launch.php";
 							  playtime:(NSTimeInterval)playtime
 							  currency:(NSArray *)currency
 						  screenVisits:(NSDictionary *)screenVisits
+							adRequests:(NSDictionary *)adRequests
+							   adFills:(NSDictionary *)adFills
 							   refresh:(BOOL)refresh
 {
 	NSDictionary *queryParameters = [self queryParametersForToken:token
@@ -59,6 +65,9 @@ static NSString *Path = @"stats/launch.php";
 	[bodyParameters addEntriesFromDictionary:[self bodyParametersForAds]];
 	if (screenVisits.count > 0) {
 		[bodyParameters addEntriesFromDictionary:[self bodyParametersForScreenVisits:screenVisits]];
+	}
+	if (adRequests.count > 0 || adFills.count > 0) {
+		[bodyParameters addEntriesFromDictionary:[self bodyParametersForAdRequests:adRequests adFills:adFills]];
 	}
 
 	YRDLaunchRequest *request = [[self alloc] initWithPath:Path queryParameters:queryParameters bodyParameters:bodyParameters];
@@ -113,6 +122,28 @@ static NSString *Path = @"stats/launch.php";
 		NSString *paramName = [NSString stringWithFormat:@"nav[%@]", sanitizedName];
 		bodyParameters[paramName] = screenVisits[screenName];
 	}
+	return bodyParameters;
+}
+
++ (NSDictionary *)bodyParametersForAdRequests:(NSDictionary *)adRequests adFills:(NSDictionary *)adFills
+{
+	NSMutableDictionary *bodyParameters = [NSMutableDictionary dictionary];
+	
+	NSMutableSet *adNetworkNames = [NSMutableSet setWithArray:adRequests.allKeys];
+	[adNetworkNames addObjectsFromArray:adFills.allKeys];
+	
+	for (NSString *name in adNetworkNames) {
+		// name is already sanitized at this point...
+		NSString *key = [NSString stringWithFormat:@"ad[%@]", name];
+		
+		// <requests>;<fills>
+		int requests = [adRequests[name] intValue];
+		int fills = [adFills[name] intValue];
+		NSString *value = [NSString stringWithFormat:@"%d;%d", requests, fills];
+		
+		bodyParameters[key] = value;
+	}
+	
 	return bodyParameters;
 }
 

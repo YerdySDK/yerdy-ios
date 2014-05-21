@@ -15,7 +15,9 @@
 							   crashes:(NSInteger)crashes
 							  playtime:(NSTimeInterval)playtime
 							  currency:(NSArray *)currency
-						  screenVisits:(NSDictionary *)screenVisits;
+						  screenVisits:(NSDictionary *)screenVisits
+							adRequests:(NSDictionary *)adRequests
+							   adFills:(NSDictionary *)adFills;
 
 + (instancetype)launchRequestWithToken:(NSData *)token
 							  launches:(NSInteger)launches
@@ -23,6 +25,8 @@
 							  playtime:(NSTimeInterval)playtime
 							  currency:(NSArray *)currency
 						  screenVisits:(NSDictionary *)screenVisits
+							adRequests:(NSDictionary *)adRequests
+							   adFills:(NSDictionary *)adFills
 							   refresh:(BOOL)refresh;
 
 @end

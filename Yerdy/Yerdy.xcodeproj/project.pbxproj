@@ -58,6 +58,8 @@
 		474B4F8418CA344900DF67E2 /* YRDReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8318CA344900DF67E2 /* YRDReachability.m */; };
 		474B4F8718CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8618CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m */; };
 		474B4F8F18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8E18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m */; };
+		4751E387192D39BC0076C76D /* YRDAdRequestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4751E386192D39BC0076C76D /* YRDAdRequestTracker.m */; };
+		4751E388192D39BC0076C76D /* YRDAdRequestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4751E386192D39BC0076C76D /* YRDAdRequestTracker.m */; };
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
@@ -254,6 +256,8 @@
 		474B4F8618CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDIgnoreResponseHandler.m; sourceTree = "<group>"; };
 		474B4F8D18CA70FC00DF67E2 /* YRDPurchaseSubmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDPurchaseSubmitter.h; sourceTree = "<group>"; };
 		474B4F8E18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDPurchaseSubmitter.m; sourceTree = "<group>"; };
+		4751E385192D39BC0076C76D /* YRDAdRequestTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDAdRequestTracker.h; sourceTree = "<group>"; };
+		4751E386192D39BC0076C76D /* YRDAdRequestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDAdRequestTracker.m; sourceTree = "<group>"; };
 		4757881818E38B2A00977CBE /* YRDLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDLogLevel.h; sourceTree = "<group>"; };
 		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -516,6 +520,8 @@
 				95CA641C18BDAB3F0047D2E2 /* YRDCurrencyTracker.m */,
 				474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */,
 				474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */,
+				4751E385192D39BC0076C76D /* YRDAdRequestTracker.h */,
+				4751E386192D39BC0076C76D /* YRDAdRequestTracker.m */,
 				474B4F7F18C91BB000DF67E2 /* YRDProgressionTracker.h */,
 				474B4F8018C91BB000DF67E2 /* YRDProgressionTracker.m */,
 				474B4F7918C9165B00DF67E2 /* YRDTrackCounterRequest.h */,
@@ -629,6 +635,7 @@
 				4711E14D18BE778A00966C93 /* YRDMessagePresenter.m in Sources */,
 				4711E14A18BE778A00966C93 /* YRDInAppPurchase.m in Sources */,
 				4711E15018BE778A00966C93 /* YRDMessagesRequest.m in Sources */,
+				4751E387192D39BC0076C76D /* YRDAdRequestTracker.m in Sources */,
 				9505137318C97B7C0006D129 /* YRDCounterEvent.m in Sources */,
 				474B4F8718CA3E2C00DF67E2 /* YRDIgnoreResponseHandler.m in Sources */,
 				4711E12C18BE770700966C93 /* YRDLog.m in Sources */,
@@ -686,6 +693,7 @@
 				47C68FD218E4869100A4BAD4 /* YRDMessagePresenter.m in Sources */,
 				47C68FD318E4869100A4BAD4 /* YRDInAppPurchase.m in Sources */,
 				47C68FD418E4869100A4BAD4 /* YRDMessagesRequest.m in Sources */,
+				4751E388192D39BC0076C76D /* YRDAdRequestTracker.m in Sources */,
 				47C68FD518E4869100A4BAD4 /* YRDCounterEvent.m in Sources */,
 				47C68FD618E4869100A4BAD4 /* YRDIgnoreResponseHandler.m in Sources */,
 				47C68FD718E4869100A4BAD4 /* YRDLog.m in Sources */,

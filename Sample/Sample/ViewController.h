@@ -10,11 +10,17 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIButton *adButton;
+@property (nonatomic, strong) IBOutlet UIButton *fakeAdButton;
+
 - (void)showMessaging;
 
 - (IBAction)showBank:(id)sender;
 
 - (IBAction)logButtonPressEvent:(id)sender;
 - (IBAction)logPlayerProgression:(id)sender;
+
+- (IBAction)requestAd:(id)sender;
+- (IBAction)requestFakeAd:(id)sender;
 
 @end

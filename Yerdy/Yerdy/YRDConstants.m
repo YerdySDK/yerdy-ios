@@ -37,6 +37,9 @@ NSString *YRDVersionStartTimeOffsetDefaultsKey = @"YRDVersionStartTimeOffset";
 
 NSString *YRDScreenVisitsDefaultsKey = @"YRDScreenVisits";
 
+NSString *YRDAdRequestsDefaultsKey = @"YRDAdRequests";
+NSString *YRDAdFillsDefaultsKey = @"YRDAdFills";
+
 NSString *YRDAppliedExistingCurrencyDefaultsKey = @"YRDAppliedExistingCurrency";
 NSString *YRDIsUserExistingUserDefaultsKey = @"YRDIsUserExistingUser";
 

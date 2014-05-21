@@ -459,4 +459,40 @@
  */
 - (void)logEvent:(NSString *)eventName parameters:(NSDictionary *)parameters;
 
+/** Tracks an ad request.
+ 
+ When the ad network comes back with an ad, you need to call logAdFill: with the same
+ ad network name.  For example, if you wanted to track iAd interstitial requests/fills:
+ 
+	- (void)requestAd
+	{
+		_interstitial = [[ADInterstitialAd alloc] init];
+		_interstitial.delegate = self;
+ 
+		[[Yerdy sharedYerdy] logAdRequest:@"iAd"];
+	}
+ 
+	- (void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd
+	{
+		[[Yerdy sharedYerdy] logAdFilled:@"iAd"];  // NOTE: Exact same string used above for logAdRequest:
+	}
+ 
+ @param adNetworkName The name of ad network
+ 
+ @see logAdFill:
+ 
+ */
+- (void)logAdRequest:(NSString *)adNetworkName;
+
+/** Tracks an ad fill.
+ 
+ See logAdRequest: for an example.
+ 
+ @param adNetworkName The name of ad network
+ 
+ @see logAdRequest:
+ 
+ */
+- (void)logAdFill:(NSString *)adNetworkName;
+
 @end

@@ -47,6 +47,10 @@ extern NSString *YRDVersionStartTimeOffsetDefaultsKey;
 // See YRDScreenVisitTracker
 extern NSString *YRDScreenVisitsDefaultsKey;
 
+// See YRDAdRequestTracker
+extern NSString *YRDAdRequestsDefaultsKey;
+extern NSString *YRDAdFillsDefaultsKey;
+
 // See Yerdy
 extern NSString *YRDAppliedExistingCurrencyDefaultsKey;
 extern NSString *YRDIsUserExistingUserDefaultsKey;

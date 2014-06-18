@@ -28,6 +28,8 @@ enum YRDErrorCodes {
 
 extern NSString *YRDCustomDeviceIDDefaultsKey;
 
+extern NSString *YRDInitialLaunchCompletedDefaultsKey;
+
 extern NSString *YRDAppVersionDefaultsKey;
 extern NSString *YRDTotalLaunchesDefaultsKey;
 extern NSString *YRDVersionLaunchesDefaultsKey;

@@ -66,7 +66,7 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 	[_window addSubview:_viewController.view];
 	_window.rootViewController = _viewController;
 	
-	[HTTPMock enableWithPlist:@"HTTPMock.plist"];
+	//[HTTPMock enableWithPlist:@"HTTPMock.plist"];
 	
 	// Fake getting a push token
 	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));

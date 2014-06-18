@@ -206,7 +206,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		[self fetchMessages];
 }
 
-- (void)reportLaunch:(BOOL)initialLaunch
+- (void)reportLaunch:(BOOL)fullLaunch
 {
 	__weak Yerdy *weakSelf = self;
 	
@@ -245,10 +245,14 @@ static const NSUInteger MaxImagePreloads = 6;
 		}];
 	};
 	
-	BOOL hasToken = [self pushToken] != nil;
-	if (initialLaunch && !hasToken) {
+	BOOL isFirstLaunch = ![[YRDDataStore sharedDataStore] boolForKey:YRDInitialLaunchCompletedDefaultsKey];
+	if (isFirstLaunch) {
+		[[YRDDataStore sharedDataStore] setBool:YES forKey:YRDInitialLaunchCompletedDefaultsKey];
+	}
+	
+	if (fullLaunch && isFirstLaunch) {
 		_delayedLaunchCall = [YRDDelayedBlock afterDelay:TokenTimeout runBlock:block];
-	} else if (initialLaunch) {
+	} else if (fullLaunch) {
 		// let them register currencies, etc...
 		dispatch_async(dispatch_get_main_queue(), block);
 	} else {

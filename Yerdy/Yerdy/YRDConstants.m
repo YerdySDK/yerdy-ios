@@ -20,6 +20,8 @@ NSString *YRDErrorDomain = @"com.yerdy.Error";
 
 NSString *YRDCustomDeviceIDDefaultsKey = @"YRDCustomDeviceID";
 
+NSString *YRDInitialLaunchCompletedDefaultsKey = @"YRDInitialLaunchCompleted";
+
 NSString *YRDAppVersionDefaultsKey = @"YRDLastKnownAppVersion";
 NSString *YRDTotalLaunchesDefaultsKey = @"YRDTotalLaunchCount";
 NSString *YRDVersionLaunchesDefaultsKey = @"YRDVersionLaunchCount";

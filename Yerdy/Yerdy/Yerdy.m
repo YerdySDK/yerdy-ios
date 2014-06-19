@@ -238,7 +238,10 @@ static const NSUInteger MaxImagePreloads = 6;
 					[[YRDRequestCache sharedCache] sendStoredRequests];
 				[strongSelf->_purchaseSubmitter uploadIfNeeded];
 			} else {
-				YRDError(@"Failed to report launch: %@", error);
+				if (error != nil)
+					YRDError(@"Failed to report launch: %@", error);
+				else
+					YRDError(@"Failed to report launch, you may need to approve this app in the Yerdy dashboard.");
 			}
 			
 			[strongSelf fetchMessages];

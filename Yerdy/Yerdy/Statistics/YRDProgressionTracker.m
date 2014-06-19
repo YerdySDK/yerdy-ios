@@ -115,6 +115,8 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 		NSNumber *vgp = [self calculateItemsDeltaBucketAndReset];
 		[event setValue:[vgp description] forParameter:@"vgp"];
 		
+		NSNumber *totalLaunchCount = @(_launchTracker.totalLaunchCount);
+		[event setValue:[totalLaunchCount description] forParameter:@"launch_count"];
 
 		YRDTrackCounterRequest *request = [YRDTrackCounterRequest requestWithCounterEvent:event];
 		YRDInfo(@"Counter '%@' with item bucket: %@ and currency deltas since last: %@", counterName, vgp, currencyDeltas);

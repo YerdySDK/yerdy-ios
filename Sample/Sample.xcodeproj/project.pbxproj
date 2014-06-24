@@ -342,10 +342,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sample/Sample-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Yerdy-fcafdtwjcoohcldtbrzbmkddjjnp/Build/Products/Release-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6A8F7421-74DC-4598-83C0-A17873F4A96B";
 				WRAPPER_EXTENSION = app;
@@ -364,10 +361,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sample/Sample-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Yerdy-fcafdtwjcoohcldtbrzbmkddjjnp/Build/Products/Release-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

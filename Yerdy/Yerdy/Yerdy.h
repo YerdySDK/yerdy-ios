@@ -448,6 +448,8 @@
 
 /** Tracks a user-defined event
  
+ *This feature is currently only supported by Premium Yerdy Accounts.*
+ 
  Used to track any other metrics you may find interesting.  For example, you could have an event
  to see which character is selected most often:
  

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "47C68FCF18E4869100A4BAD4"
-               BuildableName = "libYerdy-WithIDFA.a"
+               BuildableName = "libYerdy-WithoutIDFA.a"
                BlueprintName = "Yerdy-WithoutIDFA"
                ReferencedContainer = "container:Yerdy.xcodeproj">
             </BuildableReference>

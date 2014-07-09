@@ -827,6 +827,7 @@
 					"$(inherited)",
 					ENABLE_IDFA,
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -871,6 +872,7 @@
 				DSTROOT = /tmp/Yerdy.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Yerdy/Yerdy-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Yerdy-WithoutIDFA";
 				SKIP_INSTALL = YES;

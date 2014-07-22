@@ -10,8 +10,6 @@
 #import "BankViewController.h"
 #import "ViewController.h"
 
-#import "HTTPMock.h"
-
 #import "Yerdy.h"
 
 #import "PublisherKey.h"

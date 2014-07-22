@@ -7,19 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4711E11B18BE702E00966C93 /* trackVirtualPurchase.json in Resources */ = {isa = PBXBuildFile; fileRef = 4711E11A18BE702E00966C93 /* trackVirtualPurchase.json */; };
 		471C329518BE4B34004C8733 /* BankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 471C329418BE4B34004C8733 /* BankViewController.m */; };
 		471C329718BE4B46004C8733 /* BankViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471C329618BE4B46004C8733 /* BankViewController.xib */; };
 		47230DB118B3F47A002A64AE /* Default-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 47230DB018B3F47A002A64AE /* Default-568@2x.png */; };
 		47230DB318B3F4E9002A64AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47230DB218B3F4E9002A64AE /* Images.xcassets */; };
 		474B4F8918CA424F00DF67E2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474B4F8818CA424F00DF67E2 /* SystemConfiguration.framework */; };
-		4763E76018BD74B2008A253E /* testwatermark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4763E75F18BD74B2008A253E /* testwatermark.png */; };
-		479B282518AAA2FE00148BB7 /* HTTPMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 479B282418AAA2FE00148BB7 /* HTTPMock.m */; };
-		479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */ = {isa = PBXBuildFile; fileRef = 479B282618AAA67C00148BB7 /* HTTPMock.plist */; };
-		479B282918AAA69F00148BB7 /* launch.json in Resources */ = {isa = PBXBuildFile; fileRef = 479B282818AAA69F00148BB7 /* launch.json */; };
 		479CB2D018E488D7005C4CC1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479CB2CF18E488D7005C4CC1 /* AdSupport.framework */; };
 		47B86EDE192D4B4400BDAA4B /* FakeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B86EDD192D4B4400BDAA4B /* FakeAd.m */; };
-		47CEA49318B532C80097A90C /* testimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47CEA49218B532C80097A90C /* testimage.jpg */; };
 		47FFC78D18A93D900019673B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78C18A93D900019673B /* Foundation.framework */; };
 		47FFC78F18A93D900019673B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC78E18A93D900019673B /* CoreGraphics.framework */; };
 		47FFC79118A93D900019673B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FFC79018A93D900019673B /* UIKit.framework */; };
@@ -30,11 +24,9 @@
 		47FFC7C518A93DEC0019673B /* ViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47FFC7C418A93DEC0019673B /* ViewController~iphone.xib */; };
 		47FFC7C718A93DFB0019673B /* ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47FFC7C618A93DFB0019673B /* ViewController~ipad.xib */; };
 		950B2A0819594EA300DE4677 /* libYerdy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 950B2A0719594EA300DE4677 /* libYerdy.a */; };
-		95AA851018AB2A0B0022D6CC /* messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 95AA850F18AB2A0B0022D6CC /* messages.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4711E11A18BE702E00966C93 /* trackVirtualPurchase.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trackVirtualPurchase.json; sourceTree = "<group>"; };
 		471C329318BE4B34004C8733 /* BankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankViewController.h; sourceTree = "<group>"; };
 		471C329418BE4B34004C8733 /* BankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankViewController.m; sourceTree = "<group>"; };
 		471C329618BE4B46004C8733 /* BankViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BankViewController.xib; sourceTree = "<group>"; };
@@ -42,15 +34,9 @@
 		47230DB218B3F4E9002A64AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		474B4F8818CA424F00DF67E2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4763E75318B7C715008A253E /* PublisherKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublisherKey.h; sourceTree = "<group>"; };
-		4763E75F18BD74B2008A253E /* testwatermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testwatermark.png; sourceTree = "<group>"; };
-		479B282318AAA2FE00148BB7 /* HTTPMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPMock.h; sourceTree = "<group>"; };
-		479B282418AAA2FE00148BB7 /* HTTPMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMock.m; sourceTree = "<group>"; };
-		479B282618AAA67C00148BB7 /* HTTPMock.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTPMock.plist; sourceTree = "<group>"; };
-		479B282818AAA69F00148BB7 /* launch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = launch.json; sourceTree = "<group>"; };
 		479CB2CF18E488D7005C4CC1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		47B86EDC192D4B4400BDAA4B /* FakeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeAd.h; sourceTree = "<group>"; };
 		47B86EDD192D4B4400BDAA4B /* FakeAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeAd.m; sourceTree = "<group>"; };
-		47CEA49218B532C80097A90C /* testimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testimage.jpg; sourceTree = "<group>"; };
 		47FFC78918A93D900019673B /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47FFC78C18A93D900019673B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		47FFC78E18A93D900019673B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -67,7 +53,6 @@
 		47FFC7C418A93DEC0019673B /* ViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ViewController~iphone.xib"; sourceTree = "<group>"; };
 		47FFC7C618A93DFB0019673B /* ViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ViewController~ipad.xib"; sourceTree = "<group>"; };
 		950B2A0719594EA300DE4677 /* libYerdy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYerdy.a; path = "../../../Library/Developer/Xcode/DerivedData/Yerdy-fcafdtwjcoohcldtbrzbmkddjjnp/Build/Products/Release-iphoneos/libYerdy.a"; sourceTree = "<group>"; };
-		95AA850F18AB2A0B0022D6CC /* messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = messages.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,8 +115,6 @@
 				471C329418BE4B34004C8733 /* BankViewController.m */,
 				47B86EDC192D4B4400BDAA4B /* FakeAd.h */,
 				47B86EDD192D4B4400BDAA4B /* FakeAd.m */,
-				479B282318AAA2FE00148BB7 /* HTTPMock.h */,
-				479B282418AAA2FE00148BB7 /* HTTPMock.m */,
 				47FFC7C418A93DEC0019673B /* ViewController~iphone.xib */,
 				47FFC7C618A93DFB0019673B /* ViewController~ipad.xib */,
 				471C329618BE4B46004C8733 /* BankViewController.xib */,
@@ -148,12 +131,6 @@
 				47FFC79518A93D900019673B /* InfoPlist.strings */,
 				47FFC79818A93D900019673B /* main.m */,
 				47FFC79A18A93D900019673B /* Sample-Prefix.pch */,
-				479B282618AAA67C00148BB7 /* HTTPMock.plist */,
-				47CEA49218B532C80097A90C /* testimage.jpg */,
-				4763E75F18BD74B2008A253E /* testwatermark.png */,
-				479B282818AAA69F00148BB7 /* launch.json */,
-				95AA850F18AB2A0B0022D6CC /* messages.json */,
-				4711E11A18BE702E00966C93 /* trackVirtualPurchase.json */,
 				47230DB218B3F4E9002A64AE /* Images.xcassets */,
 			);
 			name = "Supporting Files";
@@ -214,15 +191,9 @@
 				471C329718BE4B46004C8733 /* BankViewController.xib in Resources */,
 				47230DB118B3F47A002A64AE /* Default-568@2x.png in Resources */,
 				47230DB318B3F4E9002A64AE /* Images.xcassets in Resources */,
-				4763E76018BD74B2008A253E /* testwatermark.png in Resources */,
-				4711E11B18BE702E00966C93 /* trackVirtualPurchase.json in Resources */,
 				47FFC7C718A93DFB0019673B /* ViewController~ipad.xib in Resources */,
-				479B282918AAA69F00148BB7 /* launch.json in Resources */,
 				47FFC79718A93D900019673B /* InfoPlist.strings in Resources */,
-				479B282718AAA67C00148BB7 /* HTTPMock.plist in Resources */,
 				47FFC7C518A93DEC0019673B /* ViewController~iphone.xib in Resources */,
-				95AA851018AB2A0B0022D6CC /* messages.json in Resources */,
-				47CEA49318B532C80097A90C /* testimage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +208,6 @@
 				47FFC79D18A93D900019673B /* AppDelegate.m in Sources */,
 				47FFC79918A93D900019673B /* main.m in Sources */,
 				47B86EDE192D4B4400BDAA4B /* FakeAd.m in Sources */,
-				479B282518AAA2FE00148BB7 /* HTTPMock.m in Sources */,
 				471C329518BE4B34004C8733 /* BankViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

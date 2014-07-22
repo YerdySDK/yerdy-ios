@@ -391,8 +391,8 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (YRDMessage *)messageForPlacement:(NSString *)placement
 {
-	NSUInteger index = [_messages indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-		return placement == nil || [((YRDMessage *)obj).placement isEqualToString:placement];
+	NSUInteger index = [_messages indexOfObjectPassingTest:^BOOL(YRDMessage *msg, NSUInteger idx, BOOL *stop) {
+		return placement == nil || [msg.placement isEqualToString:@"*"] || [msg.placement isEqualToString:placement];
 	}];
 	
 	if (index != NSNotFound)

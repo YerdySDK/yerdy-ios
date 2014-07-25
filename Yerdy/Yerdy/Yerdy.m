@@ -12,6 +12,7 @@
 #import "Yerdy_Private.h"
 #import "YRDAdRequestTracker.h"
 #import "YRDAppActionParser.h"
+#import "YRDBuildInfo.h"
 #import "YRDConstants.h"
 #import "YRDConversionTracker.h"
 #import "YRDCounterEvent.h"
@@ -104,7 +105,7 @@ static const NSUInteger MaxImagePreloads = 6;
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		YRDInfo(@"Starting...");
+		YRDInfo(@"Starting.  Version: %@", YRDBuildInfoVersion);
 		
 		if (key.length < PublisherKeyPartLength) {
 			[NSException raise:NSInvalidArgumentException format:@"Yerdy key '%@' not valid", key];

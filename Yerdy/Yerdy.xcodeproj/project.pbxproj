@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		4777E950198303BF00F5F331 /* UpdateBuildInfo */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4777E951198303BF00F5F331 /* Build configuration list for PBXAggregateTarget "UpdateBuildInfo" */;
+			buildPhases = (
+				4777E954198303C500F5F331 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = UpdateBuildInfo;
+			productName = UpdateBuildInfo;
+		};
 		47C68FB818E395A800A4BAD4 /* YerdyUniversal */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 47C68FBB18E395A800A4BAD4 /* Build configuration list for PBXAggregateTarget "YerdyUniversal" */;
@@ -60,6 +71,8 @@
 		474B4F8F18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F8E18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m */; };
 		4751E387192D39BC0076C76D /* YRDAdRequestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4751E386192D39BC0076C76D /* YRDAdRequestTracker.m */; };
 		4751E388192D39BC0076C76D /* YRDAdRequestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4751E386192D39BC0076C76D /* YRDAdRequestTracker.m */; };
+		4777E94E1983020800F5F331 /* YRDBuildInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4777E94D1983020800F5F331 /* YRDBuildInfo.m */; };
+		4777E94F1983020800F5F331 /* YRDBuildInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4777E94D1983020800F5F331 /* YRDBuildInfo.m */; };
 		4790C44E18A04ECB001BBD3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4790C44D18A04ECB001BBD3D /* Foundation.framework */; };
 		4790C47818A0570F001BBD3D /* Yerdy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47718A0570F001BBD3D /* Yerdy.m */; };
 		4790C47C18A058E8001BBD3D /* YRDLaunchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4790C47B18A058E8001BBD3D /* YRDLaunchTracker.m */; };
@@ -140,6 +153,23 @@
 		95FD8EFC18BEEE58009C2389 /* YRDRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FD8EFB18BEEE58009C2389 /* YRDRequestCache.m */; };
 		95FD8EFF18BEF276009C2389 /* YRDPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FD8EFE18BEF276009C2389 /* YRDPaths.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4777E955198305F300F5F331 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4790C44218A04ECB001BBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4777E950198303BF00F5F331;
+			remoteInfo = UpdateBuildInfo;
+		};
+		4777E957198305F500F5F331 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4790C44218A04ECB001BBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4777E950198303BF00F5F331;
+			remoteInfo = UpdateBuildInfo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4790C44818A04ECB001BBD3D /* CopyFiles */ = {
@@ -260,6 +290,8 @@
 		4751E386192D39BC0076C76D /* YRDAdRequestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDAdRequestTracker.m; sourceTree = "<group>"; };
 		4757881818E38B2A00977CBE /* YRDLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YRDLogLevel.h; sourceTree = "<group>"; };
 		4763E75618B80310008A253E /* Yerdy_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Yerdy_Private.h; sourceTree = "<group>"; };
+		4777E94C1983020800F5F331 /* YRDBuildInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDBuildInfo.h; sourceTree = "<group>"; };
+		4777E94D1983020800F5F331 /* YRDBuildInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDBuildInfo.m; sourceTree = "<group>"; };
 		4790C44A18A04ECB001BBD3D /* libYerdy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYerdy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4790C44D18A04ECB001BBD3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4790C45118A04ECB001BBD3D /* Yerdy-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Yerdy-Prefix.pch"; sourceTree = "<group>"; };
@@ -488,6 +520,8 @@
 				4795C3A718E0AB7E00DE471A /* YRDCompilerChecks.h */,
 				4795C3A818E0D59500DE471A /* YRDDataStore.h */,
 				4795C3A918E0D59500DE471A /* YRDDataStore.m */,
+				4777E94C1983020800F5F331 /* YRDBuildInfo.h */,
+				4777E94D1983020800F5F331 /* YRDBuildInfo.m */,
 				4711E16618BE79A500966C93 /* Display */,
 				4711E12F18BE778A00966C93 /* Messaging */,
 				4711E17018BE79B700966C93 /* Networking */,
@@ -559,6 +593,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4777E956198305F300F5F331 /* PBXTargetDependency */,
 			);
 			name = Yerdy;
 			productName = Yerdy;
@@ -576,6 +611,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4777E958198305F500F5F331 /* PBXTargetDependency */,
 			);
 			name = "Yerdy-WithoutIDFA";
 			productName = Yerdy;
@@ -606,11 +642,26 @@
 				4790C44918A04ECB001BBD3D /* Yerdy */,
 				47C68FCF18E4869100A4BAD4 /* Yerdy-WithoutIDFA */,
 				47C68FB818E395A800A4BAD4 /* YerdyUniversal */,
+				4777E950198303BF00F5F331 /* UpdateBuildInfo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4777E954198303C500F5F331 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Get description\ndescribe=\"$(git describe)\"\n\n# Adding a flag\nmodifiedFlag=\"\"\nif [[ -n \"$(git status -s)\" ]]; then\n    modifiedFlag=' (!)'\nfi\n\nbuildInfoVersion=\"$describe$modifiedFlag\"\n\n# Build our output\noutput=\"// Autogenerated via 'UpdateBuildInfo' build target\nNSString *YRDBuildInfoVersion = @\\\"$buildInfoVersion\\\";\n\"\n\necho \"$output\" > Yerdy/YRDBuildInfo.m";
+			showEnvVarsInLog = 0;
+		};
 		47C68FBC18E395C500A4BAD4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -651,6 +702,7 @@
 				4790C47818A0570F001BBD3D /* Yerdy.m in Sources */,
 				4711E16418BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m in Sources */,
 				4711E12E18BE770700966C93 /* YRDUtil.m in Sources */,
+				4777E94E1983020800F5F331 /* YRDBuildInfo.m in Sources */,
 				4711E16D18BE79A500966C93 /* YRDViewController.m in Sources */,
 				474B4F8F18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m in Sources */,
 				47D716F418C688B0001AE028 /* YRDProductRequest.m in Sources */,
@@ -709,6 +761,7 @@
 				47C68FE118E4869100A4BAD4 /* Yerdy.m in Sources */,
 				47C68FE218E4869100A4BAD4 /* YRDTrackVirtualPurchaseRequest.m in Sources */,
 				47C68FE318E4869100A4BAD4 /* YRDUtil.m in Sources */,
+				4777E94F1983020800F5F331 /* YRDBuildInfo.m in Sources */,
 				47C68FE418E4869100A4BAD4 /* YRDViewController.m in Sources */,
 				47C68FE518E4869100A4BAD4 /* YRDPurchaseSubmitter.m in Sources */,
 				47C68FE618E4869100A4BAD4 /* YRDProductRequest.m in Sources */,
@@ -745,7 +798,34 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4777E956198305F300F5F331 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4777E950198303BF00F5F331 /* UpdateBuildInfo */;
+			targetProxy = 4777E955198305F300F5F331 /* PBXContainerItemProxy */;
+		};
+		4777E958198305F500F5F331 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4777E950198303BF00F5F331 /* UpdateBuildInfo */;
+			targetProxy = 4777E957198305F500F5F331 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		4777E952198303BF00F5F331 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4777E953198303BF00F5F331 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		4790C46B18A04ECB001BBD3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -894,6 +974,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4777E951198303BF00F5F331 /* Build configuration list for PBXAggregateTarget "UpdateBuildInfo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4777E952198303BF00F5F331 /* Debug */,
+				4777E953198303BF00F5F331 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4790C44518A04ECB001BBD3D /* Build configuration list for PBXProject "Yerdy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

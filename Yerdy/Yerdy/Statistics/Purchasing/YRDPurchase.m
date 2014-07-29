@@ -19,8 +19,11 @@
 
 + (instancetype)purchaseWithProduct:(SKProduct *)product transaction:(SKPaymentTransaction *)transaction
 {
+	NSString *transactionIdentifier = transaction.originalTransaction != nil ?
+		transaction.originalTransaction.transactionIdentifier : transaction.transactionIdentifier;
+	
 	return [self purchaseWithProductIdentifier:transaction.payment.productIdentifier
-						 transactionIdentifier:transaction.transactionIdentifier
+						 transactionIdentifier:transactionIdentifier
 									   receipt:transaction.transactionReceipt
 										 price:[product.price stringValue]
 								  currencyCode:[product.priceLocale objectForKey:NSLocaleCurrencyCode]

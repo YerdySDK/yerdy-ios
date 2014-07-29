@@ -715,14 +715,12 @@ static const NSUInteger MaxImagePreloads = 6;
 - (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount
 {
 	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", purchase);
-	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", currency);
 	[self purchasedInApp:purchase currencies:@{ currency : @(amount) }];
 }
 
 - (void)purchasedInApp:(YRDPurchase *)purchase currencies:(NSDictionary *)currencies
 {
 	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", purchase);
-	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", currencies);
 	
 	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
 	NSInteger itemsPurchased = [[YRDDataStore sharedDataStore] integerForKey:YRDItemsPurchasedDefaultsKey];

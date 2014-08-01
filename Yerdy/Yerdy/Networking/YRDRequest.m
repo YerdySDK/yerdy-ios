@@ -152,13 +152,19 @@ static NSString *PublisherKey, *PublisherSecret;
 
 - (NSDictionary *)defaultQueryParameters
 {
-	return @{
+	NSMutableDictionary *parameters = [@{
 		@"publisherid" : YRDToString(PublisherKey),
 		@"bundleid" : YRDToString([YRDUtil appBundleIdentifierAndPlatform]),
 		@"deviceid" : YRDToString([YRDUtil deviceIdentifier]),
 		@"v" : YRDToString([YRDUtil appVersion]),
 		@"fmt" : @"json",
-	};
+	} mutableCopy];
+	
+	NSString *testId = [YRDUtil testIdentifier];
+	if (testId) {
+		parameters[@"testid"] = testId;
+	}
+	return parameters;
 }
 
 // Includes '?'

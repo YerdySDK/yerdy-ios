@@ -13,6 +13,10 @@
 
 #import <UIKit/UIKit.h>
 
+#if ENABLE_IDFA
+#import	<AdSupport/AdSupport.h>
+#endif
+
 #if !YRD_COMPILING_FOR_IOS_7
 
 // -[NSData base64Encoding] has existed since iOS 4, but was only publicly
@@ -55,6 +59,17 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 		[[YRDDataStore sharedDataStore] setObject:customID forKey:YRDCustomDeviceIDDefaultsKey];
 	}
 	return customID;
+}
+
++ (NSString *)testIdentifier
+{
+#if ENABLE_IDFA
+	if ([ASIdentifierManager class]) {
+		NSUUID *idfa = [ASIdentifierManager sharedManager].advertisingIdentifier;
+		return idfa.UUIDString;
+	}
+#endif
+	return nil;
 }
 
 + (NSString *)appBundleIdentifierAndPlatform

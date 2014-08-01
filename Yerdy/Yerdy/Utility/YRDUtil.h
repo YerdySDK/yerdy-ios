@@ -15,6 +15,7 @@
 // iOS 6+ - IDFV
 // iOS 5 - generated GUID
 + (NSString *)deviceIdentifier;
++ (NSString *)testIdentifier;
 
 // Bundle identifier with platform append (for example, org.example.Example.iOS)
 + (NSString *)appBundleIdentifierAndPlatform;

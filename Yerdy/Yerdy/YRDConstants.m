@@ -11,6 +11,7 @@
 // Base URL should end in '/', as we use RFC 1808 to determine the full URL
 // Production server: http://services.yerdy.com/
 // Internal test server:  http://10.189.165.237/~michal/
+// Klaus test server: http://10.189.165.104/~krubba/FluikServices/httpdocs/
 NSString *YRDBaseURL = @"http://services.yerdy.com/";
 
 

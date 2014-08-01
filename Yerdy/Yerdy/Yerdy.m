@@ -121,8 +121,8 @@ static const NSUInteger MaxImagePreloads = 6;
 		sharedInstance = [[self alloc] initWithPublisherKey:key];
 		
 		YRDInfo(@"To enable test mode for this device, copy/paste the test ID below into the Yerdy dashboard.");
-		NSString *testId = [YRDUtil testIdentifier];
-		YRDInfo(@"Test ID: %@", [YRDUtil deviceIdentifier]);
+		NSString *testId = [YRDUtil testIdentifier] != nil ? [YRDUtil testIdentifier] : [YRDUtil deviceIdentifier];
+		YRDInfo(@"Test Device ID: %@", testId);
 	});
 	
 	return sharedInstance;

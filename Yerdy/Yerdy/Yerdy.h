@@ -428,7 +428,20 @@
  @name Event tracking
  */
 
-//TODO: Document (including updating wiki)
+/** Starts a player progression category
+ 
+ Milestones are grouped by category.  For example, you may have a 'map' category and your milestones
+ could be 'unlocked world 1', 'unlocked world 2', 'unlocked world 3', etc...
+ 
+ Use this method to log the first milestone in a player progression category, and
+ then `logPlayerProgression:milestone` for any subsequent events
+ 
+ @param category The category for this progression event
+ @param milestone The milestone the user reached
+ 
+ @see logPlayerProgression:milestone:
+ 
+ */
 - (void)startPlayerProgression:(NSString *)category initialMilestone:(NSString *)milestone;
 
 /** Logs a player progression event.
@@ -436,8 +449,13 @@
  Milestones are grouped by category.  For example, you may have a 'map' category and your milestones
  could be 'unlocked world 1', 'unlocked world 2', 'unlocked world 3', etc...
  
+ You must log the first milestone using `startPlayerProgression:initialMilestone:`, and any
+ subsequent milestones using this method
+ 
  @param category The category for this progression event
  @param milestone The milestone the user reached
+ 
+ @see startPlayerProgression:initialMilestone:
  
  */
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone;

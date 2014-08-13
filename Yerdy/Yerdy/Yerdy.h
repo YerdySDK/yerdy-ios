@@ -296,7 +296,7 @@
  See [In-Game Currency](#currencies) for more details.
  
  @param currency The name of the currency
- @param amount The amount of currency earned
+ @param amount The amount of currency earned (must be positive!)
  
  @see earnedCurrencies:
  */
@@ -306,7 +306,7 @@
  
  See [In-Game Currency](#currencies) for more details.
  
- @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s)
+ @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s). All amounts must be positive!
  
  @see earnedCurrency:amount:
  */
@@ -318,7 +318,7 @@
  
  @param item The name of the item
  @param currency The name of the currency used to purchase the item
- @param amount The amount of currency used to purchase the item
+ @param amount The amount of currency used to purchase the item (must be positive!)
  
  @see purchasedItem:withCurrencies:
  @see purchasedItem:withCurrencies:onSale:
@@ -330,7 +330,7 @@
  See [In-Game Currency](#currencies) for more details.
  
  @param item The name of the item
- @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s)
+ @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s). All amounts must be positive!
  
  @see purchasedItem:withCurrency:amount:
  @see purchasedItem:withCurrencies:onSale:
@@ -342,7 +342,7 @@
  See [In-Game Currency](#currencies) for more details.
  
  @param item The name of the item
- @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s)
+ @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s). All amounts must be positive!
  @param onSale Whether or not the item is on sale
  
  @see purchasedItem:withCurrency:amount:
@@ -367,9 +367,13 @@
 
 /** Tracks in-app purchases (IAP)
  
+ Use this method to report in app purchases for in-game currency
+ 
  See [In-Game Currency](#currencies) for more details.
  
  @param purchase A YRDPurchase instance describing the purchase
+ @param currency The name of the currency that was purchased
+ @param amount The amount of currency that was purchased (must be positive!)
  
  @see purchasedInApp:
  @see purchasedInApp:currencies:
@@ -379,13 +383,12 @@
 
 /** Tracks in-app purchases (IAP)
  
- If the in-app purchase was for in-game currency, use `purchasedInApp:currency:amount:`
- or `purchasedInApp:currencies:` instead.
+ Use this method to report in app purchases for in-game currency(s)
  
  See [In-Game Currency](#currencies) for more details.
  
  @param purchase A YRDPurchase instance describing the purchase
- @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s)
+ @param currencies A dictionary mapping currency names (`NSString`'s) to amounts (`NSNumber`'s).  All amounts must be positive!
  
  @see purchasedInApp:
  @see purchasedInApp:currency:amount:

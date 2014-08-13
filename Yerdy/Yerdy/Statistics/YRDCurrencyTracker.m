@@ -153,19 +153,34 @@ static const NSUInteger MAX_CURRENCIES = 6;
 	}
 }
 
-- (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount
+- (NSDictionary *)validateAndClampCurrencies:(NSDictionary *)currencies debugContext:(NSString *)debugContext
 {
-	if (currency == nil) {
-		YRDError(@"'currency' is nil. Ignoring!");
-		return;
+	BOOL needsClamping = NO;
+	for (NSString *key in currencies) {
+		if ([currencies[key] integerValue] < 0) {
+			needsClamping = YES;
+			YRDError(@"Invalid %@ value for currency '%@': %@.  Please ensure only positive values are reported!",
+					 debugContext, key, currencies[key]);
+		}
 	}
 	
-	NSDictionary *currencies = @{ currency : @(amount) };
-	[self earnedCurrencies:currencies];
+	if (needsClamping) {
+		NSMutableDictionary *clampedResults = [currencies mutableCopy];
+		for (NSString *key in currencies) {
+			if ([currencies[key] integerValue] < 0) {
+				clampedResults[key] = @0;
+			}
+		}
+		return clampedResults;
+	} else {
+		return currencies;
+	}
 }
 
 - (void)earnedCurrencies:(NSDictionary *)currencies
 {
+	currencies = [self validateAndClampCurrencies:currencies debugContext:@"earned"];
+	
 	[self addCurrencies:currencies toCArray:_earned];
 	[self saveCArray:_earned toKey:YRDEarnedCurrencyDefaultsKey];
 	
@@ -173,19 +188,10 @@ static const NSUInteger MAX_CURRENCIES = 6;
 	[self debugLogBalance];
 }
 
-- (void)spentCurrency:(NSString *)currency amount:(NSUInteger)amount
-{
-	if (currency == nil) {
-		YRDError(@"'currency' is nil. Ignoring!");
-		return;
-	}
-	
-	NSDictionary *currencies = @{ currency : @(amount) };
-	[self spentCurrencies:currencies];
-}
-
 - (void)spentCurrencies:(NSDictionary *)currencies
 {
+	currencies = [self validateAndClampCurrencies:currencies debugContext:@"spent"];
+	
 	[self addCurrencies:currencies toCArray:_spent];
 	[self saveCArray:_spent toKey:YRDSpentCurrencyDefaultsKey];
 	
@@ -193,19 +199,10 @@ static const NSUInteger MAX_CURRENCIES = 6;
 	[self debugLogBalance];
 }
 
-- (void)purchasedCurrency:(NSString *)currency amount:(NSUInteger)amount
-{
-	if (currency == nil) {
-		YRDError(@"'currency' is nil. Ignoring!");
-		return;
-	}
-	
-	NSDictionary *currencies = @{ currency : @(amount) };
-	[self purchasedCurrencies:currencies];
-}
-
 - (void)purchasedCurrencies:(NSDictionary *)currencies
 {
+	currencies = [self validateAndClampCurrencies:currencies debugContext:@"purchased"];
+	
 	[self addCurrencies:currencies toCArray:_purchased];
 	[self saveCArray:_purchased toKey:YRDPurchasedCurrencyDefaultsKey];
 	

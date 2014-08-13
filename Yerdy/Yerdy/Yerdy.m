@@ -637,11 +637,11 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_currencyTracker registerCurrencies:currencies];
 }
 
-- (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount
+- (void)earnedCurrency:(NSString *)currency amount:(NSInteger)amount
 {
 	VALIDATE_ARG_NON_NIL(@"reporting earned currency", currency);
 	
-	[_currencyTracker earnedCurrency:currency amount:amount];
+	[self earnedCurrencies:@{ currency : @(amount) }];
 }
 
 - (void)earnedCurrencies:(NSDictionary *)currencies
@@ -651,7 +651,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_currencyTracker earnedCurrencies:currencies];
 }
 
-- (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSUInteger)amount
+- (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSInteger)amount
 {
 	VALIDATE_ARG_NON_NIL(@"reporting item purchase", item);
 	VALIDATE_ARG_NON_NIL(@"reporting item purchase", currency);
@@ -713,7 +713,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	[self purchasedInApp:purchase currencies:nil];
 }
 
-- (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount
+- (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSInteger)amount
 {
 	VALIDATE_ARG_NON_NIL(@"reporting in-app purchase", purchase);
 	[self purchasedInApp:purchase currencies:@{ currency : @(amount) }];

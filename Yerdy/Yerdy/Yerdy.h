@@ -300,7 +300,7 @@
  
  @see earnedCurrencies:
  */
-- (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount;
+- (void)earnedCurrency:(NSString *)currency amount:(NSInteger)amount;
 
 /** Tracks currency earned by the user.
  
@@ -323,7 +323,7 @@
  @see purchasedItem:withCurrencies:
  @see purchasedItem:withCurrencies:onSale:
  */
-- (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSUInteger)amount;
+- (void)purchasedItem:(NSString *)item withCurrency:(NSString *)currency amount:(NSInteger)amount;
 
 /** Tracks in-game item purchase
  
@@ -375,7 +375,7 @@
  @see purchasedInApp:currencies:
  @see YRDPurchase
  */
-- (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSUInteger)amount;
+- (void)purchasedInApp:(YRDPurchase *)purchase currency:(NSString *)currency amount:(NSInteger)amount;
 
 /** Tracks in-app purchases (IAP)
  

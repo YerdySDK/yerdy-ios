@@ -21,14 +21,8 @@
 @property (nonatomic, readonly) NSArray *currencySpent;
 @property (nonatomic, readonly) NSArray *currencyPurchased;
 
-
-- (void)earnedCurrency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)earnedCurrencies:(NSDictionary *)currencies;
-
-- (void)spentCurrency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)spentCurrencies:(NSDictionary *)currencies;
-
-- (void)purchasedCurrency:(NSString *)currency amount:(NSUInteger)amount;
 - (void)purchasedCurrencies:(NSDictionary *)currencies;
 
 @end

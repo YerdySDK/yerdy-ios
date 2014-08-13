@@ -53,6 +53,8 @@ NSString *YRDPurchasedCurrencyDefaultsKey = @"YRDPurchasedCurrency";
 NSString *YRDItemsPurchasedDefaultsKey = @"YRDItemsPurchased";
 NSString *YRDItemsPurchasedSinceInAppDefaultsKey = @"YRDItemsPurchasedSinceInApp";
 
+NSString *YRDProgressionCategoryMilestonesDefaultsKeyFormat = @"YRDProgressionCategoryMilestone:%@";
+
 NSString *YRDProgressionLastEarnedCurrencyDefaultsKey = @"YRDProgressionLastEarnedCurrency";
 NSString *YRDProgressionLastPurchasedCurrencyDefaultsKey = @"YRDProgressionLastPurchasedCurrency";
 NSString *YRDProgressionLastSpentCurrencyDefaultsKey = @"YRDProgressionLastSpentCurrency";

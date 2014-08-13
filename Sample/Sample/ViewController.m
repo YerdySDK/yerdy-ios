@@ -79,7 +79,11 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 {
 	NSString *buttonTitle = [sender titleForState:UIControlStateNormal];
 	
-	[[Yerdy sharedYerdy] logPlayerProgression:@"level" milestone:buttonTitle];
+	if ([buttonTitle isEqualToString:@"level-1"]) {
+		[[Yerdy sharedYerdy] startPlayerProgression:@"level" initialMilestone:@"level-1"];
+	} else {
+		[[Yerdy sharedYerdy] logPlayerProgression:@"level" milestone:buttonTitle];
+	}
 }
 
 - (IBAction)requestAd:(id)sender

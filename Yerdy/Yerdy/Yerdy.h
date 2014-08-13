@@ -428,6 +428,8 @@
  @name Event tracking
  */
 
+//TODO: Document (including updating wiki)
+- (void)startPlayerProgression:(NSString *)category initialMilestone:(NSString *)milestone;
 
 /** Logs a player progression event.
  

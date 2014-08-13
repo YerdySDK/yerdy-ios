@@ -801,12 +801,19 @@ static const NSUInteger MaxImagePreloads = 6;
 
 #pragma mark - Screen Visit Tracking
 
+- (void)startPlayerProgression:(NSString *)category initialMilestone:(NSString *)milestone
+{
+	VALIDATE_ARG_NON_NIL(@"starting player progression", category);
+	VALIDATE_ARG_NON_NIL(@"starting player progression", milestone);
+	
+	[_progressionTracker startPlayerProgression:category initialMilestone:milestone];
+}
+
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
 {
-	VALIDATE_ARG_NON_NIL(@"logging milestone", category);
-	VALIDATE_ARG_NON_NIL(@"logging milestone", milestone);
+	VALIDATE_ARG_NON_NIL(@"logging player progression", category);
+	VALIDATE_ARG_NON_NIL(@"logging player progression", milestone);
 	
-	milestone = [NSString stringWithFormat:@"_%@", milestone];
 	[_progressionTracker logPlayerProgression:category milestone:milestone];
 }
 

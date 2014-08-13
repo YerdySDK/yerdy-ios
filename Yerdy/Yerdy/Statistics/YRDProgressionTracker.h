@@ -16,6 +16,7 @@
 - (id)initWithCurrencyTracker:(YRDCurrencyTracker *)currencyTracker launchTracker:(YRDLaunchTracker *)launchTracker
 				  timeTracker:(YRDTimeTracker *)timeTracker counterBatcher:(YRDTrackCounterBatcher *)batcher;
 
+- (void)startPlayerProgression:(NSString *)category initialMilestone:(NSString *)milestone;
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone;
 
 @end

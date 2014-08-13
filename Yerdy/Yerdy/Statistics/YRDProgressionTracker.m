@@ -74,12 +74,56 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 
 #pragma mark - Player progression events
 
+- (void)startPlayerProgression:(NSString *)category initialMilestone:(NSString *)milestone
+{
+	if (![self shouldTrackEventsForUser]) {
+		YRDDebug(@"Ignoring milestone '%@' in '%@' for existing user", milestone, category);
+		return;
+	}
+	
+	NSString *defaultsKey = [NSString stringWithFormat:YRDProgressionCategoryMilestonesDefaultsKeyFormat, category];
+	
+	// ensure they haven't already started this category
+	NSArray *loggedMilestones = [[YRDDataStore sharedDataStore] arrayForKey:defaultsKey];
+	if (loggedMilestones != nil) {
+		YRDError(@"Failed to start player progression category '%@' with milestone '%@', already started", category, milestone);
+		return;
+	}
+	
+	[[YRDDataStore sharedDataStore] setObject:@[ milestone ] forKey:defaultsKey];
+	
+	[self addMilestoneEventWithCategory:category milestone:milestone];
+}
+
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone
 {
 	if (![self shouldTrackEventsForUser]) {
 		YRDDebug(@"Ignoring milestone '%@' in '%@' for existing user", milestone, category);
 		return;
 	}
+	
+	NSString *defaultsKey = [NSString stringWithFormat:YRDProgressionCategoryMilestonesDefaultsKeyFormat, category];
+	
+	// ensure they have started this category AND haven't already logged this milestone
+	NSArray *loggedMilestones = [[YRDDataStore sharedDataStore] arrayForKey:defaultsKey];
+	if (loggedMilestones == nil) {
+		YRDError(@"Failed to log player progression milestone '%@' in category '%@', category was never started "
+				 @"(use -startPlayerProgression:initialMilestone: for the first milestone in that category)", milestone, category);
+		return;
+	} else if ([loggedMilestones containsObject:milestone]) {
+		YRDError(@"Failed to log player progression milestone '%@' in category '%@', milestone was already logged", milestone, category);
+		return;
+	}
+	
+	loggedMilestones = [loggedMilestones arrayByAddingObject:milestone];
+	[[YRDDataStore sharedDataStore] setObject:loggedMilestones forKey:defaultsKey];
+	
+	[self addMilestoneEventWithCategory:category milestone:milestone];
+}
+
+- (void)addMilestoneEventWithCategory:(NSString *)category milestone:(NSString *)milestone
+{
+	milestone = [NSString stringWithFormat:@"_%@", milestone];
 	
 	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypePlayer name:category value:milestone];
 	[event setValue:milestone increment:MAX(0, _launchTracker.totalLaunchCount) forParameter:@"launch_count"];

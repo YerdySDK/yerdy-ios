@@ -80,10 +80,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	NSString *_currentPlacement;
 	NSUInteger _messagesPresentedInRow;
-	
-	NSUInteger _defaultMaxFailoverCount;
-	NSMutableDictionary *_maxFailoverCounts;
-	
+		
 	YRDConversionTracker *_conversionTracker;
 	YRDCurrencyTracker *_currencyTracker;
 	YRDScreenVisitTracker *_screenVisitTracker;
@@ -173,10 +170,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	_adRequestTracker = [[YRDAdRequestTracker alloc] init];
 	if (newVersion)
 		[_adRequestTracker reset]; // reset on new versions, since this is mainly for tracking ad health, per version
-	
-	_defaultMaxFailoverCount = NSUIntegerMax;
-	_maxFailoverCounts = [NSMutableDictionary dictionary];
-	
+		
 	[self reportLaunch:YES];
 	
 	return self;
@@ -458,15 +452,6 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_messagePresenter dismiss];
 }
 
-- (void)setMaxFailoverCount:(NSUInteger)count forPlacement:(NSString *)placement
-{
-	if (placement == nil) {
-		_defaultMaxFailoverCount = count;
-	} else {
-		_maxFailoverCounts[placement] = @(count);
-	}
-}
-
 #pragma mark - YRDMessagePresenterDelegate
 
 // The Yerdy class acts a proxy between YRDMessagePresenter & the messageDelegate
@@ -474,14 +459,15 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (BOOL)shouldShowAnotherMessage
 {
-	NSUInteger max = _defaultMaxFailoverCount;
-	if (_currentPlacement && _maxFailoverCounts[_currentPlacement])
-		max = [_maxFailoverCounts[_currentPlacement] unsignedIntegerValue];
-		
-	if (_messagesPresentedInRow > max)
-		return NO;
+	BOOL canShow = (!_didDismissMessage && [self isMessageAvailable:_currentPlacement]);
 	
-	return !_didDismissMessage && [self isMessageAvailable:_currentPlacement];
+	if (canShow && [_messageDelegate respondsToSelector:@selector(yerdy:shouldShowAnotherMessageAfterUserCancelForPlacement:)]) {
+		canShow = [_messageDelegate yerdy:self shouldShowAnotherMessageAfterUserCancelForPlacement:_currentPlacement];
+	} else {
+		canShow = NO; // if delegate method not implemented, default to NO
+	}
+	
+	return canShow;
 }
 
 #pragma mark Display lifecycle

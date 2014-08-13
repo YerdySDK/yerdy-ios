@@ -105,6 +105,19 @@
  */
 - (void)yerdy:(Yerdy *)yerdy didDismissMessageForPlacement:(NSString *)placement;
 
+/** Called when a user cancels a message and there is another message that could
+	be shown.  Return `YES` to automatically show another message to the user.
+ 
+ If not implemented, defaults to `NO`
+ 
+ @param yerdy The shared Yerdy instance
+ @param placement The placement passed in to `-[Yerdy showMessage:]`
+ 
+ @see yerdy:shouldShowAnotherMessageAfterUserCancelForPlacement:
+ 
+ */
+- (BOOL)yerdy:(Yerdy *)yerdy shouldShowAnotherMessageAfterUserCancelForPlacement:(NSString *)placement;
+
 /** Called when your app should handle an in-app purchase
  
  @param yerdy The shared Yerdy instance

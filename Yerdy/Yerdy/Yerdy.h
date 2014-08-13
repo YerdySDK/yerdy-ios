@@ -256,26 +256,6 @@
  */
 - (void)dismissMessage;
 
-/** Sets a limit to the number of "failover" messages that can be shown
- 
- If the user clicks "cancel" (or "ok" on a non actionable message), we try and show
- another message for that placement (until we run out of messages).  You can set a
- limit here. (for example, if you wanted to only show 1 message no matter what, you
- can call:
- 
-	[yerdy setMaxFailoverCount:0 forPlacement:@"myPlacement"]
- 
- If you would like to apply it to all placements in your app, pass in nil for placement:
- 
-	[yerdy setMaxFailoverCount:0 forPlacement:nil]
- 
- @param count The maximun number failover messages to show
- @param placement The placement this should apply to.  To apply it to all placements,
-	passing in `nil`
- 
- 
- */
-- (void)setMaxFailoverCount:(NSUInteger)count forPlacement:(NSString *)placement;
 
 /*******************************************************************************
  * @name Currency

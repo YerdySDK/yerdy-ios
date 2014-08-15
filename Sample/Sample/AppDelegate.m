@@ -33,7 +33,6 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 	
 	Yerdy *yerdy = [Yerdy startWithPublisherKey:PUBLISHER_KEY];
 	[yerdy configureCurrencies:@[ Gold, Silver, Bronze, Diamonds, Pearls, Rubies ]];
-	[yerdy setMaxFailoverCount:0 forPlacement:@"launch2"];
 	yerdy.delegate = self;
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

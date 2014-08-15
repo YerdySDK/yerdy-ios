@@ -9,6 +9,7 @@
 #import "YRDLaunchTracker.h"
 #import "YRDConstants.h"
 #import "YRDDataStore.h"
+#import "YRDNotificationDispatcher.h"
 #import "YRDUtil.h"
 
 #import <UIKit/UIKit.h>
@@ -54,12 +55,12 @@ typedef enum YRDLaunchCounterType {
 	if (!self)
 		return nil;
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
-												 name:UIApplicationDidEnterBackgroundNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:)
-												 name:UIApplicationWillEnterForegroundNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:)
-												 name:UIApplicationWillTerminateNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(applicationDidEnterBackground:)
+														 name:UIApplicationDidEnterBackgroundNotification];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(applicationWillEnterForeground:)
+														 name:UIApplicationWillEnterForegroundNotification];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(applicationWillTerminate:)
+														 name:UIApplicationWillTerminateNotification];
 	
 	_countedLaunch = NO;
 	_countedExit = YES;
@@ -71,7 +72,7 @@ typedef enum YRDLaunchCounterType {
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[YRDNotificationDispatcher sharedDispatcher] removeObserver:self];
 }
 
 #pragma mark - UIApplication notifications

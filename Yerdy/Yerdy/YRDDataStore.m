@@ -9,6 +9,7 @@
 #import "YRDDataStore.h"
 #import "YRDLog.h"
 #import "YRDPaths.h"
+#import "YRDNotificationDispatcher.h"
 
 #import <UIKit/UIKit.h>
 
@@ -49,10 +50,10 @@
 	if (![self load])
 		_values = [NSMutableDictionary dictionary];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeNow)
-												 name:UIApplicationDidEnterBackgroundNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(synchronizeNow)
-												 name:UIApplicationWillTerminateNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(synchronizeOnExit)
+														 name:UIApplicationDidEnterBackgroundNotification priority:INT_MAX];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(synchronizeOnExit)
+														 name:UIApplicationWillTerminateNotification priority:INT_MAX];
 	
 	return self;
 }
@@ -85,14 +86,16 @@
 	});
 }
 
-- (void)synchronizeNow
+- (void)synchronizeOnExit
 {
+	// synchronize now
 	[self synchronizeInternal];
 }
 
 - (void)synchronizeInternal
 {
 	@synchronized (self) {
+		YRDDebug(@"YRDDataStore, **Synchronize**");
 		if (_dirty) {
 			NSError *error;
 			NSData *data = [NSPropertyListSerialization dataWithPropertyList:_values
@@ -127,7 +130,8 @@
 }
 
 - (void)setObject:(id)value forKey:(NSString *)key
-{	
+{
+	YRDDebug(@"YRDDataStore, %@:  %@", key, value);
 	@synchronized (self) {
 		_dirty = YES;
 		_values[key] = value;
@@ -136,6 +140,7 @@
 
 - (void)removeObjectForKey:(NSString *)key
 {
+	YRDDebug(@"YRDDataStore, %@:  (deleted)", key);
 	@synchronized (self) {
 		_dirty = YES;
 		[_values removeObjectForKey:key];

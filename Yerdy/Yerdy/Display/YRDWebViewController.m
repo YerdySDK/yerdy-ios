@@ -7,6 +7,7 @@
 //
 
 #import "YRDWebViewController.h"
+#import "YRDNotificationDispatcher.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -46,15 +47,15 @@ static NSString *AnimatingOutKey = @"animatingWebViewOut";
 	
 	_URL = URL;
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarFrameChanged:)
-												 name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(statusBarFrameChanged:)
+												 name:UIApplicationDidChangeStatusBarFrameNotification];
 	
 	return self;
 }
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[YRDNotificationDispatcher sharedDispatcher] removeObserver:self];
 }
 
 - (void)loadView

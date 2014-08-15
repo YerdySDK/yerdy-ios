@@ -9,6 +9,7 @@
 #import "YRDTrackCounterBatcher.h"
 #import "YRDCounterEvent.h"
 #import "YRDLog.h"
+#import "YRDNotificationDispatcher.h"
 #import "YRDPaths.h"
 #import "YRDReachability.h"
 #import "YRDRequestCache.h"
@@ -70,13 +71,13 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	_timeEvents = [NSMutableDictionary dictionary];
 	_playerEvents = [NSMutableDictionary dictionary];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minutePassedNotification:)
-												 name:YRDTimeTrackerMinutePassedNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(minutePassedNotification:)
+														 name:YRDTimeTrackerMinutePassedNotification];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveToDisk)
-												 name:UIApplicationDidEnterBackgroundNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveToDisk)
-												 name:UIApplicationWillTerminateNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(saveToDisk)
+														 name:UIApplicationDidEnterBackgroundNotification];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(saveToDisk)
+														 name:UIApplicationWillTerminateNotification];
 	
 	return self;
 }
@@ -110,7 +111,7 @@ static const int SEND_INTERVAL_MINUTES = 5;
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[YRDNotificationDispatcher sharedDispatcher] removeObserver:self];
 }
 
 - (void)minutePassedNotification:(NSNotification *)notification

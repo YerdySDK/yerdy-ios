@@ -8,6 +8,7 @@
 
 #import "YRDImageCache.h"
 #import "YRDImageResponseHandler.h"
+#import "YRDNotificationDispatcher.h"
 #import "YRDURLConnection.h"
 
 #import <UIKit/UIKit.h>
@@ -49,8 +50,8 @@ static const NSUInteger MIN_DISK_CAPACITY = 1024 * 1024 * 16;	// 16 MB
 		return nil;
 	
 	_liveHandlers = [NSMutableDictionary dictionary];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning:)
-												 name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(didReceiveMemoryWarning:)
+														 name:UIApplicationDidReceiveMemoryWarningNotification];
 	
 	return self;
 }

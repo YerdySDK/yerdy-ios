@@ -10,6 +10,7 @@
 #import "YRDConstants.h"
 #import "YRDDataStore.h"
 #import "YRDLog.h"
+#import "YRDNotificationDispatcher.h"
 #import "YRDTimer.h"
 
 #import <UIKit/UIKit.h>
@@ -47,12 +48,12 @@ static const double ErrorRatio = 2.0;
 	if (!self)
 		return nil;
 		
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
-												 name:UIApplicationDidEnterBackgroundNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:)
-												 name:UIApplicationWillEnterForegroundNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:)
-												 name:UIApplicationWillTerminateNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(applicationDidEnterBackground:)
+												 name:UIApplicationDidEnterBackgroundNotification];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(applicationWillEnterForeground:)
+												 name:UIApplicationWillEnterForegroundNotification];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(applicationWillTerminate:)
+												 name:UIApplicationWillTerminateNotification];
 	
 	[self startTimer];
 	

@@ -8,6 +8,7 @@
 
 #import "YRDViewController.h"
 #import "YRDViewControllerManager.h"
+#import "YRDNotificationDispatcher.h"
 
 @interface YRDViewController ()
 {
@@ -26,15 +27,15 @@
 	
 	_window = window;
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged)
-												 name:UIDeviceOrientationDidChangeNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(orientationChanged)
+												 name:UIDeviceOrientationDidChangeNotification];
 	
 	return self;
 }
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[YRDNotificationDispatcher sharedDispatcher] removeObserver:self];
 }
 
 - (void)loadView

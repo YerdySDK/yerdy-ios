@@ -144,6 +144,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	_publisherKey = publisherKey;
 	
 	BOOL newVersion = [self checkVersion];
+	if (newVersion)
+		YRDDebug(@"Detected new version!");
 	
 	_launchTracker = [[YRDLaunchTracker alloc] init];
 	_launchTracker.delegate = self;

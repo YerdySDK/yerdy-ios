@@ -14,6 +14,7 @@
 #import "YRDDataStore.h"
 #import "YRDLaunchTracker.h"
 #import "YRDLog.h"
+#import "YRDNotificationDispatcher.h"
 #import "YRDReachability.h"
 #import "YRDRequestCache.h"
 #import "YRDTimeTracker.h"
@@ -51,15 +52,15 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	_timeTracker = timeTracker;
 	_counterBatcher = batcher;
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(minuteOfGameplayPassed:)
-												 name:YRDTimeTrackerMinutePassedNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(minuteOfGameplayPassed:)
+												 name:YRDTimeTrackerMinutePassedNotification];
 	
 	return self;
 }
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[YRDNotificationDispatcher sharedDispatcher] removeObserver:self];
 }
 
 - (BOOL)shouldTrackEventsForUser

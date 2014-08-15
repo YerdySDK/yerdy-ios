@@ -10,6 +10,7 @@
 #import "YRDImageCache.h"
 #import "YRDMessage.h"
 #import "YRDMessageView.h"
+#import "YRDNotificationDispatcher.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -29,15 +30,15 @@
 	
 	_message = message;
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarFrameChanged:)
-												 name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(statusBarFrameChanged:)
+												 name:UIApplicationDidChangeStatusBarFrameNotification];
 	
 	return self;
 }
 
 - (void)dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[YRDNotificationDispatcher sharedDispatcher] removeObserver:self];
 }
 
 - (void)loadView

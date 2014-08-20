@@ -12,6 +12,12 @@
 
 #import "Yerdy.h"
 
+#if ! __has_include("PublisherKey.h")
+#error Please create a file named 'PublisherKey.h' that defines PUBLISHER_KEY to your Yerdy publisher key.  \
+	See 'PublisherKey.h.sample' for a sample you can paste your publisher key into \
+	See http://dashboard.yerdy.com/ to get started
+#endif
+
 #import "PublisherKey.h"
 
 

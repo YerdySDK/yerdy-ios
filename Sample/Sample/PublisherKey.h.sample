@@ -1,0 +1,2 @@
+//  You can visit http://dashboard.yerdy.com/ to get your publisher key
+#define PUBLISHER_KEY	@"<your publisher key here>"

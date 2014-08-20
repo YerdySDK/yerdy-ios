@@ -136,6 +136,11 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 	NSLog(@"*** %@", NSStringFromSelector(_cmd));
 }
 
+- (BOOL)yerdy:(Yerdy *)yerdy shouldShowAnotherMessageAfterUserCancelForPlacement:(NSString *)placement
+{
+	return YES;
+}
+
 - (void)yerdy:(Yerdy *)yerdy handleInAppPurchase:(YRDInAppPurchase *)purchase
 {
 	NSLog(@"Trying IAP purchase: %@", purchase.productIdentifier);

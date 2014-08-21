@@ -12,6 +12,7 @@
 // Production server: http://services.yerdy.com/
 // Internal test server:  http://10.189.165.237/~michal/
 // Klaus test server: http://10.189.165.104/~krubba/FluikServices/httpdocs/
+// Darren test server: http://10.189.165.207/~darrenclark/FluikServices/httpdocs/
 NSString *YRDBaseURL = @"http://services.yerdy.com/";
 
 
@@ -59,3 +60,5 @@ NSString *YRDProgressionLastEarnedCurrencyDefaultsKey = @"YRDProgressionLastEarn
 NSString *YRDProgressionLastPurchasedCurrencyDefaultsKey = @"YRDProgressionLastPurchasedCurrency";
 NSString *YRDProgressionLastSpentCurrencyDefaultsKey = @"YRDProgressionLastSpentCurrency";
 NSString *YRDProgressionLastItemPurchasesDefaultsKey = @"YRDProgressionLastItemPurchases";
+
+NSString *YRDHistoryItemsKeyFormat = @"YRDHistoryItems:%@";

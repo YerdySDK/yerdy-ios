@@ -19,6 +19,7 @@
 #import "YRDCurrencyTracker.h"
 #import "YRDDataStore.h"
 #import "YRDDelayedBlock.h"
+#import "YRDHistoryTracker.h"
 #import "YRDImageCache.h"
 #import "YRDInAppPurchase.h"
 #import "YRDItemPurchase.h"
@@ -71,6 +72,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDDelayedBlock *_delayedLaunchCall;
 	YRDLaunchTracker *_launchTracker;
 	YRDTimeTracker *_timeTracker;
+	
+	YRDHistoryTracker *_historyTracker;
 	
 	NSMutableArray *_messages;
 	YRDMessagePresenter *_messagePresenter;
@@ -156,23 +159,26 @@ static const NSUInteger MaxImagePreloads = 6;
 	if (newVersion)
 		[_timeTracker resetVersionTimePlayed];
 	
+	_historyTracker = [[YRDHistoryTracker alloc] init];
+	
 	_conversionTracker = [[YRDConversionTracker alloc] init];
 	_currencyTracker = [[YRDCurrencyTracker alloc] init];
-	_screenVisitTracker = [[YRDScreenVisitTracker alloc] init];
+	_screenVisitTracker = [[YRDScreenVisitTracker alloc] initWithHistoryTracker:_historyTracker];
 	
 	_trackCounterBatcher = [YRDTrackCounterBatcher loadFromDisk];
 
 	_progressionTracker = [[YRDProgressionTracker alloc] initWithCurrencyTracker:_currencyTracker
 																   launchTracker:_launchTracker
 																	 timeTracker:_timeTracker
-																  counterBatcher:_trackCounterBatcher];
+																  counterBatcher:_trackCounterBatcher
+																  historyTracker:_historyTracker];
 	
 	_purchaseSubmitter = [YRDPurchaseSubmitter loadFromDisk];
 	
 	_adRequestTracker = [[YRDAdRequestTracker alloc] init];
 	if (newVersion)
 		[_adRequestTracker reset]; // reset on new versions, since this is mainly for tracking ad health, per version
-		
+	
 	[self reportLaunch:YES];
 	
 	return self;
@@ -443,6 +449,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_messagePresenter present];
 	
 	[_conversionTracker didShowMessage:message];
+	[_historyTracker addMessage:message.messageId];
 	[_messages removeObject:message];
 	
 	return YES;
@@ -660,6 +667,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	VALIDATE_ARG_NON_NIL(@"reporting item purchase", item);
 	VALIDATE_ARG_NON_NIL(@"reporting item purchase", currencies);
 	
+	[_historyTracker addItemPurchase:item];
+	
 	// update items purchased count
 	YRDDataStore *defaults = [YRDDataStore sharedDataStore];
 	NSInteger itemsPurchased = [defaults integerForKey:YRDItemsPurchasedDefaultsKey];
@@ -723,6 +732,12 @@ static const NSUInteger MaxImagePreloads = 6;
 			*currencySpent = _currencyTracker.currencySpent,
 			*currencyPurchased = _currencyTracker.currencyPurchased;
 	
+	NSArray *lastScreenVisits = _historyTracker.lastScreenVisits,
+			*lastItemPurchases = _historyTracker.lastItemPurchases,
+			*lastMessages = _historyTracker.lastMessages,
+			*lastPlayerProgressionCategories = _historyTracker.lastPlayerProgressionCategories,
+			*lastPlayerProgressionMilestones = _historyTracker.lastPlayerProgressionMilestones;
+	
 	[purchase completeObjectWithCompletionHandler:^(BOOL success) {
 		YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
 																			   currency:currencyArray
@@ -733,7 +748,12 @@ static const NSUInteger MaxImagePreloads = 6;
 																		  spentCurrency:currencySpent
 																	  purchasedCurrency:currencyPurchased
 																		 itemsPurchased:itemsPurchased
-																	conversionMessageId:conversionMessageId];
+																	conversionMessageId:conversionMessageId
+																	   lastScreenVisits:lastScreenVisits
+																	  lastItemPurchases:lastItemPurchases
+																		   lastMessages:lastMessages
+														lastPlayerProgressionCategories:lastPlayerProgressionCategories
+														lastPlayerProgressionMilestones:lastPlayerProgressionMilestones];
 		[_purchaseSubmitter addRequest:request];
 	}];
 	

@@ -22,6 +22,11 @@
 					  spentCurrency:(NSArray *)spentCurrency
 				  purchasedCurrency:(NSArray *)purchasedCurrency
 					 itemsPurchased:(NSInteger)itemsPurchased
-				conversionMessageId:(NSString *)conversionMessageId;
+				conversionMessageId:(NSString *)conversionMessageId
+				   lastScreenVisits:(NSArray *)lastScreenVisits
+				  lastItemPurchases:(NSArray *)lastItemPurchases
+					   lastMessages:(NSArray *)lastMessages
+	lastPlayerProgressionCategories:(NSArray *)lastPlayerProgressionCategories
+	lastPlayerProgressionMilestones:(NSArray *)lastPlayerProgressionMilestones;
 
 @end

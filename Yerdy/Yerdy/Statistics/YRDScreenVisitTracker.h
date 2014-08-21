@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class YRDHistoryTracker;
+
+
 @interface YRDScreenVisitTracker : NSObject
+
+- (id)initWithHistoryTracker:(YRDHistoryTracker *)historyTracker;
 
 // dictionary mapping 'screen name' (NSString) -> '# of visits' (NSNumber)
 @property (nonatomic, readonly) NSDictionary *loggedScreenVisits;

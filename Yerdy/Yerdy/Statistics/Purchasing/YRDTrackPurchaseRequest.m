@@ -26,6 +26,11 @@
 				  purchasedCurrency:(NSArray *)purchasedCurrency
 					 itemsPurchased:(NSInteger)itemsPurchased
 				conversionMessageId:(NSString *)conversionMessageId
+				   lastScreenVisits:(NSArray *)lastScreenVisits
+				  lastItemPurchases:(NSArray *)lastItemPurchases
+					   lastMessages:(NSArray *)lastMessages
+	lastPlayerProgressionCategories:(NSArray *)lastPlayerProgressionCategories
+	lastPlayerProgressionMilestones:(NSArray *)lastPlayerProgressionMilestones
 {
 	UIDevice *device = [UIDevice currentDevice];
 	NSString *os = [NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion];
@@ -43,7 +48,7 @@
 	if (conversionMessageId)
 		query[@"msgid"] = conversionMessageId;
 	
-	NSDictionary *body = @{
+	NSMutableDictionary *body = [@{
 		@"receipt" : YRDToString([YRDUtil base64String:purchase.receipt]),
 		@"product" : YRDToString(purchase.productIdentifier),
 		@"transaction" : YRDToString(purchase.transactionIdentifier),
@@ -54,7 +59,13 @@
 		@"currency_bought" : [self currencyString:purchasedCurrency],
 		@"currency_spent" : [self currencyString:spentCurrency],
 		@"items" : @(itemsPurchased),
-	};
+	} mutableCopy];
+	
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastScreenVisits forKey:@"last_nav"]];
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastItemPurchases forKey:@"last_item"]];
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastMessages forKey:@"last_msg"]];
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastPlayerProgressionCategories forKey:@"last_player_keys"]];
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastPlayerProgressionMilestones forKey:@"last_player_values"]];
 	
 	YRDTrackPurchaseRequest *request = [[self alloc] initWithPath:@"stats/trackPurchase.php" queryParameters:query bodyParameters:body];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDTrackPurchaseResponse class]];
@@ -64,6 +75,21 @@
 + (NSString *)currencyString:(NSArray *)currencies
 {
 	return YRDToString([currencies componentsJoinedByString:@";"]);
+}
+
+// makes a dictionary with values from an array in the form:
+//	@{
+//		@"<key>[0]" : item[0],
+//		@"<key>[1]" : item[1]
+//	}
++ (NSDictionary *)arrayParamsForItems:(NSArray *)items forKey:(NSString *)key
+{
+	NSMutableDictionary *retVal = [NSMutableDictionary dictionary];
+	for (NSUInteger i = 0; i < items.count; i++) {
+		NSString *k = [NSString stringWithFormat:@"%@[%lu]", key, (unsigned long)i];
+		retVal[k] = [items[i] description];
+ 	}
+	return retVal;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

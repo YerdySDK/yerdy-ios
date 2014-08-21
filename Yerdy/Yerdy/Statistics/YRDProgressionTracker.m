@@ -12,6 +12,7 @@
 #import "YRDConstants.h"
 #import "YRDCurrencyTracker.h"
 #import "YRDDataStore.h"
+#import "YRDHistoryTracker.h"
 #import "YRDLaunchTracker.h"
 #import "YRDLog.h"
 #import "YRDNotificationDispatcher.h"
@@ -34,6 +35,7 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	YRDTrackCounterBatcher *_counterBatcher;
 	YRDLaunchTracker *_launchTracker;
 	YRDTimeTracker *_timeTracker;
+	YRDHistoryTracker *_historyTracker;
 }
 @end
 
@@ -42,6 +44,7 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 
 - (id)initWithCurrencyTracker:(YRDCurrencyTracker *)currencyTracker launchTracker:(YRDLaunchTracker *)launchTracker
 				  timeTracker:(YRDTimeTracker *)timeTracker counterBatcher:(YRDTrackCounterBatcher *)batcher
+			   historyTracker:(YRDHistoryTracker *)historyTracker
 {
 	self = [super init];
 	if (!self)
@@ -51,6 +54,7 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	_launchTracker = launchTracker;
 	_timeTracker = timeTracker;
 	_counterBatcher = batcher;
+	_historyTracker = historyTracker;
 	
 	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(minuteOfGameplayPassed:)
 												 name:YRDTimeTrackerMinutePassedNotification];
@@ -130,6 +134,8 @@ static int MinutesToReport[] = { 2, 4, 6, 8, 10, 15, 20, 25, 30, 40, 50, 60 };
 	[event setValue:milestone increment:MAX(0, _launchTracker.totalLaunchCount) forParameter:@"launch_count"];
 	[event setValue:milestone increment:MAX(0, (NSUInteger)round(_timeTracker.timePlayed)) forParameter:@"playtime"];
 	[_counterBatcher addEvent:event];
+	
+	[_historyTracker addPlayerProgression:category milestone:milestone];
 }
 
 #pragma mark - Time events

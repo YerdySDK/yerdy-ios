@@ -9,9 +9,28 @@
 #import "YRDScreenVisitTracker.h"
 #import "YRDConstants.h"
 #import "YRDDataStore.h"
+#import "YRDHistoryTracker.h"
 #import "YRDUtil.h"
 
+@interface YRDScreenVisitTracker ()
+{
+	YRDHistoryTracker *_historyTracker;
+}
+@end
+
+
 @implementation YRDScreenVisitTracker
+
+- (id)initWithHistoryTracker:(YRDHistoryTracker *)historyTracker
+{
+	self = [super init];
+	if (!self)
+		return nil;
+	
+	_historyTracker = historyTracker;
+	
+	return self;
+}
 
 - (NSDictionary *)loggedScreenVisits
 {
@@ -32,6 +51,8 @@
 	currentVisits[screenName] = @(prevCount + 1);
 	
 	[[YRDDataStore sharedDataStore] setObject:currentVisits forKey:YRDScreenVisitsDefaultsKey];
+	
+	[_historyTracker addScreenVisit:screenName];
 }
 
 - (void)reset

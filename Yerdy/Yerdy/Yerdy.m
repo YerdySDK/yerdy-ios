@@ -40,10 +40,9 @@
 #import "YRDTimeTracker.h"
 #import "YRDTrackCounterBatcher.h"
 #import "YRDTrackPurchaseRequest.h"
-#import "YRDTrackPurchaseResponse.h"
-#import "YRDTrackVirtualPurchaseRequest.h"
 #import "YRDURLConnection.h"
 #import "YRDUtil.h"
+#import "YRDVirtualPurchase.h"
 #import "YRDWebViewController.h"
 
 
@@ -683,22 +682,18 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	NSString *conversionMessageId = [_conversionTracker checkItemConversion:item];
 	
-	// send track virtual purchase
-	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
-	YRDTrackVirtualPurchaseRequest *request = [YRDTrackVirtualPurchaseRequest requestWithItem:item
-																						price:currencyArray
-																					   onSale:onSale
-																				firstPurchase:itemsPurchased == 1
-																		  purchasesSinceInApp:itemsPurchasedSinceInApp
-																		  conversionMessageId:conversionMessageId];
 	
-	if ([YRDReachability internetReachable]) {
-		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
-			YRDDebug(@"trackVirtualPurchase result: %d", response.result);
-		}];
-	} else {
-		[[YRDRequestCache sharedCache] storeRequest:request];
-	}
+	NSArray *currencyArray = [_currencyTracker currencyDictionaryToArray:currencies];
+	
+	// send track virtual purchase
+	YRDVirtualPurchase *purchase = [[YRDVirtualPurchase alloc] init];
+	purchase.item = item;
+	purchase.currencies = currencyArray;
+	purchase.onSale = onSale;
+	purchase.firstPurchase = itemsPurchased == 1;
+	purchase.purchasesSinceInApp = itemsPurchasedSinceInApp;
+	purchase.conversionMessageId = conversionMessageId;
+	[_purchaseSubmitter addVirtualPurchase:purchase];
 	
 	// update currencies
 	[_currencyTracker spentCurrencies:currencies];
@@ -754,7 +749,7 @@ static const NSUInteger MaxImagePreloads = 6;
 																		   lastMessages:lastMessages
 														lastPlayerProgressionCategories:lastPlayerProgressionCategories
 														lastPlayerProgressionMilestones:lastPlayerProgressionMilestones];
-		[_purchaseSubmitter addRequest:request];
+		[_purchaseSubmitter addPurchaseRequest:request];
 	}];
 	
 	[_currencyTracker purchasedCurrencies:currencies];

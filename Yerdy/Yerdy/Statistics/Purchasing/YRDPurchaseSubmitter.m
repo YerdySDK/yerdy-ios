@@ -12,9 +12,13 @@
 #import "YRDLog.h"
 #import "YRDPaths.h"
 #import "YRDReachability.h"
+#import "YRDRequestCache.h"
 #import "YRDTrackPurchaseRequest.h"
 #import "YRDTrackPurchaseResponse.h"
+#import "YRDTrackVirtualPurchaseRequest.h"
 #import "YRDURLConnection.h"
+#import "YRDVirtualPurchase.h"
+
 
 static const int MIN_SLOTS = 1; /* 2^3 =  8 * slot time */
 static const int MAX_SLOTS = 5; /* 2^10 = 1024 * slot time */
@@ -23,12 +27,27 @@ static const int MAX_RETRIES = 6; /* after this many retries, stop*/
 static const double SLOT_TIME = 1.f; /* 1 second slot time */
 
 
+// Synchronized to disk - DO NOT CHANGE EXISTING ENUM VALUES
+typedef enum YRDPurchaseValidationState {
+	YRDPurchaseValidationStateDefault = 0,  // never submitted a purchase
+	YRDPurchaseValidationStatePending = 1,	// submitted a purchase, waiting for it to be validated
+	YRDPurchaseValidationStateValidated = 2,	// user has validated at least 1 purchase
+} YRDPurchaseSubmitterState;
+
+
 @interface YRDPurchaseSubmitter ()
 {
 	YRDTrackPurchaseRequest *_currentRequest;
-	NSMutableArray *_requests;
-	
 	int _currentSlot;
+	
+	
+	// --- Members encoded to disk ---
+	
+	NSMutableArray *_requests;	// YRDTrackPurchaseRequests - pleased don't rename,
+								// to keep consistency with with the format of the archived
+								// object on disk
+	YRDPurchaseSubmitterState _state;
+	NSMutableArray *_virtualPurchases; // YRDVirtualPurchases
 }
 @end
 
@@ -79,7 +98,9 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 		return nil;
 	
 	_requests = [[NSMutableArray alloc] init];
+	_virtualPurchases = [[NSMutableArray alloc] init];
 	_currentSlot = 1;
+	_state = YRDPurchaseValidationStateDefault;
 	
 	return self;
 }
@@ -93,6 +114,10 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 	_requests = [[aDecoder decodeObjectForKey:@"requests"] mutableCopy];
 	if (!_requests)
 		_requests = [[NSMutableArray alloc] init];
+	_state = [aDecoder decodeIntForKey:@"state"];
+	_virtualPurchases = [[aDecoder decodeObjectForKey:@"virtualPurchases"] mutableCopy];
+	if (!_virtualPurchases)
+		_virtualPurchases = [[NSMutableArray alloc] init];
 	
 	_currentSlot = 1;
 	
@@ -102,11 +127,15 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 	if (_requests) [aCoder encodeObject:_requests forKey:@"requests"];
+	[aCoder encodeInt:_state forKey:@"state"];
+	if (_virtualPurchases) [aCoder encodeObject:_virtualPurchases forKey:@"virtualPurchases"];
 }
 
-- (void)addRequest:(YRDTrackPurchaseRequest *)request
+- (void)addPurchaseRequest:(YRDTrackPurchaseRequest *)request
 {
 	[_requests addObject:request];
+	if (_state == YRDPurchaseValidationStateDefault)
+		_state = YRDPurchaseValidationStatePending;
 	[self synchronize];
 	
 	[self uploadIfNeeded];
@@ -142,7 +171,28 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 		}
 		
 		if (response.result == YRDTrackPurchaseResultSuccess) {
-			[[YRDDataStore sharedDataStore] setObject:@0 forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
+			YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
+			[dataStore setObject:@0 forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
+			
+			// flushed cached purchases
+			if (_state == YRDPurchaseValidationStatePending) {
+				_state = YRDPurchaseValidationStateValidated;
+				
+				NSArray *pendingVirtualPurchases = _virtualPurchases;
+				_virtualPurchases = [[NSMutableArray alloc] init];
+				
+				int numPurchasesSinceIAP = [[dataStore objectForKey:YRDItemsPurchasedSinceInAppDefaultsKey] intValue];
+				for (YRDVirtualPurchase *vp in pendingVirtualPurchases) {
+					numPurchasesSinceIAP += 1;
+					vp.purchasesSinceInApp = @(numPurchasesSinceIAP);
+				}
+				[self synchronize];
+				
+				[dataStore setObject:@(numPurchasesSinceIAP) forKey:YRDItemsPurchasedSinceInAppDefaultsKey];
+				
+				[self performSelectorInBackground:@selector(flushVirtualPurchasesToServerInBackground:)
+									   withObject:pendingVirtualPurchases];
+			}
 		}
 		
 		YRDDebug(@"trackPurchase result: %d", response.result);
@@ -169,6 +219,64 @@ static const double SLOT_TIME = 1.f; /* 1 second slot time */
 		
 		_currentRequest = nil;
 	}];
+}
+
+- (void)addVirtualPurchase:(YRDVirtualPurchase *)purchase
+{
+	if (_state != YRDPurchaseValidationStatePending) {
+		// We aren't in the middle of the pending first IAP, so fire away at will
+		[self sendVirtualPurchase:purchase];
+	} else {
+		// Waiting on purchase to validate, save to attempt later
+		[_virtualPurchases addObject:purchase];
+		[self synchronize];
+	}
+}
+
+- (void)sendVirtualPurchase:(YRDVirtualPurchase *)purchase
+{
+	YRDTrackVirtualPurchaseRequest *request = [self requestForVirtualPurchase:purchase];
+	
+	if ([YRDReachability internetReachable]) {
+		[YRDURLConnection sendRequest:request completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
+			YRDDebug(@"trackVirtualPurchase result: %d", response.result);
+		}];
+	} else {
+		[[YRDRequestCache sharedCache] storeRequest:request];
+	}
+}
+
+- (void)flushVirtualPurchasesToServerInBackground:(NSArray *)virtualPurchases
+{
+	// WARNING! On a background thread!!!
+	//  (we call the requests synchronously, so we maintain ordering for the server,
+	//	 instead of just using -sendVirtualPurchase lots)
+	
+	for (YRDVirtualPurchase *virtualPurchase in virtualPurchases) {
+		YRDTrackVirtualPurchaseRequest *request = [self requestForVirtualPurchase:virtualPurchase];
+		
+		if ([YRDReachability internetReachable]) {
+			// send request (synchronously)
+			YRDURLConnection *conn = [[YRDURLConnection alloc] initWithRequest:request
+															 completionHandler:^(YRDTrackPurchaseResponse *response, NSError *error) {
+				YRDDebug(@"[bg thread] trackVirtualPurchase result: %d", response.result);
+			}];
+			[conn sendSynchronously];
+		} else {
+			[[YRDRequestCache sharedCache] storeRequest:request];
+		}
+	}
+}
+
+- (YRDTrackVirtualPurchaseRequest *)requestForVirtualPurchase:(YRDVirtualPurchase *)purchase
+{
+	YRDTrackVirtualPurchaseRequest *request = [YRDTrackVirtualPurchaseRequest requestWithItem:purchase.item
+																						price:purchase.currencies
+																					   onSale:purchase.onSale
+																				firstPurchase:purchase.firstPurchase
+																		  purchasesSinceInApp:purchase.purchasesSinceInApp
+																		  conversionMessageId:purchase.conversionMessageId];
+	return request;
 }
 
 - (void)synchronize

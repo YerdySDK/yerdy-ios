@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@class YRDTrackPurchaseRequest;
+@class YRDTrackPurchaseRequest, YRDVirtualPurchase;
 
 
 @interface YRDPurchaseSubmitter : NSObject <NSCoding>
 
 + (YRDPurchaseSubmitter *)loadFromDisk;
 
-- (void)addRequest:(YRDTrackPurchaseRequest *)request;
+- (void)addPurchaseRequest:(YRDTrackPurchaseRequest *)request;
 - (void)uploadIfNeeded;
+
+- (void)addVirtualPurchase:(YRDVirtualPurchase *)request;
 
 @end

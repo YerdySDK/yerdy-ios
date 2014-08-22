@@ -64,6 +64,8 @@
 		4711E18418BE79B700966C93 /* YRDURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4711E17E18BE79B700966C93 /* YRDURLConnection.m */; };
 		4730EA7D19A655C900D4AD81 /* YRDHistoryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA7C19A655C900D4AD81 /* YRDHistoryTracker.m */; };
 		4730EA7E19A655C900D4AD81 /* YRDHistoryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA7C19A655C900D4AD81 /* YRDHistoryTracker.m */; };
+		4730EA8119A6870900D4AD81 /* YRDVirtualPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA8019A6870900D4AD81 /* YRDVirtualPurchase.m */; };
+		4730EA8219A6870900D4AD81 /* YRDVirtualPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA8019A6870900D4AD81 /* YRDVirtualPurchase.m */; };
 		474B4F7018C7EBA200DF67E2 /* YRDScreenVisitTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */; };
 		474B4F7B18C9165B00DF67E2 /* YRDTrackCounterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */; };
 		474B4F7E18C9187600DF67E2 /* YRDTrackCounterResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7D18C9187600DF67E2 /* YRDTrackCounterResponse.m */; };
@@ -280,6 +282,8 @@
 		4711E17E18BE79B700966C93 /* YRDURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDURLConnection.m; sourceTree = "<group>"; };
 		4730EA7B19A655C900D4AD81 /* YRDHistoryTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDHistoryTracker.h; sourceTree = "<group>"; };
 		4730EA7C19A655C900D4AD81 /* YRDHistoryTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDHistoryTracker.m; sourceTree = "<group>"; };
+		4730EA7F19A6870900D4AD81 /* YRDVirtualPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDVirtualPurchase.h; sourceTree = "<group>"; };
+		4730EA8019A6870900D4AD81 /* YRDVirtualPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDVirtualPurchase.m; sourceTree = "<group>"; };
 		474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDScreenVisitTracker.h; sourceTree = "<group>"; };
 		474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDScreenVisitTracker.m; sourceTree = "<group>"; };
 		474B4F7918C9165B00DF67E2 /* YRDTrackCounterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackCounterRequest.h; sourceTree = "<group>"; };
@@ -440,6 +444,8 @@
 				4711E16018BE798200966C93 /* YRDTrackPurchaseResponse.m */,
 				95FD8EF418BEE3E7009C2389 /* YRDTrackPurchaseRequest.h */,
 				95FD8EF518BEE3E7009C2389 /* YRDTrackPurchaseRequest.m */,
+				4730EA7F19A6870900D4AD81 /* YRDVirtualPurchase.h */,
+				4730EA8019A6870900D4AD81 /* YRDVirtualPurchase.m */,
 				4711E15D18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.h */,
 				4711E15E18BE798200966C93 /* YRDTrackVirtualPurchaseRequest.m */,
 				474B4F8D18CA70FC00DF67E2 /* YRDPurchaseSubmitter.h */,
@@ -724,6 +730,7 @@
 				4711E16D18BE79A500966C93 /* YRDViewController.m in Sources */,
 				4730EA7D19A655C900D4AD81 /* YRDHistoryTracker.m in Sources */,
 				474B4F8F18CA70FC00DF67E2 /* YRDPurchaseSubmitter.m in Sources */,
+				4730EA8119A6870900D4AD81 /* YRDVirtualPurchase.m in Sources */,
 				47D716F418C688B0001AE028 /* YRDProductRequest.m in Sources */,
 				4711E18418BE79B700966C93 /* YRDURLConnection.m in Sources */,
 				4711E16318BE798200966C93 /* YRDPurchase.m in Sources */,
@@ -786,6 +793,7 @@
 				47C68FE418E4869100A4BAD4 /* YRDViewController.m in Sources */,
 				4730EA7E19A655C900D4AD81 /* YRDHistoryTracker.m in Sources */,
 				47C68FE518E4869100A4BAD4 /* YRDPurchaseSubmitter.m in Sources */,
+				4730EA8219A6870900D4AD81 /* YRDVirtualPurchase.m in Sources */,
 				47C68FE618E4869100A4BAD4 /* YRDProductRequest.m in Sources */,
 				47C68FE718E4869100A4BAD4 /* YRDURLConnection.m in Sources */,
 				47C68FE818E4869100A4BAD4 /* YRDPurchase.m in Sources */,

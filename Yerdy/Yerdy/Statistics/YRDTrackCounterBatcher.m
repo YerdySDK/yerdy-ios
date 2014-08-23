@@ -30,6 +30,7 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	NSMutableDictionary *_customEvents;
 	NSMutableDictionary *_timeEvents;
 	NSMutableDictionary *_playerEvents;
+	NSMutableDictionary *_featureEvents;
 }
 @end
 
@@ -92,12 +93,19 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	
 	NSDictionary *customEvents = [aDecoder decodeObjectForKey:@"customEvents"];
 	if (customEvents) _customEvents = [customEvents mutableCopy];
+	else _customEvents = [[NSMutableDictionary alloc] init];
 	
 	NSDictionary *timeEvents = [aDecoder decodeObjectForKey:@"timeEvents"];
 	if (timeEvents) _timeEvents = [timeEvents mutableCopy];
+	else _timeEvents = [[NSMutableDictionary alloc] init];
 	
 	NSDictionary *playerEvents = [aDecoder decodeObjectForKey:@"playerEvents"];
 	if (playerEvents) _playerEvents = [playerEvents mutableCopy];
+	else _playerEvents = [[NSMutableDictionary alloc] init];
+
+	NSDictionary *featureEvents = [aDecoder decodeObjectForKey:@"featureEvents"];
+	if (featureEvents) _featureEvents = [featureEvents mutableCopy];
+	else _featureEvents = [[NSMutableDictionary alloc] init];
 	
 	return self;
 }
@@ -107,6 +115,7 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	if (_customEvents) [aCoder encodeObject:_customEvents forKey:@"customEvents"];
 	if (_timeEvents) [aCoder encodeObject:_timeEvents forKey:@"timeEvents"];
 	if (_playerEvents) [aCoder encodeObject:_playerEvents forKey:@"playerEvents"];
+	if (_featureEvents) [aCoder encodeObject:_featureEvents forKey:@"featureEvents"];
 }
 
 - (void)dealloc
@@ -129,6 +138,7 @@ static const int SEND_INTERVAL_MINUTES = 5;
 		case YRDCounterTypeCustom: targetDictionary = _customEvents; break;
 		case YRDCounterTypePlayer: targetDictionary = _playerEvents; break;
 		case YRDCounterTypeTime: targetDictionary = _timeEvents; break;
+		case YRDCounterTypeFeature: targetDictionary = _featureEvents; break;
 	}
 	
 	if (!targetDictionary) {
@@ -179,6 +189,7 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	[allEvents addObjectsFromArray:_customEvents.allValues];
 	[allEvents addObjectsFromArray:_timeEvents.allValues];
 	[allEvents addObjectsFromArray:_playerEvents.allValues];
+	[allEvents addObjectsFromArray:_featureEvents.allValues];
 	
 	// eventGroup is an array of YRDCounterEvents with the same type & name
 	for (NSArray *eventGroup in allEvents) {
@@ -197,6 +208,7 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	[_customEvents removeAllObjects];
 	[_timeEvents removeAllObjects];
 	[_playerEvents removeAllObjects];
+	[_featureEvents removeAllObjects];
 	
 	[self saveToDisk];
 }

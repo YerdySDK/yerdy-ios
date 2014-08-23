@@ -23,4 +23,5 @@
 - (IBAction)requestAd:(id)sender;
 - (IBAction)requestFakeAd:(id)sender;
 
+- (IBAction)pressedFeatureButton:(id)sender;
 @end

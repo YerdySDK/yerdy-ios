@@ -802,7 +802,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	}
 }
 
-#pragma mark - Screen Visit Tracking
+#pragma mark - Player Progression
 
 - (void)startPlayerProgression:(NSString *)category initialMilestone:(NSString *)milestone
 {
@@ -819,6 +819,25 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	[_progressionTracker logPlayerProgression:category milestone:milestone];
 }
+
+#pragma mark - Feature use
+
+- (void)logFeature:(NSString *)feature level:(int)level
+{
+	NSString *levelStr = [NSString stringWithFormat:@"_%d", level];
+	
+	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypeFeature name:feature value:levelStr];
+	[event setValue:levelStr increment:MAX(0, _launchTracker.totalLaunchCount) forParameter:@"launch_count"];
+	[event setValue:levelStr increment:MAX(0, (NSUInteger)round(_timeTracker.timePlayed)) forParameter:@"playtime"];
+	[_trackCounterBatcher addEvent:event];
+	
+	//TODO: remove after debugging
+	id objc_msgSend(id,SEL,...);
+	void (*flushFunc)(id, SEL) = (void(*)(id,SEL))objc_msgSend;
+	flushFunc(_trackCounterBatcher, @selector(flush));
+}
+
+#pragma mark - Screen Visit Tracking
 
 - (void)logScreenVisit:(NSString *)screenName
 {

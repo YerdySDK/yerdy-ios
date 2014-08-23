@@ -114,6 +114,18 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 	[_fakeAd requestAd];
 }
 
+- (IBAction)pressedFeatureButton:(id)sender
+{
+	NSString *btnTitle = [sender titleForState:UIControlStateNormal];
+	
+	char name[16] = {0};
+	int level;
+	sscanf(btnTitle.UTF8String, "Feature: %15s -> %d", name, &level);
+	
+	for (int i = 1; i <= level; i++)
+		[[Yerdy sharedYerdy] logFeature:@((char *)name) level:i];
+}
+
 #pragma mark - Yerdy
 
 - (void)yerdy:(Yerdy *)yerdy willPresentMessageForPlacement:(NSString *)placement

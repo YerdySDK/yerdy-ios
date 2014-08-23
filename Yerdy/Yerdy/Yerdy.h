@@ -440,6 +440,9 @@
  */
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone;
 
+// TODO: fix for outside consumption:
+- (void)logFeature:(NSString *)feature level:(int)level;
+
 /** Tracks a screen visit
  
  Use this method to track screen visits

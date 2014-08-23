@@ -76,6 +76,7 @@
 		case YRDCounterTypeCustom: return @"custom";
 		case YRDCounterTypeTime: return @"time";
 		case YRDCounterTypePlayer: return @"player";
+		case YRDCounterTypeFeature: return @"feature";
 	}
 	
 	YRDError(@"Unexpected counter type: %d, defaulting to 'custom'", type);

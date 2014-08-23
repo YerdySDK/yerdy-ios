@@ -68,11 +68,11 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 	[self presentViewController:bankViewController animated:YES completion:NULL];
 }
 
-- (IBAction)logButtonPressEvent:(id)sender
+- (IBAction)logFeatureUse:(id)sender
 {
 	NSString *buttonTitle = [sender titleForState:UIControlStateNormal];
 	
-	[[Yerdy sharedYerdy] logEvent:@"buttonPressed" parameters:@{ @"title" : buttonTitle }];
+	[[Yerdy sharedYerdy] logFeatureUse:buttonTitle];
 }
 
 - (IBAction)logPlayerProgression:(id)sender

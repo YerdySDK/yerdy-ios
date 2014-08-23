@@ -13,7 +13,8 @@
 typedef enum YRDCounterType {
 	YRDCounterTypeCustom = 0,	// custom events (custom events from app)
 	YRDCounterTypeTime = 1,		// time based events (tracked internally by Yerdy)
-	YRDCounterTypePlayer = 2,	// player progression events (tracked internally by Yerdy)
+	YRDCounterTypePlayer = 2,	// player progression events
+	YRDCounterTypeFeature = 3,	// feature events (i.e.: novice, junior, senior)
 } YRDCounterType;
 
 

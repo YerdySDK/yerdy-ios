@@ -12,8 +12,9 @@
 // Production server: http://services.yerdy.com/
 // Internal test server:  http://10.189.165.237/~michal/
 // Klaus test server: http://10.189.165.104/~krubba/FluikServices/httpdocs/
+// Klaus test server (Mac mini): http://10.189.165.234/~user/FluikServices/httpdocs/
 // Darren test server: http://10.189.165.207/~darrenclark/FluikServices/httpdocs/
-NSString *YRDBaseURL = @"http://services.yerdy.com/";
+NSString *YRDBaseURL = @"http://10.189.165.234/~user/FluikServices/httpdocs/";
 
 
 NSTimeInterval YRDRequestTimeout = 10.0;
@@ -62,3 +63,6 @@ NSString *YRDProgressionLastSpentCurrencyDefaultsKey = @"YRDProgressionLastSpent
 NSString *YRDProgressionLastItemPurchasesDefaultsKey = @"YRDProgressionLastItemPurchases";
 
 NSString *YRDHistoryItemsKeyFormat = @"YRDHistoryItems:%@";
+
+NSString *YRDFeatureMasteryCountsFormat = @"YRDFeatureMasteryCounts:%@";
+NSString *YRDFeatureMasterySubmittedFormat = @"YRDFeatureMasterySubmitted:%@";

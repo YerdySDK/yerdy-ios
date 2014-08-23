@@ -17,7 +17,7 @@
 
 - (IBAction)showBank:(id)sender;
 
-- (IBAction)logButtonPressEvent:(id)sender;
+- (IBAction)logFeatureUse:(id)sender;
 - (IBAction)logPlayerProgression:(id)sender;
 
 - (IBAction)requestAd:(id)sender;

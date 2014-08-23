@@ -440,6 +440,34 @@
  */
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone;
 
+/** Logs the user's use of a feature in your game
+ 
+ You can use this to track which features your users actually use, allowing you to make
+ decisions regarding which features to improve or bring more attention to in your game
+ 
+ @param feature The name of the feature
+ 
+ */
+- (void)logFeatureUse:(NSString *)feature;
+
+/** Sets the default number of feature uses required for a user to reach the novice, amateur and master levels
+ 
+ **Note:** *Setting these is optional, if not set, Yerdy uses it's own defaults*
+ 
+ @see setFeatureUsesForNovice:amateur:master:forFeature
+ 
+ */
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master;
+
+/** Sets the number of feature uses required for a user to reach the novice, amateur and master levels for a specific feature
+ 
+ **Note:** *Setting these is optional, if not set, Yerdy uses it's own defaults*
+ 
+ @see setFeatureUsesForNovice:amateur:master:
+ 
+ */
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master forFeature:(NSString *)feature;
+
 /** Tracks a screen visit
  
  Use this method to track screen visits

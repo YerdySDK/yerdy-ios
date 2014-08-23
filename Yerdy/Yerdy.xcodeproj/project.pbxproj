@@ -66,6 +66,8 @@
 		4730EA7E19A655C900D4AD81 /* YRDHistoryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA7C19A655C900D4AD81 /* YRDHistoryTracker.m */; };
 		4730EA8119A6870900D4AD81 /* YRDVirtualPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA8019A6870900D4AD81 /* YRDVirtualPurchase.m */; };
 		4730EA8219A6870900D4AD81 /* YRDVirtualPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA8019A6870900D4AD81 /* YRDVirtualPurchase.m */; };
+		4730EA9119A913DB00D4AD81 /* YRDFeatureMasteryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA9019A913DB00D4AD81 /* YRDFeatureMasteryTracker.m */; };
+		4730EA9219A913DB00D4AD81 /* YRDFeatureMasteryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4730EA9019A913DB00D4AD81 /* YRDFeatureMasteryTracker.m */; };
 		474B4F7018C7EBA200DF67E2 /* YRDScreenVisitTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */; };
 		474B4F7B18C9165B00DF67E2 /* YRDTrackCounterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7A18C9165B00DF67E2 /* YRDTrackCounterRequest.m */; };
 		474B4F7E18C9187600DF67E2 /* YRDTrackCounterResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B4F7D18C9187600DF67E2 /* YRDTrackCounterResponse.m */; };
@@ -284,6 +286,8 @@
 		4730EA7C19A655C900D4AD81 /* YRDHistoryTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDHistoryTracker.m; sourceTree = "<group>"; };
 		4730EA7F19A6870900D4AD81 /* YRDVirtualPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDVirtualPurchase.h; sourceTree = "<group>"; };
 		4730EA8019A6870900D4AD81 /* YRDVirtualPurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDVirtualPurchase.m; sourceTree = "<group>"; };
+		4730EA8F19A913DB00D4AD81 /* YRDFeatureMasteryTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDFeatureMasteryTracker.h; sourceTree = "<group>"; };
+		4730EA9019A913DB00D4AD81 /* YRDFeatureMasteryTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDFeatureMasteryTracker.m; sourceTree = "<group>"; };
 		474B4F6E18C7EBA200DF67E2 /* YRDScreenVisitTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDScreenVisitTracker.h; sourceTree = "<group>"; };
 		474B4F6F18C7EBA200DF67E2 /* YRDScreenVisitTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDScreenVisitTracker.m; sourceTree = "<group>"; };
 		474B4F7918C9165B00DF67E2 /* YRDTrackCounterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDTrackCounterRequest.h; sourceTree = "<group>"; };
@@ -590,6 +594,8 @@
 				9505137218C97B7C0006D129 /* YRDCounterEvent.m */,
 				4730EA7B19A655C900D4AD81 /* YRDHistoryTracker.h */,
 				4730EA7C19A655C900D4AD81 /* YRDHistoryTracker.m */,
+				4730EA8F19A913DB00D4AD81 /* YRDFeatureMasteryTracker.h */,
+				4730EA9019A913DB00D4AD81 /* YRDFeatureMasteryTracker.m */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -748,6 +754,7 @@
 				4711E16218BE798200966C93 /* YRDLaunchResponse.m in Sources */,
 				4711E16F18BE79A500966C93 /* YRDWebViewController.m in Sources */,
 				4711E15218BE778A00966C93 /* YRDMessageViewController.m in Sources */,
+				4730EA9119A913DB00D4AD81 /* YRDFeatureMasteryTracker.m in Sources */,
 				4711E18218BE79B700966C93 /* YRDRequest.m in Sources */,
 				9505137618C97D9F0006D129 /* YRDTrackCounterBatcher.m in Sources */,
 				474B4F7E18C9187600DF67E2 /* YRDTrackCounterResponse.m in Sources */,
@@ -811,6 +818,7 @@
 				47C68FF318E4869100A4BAD4 /* YRDLaunchResponse.m in Sources */,
 				47C68FF418E4869100A4BAD4 /* YRDWebViewController.m in Sources */,
 				47C68FF518E4869100A4BAD4 /* YRDMessageViewController.m in Sources */,
+				4730EA9219A913DB00D4AD81 /* YRDFeatureMasteryTracker.m in Sources */,
 				47C68FF618E4869100A4BAD4 /* YRDRequest.m in Sources */,
 				47C68FF718E4869100A4BAD4 /* YRDTrackCounterBatcher.m in Sources */,
 				47C68FF818E4869100A4BAD4 /* YRDTrackCounterResponse.m in Sources */,

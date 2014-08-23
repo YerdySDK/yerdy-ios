@@ -19,6 +19,7 @@
 #import "YRDCurrencyTracker.h"
 #import "YRDDataStore.h"
 #import "YRDDelayedBlock.h"
+#import "YRDFeatureMasteryTracker.h"
 #import "YRDHistoryTracker.h"
 #import "YRDImageCache.h"
 #import "YRDInAppPurchase.h"
@@ -88,6 +89,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDScreenVisitTracker *_screenVisitTracker;
 	
 	YRDProgressionTracker *_progressionTracker;
+	YRDFeatureMasteryTracker *_featureMasteryTracker;
 	
 	YRDTrackCounterBatcher *_trackCounterBatcher;
 	
@@ -171,6 +173,11 @@ static const NSUInteger MaxImagePreloads = 6;
 																	 timeTracker:_timeTracker
 																  counterBatcher:_trackCounterBatcher
 																  historyTracker:_historyTracker];
+	
+	_featureMasteryTracker = [[YRDFeatureMasteryTracker alloc] initWithCounterBatcher:_trackCounterBatcher
+																		launchTracker:_launchTracker
+																		  timeTracker:_timeTracker];
+	
 	
 	_purchaseSubmitter = [YRDPurchaseSubmitter loadFromDisk];
 	
@@ -802,7 +809,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	}
 }
 
-#pragma mark - Screen Visit Tracking
+#pragma mark - Player Progression
 
 - (void)startPlayerProgression:(NSString *)category initialMilestone:(NSString *)milestone
 {
@@ -819,6 +826,25 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	[_progressionTracker logPlayerProgression:category milestone:milestone];
 }
+
+#pragma mark - Feature use
+
+- (void)logFeatureUse:(NSString *)feature
+{
+	[_featureMasteryTracker logFeatureUse:feature];
+}
+
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master
+{
+	[_featureMasteryTracker setFeatureUsesForNovice:novice amateur:amateur master:master];
+}
+
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master forFeature:(NSString *)feature
+{
+	[_featureMasteryTracker setFeatureUsesForNovice:novice amateur:amateur master:master forFeature:feature];
+}
+
+#pragma mark - Screen Visit Tracking
 
 - (void)logScreenVisit:(NSString *)screenName
 {

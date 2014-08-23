@@ -59,6 +59,9 @@ static const BOOL TREAT_AS_EXISTING_USER = NO;
 		}
 	}
 	
+	[yerdy setFeatureUsesForNovice:1 amateur:4 master:9];
+	[yerdy setFeatureUsesForNovice:2 amateur:4 master:6 forFeature:@"Feature3"];
+	
 	CGRect screenBounds = [UIScreen mainScreen].bounds;
 	_window = [[UIWindow alloc] initWithFrame:screenBounds];
 	_window.backgroundColor = [UIColor whiteColor];

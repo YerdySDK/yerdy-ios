@@ -19,4 +19,7 @@
 
 - (void)logFeatureUse:(NSString *)featureName;
 
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master;
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master forFeature:(NSString *)feature;
+
 @end

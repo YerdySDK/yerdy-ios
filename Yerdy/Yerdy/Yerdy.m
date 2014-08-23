@@ -834,6 +834,16 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_featureMasteryTracker logFeatureUse:feature];
 }
 
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master
+{
+	[_featureMasteryTracker setFeatureUsesForNovice:novice amateur:amateur master:master];
+}
+
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master forFeature:(NSString *)feature
+{
+	[_featureMasteryTracker setFeatureUsesForNovice:novice amateur:amateur master:master forFeature:feature];
+}
+
 #pragma mark - Screen Visit Tracking
 
 - (void)logScreenVisit:(NSString *)screenName

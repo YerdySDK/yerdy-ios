@@ -450,6 +450,24 @@
  */
 - (void)logFeatureUse:(NSString *)feature;
 
+/** Sets the default number of feature uses required for a user to reach the novice, amateur and master levels
+ 
+ **Note:** *Setting these is optional, if not set, Yerdy uses it's own defaults*
+ 
+ @see setFeatureUsesForNovice:amateur:master:forFeature
+ 
+ */
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master;
+
+/** Sets the number of feature uses required for a user to reach the novice, amateur and master levels for a specific feature
+ 
+ **Note:** *Setting these is optional, if not set, Yerdy uses it's own defaults*
+ 
+ @see setFeatureUsesForNovice:amateur:master:
+ 
+ */
+- (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master forFeature:(NSString *)feature;
+
 /** Tracks a screen visit
  
  Use this method to track screen visits

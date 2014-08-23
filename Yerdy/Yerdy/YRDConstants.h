@@ -75,3 +75,7 @@ extern NSString *YRDProgressionLastItemPurchasesDefaultsKey;
 
 // see YRDHistoryTracker
 extern NSString *YRDHistoryItemsKeyFormat;
+
+// see YRDFeatureMasteryTracker
+extern NSString *YRDFeatureMasteryCountsFormat;
+extern NSString *YRDFeatureMasterySubmittedFormat;

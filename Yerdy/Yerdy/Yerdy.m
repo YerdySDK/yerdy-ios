@@ -19,6 +19,7 @@
 #import "YRDCurrencyTracker.h"
 #import "YRDDataStore.h"
 #import "YRDDelayedBlock.h"
+#import "YRDFeatureMasteryTracker.h"
 #import "YRDHistoryTracker.h"
 #import "YRDImageCache.h"
 #import "YRDInAppPurchase.h"
@@ -88,6 +89,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDScreenVisitTracker *_screenVisitTracker;
 	
 	YRDProgressionTracker *_progressionTracker;
+	YRDFeatureMasteryTracker *_featureMasteryTracker;
 	
 	YRDTrackCounterBatcher *_trackCounterBatcher;
 	
@@ -171,6 +173,11 @@ static const NSUInteger MaxImagePreloads = 6;
 																	 timeTracker:_timeTracker
 																  counterBatcher:_trackCounterBatcher
 																  historyTracker:_historyTracker];
+	
+	_featureMasteryTracker = [[YRDFeatureMasteryTracker alloc] initWithCounterBatcher:_trackCounterBatcher
+																		launchTracker:_launchTracker
+																		  timeTracker:_timeTracker];
+	
 	
 	_purchaseSubmitter = [YRDPurchaseSubmitter loadFromDisk];
 	
@@ -822,19 +829,9 @@ static const NSUInteger MaxImagePreloads = 6;
 
 #pragma mark - Feature use
 
-- (void)logFeature:(NSString *)feature level:(int)level
+- (void)logFeatureUse:(NSString *)feature
 {
-	NSString *levelStr = [NSString stringWithFormat:@"_%d", level];
-	
-	YRDCounterEvent *event = [[YRDCounterEvent alloc] initWithType:YRDCounterTypeFeature name:feature value:levelStr];
-	[event setValue:levelStr increment:MAX(0, _launchTracker.totalLaunchCount) forParameter:@"launch_count"];
-	[event setValue:levelStr increment:MAX(0, (NSUInteger)round(_timeTracker.timePlayed)) forParameter:@"playtime"];
-	[_trackCounterBatcher addEvent:event];
-	
-	//TODO: remove after debugging
-	id objc_msgSend(id,SEL,...);
-	void (*flushFunc)(id, SEL) = (void(*)(id,SEL))objc_msgSend;
-	flushFunc(_trackCounterBatcher, @selector(flush));
+	[_featureMasteryTracker logFeatureUse:feature];
 }
 
 #pragma mark - Screen Visit Tracking

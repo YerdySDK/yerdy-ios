@@ -440,8 +440,15 @@
  */
 - (void)logPlayerProgression:(NSString *)category milestone:(NSString *)milestone;
 
-// TODO: fix for outside consumption:
-- (void)logFeature:(NSString *)feature level:(int)level;
+/** Logs the user's use of a feature in your game
+ 
+ You can use this to track which features your users actually use, allowing you to make
+ decisions regarding which features to improve or bring more attention to in your game
+ 
+ @param feature The name of the feature
+ 
+ */
+- (void)logFeatureUse:(NSString *)feature;
 
 /** Tracks a screen visit
  

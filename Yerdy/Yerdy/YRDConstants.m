@@ -63,3 +63,6 @@ NSString *YRDProgressionLastSpentCurrencyDefaultsKey = @"YRDProgressionLastSpent
 NSString *YRDProgressionLastItemPurchasesDefaultsKey = @"YRDProgressionLastItemPurchases";
 
 NSString *YRDHistoryItemsKeyFormat = @"YRDHistoryItems:%@";
+
+NSString *YRDFeatureMasteryCountsFormat = @"YRDFeatureMasteryCounts:%@";
+NSString *YRDFeatureMasterySubmittedFormat = @"YRDFeatureMasterySubmitted:%@";

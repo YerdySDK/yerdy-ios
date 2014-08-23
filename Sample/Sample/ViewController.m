@@ -68,11 +68,11 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 	[self presentViewController:bankViewController animated:YES completion:NULL];
 }
 
-- (IBAction)logButtonPressEvent:(id)sender
+- (IBAction)logFeatureUse:(id)sender
 {
 	NSString *buttonTitle = [sender titleForState:UIControlStateNormal];
 	
-	[[Yerdy sharedYerdy] logEvent:@"buttonPressed" parameters:@{ @"title" : buttonTitle }];
+	[[Yerdy sharedYerdy] logFeatureUse:buttonTitle];
 }
 
 - (IBAction)logPlayerProgression:(id)sender
@@ -112,18 +112,6 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 	_fakeAd = [[FakeAd alloc] init];
 	_fakeAd.delegate = self;
 	[_fakeAd requestAd];
-}
-
-- (IBAction)pressedFeatureButton:(id)sender
-{
-	NSString *btnTitle = [sender titleForState:UIControlStateNormal];
-	
-	char name[16] = {0};
-	int level;
-	sscanf(btnTitle.UTF8String, "Feature: %15s -> %d", name, &level);
-	
-	for (int i = 1; i <= level; i++)
-		[[Yerdy sharedYerdy] logFeature:@((char *)name) level:i];
 }
 
 #pragma mark - Yerdy

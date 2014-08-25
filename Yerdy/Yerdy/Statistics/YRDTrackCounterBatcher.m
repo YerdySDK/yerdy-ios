@@ -21,7 +21,7 @@
 #import <UIKit/UIKit.h>
 
 // Upload every X minutes
-static const int SEND_INTERVAL_MINUTES = 5;
+static const int SEND_INTERVAL_MINUTES = 2;
 
 
 @interface YRDTrackCounterBatcher ()
@@ -71,6 +71,7 @@ static const int SEND_INTERVAL_MINUTES = 5;
 	_customEvents = [NSMutableDictionary dictionary];
 	_timeEvents = [NSMutableDictionary dictionary];
 	_playerEvents = [NSMutableDictionary dictionary];
+	_featureEvents = [NSMutableDictionary dictionary];
 	
 	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(minutePassedNotification:)
 														 name:YRDTimeTrackerMinutePassedNotification];

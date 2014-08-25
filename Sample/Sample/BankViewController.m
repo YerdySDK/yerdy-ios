@@ -40,7 +40,7 @@ static NSString *JewelPackProductIdentifier = @"com.yerdy.Sample.JewelPack";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[[Yerdy sharedYerdy] logScreenVisit:@"bank"];
+	[[Yerdy sharedYerdy] logFeatureUse:@"bank"];
 	[self updateDisplay];
 	
 	SKPaymentQueue *queue = [SKPaymentQueue defaultQueue];

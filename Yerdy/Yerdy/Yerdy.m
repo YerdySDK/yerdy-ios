@@ -176,7 +176,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	_featureMasteryTracker = [[YRDFeatureMasteryTracker alloc] initWithCounterBatcher:_trackCounterBatcher
 																		launchTracker:_launchTracker
-																		  timeTracker:_timeTracker];
+																		  timeTracker:_timeTracker
+																	   historyTracker:_historyTracker];
 	
 	
 	_purchaseSubmitter = [YRDPurchaseSubmitter loadFromDisk];
@@ -734,11 +735,13 @@ static const NSUInteger MaxImagePreloads = 6;
 			*currencySpent = _currencyTracker.currencySpent,
 			*currencyPurchased = _currencyTracker.currencyPurchased;
 	
-	NSArray *lastScreenVisits = _historyTracker.lastScreenVisits,
+	NSArray *lastFeatureUses = _historyTracker.lastFeatureUses,
 			*lastItemPurchases = _historyTracker.lastItemPurchases,
 			*lastMessages = _historyTracker.lastMessages,
 			*lastPlayerProgressionCategories = _historyTracker.lastPlayerProgressionCategories,
-			*lastPlayerProgressionMilestones = _historyTracker.lastPlayerProgressionMilestones;
+			*lastPlayerProgressionMilestones = _historyTracker.lastPlayerProgressionMilestones,
+			*lastFeatureNames = _historyTracker.lastFeatureNames,
+			*lastFeatureLevels = _historyTracker.lastFeatureLevels;
 	
 	[purchase completeObjectWithCompletionHandler:^(BOOL success) {
 		YRDTrackPurchaseRequest *request = [YRDTrackPurchaseRequest requestWithPurchase:purchase
@@ -751,11 +754,13 @@ static const NSUInteger MaxImagePreloads = 6;
 																	  purchasedCurrency:currencyPurchased
 																		 itemsPurchased:itemsPurchased
 																	conversionMessageId:conversionMessageId
-																	   lastScreenVisits:lastScreenVisits
+																		lastFeatureUses:lastFeatureUses
 																	  lastItemPurchases:lastItemPurchases
 																		   lastMessages:lastMessages
 														lastPlayerProgressionCategories:lastPlayerProgressionCategories
-														lastPlayerProgressionMilestones:lastPlayerProgressionMilestones];
+														lastPlayerProgressionMilestones:lastPlayerProgressionMilestones
+																	   lastFeatureNames:lastFeatureNames
+																	  lastFeatureLevels:lastFeatureLevels];
 		[_purchaseSubmitter addPurchaseRequest:request];
 	}];
 	
@@ -831,6 +836,9 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)logFeatureUse:(NSString *)feature
 {
+	VALIDATE_ARG_NON_NIL(@"logging feature use", feature)
+	
+	[_screenVisitTracker logScreenVisit:feature];
 	[_featureMasteryTracker logFeatureUse:feature];
 }
 
@@ -844,13 +852,7 @@ static const NSUInteger MaxImagePreloads = 6;
 	[_featureMasteryTracker setFeatureUsesForNovice:novice amateur:amateur master:master forFeature:feature];
 }
 
-#pragma mark - Screen Visit Tracking
-
-- (void)logScreenVisit:(NSString *)screenName
-{
-	VALIDATE_ARG_NON_NIL(@"logging screen visit", screenName);
-	[_screenVisitTracker logScreenVisit:screenName];
-}
+#pragma mark - Events
 
 - (void)logEvent:(NSString *)eventName parameters:(NSDictionary *)parameters
 {

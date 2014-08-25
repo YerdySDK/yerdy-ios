@@ -12,15 +12,18 @@
 
 @interface YRDHistoryTracker : NSObject
 
-@property (nonatomic, readonly) NSArray *lastScreenVisits;
+@property (nonatomic, readonly) NSArray *lastFeatureUses;
 @property (nonatomic, readonly) NSArray *lastItemPurchases;
 @property (nonatomic, readonly) NSArray *lastMessages;
 @property (nonatomic, readonly) NSArray *lastPlayerProgressionCategories;
 @property (nonatomic, readonly) NSArray *lastPlayerProgressionMilestones;
+@property (nonatomic, readonly) NSArray *lastFeatureNames;
+@property (nonatomic, readonly) NSArray *lastFeatureLevels;
 
-- (void)addScreenVisit:(NSString *)screen;
+- (void)addFeatureUse:(NSString *)feature;
 - (void)addItemPurchase:(NSString *)item;
 - (void)addMessage:(NSString *)msgId;
 - (void)addPlayerProgression:(NSString *)category milestone:(NSString *)milestone;
+- (void)addFeature:(NSString *)feature level:(int)level;
 
 @end

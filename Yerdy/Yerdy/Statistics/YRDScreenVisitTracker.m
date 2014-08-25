@@ -51,8 +51,6 @@
 	currentVisits[screenName] = @(prevCount + 1);
 	
 	[[YRDDataStore sharedDataStore] setObject:currentVisits forKey:YRDScreenVisitsDefaultsKey];
-	
-	[_historyTracker addScreenVisit:screenName];
 }
 
 - (void)reset

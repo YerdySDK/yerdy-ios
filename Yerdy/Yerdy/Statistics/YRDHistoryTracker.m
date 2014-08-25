@@ -12,20 +12,22 @@
 #import "YRDLog.h"
 
 
-static NSString *History_ScreenVisits = @"ScreenVisits",
+static NSString *History_FeatureUses = @"FeatureUses",
 				*History_ItemPurchases = @"ItemPurchases",
 				*History_LastMessages = @"LastMessages",
 				*History_LastProgressionCategories = @"LastProgressionCategories",
-				*History_LastProgressionMilestones = @"LastPorgressionMilestones";
+				*History_LastProgressionMilestones = @"LastPorgressionMilestones",
+				*History_FeatureNames = @"FeatureNames",
+				*History_FeatureLevels = @"FeatureLevels";
 
 static const int MaxItemsToTrack = 3;
 
 
 @implementation YRDHistoryTracker
 
-- (NSArray *)lastScreenVisits
+- (NSArray *)lastFeatureUses
 {
-	return [self historyItemsForType:History_ScreenVisits];
+	return [self historyItemsForType:History_FeatureUses];
 }
 
 - (NSArray *)lastItemPurchases
@@ -48,13 +50,23 @@ static const int MaxItemsToTrack = 3;
 	return [self historyItemsForType:History_LastProgressionMilestones];
 }
 
-- (void)addScreenVisit:(NSString *)screen
+- (NSArray *)lastFeatureNames
 {
-	if (screen == nil) {
-		YRDWarn(@"[YRDHistoryTracker addScreenVisit:] - screen was nil");
+	return [self historyItemsForType:History_FeatureNames];
+}
+
+- (NSArray *)lastFeatureLevels
+{
+	return [self historyItemsForType:History_FeatureLevels];
+}
+
+- (void)addFeatureUse:(NSString *)feature
+{
+	if (feature == nil) {
+		YRDWarn(@"[YRDHistoryTracker addFeatureUse:] - feature was nil");
 		return;
 	}
-	[self addHistoryItem:screen forType:History_ScreenVisits];
+	[self addHistoryItem:feature forType:History_FeatureUses];
 }
 
 - (void)addItemPurchase:(NSString *)item
@@ -85,6 +97,15 @@ static const int MaxItemsToTrack = 3;
 	[self addHistoryItem:milestone forType:History_LastProgressionMilestones];
 }
 
+- (void)addFeature:(NSString *)feature level:(int)level
+{
+	if (feature == nil) {
+		YRDWarn(@"[YRDHistoryTracker addFeature:level:] - feature was nil");
+		return;
+	}
+	[self addHistoryItem:feature forType:History_FeatureNames];
+	[self addHistoryItem:[NSString stringWithFormat:@"_%d", level] forType:History_FeatureLevels];
+}
 
 - (NSArray *)historyItemsForType:(NSString *)type
 {

@@ -10,6 +10,7 @@
 #import "YRDConstants.h"
 #import "YRDCounterEvent.h"
 #import "YRDDataStore.h"
+#import "YRDHistoryTracker.h"
 #import "YRDLaunchTracker.h"
 #import "YRDLog.h"
 #import "YRDTimeTracker.h"
@@ -23,6 +24,7 @@ static const NSInteger ThresholdCount = 3;
 	YRDTrackCounterBatcher *_counterBatcher;
 	YRDLaunchTracker *_launchTracker;
 	YRDTimeTracker *_timeTracker;
+	YRDHistoryTracker *_historyTracker;
 	
 	int _defaultThresholds[3];
 	NSMutableDictionary *_featureThresholds;
@@ -34,6 +36,7 @@ static const NSInteger ThresholdCount = 3;
 - (id)initWithCounterBatcher:(YRDTrackCounterBatcher *)counterBatcher
 			   launchTracker:(YRDLaunchTracker *)launchTracker
 				 timeTracker:(YRDTimeTracker *)timeTracker
+			  historyTracker:(YRDHistoryTracker *)historyTracker
 {
 	self = [super init];
 	if (!self)
@@ -42,6 +45,7 @@ static const NSInteger ThresholdCount = 3;
 	_counterBatcher = counterBatcher;
 	_launchTracker = launchTracker;
 	_timeTracker = timeTracker;
+	_historyTracker = historyTracker;
 	
 	_defaultThresholds[0] = 1;
 	_defaultThresholds[1] = 4;
@@ -54,6 +58,8 @@ static const NSInteger ThresholdCount = 3;
 
 - (void)logFeatureUse:(NSString *)featureName
 {
+	[_historyTracker addFeatureUse:featureName];
+	
 	NSString *countsKey = [NSString stringWithFormat:YRDFeatureMasteryCountsFormat, featureName];
 	NSInteger existingCount = [[YRDDataStore sharedDataStore] integerForKey:countsKey];
 	[[YRDDataStore sharedDataStore] setInteger:existingCount + 1 forKey:countsKey];
@@ -104,6 +110,8 @@ static const NSInteger ThresholdCount = 3;
 	[event setValue:levelStr increment:MAX(0, _launchTracker.totalLaunchCount) forParameter:@"launch_count"];
 	[event setValue:levelStr increment:MAX(0, (NSUInteger)round(_timeTracker.timePlayed)) forParameter:@"playtime"];
 	[_counterBatcher addEvent:event];
+	
+	[_historyTracker addFeature:featureName level:level];
 }
 
 - (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master

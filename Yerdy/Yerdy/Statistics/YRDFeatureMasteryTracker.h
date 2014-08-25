@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class YRDLaunchTracker, YRDTimeTracker, YRDTrackCounterBatcher;
+@class YRDHistoryTracker, YRDLaunchTracker, YRDTimeTracker, YRDTrackCounterBatcher;
 
 
 @interface YRDFeatureMasteryTracker : NSObject
 
 - (id)initWithCounterBatcher:(YRDTrackCounterBatcher *)counterBatcher
 			   launchTracker:(YRDLaunchTracker *)launchTracker
-				 timeTracker:(YRDTimeTracker *)timeTracker;
+				 timeTracker:(YRDTimeTracker *)timeTracker
+			  historyTracker:(YRDHistoryTracker *)historyTracker;
 
 - (void)logFeatureUse:(NSString *)featureName;
 

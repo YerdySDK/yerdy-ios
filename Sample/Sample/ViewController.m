@@ -30,7 +30,7 @@ static NSString *FakeAdNetworkName = @"FakeAd";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[[Yerdy sharedYerdy] logScreenVisit:@"main"];
+	[[Yerdy sharedYerdy] logFeatureUse:@"main_screen"];
 	
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone
 		&& NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {

@@ -468,15 +468,6 @@
  */
 - (void)setFeatureUsesForNovice:(int)novice amateur:(int)amateur master:(int)master forFeature:(NSString *)feature;
 
-/** Tracks a screen visit
- 
- Use this method to track screen visits
- 
- @param screenName The name of the screen (for example: "settings", "store", etc...)
- 
- */
-- (void)logScreenVisit:(NSString *)screenName;
-
 /** Tracks a user-defined event
  
  *This feature is currently only supported by Premium Yerdy Accounts.*

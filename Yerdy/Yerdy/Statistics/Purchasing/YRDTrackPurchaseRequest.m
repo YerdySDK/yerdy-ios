@@ -26,11 +26,13 @@
 				  purchasedCurrency:(NSArray *)purchasedCurrency
 					 itemsPurchased:(NSInteger)itemsPurchased
 				conversionMessageId:(NSString *)conversionMessageId
-				   lastScreenVisits:(NSArray *)lastScreenVisits
+					lastFeatureUses:(NSArray *)lastFeatureUses
 				  lastItemPurchases:(NSArray *)lastItemPurchases
 					   lastMessages:(NSArray *)lastMessages
 	lastPlayerProgressionCategories:(NSArray *)lastPlayerProgressionCategories
 	lastPlayerProgressionMilestones:(NSArray *)lastPlayerProgressionMilestones
+				   lastFeatureNames:(NSArray *)lastFeatureNames
+				  lastFeatureLevels:(NSArray *)lastFeatureLevels
 {
 	UIDevice *device = [UIDevice currentDevice];
 	NSString *os = [NSString stringWithFormat:@"%@ %@", device.systemName, device.systemVersion];
@@ -61,11 +63,13 @@
 		@"items" : @(itemsPurchased),
 	} mutableCopy];
 	
-	[body addEntriesFromDictionary:[self arrayParamsForItems:lastScreenVisits forKey:@"last_nav"]];
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastFeatureUses forKey:@"last_featureuse"]];
 	[body addEntriesFromDictionary:[self arrayParamsForItems:lastItemPurchases forKey:@"last_item"]];
 	[body addEntriesFromDictionary:[self arrayParamsForItems:lastMessages forKey:@"last_msg"]];
 	[body addEntriesFromDictionary:[self arrayParamsForItems:lastPlayerProgressionCategories forKey:@"last_player_keys"]];
 	[body addEntriesFromDictionary:[self arrayParamsForItems:lastPlayerProgressionMilestones forKey:@"last_player_values"]];
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastFeatureNames forKey:@"last_feature_keys"]];
+	[body addEntriesFromDictionary:[self arrayParamsForItems:lastFeatureLevels forKey:@"last_feature_values"]];
 	
 	YRDTrackPurchaseRequest *request = [[self alloc] initWithPath:@"stats/trackPurchase.php" queryParameters:query bodyParameters:body];
 	request.responseHandler = [[YRDJSONResponseHandler alloc] initWithObjectType:[YRDTrackPurchaseResponse class]];

@@ -45,6 +45,7 @@
 #import "YRDUtil.h"
 #import "YRDVirtualPurchase.h"
 #import "YRDWebViewController.h"
+#import "YRDNotificationDispatcher.h"
 
 
 #define VALIDATE_ARG_NON_NIL(context, arg)									\
@@ -67,7 +68,7 @@ static const NSUInteger MaxImagePreloads = 6;
 {
 	NSString *_publisherKey;
 	
-	NSDate *_lastBackground;
+	NSNumber *_lastResumeType;  // YRDResumeType
 	BOOL _sentLaunchCall;
 	YRDDelayedBlock *_delayedLaunchCall;
 	YRDLaunchTracker *_launchTracker;
@@ -188,6 +189,10 @@ static const NSUInteger MaxImagePreloads = 6;
 	
 	[self reportLaunch:YES];
 	
+	// we want to run right before YRDDataStore synchronizes, so priority -> INT_MAX - 1
+	[[YRDNotificationDispatcher sharedDispatcher] addObserver:self selector:@selector(reportSessionEnd)
+														 name:UIApplicationDidEnterBackgroundNotification priority:INT_MAX - 1];
+	
 	return self;
 }
 
@@ -211,6 +216,8 @@ static const NSUInteger MaxImagePreloads = 6;
 
 - (void)launchTracker:(YRDLaunchTracker *)launchTracker detectedResumeOfType:(YRDResumeType)resumeType
 {
+	_lastResumeType = @(resumeType);
+	
 	if (resumeType == YRDLongResume)
 		[self reportLaunch:NO];
 	else if (resumeType == YRDShortResume && _forceMessageFetchNextResume)
@@ -337,6 +344,50 @@ static const NSUInteger MaxImagePreloads = 6;
 		}
 	}];
 	return [messages objectsAtIndexes:indexes];
+}
+
+#pragma mark - Session End
+
+- (void)reportSessionEnd
+{
+	if (![YRDReachability internetReachable])
+		return;
+	
+	// don't report session end when it was just a "short" resume, we'll push up data
+	// next time they do a full launch
+	if (_lastResumeType != nil && _lastResumeType.intValue == YRDShortResume)
+		return;
+	
+	UIApplication *app = [UIApplication sharedApplication];
+	__block UIBackgroundTaskIdentifier identifer = [app beginBackgroundTaskWithExpirationHandler:^{
+		// nothing to do for cleanup
+	}];
+	
+	if (identifer != UIBackgroundTaskInvalid) {
+		YRDLaunchRequest *request = [YRDLaunchRequest sessionEndRequestWithToken:self.pushToken
+																		launches:_launchTracker.versionLaunchCount
+																		 crashes:_launchTracker.versionCrashCount
+																		playtime:_timeTracker.versionTimePlayed
+																		currency:_currencyTracker.currencyBalance
+																	screenVisits:_screenVisitTracker.loggedScreenVisits
+																	  adRequests:_adRequestTracker.adRequests
+																		 adFills:_adRequestTracker.adFills];
+		
+		
+		[_screenVisitTracker reset];
+		[_adRequestTracker reset];
+		
+		[YRDURLConnection sendRequest:request completionHandler:^(YRDLaunchResponse *response, NSError *error) {
+			// WARNING - you MUST synchronized YRDDataStore after any modifications here.  we are running past the
+			// end of the application's life
+			if (response.success == NO || error) {
+				YRDError(@"Failed to report session end: %@", error);
+			}
+			
+			[app endBackgroundTask:identifer];
+			identifer = UIBackgroundTaskInvalid;
+		}];
+	}
 }
 
 #pragma mark - Persisted properties
@@ -794,15 +845,11 @@ static const NSUInteger MaxImagePreloads = 6;
 		if (_sentLaunchCall) {
 			// refresh our currency on the server
 			YRDDebug(@"Reporting existing currency...");
-			YRDLaunchRequest *launchRequest = [YRDLaunchRequest launchRequestWithToken:self.pushToken
+			YRDLaunchRequest *launchRequest = [YRDLaunchRequest refreshRequestWithToken:self.pushToken
 																			  launches:_launchTracker.versionLaunchCount
 																			   crashes:_launchTracker.versionCrashCount
 																			  playtime:_timeTracker.versionTimePlayed
-																			  currency:_currencyTracker.currencyBalance
-																		  screenVisits:_screenVisitTracker.loggedScreenVisits
-																			adRequests:_adRequestTracker.adRequests
-																			   adFills:_adRequestTracker.adFills
-																			   refresh:YES];
+																			  currency:_currencyTracker.currencyBalance];
 			[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 				if (response.success) {
 					YRDDebug(@"Reported existing currency");

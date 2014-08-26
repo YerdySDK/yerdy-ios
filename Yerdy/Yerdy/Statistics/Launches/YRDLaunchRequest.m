@@ -32,33 +32,78 @@ static NSString *Path = @"stats/launch.php";
 							adRequests:(NSDictionary *)adRequests
 							   adFills:(NSDictionary *)adFills
 {
-	return [self launchRequestWithToken:token
-							   launches:launches
-								crashes:crashes
-							   playtime:playtime
-							   currency:currency
-						   screenVisits:screenVisits
-							 adRequests:adRequests
-								adFills:adFills
-								refresh:NO];
+	return [self requestWithToken:token
+						 launches:launches
+						  crashes:crashes
+						 playtime:playtime
+						 currency:currency
+					 screenVisits:screenVisits
+					   adRequests:adRequests
+						  adFills:adFills
+						  refresh:NO
+					   sessionEnd:NO];
 }
 
-+ (instancetype)launchRequestWithToken:(NSData *)token
-							  launches:(NSInteger)launches
-							   crashes:(NSInteger)crashes
-							  playtime:(NSTimeInterval)playtime
-							  currency:(NSArray *)currency
-						  screenVisits:(NSDictionary *)screenVisits
-							adRequests:(NSDictionary *)adRequests
-							   adFills:(NSDictionary *)adFills
-							   refresh:(BOOL)refresh
+// "refresh" request
++ (instancetype)refreshRequestWithToken:(NSData *)token
+							   launches:(NSInteger)launches
+								crashes:(NSInteger)crashes
+							   playtime:(NSTimeInterval)playtime
+							   currency:(NSArray *)currency
+{
+	return [self requestWithToken:token
+						 launches:launches
+						  crashes:crashes
+						 playtime:playtime
+						 currency:currency
+					 screenVisits:nil
+					   adRequests:nil
+						  adFills:nil
+						  refresh:YES
+					   sessionEnd:NO];
+}
+
+// session end
++ (instancetype)sessionEndRequestWithToken:(NSData *)token
+								  launches:(NSInteger)launches
+								   crashes:(NSInteger)crashes
+								  playtime:(NSTimeInterval)playtime
+								  currency:(NSArray *)currency
+							  screenVisits:(NSDictionary *)screenVisits
+								adRequests:(NSDictionary *)adRequests
+								   adFills:(NSDictionary *)adFills
+{
+	return [self requestWithToken:token
+						 launches:launches
+						  crashes:crashes
+						 playtime:playtime
+						 currency:currency
+					 screenVisits:screenVisits
+					   adRequests:adRequests
+						  adFills:adFills
+						  refresh:NO
+					   sessionEnd:YES];
+}
+
+
++ (instancetype)requestWithToken:(NSData *)token
+						launches:(NSInteger)launches
+						 crashes:(NSInteger)crashes
+						playtime:(NSTimeInterval)playtime
+						currency:(NSArray *)currency
+					screenVisits:(NSDictionary *)screenVisits
+					  adRequests:(NSDictionary *)adRequests
+						 adFills:(NSDictionary *)adFills
+						 refresh:(BOOL)refresh
+					  sessionEnd:(BOOL)sessionEnd
 {
 	NSDictionary *queryParameters = [self queryParametersForToken:token
 														 launches:launches
 														  crashes:crashes
 														 playtime:playtime
 														 currency:currency
-														  refresh:refresh];
+														  refresh:refresh
+													   sessionEnd:sessionEnd];
 	
 	NSMutableDictionary *bodyParameters = [NSMutableDictionary dictionary];
 	
@@ -81,6 +126,7 @@ static NSString *Path = @"stats/launch.php";
 								 playtime:(NSTimeInterval)playtime
 								 currency:(NSArray *)currency
 								  refresh:(BOOL)refresh
+							   sessionEnd:(BOOL)sessionEnd
 {
 	// timezone string format: -700 for -7 hours, 300 for +3 hours, etc...
 	NSTimeZone *timezone = [NSTimeZone localTimeZone];
@@ -109,6 +155,7 @@ static NSString *Path = @"stats/launch.php";
 		@"playtime" : @((int)round(playtime)),
 		@"currency" : currencyString,
 		@"refresh" : @(refresh),
+		@"session_end" : @(sessionEnd),
 	};
 }
 

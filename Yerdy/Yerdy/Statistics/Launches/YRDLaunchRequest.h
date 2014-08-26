@@ -10,6 +10,7 @@
 
 @interface YRDLaunchRequest : YRDRequest
 
+// session start
 + (instancetype)launchRequestWithToken:(NSData *)token
 							  launches:(NSInteger)launches
 							   crashes:(NSInteger)crashes
@@ -19,14 +20,34 @@
 							adRequests:(NSDictionary *)adRequests
 							   adFills:(NSDictionary *)adFills;
 
-+ (instancetype)launchRequestWithToken:(NSData *)token
-							  launches:(NSInteger)launches
-							   crashes:(NSInteger)crashes
-							  playtime:(NSTimeInterval)playtime
-							  currency:(NSArray *)currency
-						  screenVisits:(NSDictionary *)screenVisits
-							adRequests:(NSDictionary *)adRequests
-							   adFills:(NSDictionary *)adFills
-							   refresh:(BOOL)refresh;
+// "refresh" request
++ (instancetype)refreshRequestWithToken:(NSData *)token
+							   launches:(NSInteger)launches
+								crashes:(NSInteger)crashes
+							   playtime:(NSTimeInterval)playtime
+							   currency:(NSArray *)currency;
+
+// session end
++ (instancetype)sessionEndRequestWithToken:(NSData *)token
+								  launches:(NSInteger)launches
+								   crashes:(NSInteger)crashes
+								  playtime:(NSTimeInterval)playtime
+								  currency:(NSArray *)currency
+							  screenVisits:(NSDictionary *)screenVisits
+								adRequests:(NSDictionary *)adRequests
+								   adFills:(NSDictionary *)adFills;
+
+
++ (instancetype)requestWithToken:(NSData *)token
+						launches:(NSInteger)launches
+						 crashes:(NSInteger)crashes
+						playtime:(NSTimeInterval)playtime
+						currency:(NSArray *)currency
+					screenVisits:(NSDictionary *)screenVisits
+					  adRequests:(NSDictionary *)adRequests
+						 adFills:(NSDictionary *)adFills
+						 refresh:(BOOL)refresh
+					  sessionEnd:(BOOL)sessionEnd;
+
 
 @end

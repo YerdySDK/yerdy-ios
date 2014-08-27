@@ -244,6 +244,7 @@ static const NSUInteger MaxImagePreloads = 6;
 		if ([YRDReachability internetReachable]) {
 			[_screenVisitTracker reset];
 			[_adRequestTracker reset];
+			[_adRequestTracker launchReported];
 		}
 		
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {

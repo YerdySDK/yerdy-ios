@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+// Tracks ad requests & fills
+//
+// To prevent "lopsided" stats from going to the server, the requests/fills for
+// this session are not included in -adRequests/-adFills until launch.php has
+// been called ('Yerdy' class will call -launchReported)
+
 @interface YRDAdRequestTracker : NSObject
 
 // dictionary mapping 'ad network name' (NSString) -> '# of requests' (NSNumber)
@@ -19,6 +25,7 @@
 - (void)logAdRequest:(NSString *)adNetworkName;
 - (void)logAdFill:(NSString *)adNetworkName;
 
+- (void)launchReported;
 - (void)reset;
 
 @end

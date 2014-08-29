@@ -30,6 +30,7 @@ NSString *YRDTotalLaunchesDefaultsKey = @"YRDTotalLaunchCount";
 NSString *YRDVersionLaunchesDefaultsKey = @"YRDVersionLaunchCount";
 NSString *YRDVersionResumesDefaultsKey = @"YRDVersionResumeCount";
 NSString *YRDVersionExitsDefaultsKey = @"YRDVersionExitCount";
+NSString *YRDLastCrashCountKey = @"YRDLastCrashCount";
 
 NSString *YRDUserTypeDefaultsKey = @"YRDUserType";
 

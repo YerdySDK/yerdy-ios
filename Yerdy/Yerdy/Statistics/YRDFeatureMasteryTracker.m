@@ -65,6 +65,8 @@ static const NSInteger ThresholdCount = 3;
 	[[YRDDataStore sharedDataStore] setInteger:existingCount + 1 forKey:countsKey];
 	
 	[self sendFeatureEventIfNeeded:featureName];
+	
+	[[YRDDataStore sharedDataStore] synchronize];
 }
 
 - (void)sendFeatureEventIfNeeded:(NSString *)featureName

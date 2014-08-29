@@ -97,6 +97,8 @@ static const NSUInteger MaxImagePreloads = 6;
 	YRDPurchaseSubmitter *_purchaseSubmitter;
 	
 	YRDAdRequestTracker *_adRequestTracker;
+	
+	NSString *_lastFeatureBeforeCrash;
 }
 @end
 
@@ -187,6 +189,16 @@ static const NSUInteger MaxImagePreloads = 6;
 	if (newVersion)
 		[_adRequestTracker reset]; // reset on new versions, since this is mainly for tracking ad health, per version
 	
+	
+	NSInteger lastCrashCount = [[YRDDataStore sharedDataStore] integerForKey:YRDLastCrashCountKey];
+	if (_launchTracker.versionCrashCount > lastCrashCount) {
+		_lastFeatureBeforeCrash = _historyTracker.lastFeatureUses.firstObject;
+	}
+	[[YRDDataStore sharedDataStore] setInteger:_launchTracker.versionCrashCount forKey:YRDLastCrashCountKey];
+	[[YRDDataStore sharedDataStore] synchronize];
+	
+	
+	
 	[self reportLaunch:YES];
 	
 	// we want to run right before YRDDataStore synchronizes, so priority -> INT_MAX - 1
@@ -239,13 +251,15 @@ static const NSUInteger MaxImagePreloads = 6;
 																		  currency:_currencyTracker.currencyBalance
 																	  screenVisits:_screenVisitTracker.loggedScreenVisits
 																		adRequests:_adRequestTracker.adRequests
-																		   adFills:_adRequestTracker.adFills];
+																		   adFills:_adRequestTracker.adFills
+															lastFeatureBeforeCrash:_lastFeatureBeforeCrash];
 		
 		if ([YRDReachability internetReachable]) {
 			[_screenVisitTracker reset];
 			[_adRequestTracker reset];
 			[_adRequestTracker launchReported];
 		}
+		_lastFeatureBeforeCrash = nil;
 		
 		[YRDURLConnection sendRequest:launchRequest completionHandler:^(YRDLaunchResponse *response, NSError *error) {
 			Yerdy *strongSelf = weakSelf;

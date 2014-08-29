@@ -35,6 +35,7 @@ extern NSString *YRDTotalLaunchesDefaultsKey;
 extern NSString *YRDVersionLaunchesDefaultsKey;
 extern NSString *YRDVersionResumesDefaultsKey;
 extern NSString *YRDVersionExitsDefaultsKey;
+extern NSString *YRDLastCrashCountKey;
 
 extern NSString *YRDUserTypeDefaultsKey;
 

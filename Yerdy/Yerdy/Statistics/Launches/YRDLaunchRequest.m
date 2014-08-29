@@ -31,6 +31,7 @@ static NSString *Path = @"stats/launch.php";
 						  screenVisits:(NSDictionary *)screenVisits
 							adRequests:(NSDictionary *)adRequests
 							   adFills:(NSDictionary *)adFills
+				lastFeatureBeforeCrash:(NSString *)lastFeatureBeforeCrash
 {
 	return [self requestWithToken:token
 						 launches:launches
@@ -40,6 +41,7 @@ static NSString *Path = @"stats/launch.php";
 					 screenVisits:screenVisits
 					   adRequests:adRequests
 						  adFills:adFills
+		   lastFeatureBeforeCrash:lastFeatureBeforeCrash
 						  refresh:NO
 					   sessionEnd:NO];
 }
@@ -59,6 +61,7 @@ static NSString *Path = @"stats/launch.php";
 					 screenVisits:nil
 					   adRequests:nil
 						  adFills:nil
+		   lastFeatureBeforeCrash:nil
 						  refresh:YES
 					   sessionEnd:NO];
 }
@@ -81,6 +84,7 @@ static NSString *Path = @"stats/launch.php";
 					 screenVisits:screenVisits
 					   adRequests:adRequests
 						  adFills:adFills
+		   lastFeatureBeforeCrash:nil
 						  refresh:NO
 					   sessionEnd:YES];
 }
@@ -94,6 +98,7 @@ static NSString *Path = @"stats/launch.php";
 					screenVisits:(NSDictionary *)screenVisits
 					  adRequests:(NSDictionary *)adRequests
 						 adFills:(NSDictionary *)adFills
+		  lastFeatureBeforeCrash:(NSString *)lastFeatureBeforeCrash
 						 refresh:(BOOL)refresh
 					  sessionEnd:(BOOL)sessionEnd
 {
@@ -102,6 +107,7 @@ static NSString *Path = @"stats/launch.php";
 														  crashes:crashes
 														 playtime:playtime
 														 currency:currency
+										   lastFeatureBeforeCrash:lastFeatureBeforeCrash
 														  refresh:refresh
 													   sessionEnd:sessionEnd];
 	
@@ -125,6 +131,7 @@ static NSString *Path = @"stats/launch.php";
 								  crashes:(NSInteger)crashes
 								 playtime:(NSTimeInterval)playtime
 								 currency:(NSArray *)currency
+				   lastFeatureBeforeCrash:(NSString *)lastFeatureBeforeCrash
 								  refresh:(BOOL)refresh
 							   sessionEnd:(BOOL)sessionEnd
 {
@@ -141,7 +148,7 @@ static NSString *Path = @"stats/launch.php";
 	
 	NSString *currencyString = [currency componentsJoinedByString:@";"];
 	
-	return @{
+	NSMutableDictionary *retVal = [@{
 		@"api" : @2,
 		@"token" : YRDToString([YRDUtil base64String:token]),
 		@"token_type" : @"apn",
@@ -154,9 +161,17 @@ static NSString *Path = @"stats/launch.php";
 		@"crashes" : @(crashes),
 		@"playtime" : @((int)round(playtime)),
 		@"currency" : currencyString,
-		@"refresh" : @(refresh),
-		@"session_end" : @(sessionEnd),
-	};
+	} mutableCopy];
+	
+	if (refresh)
+		retVal[@"refresh"] = @YES;
+	if (sessionEnd)
+		retVal[@"session_end"] = @YES;
+	
+	if (lastFeatureBeforeCrash)
+		retVal[@"feature_before_crash"] = lastFeatureBeforeCrash;
+	
+	return retVal;
 }
 
 + (NSDictionary *)bodyParametersForScreenVisits:(NSDictionary *)screenVisits

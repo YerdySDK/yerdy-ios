@@ -18,7 +18,8 @@
 							  currency:(NSArray *)currency
 						  screenVisits:(NSDictionary *)screenVisits
 							adRequests:(NSDictionary *)adRequests
-							   adFills:(NSDictionary *)adFills;
+							   adFills:(NSDictionary *)adFills
+				lastFeatureBeforeCrash:(NSString *)lastFeatureBeforeCrash;
 
 // "refresh" request
 + (instancetype)refreshRequestWithToken:(NSData *)token
@@ -46,6 +47,7 @@
 					screenVisits:(NSDictionary *)screenVisits
 					  adRequests:(NSDictionary *)adRequests
 						 adFills:(NSDictionary *)adFills
+		  lastFeatureBeforeCrash:(NSString *)lastFeatureBeforeCrash
 						 refresh:(BOOL)refresh
 					  sessionEnd:(BOOL)sessionEnd;
 

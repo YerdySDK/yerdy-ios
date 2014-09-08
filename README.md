@@ -1,4 +1,4 @@
-# Yerdy iOS SDK version 1.1
+# Yerdy iOS SDK version 1.2
 
 Visit [www.yerdy.com](http://www.yerdy.com/) to find out more!
 

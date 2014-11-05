@@ -153,11 +153,13 @@ static const double ErrorRatio = 2.0;
 	YRDDataStore *dataStore = [YRDDataStore sharedDataStore];
 	NSTimeInterval timePlayed = [dataStore doubleForKey:YRDTimePlayedDefaultsKey];
 	
-	NSTimeInterval timePassed = [[NSDate date] timeIntervalSinceDate:_lastCheckpoint];
-	
-	// only add timePassed if it isn't a really weird value
-	if (!(timePassed <= 0.0 || timePassed >= FireInterval * ErrorRatio)) {
-		timePlayed += timePassed;
+	if (_lastCheckpoint != nil) {
+		NSTimeInterval timePassed = [[NSDate date] timeIntervalSinceDate:_lastCheckpoint];
+		
+		// only add timePassed if it isn't a really weird value
+		if (!(timePassed <= 0.0 || timePassed >= FireInterval * ErrorRatio)) {
+			timePlayed += timePassed;
+		}
 	}
 	
 	return timePlayed;

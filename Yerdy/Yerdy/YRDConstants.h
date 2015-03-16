@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+#define YRD_COMPILING_FOR_IOS_8 1
+#endif
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 #define YRD_COMPILING_FOR_IOS_7 1
 #endif

@@ -386,7 +386,10 @@ typedef enum YRDButtonType {
 - (CGFloat)longDimension
 {
 	CGRect screenBounds = [UIScreen mainScreen].bounds;
-	return screenBounds.size.height - 80.0;
+	if (screenBounds.size.width > screenBounds.size.height)
+		return screenBounds.size.width - 80.0;
+	else
+		return screenBounds.size.height - 80.0;
 }
 
 - (CGFloat)statusBarHeight

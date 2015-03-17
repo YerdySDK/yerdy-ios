@@ -9,6 +9,7 @@
 #import "YRDViewController.h"
 #import "YRDViewControllerManager.h"
 #import "YRDNotificationDispatcher.h"
+#import "YRDConstants.h"
 
 @interface YRDViewController ()
 {
@@ -60,6 +61,54 @@
 	}
 }
 
+- (void)adjustTransform:(CGAffineTransform *)transform bounds:(CGRect *)bounds
+forInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+	NSParameterAssert(transform != nil);
+	NSParameterAssert(bounds != nil);
+	
+	// it appears that this transform logic is no longer needed when
+	// compiling for iOS 8 **AND** running on iOS 8
+	//
+	// (the rotation issue isn't present when building w/ iOS 7 SDK and
+	// running on iOS 8)
+#ifdef YRD_COMPILING_FOR_IOS_8
+	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+		return;
+	}
+#endif
+	
+	switch (orientation) {
+		case UIInterfaceOrientationPortrait:
+			break;
+			
+		case UIInterfaceOrientationPortraitUpsideDown:
+			*transform = CGAffineTransformRotate(*transform, M_PI);
+			break;
+			
+		case UIInterfaceOrientationLandscapeLeft: {
+			*transform = CGAffineTransformRotate(*transform, -0.5 * M_PI);
+			CGFloat w = bounds->size.width,
+					h = bounds->size.height;
+			bounds->size.width = h;
+			bounds->size.height = w;
+		} break;
+			
+		case UIInterfaceOrientationLandscapeRight: {
+			*transform = CGAffineTransformRotate(*transform, 0.5 * M_PI);
+			CGFloat w = bounds->size.width,
+					h = bounds->size.height;
+			bounds->size.width = h;
+			bounds->size.height = w;
+		} break;
+		
+#if YRD_COMPILING_FOR_IOS_8
+		case UIInterfaceOrientationUnknown:
+			break;
+#endif
+	}
+}
+
 - (void)sizeViewToScreen
 {
 	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -67,30 +116,7 @@
 	CGAffineTransform transform = CGAffineTransformIdentity;
 	CGRect bounds = [_window bounds];
 	
-	switch (orientation) {
-		case UIInterfaceOrientationPortrait:
-			break;
-		
-		case UIInterfaceOrientationPortraitUpsideDown:
-			transform = CGAffineTransformRotate(transform, M_PI);
-			break;
-			
-		case UIInterfaceOrientationLandscapeLeft: {
-			transform = CGAffineTransformRotate(transform, -0.5 * M_PI);
-			CGFloat w = bounds.size.width,
-					h = bounds.size.height;
-			bounds.size.width = h;
-			bounds.size.height = w;
-		} break;
-			
-		case UIInterfaceOrientationLandscapeRight: {
-			transform = CGAffineTransformRotate(transform, 0.5 * M_PI);
-			CGFloat w = bounds.size.width,
-					h = bounds.size.height;
-			bounds.size.width = h;
-			bounds.size.height = w;
-		} break;
-	}
+	[self adjustTransform:&transform bounds:&bounds forInterfaceOrientation:orientation];
 		
 	CGPoint center = CGPointMake(CGRectGetMidX([_window bounds]), CGRectGetMidY([_window bounds]));
 	

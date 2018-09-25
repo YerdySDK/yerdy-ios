@@ -86,8 +86,33 @@
 	YRDDebug(@"Sending request: %@", _request.fullURL);
 	
 	NSURLRequest *request = _request.urlRequest;
-	
-	_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+    
+	NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if(error) {
+            _error = error;
+        }
+        
+        if(response != nil) {
+            _response = response;
+            
+            // attempt to create correctly sized NSMutableData
+            long long expectedLength = response.expectedContentLength;
+            if (expectedLength > 0 && expectedLength < NSIntegerMax)
+                _responseBody = [[NSMutableData alloc] initWithCapacity:(NSUInteger)expectedLength];
+            else
+                _responseBody = [[NSMutableData alloc] init];
+        }
+        
+        if(data != nil) {
+            [_responseBody appendData:data];
+        }
+        
+        [self didFinishLoading];
+    }];
+    [dataTask resume];
+    
+	//_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
 	
 	// using -setDelegateQueue: seems to deadlock on iOS 5 when the connection finishes... Grrrr...
 	if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_6_0)
@@ -110,14 +135,38 @@
 	
 	NSURLResponse *response;
 	NSError *error;
-	NSData *data = [NSURLConnection sendSynchronousRequest:request
-										returningResponse:&response
-													error:&error];
+	//NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSData *data = [self sendSynchronousRequest:request returningResponse:&response error:&error];
+    
 	_responseBody = [data mutableCopy];
 	_response = response;
 	_error = error;
 	
 	[self didFinishLoading];
+}
+
+- (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error
+{
+    
+    NSError __block *err = NULL;
+    NSData __block *data;
+    BOOL __block reqProcessed = false;
+    NSURLResponse __block *resp;
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable __data, NSURLResponse * _Nullable __response, NSError * _Nullable __error) {
+        resp = __response;
+        err = __error;
+        data = __data;
+        reqProcessed = true;
+    }] resume];
+    
+    while (!reqProcessed) {
+        [NSThread sleepForTimeInterval:0];
+    }
+    
+    *response = resp;
+    *error = err;
+    return data;
 }
 
 - (void)finishRequestWithResponse:(id)response error:(NSError *)error
@@ -171,7 +220,7 @@
 	[self finishRequestWithResponse:response error:processingError];
 }
 
-
+/*
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
 	_response = response;
@@ -183,21 +232,24 @@
 	else
 		_responseBody = [[NSMutableData alloc] init];
 }
-
+ */
+/*
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
 	[_responseBody appendData:data];
 }
-
+ */
+/*
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	[self didFinishLoading];
 }
-
+ */
+/*
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
 	_error = error;
 	[self didFinishLoading];
 }
-
+*/
 @end

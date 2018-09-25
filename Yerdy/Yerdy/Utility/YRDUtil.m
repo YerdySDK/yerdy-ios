@@ -120,23 +120,16 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 {
 	NSString *base64;
 	
-#if YRD_COMPILING_FOR_IOS_7
-	if ([data respondsToSelector:@selector(base64EncodedStringWithOptions:)]) {
-		// iOS 7+
-		base64 = [data base64EncodedStringWithOptions:0];
-	} else {
-		// iOS 4-6
-		base64 = [data base64Encoding];
-	}
-#else
-	base64 = [data base64Encoding];
-#endif
+    base64 = [data base64EncodedStringWithOptions:0];
 	
 	return [self stripCharactersInSet:[NSCharacterSet newlineCharacterSet] fromString:base64];
 }
 
 + (NSString *)URLEncode:(NSString *)string
 {
+    //NSCharacterSet * queryKVSet = [NSCharacterSet characterSetWithCharactersInString:@":/?&=;+!@#$()',*" ].invertedSet;
+    return [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    /*
 	CFStringRef escaped = CFURLCreateStringByAddingPercentEscapes(
 		kCFAllocatorDefault,
 		(__bridge CFStringRef)string,
@@ -144,6 +137,7 @@ static NSString *URLCharactersToEscape = @"￼=,!$&'()*+;?\n\"<>#\t :/";
 		(__bridge CFStringRef)URLCharactersToEscape,
 		kCFStringEncodingUTF8);
 	return CFBridgingRelease(escaped);
+     */
 }
 
 + (UIColor *)colorFromHexString:(NSString *)hex

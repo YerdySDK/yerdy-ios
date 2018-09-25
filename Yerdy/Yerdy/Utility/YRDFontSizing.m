@@ -13,44 +13,25 @@
 
 + (CGSize)sizeForString:(NSString *)string font:(UIFont *)font
 {
-#if YRD_COMPILING_FOR_IOS_7
-	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-		// iOS 7+
-		return [string sizeWithAttributes:@{ NSFontAttributeName : font }];
-	} else {
-		// iOS 6
-		return [string sizeWithFont:font];
-	}
-#else
-	return [string sizeWithFont:font];
-#endif
+    return [string sizeWithAttributes:@{ NSFontAttributeName : font }];
 }
 
 + (CGSize)sizeForString:(NSString *)string font:(UIFont *)font
 				maxSize:(CGSize)maxSize lineBreakMode:(NSLineBreakMode)lineBreakMode
 {
-#if YRD_COMPILING_FOR_IOS_7
-	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-		// iOS 7+
-		NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:string];
-		[textStorage addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [textStorage length])];
+	// iOS 7+
+	NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:string];
+	[textStorage addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [textStorage length])];
 		
-		NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
 		
-		NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:maxSize];
-		textContainer.lineBreakMode = lineBreakMode;
-		textContainer.lineFragmentPadding = 0;
+	NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:maxSize];
+	textContainer.lineBreakMode = lineBreakMode;
+	textContainer.lineFragmentPadding = 0;
 		
-		[layoutManager addTextContainer:textContainer];
-		[textStorage addLayoutManager:layoutManager];
-		return [layoutManager usedRectForTextContainer:textContainer].size;
-	} else {
-		// iOS 6
-		return [string sizeWithFont:font constrainedToSize:maxSize lineBreakMode:lineBreakMode];
-	}
-#else
-	return [string sizeWithFont:font constrainedToSize:size lineBreakMode:lineBreakMode];
-#endif
+	[layoutManager addTextContainer:textContainer];
+	[textStorage addLayoutManager:layoutManager];
+	return [layoutManager usedRectForTextContainer:textContainer].size;
 }
 
 @end

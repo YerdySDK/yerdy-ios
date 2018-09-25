@@ -14,8 +14,7 @@
 
 @interface YRDMessagePresenterSystem () <UIAlertViewDelegate>
 {
-	UIAlertView *_alertView;
-	BOOL _dismissed;
+    UIAlertController *_alertView;
 }
 @end
 
@@ -24,70 +23,55 @@
 
 - (void)present
 {
-	_dismissed = NO;
+	//_dismissed = NO;
 	
 	YRDMessage *message = self.message;
-	_alertView = [[UIAlertView alloc] initWithTitle:message.messageTitle
+	/*_alertView = [[UIAlertView alloc] initWithTitle:message.messageTitle
 											message:message.messageText
 										   delegate:self
 								  cancelButtonTitle:nil
-								  otherButtonTitles:nil];
-	
+								  otherButtonTitles:nil];*/
+    
+    _alertView = [UIAlertController alertControllerWithTitle:message.messageTitle message:message.messageText preferredStyle:UIAlertControllerStyleAlert];
+    
 	if (message.cancelLabel) {
-		_alertView.cancelButtonIndex = [_alertView addButtonWithTitle:message.cancelLabel];
+        [_alertView addAction:[UIAlertAction actionWithTitle:message.cancelLabel style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [self willDismiss];
+            [self messageCancelled];
+            [self didDismiss];
+        }]];
 	}
 	
-	if (message.confirmLabel) {
-		[_alertView addButtonWithTitle:message.confirmLabel];
-	}
-	
-	[_alertView show];
-}
-
-- (void)dealloc
-{
-	_alertView.delegate = nil;
+    if (message.confirmLabel) {
+        [_alertView addAction:[UIAlertAction actionWithTitle:message.confirmLabel style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self willDismiss];
+            [self messageClicked];
+            [self didDismiss];
+        }]];
+    }
+    [self willPresent];
+	//[_alertView show];
+    
+    UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    alertWindow.rootViewController = [[UIViewController alloc] init];
+    
+    // we inherit the main window's tintColor
+    alertWindow.tintColor = [UIApplication sharedApplication].delegate.window.tintColor;
+    // window level is above the top window (this makes the alert, if it's a sheet, show over the keyboard)
+    UIWindow *topWindow = [UIApplication sharedApplication].windows.lastObject;
+    alertWindow.windowLevel = topWindow.windowLevel + 1;
+    
+    [alertWindow makeKeyAndVisible];
+    [alertWindow.rootViewController presentViewController:_alertView animated:YES completion:nil];
+    
+    
+    [self didPresent];
 }
 
 - (void)dismiss
-{
-	if (!_dismissed) {
-		_dismissed = YES;
-		[_alertView dismissWithClickedButtonIndex:-1 animated:YES];
-	}
-}
+{}
 
-- (void)willPresentAlertView:(UIAlertView *)alertView
-{
-	[self willPresent];
-}
 
-- (void)didPresentAlertView:(UIAlertView *)alertView
-{
-	[self didPresent];
-}
 
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-	[self willDismiss];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-	[self didDismiss];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (_dismissed)
-		return;
-	_dismissed = YES;
-	
-	if (alertView.cancelButtonIndex == buttonIndex) {
-		[self messageCancelled];
-	} else {
-		[self messageClicked];
-	}
-}
 
 @end

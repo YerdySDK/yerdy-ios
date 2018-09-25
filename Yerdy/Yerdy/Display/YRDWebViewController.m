@@ -23,7 +23,7 @@ static NSString *AnimatingInKey = @"animatingWebViewIn";
 static NSString *AnimatingOutKey = @"animatingWebViewOut";
 
 
-@interface YRDWebViewController () <UIWebViewDelegate>
+@interface YRDWebViewController () <UIWebViewDelegate, CAAnimationDelegate>
 {
 	NSURL *_URL;
 	UIWebView *_webView;

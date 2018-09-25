@@ -81,15 +81,7 @@ typedef enum YRDButtonType {
 	_messageLabel.numberOfLines = 0;
 	_messageLabel.adjustsFontSizeToFitWidth = YES;
 	const CGFloat minimumScaleFactor = 0.6;
-#if YRD_COMPILING_FOR_IOS_7
-	if ([_messageLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) {
-		_messageLabel.minimumScaleFactor = minimumScaleFactor;
-	} else {
-		_messageLabel.minimumFontSize = floorf(14.0*minimumScaleFactor);
-	}
-#else
-	_messageLabel.minimumFontSize = floorf(14.0*minimumScaleFactor);
-#endif
+    _messageLabel.minimumScaleFactor = minimumScaleFactor;
 	[_contentContainer addSubview:_messageLabel];
 	
 	_expiryLabel = [[UILabel alloc] init];
@@ -97,7 +89,7 @@ typedef enum YRDButtonType {
 	_expiryLabel.text = [self expiryStringForDate:message.expiryDate];
 	_expiryLabel.backgroundColor = [UIColor clearColor];
 	_expiryLabel.textColor = [self expiryTextColor:message];
-	_expiryLabel.textAlignment = UITextAlignmentCenter;
+	_expiryLabel.textAlignment = NSTextAlignmentCenter;
 	[_contentContainer addSubview:_expiryLabel];
 	
 	_imageView = [[UIImageView alloc] init];
@@ -170,7 +162,8 @@ typedef enum YRDButtonType {
 		containerBounds.size.width,
 		containerBounds.size.height - CGRectGetMaxY(_imageView.frame));
 	
-	CGSize size = [_titleLabel.text sizeWithFont:_titleLabel.font];
+    //CGSize size = [_titleLabel.text sizeWithFont:_titleLabel.font];
+    CGSize size = [_titleLabel.text sizeWithAttributes:@{NSFontAttributeName:_titleLabel.font}];
 	_titleLabel.frame = CGRectMake([self padding], currentY,
 								   containerBounds.size.width - [self padding] * 2.0,
 								   size.height);
@@ -224,7 +217,8 @@ typedef enum YRDButtonType {
 	CGFloat leftX = CGRectGetMaxX(_imageView.frame) + [self padding];
 	CGFloat currentY = [self padding];
 	
-	CGSize size = [_titleLabel.text sizeWithFont:_titleLabel.font];
+    //CGSize size = [_titleLabel.text sizeWithFont:_titleLabel.font];
+    CGSize size = [_titleLabel.text sizeWithAttributes:@{NSFontAttributeName:_titleLabel.font}];
 	_titleLabel.frame = CGRectMake(leftX, currentY,
 								   containerBounds.size.width - leftX - [self padding],
 								   size.height);

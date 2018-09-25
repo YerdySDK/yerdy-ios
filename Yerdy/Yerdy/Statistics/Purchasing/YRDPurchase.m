@@ -21,10 +21,9 @@
 {
 	NSString *transactionIdentifier = transaction.originalTransaction != nil ?
 		transaction.originalTransaction.transactionIdentifier : transaction.transactionIdentifier;
-	
 	return [self purchaseWithProductIdentifier:transaction.payment.productIdentifier
 						 transactionIdentifier:transactionIdentifier
-									   receipt:transaction.transactionReceipt
+									   receipt:nil
 										 price:[product.price stringValue]
 								  currencyCode:[product.priceLocale objectForKey:NSLocaleCurrencyCode]
 							  storeCountryCode:[product.priceLocale objectForKey:NSLocaleCountryCode]];
@@ -61,17 +60,13 @@
 	_price = price;
 	_currencyCode = currencyCode;
 	_storeCountryCode = storeCountryCode;
-	
-	// if on iOS 7, attempt to use the appStoreReceiptURL (if available)
-	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1 &&
-		[NSBundle instancesRespondToSelector:@selector(appStoreReceiptURL)]) {
-		NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
-		if (receiptURL) {
-			_receipt = [NSData dataWithContentsOfURL:receiptURL];
-			if (_receipt.length == 0) // make sure we don't have an empty file...
-				_receipt = nil;
-		}
-	}
+    
+    if(receipt == nil) {
+        NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+        _receipt = [NSData dataWithContentsOfURL:receiptURL];
+        if (_receipt.length == 0) // make sure we don't have an empty file...
+            _receipt = nil;
+    }
 	
 	if (!_receipt)
 		_receipt = receipt;
